@@ -1,0 +1,58 @@
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url("../../assets/bg-01.jpg") no-repeat center center / cover;
+  position: relative;
+}
+
+.wrapper:after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.auth__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  .auth__input {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #cdcdcd;
+    margin: 20px 20px 20px 0;
+    outline: none;
+    font-size: 16px;
+  }
+  
+}
+
+.btn__wrapper {
+  display: flex;
+  justify-content: space-around;
+  .auth__btn {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 5px 15px;
+    background: #000;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+}
