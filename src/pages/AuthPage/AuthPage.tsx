@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {faLock} from "@fortawesome/free-solid-svg-icons/faLock";
@@ -7,10 +7,14 @@ import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
 import './AuthPage.scss'
 import Loader from '../../components/Loader/Loader';
+import {AuthContext} from "../../context/auth.context";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
+
 const AuthPage = () => {
+
+    const auth = useContext(AuthContext)
 
     const {loading, request, error, clearError} = useHttp()
 
@@ -23,11 +27,11 @@ const AuthPage = () => {
         clearError()
     }, [error, clearError])
 
-    const changeHandler = (event: InputEvent) => {
+    const changeHandler = (event: InputEvent): void => {
         setForm({...form, [event.target.name]: event.target.value})
     }
 
-    const registerHandler = async () => {
+    const registerHandler = async (): Promise<void> => {
         try {
             const data = await request('/api/auth/register', 'POST', {...form})
             toaster.notify(data.message, {
@@ -38,10 +42,10 @@ const AuthPage = () => {
         }
     }
 
-    const loginHandler = async () => {
+    const loginHandler = async (): Promise<void> => {
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
-            console.log('data', data)
+            auth.login(data.token, data.userId)
             toaster.notify(data.message, {
                 duration: 2000
             })

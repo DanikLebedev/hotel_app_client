@@ -1,26 +1,41 @@
-import React from "react";
-import {Link, NavLink} from "react-router-dom";
+import React, {useContext} from "react";
+import {NavLink, useHistory} from "react-router-dom";
+import {AuthContext} from "../../context/auth.context";
+import './Nav.scss'
+
 
 const Nav = () => {
+    const auth = useContext(AuthContext)
+    const history = useHistory()
+    const isAuthenticated = auth.isAuthenticated;
+    const logoutHandler = (event: { preventDefault: () => void; }) => {
+        event.preventDefault()
+        auth.logout()
+        history.push('/')
+    }
+
+
     return (
         <nav>
             <div className="logo"></div>
             <ul>
-                <Link to='/'>
+                <NavLink to='/'>
                     <li>
                         Home
                     </li>
-                </Link>
-                <Link to='/rooms'>
+                </NavLink>
+                <NavLink to='/rooms'>
                     <li>
                         Rooms
                     </li>
-                </Link>
-                <Link to='/admin'>
+                </NavLink>
+                {isAuthenticated ? <NavLink to='/admin'><li>admin</li></NavLink> : null}
+                <NavLink to='/orders'>
                     <li>
-                        admin
+                        orders
                     </li>
-                </Link>
+                </NavLink>
+                <li><a href="/" onClick={logoutHandler}>Logout</a></li>
             </ul>
             <a className='btn ' href="/">Book Room</a>
         </nav>
