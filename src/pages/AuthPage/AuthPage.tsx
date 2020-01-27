@@ -11,8 +11,7 @@ import {AuthContext} from "../../context/auth.context";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-
-const AuthPage = () => {
+const AuthPage: React.FC = () => {
 
     const auth = useContext(AuthContext)
 
@@ -23,9 +22,9 @@ const AuthPage = () => {
     useEffect(() => {
         toaster.notify(error, {
             duration: 2000
-        })
+        });
         clearError()
-    }, [error, clearError])
+    }, [error, clearError]);
 
     const changeHandler = (event: InputEvent): void => {
         setForm({...form, [event.target.name]: event.target.value})
@@ -66,12 +65,14 @@ const AuthPage = () => {
                                name='email'
                                id='email'
                                placeholder='e.g asd@mail.ru'
+                               value={form.email}
                                onChange={changeHandler}/></label>
                     <label><FontAwesomeIcon icon={faLock}/>
                         <input className='auth__input'
                                type="password"
                                name='password' id='password'
                                placeholder='password'
+                               value={form.password}
                                onChange={changeHandler}/></label>
                     <div className="btn__wrapper">
                         <button className='auth__btn' onClick={loginHandler}>Login</button>

@@ -5,7 +5,7 @@ interface AuthContext {
     userId: string,
     login: () => void,
     logout: () => void,
-    isAuthenticated: boolean
+    isAuthenticated: boolean,
 }
 
 
@@ -14,5 +14,5 @@ export const AuthContext = createContext({
     userId: null,
     login: (jwtToken: string, id: string) => {},
     logout: () => {},
-    isAuthenticated: false
+    isAuthenticated: false,
 })

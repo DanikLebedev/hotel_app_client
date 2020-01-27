@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {FC} from 'react'
 import {Switch, Route, Redirect} from "react-router-dom";
 import {OrdersPage} from "./pages/OrdersPage/OrdersPage";
 import RoomsPage from "./pages/RoomsPage/RoomsPage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 import AuthPage from "./pages/AuthPage/AuthPage";
 
-export const useRoutes = (isAuthenticated: boolean) => {
+export const useRoutes: (isAuthenticated: boolean) => (any) = (isAuthenticated: boolean) => {
     if (isAuthenticated) {
         return (
             <Switch>
-                <Route path='/' exact >
+                <Route path='/' exact>
                     <div>Main</div>
                 </Route>
                 <Route path='/rooms' exact>
@@ -26,9 +26,17 @@ export const useRoutes = (isAuthenticated: boolean) => {
         )
     }
 
+
+
     return (
         <Switch>
             <Route path='/' exact>
+                <div>Main</div>
+            </Route>
+            <Route path='/rooms' exact>
+                <RoomsPage/>
+            </Route>
+            <Route path='/auth' exact>
                 <AuthPage/>
             </Route>
             <Redirect to='/'/>

@@ -15,6 +15,16 @@ const Nav = () => {
     }
 
 
+    const authComponents =  (
+         <div style={{display: "flex"}}>
+             <NavLink onClick={logoutHandler} to='"/"'><li>Logout</li></NavLink>
+             <NavLink to='/orders'><li>orders</li></NavLink>
+             <div style={{display: "flex"}}>
+                 <NavLink to='/admin'><li>admin</li></NavLink>
+             </div>
+         </div>
+    )
+
     return (
         <nav>
             <div className="logo"></div>
@@ -29,13 +39,7 @@ const Nav = () => {
                         Rooms
                     </li>
                 </NavLink>
-                {isAuthenticated ? <NavLink to='/admin'><li>admin</li></NavLink> : null}
-                <NavLink to='/orders'>
-                    <li>
-                        orders
-                    </li>
-                </NavLink>
-                <li><a href="/" onClick={logoutHandler}>Logout</a></li>
+                {isAuthenticated ? authComponents:  <NavLink to='/auth'><li>login</li></NavLink> }
             </ul>
             <a className='btn ' href="/">Book Room</a>
         </nav>

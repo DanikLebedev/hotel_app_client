@@ -1,8 +1,10 @@
 import {useCallback, useEffect, useState} from 'react'
+import {log} from "util";
 
 const storageName: string = 'userData';
 
 interface Storage {
+    adminEmail: string;
     token: string,
     userId: string
 }
@@ -14,7 +16,6 @@ export const useAuth = () => {
     const login = useCallback((jwtToken, id) => {
         setToken(jwtToken);
         setUserId(id);
-
         localStorage.setItem(storageName, JSON.stringify({
             userId: id, token: jwtToken
         }))
