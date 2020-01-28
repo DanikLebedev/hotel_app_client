@@ -3,7 +3,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import {useRoutes} from "./routes";
 import {useAuth} from './hooks/auth.hook'
 import {AuthContext} from './context/auth.context'
-import Nav from "./components/Nav/Nav";
+import Navigation from "./components/Navigation/Navigation";
 
 
 
@@ -17,7 +17,7 @@ const App: React.FC = () => {
             token , login, logout, userId, isAuthenticated
         }}>
            <Router>
-               <Nav/>
+               <Navigation/>
                <div>
                    {routes}
                </div>

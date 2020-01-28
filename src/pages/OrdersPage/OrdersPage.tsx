@@ -5,7 +5,7 @@ import './OrdersPage.scss'
 import Loader from "../../components/Loader/Loader";
 
 export const OrdersPage = () => {
-    const {request, loading} = useHttp()
+    const {request, loading, error, clearError} = useHttp()
     const [orders, setOrders] = useState([])
     const auth = useContext(AuthContext)
 

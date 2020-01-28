@@ -1,6 +1,6 @@
 import React from 'react'
 import './Header.scss'
-import Nav from "../Nav/Nav";
+import Navigation from "../Navigation/Navigation";
 
 
 
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
                         </li>
                     </ul>
                 </div>
-                <Nav/>
+                <Navigation/>
                 <div className="header__title__wrapper">
                     <h1 className="header__title">Welcome to SAM Hotel</h1>
                     <p className="header__subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus

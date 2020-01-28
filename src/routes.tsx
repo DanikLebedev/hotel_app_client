@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React from 'react'
 import {Switch, Route, Redirect} from "react-router-dom";
 import {OrdersPage} from "./pages/OrdersPage/OrdersPage";
 import RoomsPage from "./pages/RoomsPage/RoomsPage";
