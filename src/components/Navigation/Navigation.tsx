@@ -22,10 +22,10 @@ const Navigation = () => {
     const authComponents = (
         <>
             <NavLink to='/orders'>
-                <Nav.Link href='/orders'>orders</Nav.Link>
+                <li>orders</li>
             </NavLink>
             <NavLink to='/admin'>
-                <Nav.Link href='/admin'>admin</Nav.Link>
+                <li>admin</li>
             </NavLink>
         </>
 
@@ -74,23 +74,23 @@ const Navigation = () => {
                 <NavbarBrand href='/'>Hotel</NavbarBrand>
                 <Nav className='mr-auto justify-content-between'>
                     <NavLink to='/'>
-                        <Nav.Link href='/'>
+                        <li >
                             Home
-                        </Nav.Link>
+                        </li>
                     </NavLink>
                     <NavLink to='/rooms'>
-                        <Nav.Link href='/rooms'>
+                        <li >
                             Rooms
-                        </Nav.Link>
+                        </li>
                     </NavLink>
                     {isAuthenticated ? authComponents : null}
                 </Nav>
                 {isAuthenticated ? <Nav>
                     <NavLink onClick={logoutHandler} to='/'>
-                        <Nav.Link href='/'>Logout</Nav.Link>
+                        <li>Logout</li>
                     </NavLink>
                 </Nav> : <NavLink to='/auth'>
-                    <Nav.Link href='/auth'>login</Nav.Link>
+                    <li>login</li>
                 </NavLink>}
             </Navbar>
         </Container>

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from 'react'
 import toaster from "toasted-notes";
 import {useHttp} from "../../hooks/http.hook";
 import Loader from "../../components/Loader/Loader";
@@ -9,63 +9,117 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 
 const CreatePage = () => {
-    const history = useHistory()
+    // const history = useHistory()
     const auth = useContext(AuthContext)
-
-    const initState = {
-        title: '',
-        price: null,
-        bedsQuantity: null,
-        area: null,
-        description: '',
-        image: ''
-    }
-
     const {loading, request, error, clearError} = useHttp()
-    const [form, setForm] = useState(initState)
+    const [fetchedCategories, setFetchedCategories] = useState([])
+    const [postCategories, setPostCategories] = useState({})
+    const [roomForm, setRoomForm] = useState({})
+    const [employeeForm, setEmployeeForm] = useState({})
+
+    const fetchCategories = useCallback(async () => {
+        const categories = await request('/api/admin/category', 'GET', null, {
+            Authorization: `Bearer ${auth.token}`
+        })
+        setFetchedCategories(categories)
+    }, [auth.token, request])
+
 
     useEffect( () => {
         toaster.notify(error, {
             duration: 2000
         });
+        fetchCategories()
         clearError()
-    }, [error, clearError]);
+    }, [error, clearError,fetchCategories]);
 
-    const changeHandler = (event: InputEvent): void => {
-        setForm({...form, [event.target.name]: event.target.value})
+    const categoryChangeHandler = (event: InputEvent): void => {
+        setPostCategories({...postCategories, [event.target.name]: event.target.value})
+    }
+
+    const roomChangeHandler =  (event: InputEvent): void => {
+        setRoomForm({...roomForm, [event.target.name]: event.target.value})
+    }
+
+    const selectChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
+        setRoomForm({...roomForm, category : event.target.value})
     }
 
     const addCategoryHandler = async (): Promise<void> => {
         try {
-            const data = await request('/api/admin/createCategory', 'POST', {...form, count: 1}, {
+            const data = await request('/api/admin/category', 'POST', {...postCategories, count: 1}, {
                 Authorization: `Bearer ${auth.token }`
             })
             toaster.notify(data.message, {
                 duration: 2000
             })
-            history.push(`/orders`)
+            // history.push(`/orders`)
         } catch (e) {
         }
     }
 
+    const addRoomHandler = async (): Promise<void> => {
+        try {
+            const data = await request('/api/admin/room', 'POST', {...roomForm, count: 1}, {
+                Authorization: `Bearer ${auth.token }`
+            })
+            console.log(roomForm)
+            toaster.notify(data.message, {
+                duration: 2000
+            })
+            // history.push(`/orders`)
+        } catch (e) {
+        }
+    }
 
-    return (
-        <div>
-            <h1>Create Page</h1>
-           <div>
-                <input type="text" name='title' id='title' placeholder='title' onChange={changeHandler}/>
-                <input type="number" name='price' id='price' placeholder='price' onChange={changeHandler}/>
-                <input type="text" name='description' id='description' placeholder='description'
-                       onChange={changeHandler}/>
-                <input type="text" name='image' id='image' placeholder='image' onChange={changeHandler}/>
-                <input type="number" name='bedsQuantity' id='bedsQuantity' placeholder='bedsQuantity'
-                       onChange={changeHandler}/>
-                <input type="number" name='area' id='area' placeholder='area' onChange={changeHandler}/>
-                <button onClick={addCategoryHandler}>Add category</button>
-               {loading? <Loader/> : null}
-           </div>
-        </div>
-    )
+    const options = fetchedCategories.map(({title}, index) => {
+        return (
+            <option key={title + index} value={title}>{title}</option>
+        )
+    })
+        return (
+            <div>
+                <h1>Create Page</h1>
+                <div>
+                    <h3>create category</h3>
+                    <input type="text" name='title' id='title' placeholder='title' onChange={categoryChangeHandler}/>
+                    <button onClick={addCategoryHandler}>Add category</button>
+                    {loading ? <Loader/> : null}
+                </div>
+                <div>
+                    <h3>create room</h3>
+                    <select onChange={selectChangeHandler} name="categories" id="categories">
+                        {options}
+                    </select>
+                    <input type="text" name='title' id='title' placeholder='title'
+                           onChange={roomChangeHandler}/>
+                    <input type="number" name='price' id='price' placeholder='price' onChange={roomChangeHandler}/>
+                    <input type="number" name='guests' id='guests' placeholder='guests' onChange={roomChangeHandler}/>
+                    <input type="text" name='description' id='description' placeholder='description'  onChange={roomChangeHandler} />
+                    <input type="text" name='image' id='image' placeholder='image' onChange={roomChangeHandler}/>
+                    <input type="number" name='rooms' id='rooms' placeholder='rooms'
+                           onChange={roomChangeHandler}/>
+                    <input type="number" name='area' id='area' placeholder='area' onChange={roomChangeHandler}/>
+                    <button onClick={addRoomHandler}>Add category</button>
+                    {loading ? <Loader/> : null}
+                </div>
+                <div>
+                    <h3>create employee</h3>
+                    <input type="text" name='email' id='email' placeholder='email'
+                           onChange={roomChangeHandler}/>
+                    <input type="number" name='price' id='price' placeholder='price' onChange={roomChangeHandler}/>
+                    <input type="number" name='guests' id='guests' placeholder='guests' onChange={roomChangeHandler}/>
+                    <input type="text" name='description' id='description' placeholder='description'  onChange={roomChangeHandler} />
+                    <input type="text" name='image' id='image' placeholder='image' onChange={roomChangeHandler}/>
+                    <input type="number" name='rooms' id='rooms' placeholder='rooms'
+                           onChange={roomChangeHandler}/>
+                    <input type="number" name='area' id='area' placeholder='area' onChange={roomChangeHandler}/>
+                    <button onClick={addRoomHandler}>Add category</button>
+                    {loading ? <Loader/> : null}
+                </div>
+            </div>
+        )
 }
 
 export default CreatePage
+
