@@ -3,7 +3,6 @@ import toaster from "toasted-notes";
 import {useHttp} from "../../hooks/http.hook";
 import Loader from "../../components/Loader/Loader";
 import {AuthContext} from "../../context/auth.context";
-import { useHistory } from 'react-router-dom';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -15,7 +14,7 @@ const CreatePage = () => {
     const [fetchedCategories, setFetchedCategories] = useState([])
     const [postCategories, setPostCategories] = useState({})
     const [roomForm, setRoomForm] = useState({})
-    const [employeeForm, setEmployeeForm] = useState({})
+    const [fetchedStatuses, setFetchedStatuses] = useState([])
 
     const fetchCategories = useCallback(async () => {
         const categories = await request('/api/admin/category', 'GET', null, {
@@ -25,13 +24,21 @@ const CreatePage = () => {
     }, [auth.token, request])
 
 
+
+    const fetchStatuses = useCallback(async () => {
+        const statuses = await request('/api/admin/status', 'GET')
+        setFetchedStatuses(statuses)
+    },[request])
+
+
     useEffect( () => {
         toaster.notify(error, {
             duration: 2000
         });
         fetchCategories()
+        fetchStatuses()
         clearError()
-    }, [error, clearError,fetchCategories]);
+    }, [error, clearError, fetchStatuses,  fetchCategories]);
 
     const categoryChangeHandler = (event: InputEvent): void => {
         setPostCategories({...postCategories, [event.target.name]: event.target.value})
@@ -60,7 +67,7 @@ const CreatePage = () => {
 
     const addRoomHandler = async (): Promise<void> => {
         try {
-            const data = await request('/api/admin/room', 'POST', {...roomForm, count: 1}, {
+            const data = await request('/api/admin/room', 'POST', {...roomForm}, {
                 Authorization: `Bearer ${auth.token }`
             })
             console.log(roomForm)
@@ -77,6 +84,13 @@ const CreatePage = () => {
             <option key={title + index} value={title}>{title}</option>
         )
     })
+
+    const statusOptions = fetchedStatuses.map(({title}) => {
+        return (
+            <option key={title} value={title}>{title}</option>
+        )
+    })
+
         return (
             <div>
                 <h1>Create Page</h1>
@@ -105,16 +119,12 @@ const CreatePage = () => {
                 </div>
                 <div>
                     <h3>create employee</h3>
-                    <input type="text" name='email' id='email' placeholder='email'
-                           onChange={roomChangeHandler}/>
-                    <input type="number" name='price' id='price' placeholder='price' onChange={roomChangeHandler}/>
-                    <input type="number" name='guests' id='guests' placeholder='guests' onChange={roomChangeHandler}/>
-                    <input type="text" name='description' id='description' placeholder='description'  onChange={roomChangeHandler} />
-                    <input type="text" name='image' id='image' placeholder='image' onChange={roomChangeHandler}/>
-                    <input type="number" name='rooms' id='rooms' placeholder='rooms'
-                           onChange={roomChangeHandler}/>
-                    <input type="number" name='area' id='area' placeholder='area' onChange={roomChangeHandler}/>
-                    <button onClick={addRoomHandler}>Add category</button>
+                        <input type="text" name='email' id='email' placeholder='email'/>
+                        <input type="password" name='password' id='password' placeholder='password'/>
+                        <select name="statuses" id="statuses">
+                            {statusOptions}
+                        </select>
+                        <button type={"submit"}>Add category</button>
                     {loading ? <Loader/> : null}
                 </div>
             </div>

@@ -4,13 +4,14 @@ import {OrdersPage} from "./pages/OrdersPage/OrdersPage";
 import RoomsPage from "./pages/RoomsPage/RoomsPage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 import AuthPage from "./pages/AuthPage/AuthPage";
+import { HomePage } from './pages/HomePage/HomePage';
 
 export const useRoutes: (isAuthenticated: boolean) => (any) = (isAuthenticated: boolean) => {
     if (isAuthenticated) {
         return (
             <Switch>
                 <Route path='/' exact>
-                    <div>Main</div>
+                    <HomePage/>
                 </Route>
                 <Route path='/rooms' exact>
                     <RoomsPage/>
@@ -31,7 +32,7 @@ export const useRoutes: (isAuthenticated: boolean) => (any) = (isAuthenticated: 
     return (
         <Switch>
             <Route path='/' exact>
-                <div>Main</div>
+                <HomePage/>
             </Route>
             <Route path='/rooms' exact>
                 <RoomsPage/>

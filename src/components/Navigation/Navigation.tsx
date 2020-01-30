@@ -2,11 +2,8 @@ import React, {useContext} from "react";
 import {NavLink, useHistory} from "react-router-dom";
 import {AuthContext} from "../../context/auth.context";
 import './Navigation.scss'
-import {Navbar, NavbarBrand, Nav, Row, Col, Dropdown} from "react-bootstrap";
+import {Navbar, NavbarBrand, Nav, Row, Col} from "react-bootstrap";
 import Container from "react-bootstrap/esm/Container";
-import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-import ListGroup from "react-bootstrap/ListGroup";
-
 
 const Navigation = () => {
     const auth = useContext(AuthContext)
