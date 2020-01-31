@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import {useHttp} from "../../hooks/http.hook";
 import {AuthContext} from "../../context/auth.context";
 import './OrdersPage.scss'

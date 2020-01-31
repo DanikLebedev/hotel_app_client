@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from 'react'
-import {log} from "util";
 
 const storageName: string = 'userData';
 
