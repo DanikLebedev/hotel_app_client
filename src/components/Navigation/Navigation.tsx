@@ -104,7 +104,7 @@ const Navigation = () => {
                     <button className='button header_button'>Book Room</button>
                 </Navbar>
             </Container>
-            <Slider/>
+            {/*<Slider/>*/}
         </>
     )
 }

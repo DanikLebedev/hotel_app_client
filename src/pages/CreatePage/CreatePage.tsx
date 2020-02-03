@@ -47,7 +47,6 @@ const CreatePage = () => {
 
     const roomChangeHandler =  (event: InputEvent): void => {
         setRoomForm({...roomForm, [event.target.name]: event.target.value})
-        console.log(event.target.value)
     }
 
     const employeeChangeHandler = (event: InputEvent): void => {
@@ -61,14 +60,6 @@ const CreatePage = () => {
     const selectEmployeeChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
         setEmployeeForm({...employeeForm, status : event.target.value})
     }
-    // const fileChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    //     const file: FileList | null = event.target.files
-    //     if (file) {
-    //         setRoomForm({...roomForm, image:  file[0].name})
-    //     }
-    // }
-
-
 
     const addCategoryHandler = async (): Promise<void> => {
         try {
