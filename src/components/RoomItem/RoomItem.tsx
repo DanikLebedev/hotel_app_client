@@ -11,10 +11,25 @@ interface Room extends Document {
     guests: number;
     rooms: number;
     description: string;
-    image: string;
+    image: {
+        data: any;
+    }
 }
 
 export const RoomItem = (props:{data: Room}) => {
+    const arrayBufferToBase64 = (buffer: Buffer) => {
+        let binary = '';
+        const bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
+
+    const base64Flag = 'data:image/jpeg;base64,';
+    const imageStr = arrayBufferToBase64(props.data.image.data.data)
+
+    const decodedUrl = base64Flag + imageStr
+
     return (
         <div>
             <h3>{props.data.title}</h3>
@@ -23,7 +38,7 @@ export const RoomItem = (props:{data: Room}) => {
             <p>Guests: {props.data.guests}</p>
             <p>Rooms: {props.data.rooms}</p>
             <p>Description: {props.data.description}</p>
-            <img style={{width: '100px', height: '100px'}} src={props.data.image} alt="img"/>
+            <img style={{width: '100px', height: '100px'}} src={decodedUrl} alt="img"/>
         </div>
     )
 }

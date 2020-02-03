@@ -18,7 +18,7 @@ const CreatePage = () => {
     const [employeeForm, setEmployeeForm] = useState({})
 
     const fetchCategories = useCallback(async () => {
-        const categories = await request('/api/admin/category', 'GET', null, {
+        const {categories} = await request('/api/admin/category', 'GET', null, {
             Authorization: `Bearer ${auth.token}`
         })
         setFetchedCategories(categories)
@@ -27,7 +27,7 @@ const CreatePage = () => {
 
 
     const fetchStatuses = useCallback(async () => {
-        const statuses = await request('/api/admin/status', 'GET')
+        const {statuses} = await request('/api/admin/status', 'GET')
         setFetchedStatuses(statuses)
     },[request])
 

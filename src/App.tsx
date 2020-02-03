@@ -1,10 +1,9 @@
-import React, {FC, useCallback, useState} from 'react';
+import React from 'react';
 import {useRoutes} from "./routes";
 import {useAuth} from './hooks/auth.hook'
 import {AuthContext} from './context/auth.context'
-import Navigation from "./components/Navigation/Navigation";
 import {BrowserRouter as Router} from 'react-router-dom'
-import {useHttp} from "./hooks/http.hook";
+import Header from "./components/Header/Header";
 
 
 const App: React.FC = () => {
@@ -18,7 +17,7 @@ const App: React.FC = () => {
             token, login, logout, userId, isAuthenticated
         }}>
             <Router>
-                <Navigation/>
+            <Header/>
                 <div>
                     {routes}
                 </div>

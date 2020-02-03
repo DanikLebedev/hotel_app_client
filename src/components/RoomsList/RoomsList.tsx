@@ -19,17 +19,22 @@ interface Room extends Document {
 export const RoomsList = () => {
     const [rooms, setRooms] = useState([])
     const {loading, request} = useHttp()
+
+
     const fetchRooms = useCallback(async () => {
-        const fetchedRooms = await request('/api/client/rooms', "GET")
-        setRooms(fetchedRooms)
+        const {rooms} = await request('/api/client/rooms', "GET")
+        setRooms(rooms)
     },[request])
+
+
+
     useEffect(() => {
         fetchRooms()
     },[fetchRooms])
     return (
         <div>
             {loading? <Loader/> : rooms.map(room => {
-                return  <RoomItem data={room} />
+                return  <RoomItem key={room} data={room} />
             })}
         </div>
     )

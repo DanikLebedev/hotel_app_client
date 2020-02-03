@@ -27,8 +27,6 @@ export const useRoutes: (isAuthenticated: boolean) => (any) = (isAuthenticated: 
         )
     }
 
-
-
     return (
         <Switch>
             <Route path='/' exact>
