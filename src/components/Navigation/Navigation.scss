@@ -1,4 +1,5 @@
 .header__contacts {
+  color: #ffffff;
   li {
     display: flex;
     flex-direction: column;
@@ -8,17 +9,78 @@
   }
 }
 
+.swith-language__wrapper {
+  button {
+    background: transparent;
+    border: none;
+    padding: 2px;
+    transition: .3s;
+    border-radius: 50%;
+    outline: none;
+    &:hover {
+      background: lightgray;
+
+    }
+  }
+}
 
 .nav__list_links {
   font-size: 22px;
   text-transform: uppercase;
-  a:hover {
+  a {
+    margin: 0 10px;
+    padding: 10px 20px;
+    position: relative;
+    color: #ffffff;
+    transition: .3s ease;
+    &:hover {
+      text-decoration: none;
+      color: #ffffff;
+    }
+    &:hover::before {
+      top: 100%;
+      opacity: 1;
+    }
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      content: '';
+      -webkit-transition: top 0.3s;
+      -moz-transition: top 0.3s;
+      transition: top 0.3s;
+    }
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      content: '';
+      -webkit-transition: height 0.3s;
+      -moz-transition: height 0.3s;
+      transition: height 0.3s;
+    }
+    &:hover::after {
+      height: 100%;
+    }
+  }
+}
+
+.userInfo {
+  color: #ffffff;
+  a {
+    color: #ffffff;
     text-decoration: none;
   }
 }
 .separator {
-  background: #000;
-  width: 2px;
+  background: #ffffff;
+  width: 1px;
   height: 40px;
 }
 

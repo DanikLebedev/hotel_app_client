@@ -33,8 +33,8 @@ export const RoomsList = () => {
     },[fetchRooms])
     return (
         <div>
-            {loading? <Loader/> : rooms.map(room => {
-                return  <RoomItem key={room} data={room} />
+            {loading? <Loader/> : rooms.map((room, i) => {
+                return  <RoomItem key={room + i} data={room} />
             })}
         </div>
     )

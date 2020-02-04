@@ -1,0 +1,26 @@
+.header__title {
+  font-weight: bold;
+  color: #ffffff;
+  padding-top: 300px;
+  font-size: 5em;
+}
+
+header {
+  height: 80vh;
+}
+
+.button__container {
+  display: flex;
+
+  button {
+    margin-right: 10px;
+    font-size: 24px;
+    background-color: #ffffff;
+    color: black;
+    transition: .3s ease-in;
+    &:hover {
+      background: black;
+      color: #ffffff;
+    }
+  }
+}

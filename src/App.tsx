@@ -18,9 +18,7 @@ const App: React.FC = () => {
         }}>
             <Router>
             <Header/>
-                <div>
-                    {routes}
-                </div>
+            {routes}
             </Router>
         </AuthContext.Provider>
     )

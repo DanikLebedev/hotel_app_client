@@ -2,6 +2,9 @@ import React, {useContext} from "react";
 import {NavLink, useHistory} from "react-router-dom";
 import {AuthContext} from "../../context/auth.context";
 import './Navigation.scss'
+import  engLogo from '../../assets/images/united_kingdom_640.png'
+import rusLogo from '../../assets/images/russia_round_icon_64.png'
+import hotelLogo from '../../assets/images/Rixos_Hotels_logo_logotype.png'
 import {Navbar, NavbarBrand, Nav, Row, Col} from "react-bootstrap";
 import Container from "react-bootstrap/esm/Container";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -56,14 +59,14 @@ const Navigation = () => {
                     </Col>
                     <Col md={6}>
                         <ul className='d-flex justify-content-between'>
-                            <li className='d-flex justify-content-center align-items-center'>
-                                <button><img src="http://img.freeflagicons.com/thumb/round_icon/russia/russia_640.png"
+                            <li className='d-flex justify-content-center align-items-center swith-language__wrapper'>
+                                <button><img src={rusLogo}
                                              width={40} height={30} alt="russia"/></button>
                                 <button><img
-                                    src="http://img.freeflagicons.com/thumb/round_icon/united_kingdom/united_kingdom_640.png"
+                                    src={engLogo}
                                     width={40} height={30} alt="england"/></button>
                             </li>
-                            <li>
+                            <li className='userInfo'>
                                 {isAuthenticated ? <Nav>
                                     <NavLink onClick={logoutHandler} to='/'>
                                         Logout
@@ -88,12 +91,13 @@ const Navigation = () => {
                         </ul>
                     </Col>
                 </Row>
-                <Navbar className='nav__list_links'>
+                <Navbar>
                     <NavbarBrand href='/'><img
-                        src='https://logos-download.com/wp-content/uploads/2016/11/Rixos_Hotels_logo_logotype.png'
+                        style={{filter: 'brightness(5)'}}
+                        src={hotelLogo}
                         width={180} height={70} alt="logo"/></NavbarBrand>
-                    <Nav className='mr-auto ml-auto justify-content-center '>
-                        <NavLink className={'mr-5'} to='/'>
+                    <Nav className='mr-auto ml-auto justify-content-center nav__list_links'>
+                        <NavLink className={'mr-5 link'} to='/'>
                             Home
                         </NavLink>
                         <NavLink className={'mr-5'} to='/rooms'>
@@ -104,7 +108,7 @@ const Navigation = () => {
                     <button className='button header_button'>Book Room</button>
                 </Navbar>
             </Container>
-            {/*<Slider/>*/}
+            <Slider/>
         </>
     )
 }

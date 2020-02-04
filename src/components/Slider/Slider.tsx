@@ -1,28 +1,34 @@
 import React from 'react'
 import {Carousel} from "react-bootstrap";
 import './Slider.scss'
+import firstImg from  '../../assets/images/dui21-deluxe-room1.add1.low-res.jpg'
+import secondImg from '../../assets/images/manila_14.jpg'
+import thirdImg from '../../assets/images/3-high-res-restaurant-30.jpg'
 
 export const Slider = () => {
     return (
-        <Carousel fade={true} className='slider'>
+        <Carousel controls={false} interval={2000} fade={true} className='slider'>
             <Carousel.Item>
                 <img
-                    className="d-block w-100 vh-100"
-                    src="https://images.unsplash.com/photo-1574873215043-44119461cb3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    style={{height: '80vh'}}
+                    className="d-block w-100"
+                    src={firstImg}
                     alt="First slide"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                    className="d-block w-100 vh-100"
-                    src="https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                    style={{height: '80vh'}}
+                    className="d-block w-100"
+                    src={secondImg}
                     alt="Third slide"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                    className="d-block w-100 vh-100"
-                    src="https://images.unsplash.com/photo-1541123356219-284ebe98ae3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    style={{height: '80vh'}}
+                    className="d-block w-100"
+                    src={thirdImg}
                     alt="Third slide"
                 />
             </Carousel.Item>
