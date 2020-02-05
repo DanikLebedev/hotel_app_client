@@ -1,0 +1,90 @@
+@import "src/index";
+
+.main__title {
+  margin-bottom: 250px;
+}
+
+.home-page__about-us {
+  padding: 15vh 0 10vh 0;
+  &-photos {
+    img {
+      margin-right: 20px;
+      width: 300px;
+      height: 40vh;
+    }
+  }
+  &-text {
+    max-width: 450px;
+  }
+}
+
+
+.section__title {
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.home__page-rooms {
+  &-photo {
+    width: 45vw
+  }
+  &-description {
+    max-width: 30vw;
+  }
+  &-item {
+    background: url("../../assets/images/manila_14.jpg") center center / cover;
+    height: 20vh;
+    margin-right: 10px;
+    &-title {
+      display: flex;
+      margin-top: 10px;
+      font-weight: bold;
+      span {
+        display: block;
+        padding: 10px;
+        background: $base-dark-button-color;
+        color: $base-text-color;
+      }
+      span:nth-child(2) {
+        color: $price-color;
+      }
+    }
+
+  }
+
+}
+
+.home-page__feedback {
+  &-slider {
+    position: relative;
+    &:before {
+      content: '\201C';
+      position: absolute;
+      font-size: 40px;
+      top: 0;
+      left: 0;
+      color: $price-color;
+    }
+
+    &:after {
+      content: '\201D';
+      font-size: 40px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      color: $price-color;
+    }
+
+    p {
+      font-size: 24px;
+      max-width: 70vw;
+      margin-left: 16px;
+    }
+  }
+
+
+
+}
+
+
+

@@ -1,0 +1,16 @@
+@import "src/index";
+footer {
+  background: #000000;
+  padding: 10vh 0 10vh 0 ;
+  color: $base-text-color;
+  .button {
+    font-size: 16px;
+  }
+  .subsribe_input {
+    padding: 6px 18px;
+    border: 1px solid #cdcdcd;
+    background: transparent;
+    color: #ffffff;
+    outline: none;
+  }
+}

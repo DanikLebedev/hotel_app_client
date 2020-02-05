@@ -1,5 +1,9 @@
+@import "src/index";
+
+
+
 .header__contacts {
-  color: #ffffff;
+  color: $price-color;
   li {
     display: flex;
     flex-direction: column;
@@ -9,7 +13,7 @@
   }
 }
 
-.swith-language__wrapper {
+.switсh-language__wrapper {
   button {
     background: transparent;
     border: none;
@@ -19,7 +23,6 @@
     outline: none;
     &:hover {
       background: lightgray;
-
     }
   }
 }
@@ -31,11 +34,11 @@
     margin: 0 10px;
     padding: 10px 20px;
     position: relative;
-    color: #ffffff;
+    color: $price-color;
     transition: .3s ease;
     &:hover {
       text-decoration: none;
-      color: #ffffff;
+      color: $price-color;
     }
     &:hover::before {
       top: 100%;
@@ -47,7 +50,7 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background: #fff;
+      background: $price-color;
       content: '';
       -webkit-transition: top 0.3s;
       -moz-transition: top 0.3s;
@@ -59,7 +62,7 @@
       left: 0;
       width: 2px;
       height: 2px;
-      background: #fff;
+      background: $price-color;
       content: '';
       -webkit-transition: height 0.3s;
       -moz-transition: height 0.3s;
@@ -72,20 +75,24 @@
 }
 
 .userInfo {
-  color: #ffffff;
+  color:$price-color;
   a {
-    color: #ffffff;
+    color: $price-color;
     text-decoration: none;
+    a:hover {
+      text-decoration: none;
+    }
   }
 }
 .separator {
-  background: #ffffff;
+  background: $base-text-color;
   width: 1px;
   height: 40px;
 }
 
 .social_icon {
-  background: lightgray;
+  background: transparent;
+  border: 2px solid $base-text-color;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -95,16 +102,44 @@
   margin-right: 10px;
   cursor: pointer;
   transition: .4s ease;
-  &:hover {
-    background: #ffffff;
+  .icon {
+    color: $base-text-color;
+  }
+  &:hover:first-child {
+    background: #3b5998;
+  }
+  &:hover:nth-child(2) {
+    background: #1DA1F2;
+  }
+  &:hover:nth-child(3) {
+    background: #4c75a3;
   }
 }
 
 .button {
-  padding: 8px 15px;
+  padding: 8px 20px;
   border:none;
-  background: #c6a47e;
-  color: #ffffff;
+  background: $price-color;
+  color: $base-text-color;
+  font-size: 24px;
+  transition: .3s ease-in;
+  overflow: hidden;
+}
+
+
+.header_button {
+  position: relative;
+  &:before {
+    content: '\0024';
+    position: absolute;
+    top: 9px;
+    left: -30px;
+    transition: all 200ms ease;
+  }
+  &:hover:before {
+    left: 3px;
+  }
+
 }
 
 

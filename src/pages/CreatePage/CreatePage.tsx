@@ -13,10 +13,8 @@ const CreatePage = () => {
     const {loading, request, error, clearError} = useHttp()
     const [fetchedCategories, setFetchedCategories] = useState([])
     const [postCategories, setPostCategories] = useState({})
-    const [roomForm, setRoomForm] = useState({})
     const [fetchedStatuses, setFetchedStatuses] = useState([])
     const [employeeForm, setEmployeeForm] = useState({})
-    const [uploadImage, setUploadImage] = useState('')
 
     const fetchCategories = useCallback(async () => {
         const {categories} = await request('/api/admin/category', 'GET', null, {
@@ -45,23 +43,14 @@ const CreatePage = () => {
         setPostCategories({...postCategories, [event.target.name]: event.target.value})
     }
 
-    const roomChangeHandler = (event: InputEvent): void => {
-        setRoomForm({...roomForm, [event.target.name]: event.target.value})
-    }
 
     const employeeChangeHandler = (event: InputEvent): void => {
         setEmployeeForm({...employeeForm, [event.target.name]: event.target.value})
     }
 
-    const selectChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
-        setRoomForm({...roomForm, category: event.target.value})
-    }
 
     const selectEmployeeChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
         setEmployeeForm({...employeeForm, status: event.target.value})
-    }
-    const fileChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-        console.log(event.target.files)
     }
 
     const addCategoryHandler = async (): Promise<void> => {
@@ -77,19 +66,18 @@ const CreatePage = () => {
         }
     }
 
-    const addRoomHandler = async (): Promise<void> => {
-        try {
-            console.log(roomForm)
-            const data = await request('/api/admin/room', 'POST', {...roomForm, image: uploadImage}, {
-                Authorization: `Bearer ${auth.token}`,
-                'Content-Type': 'multipart/form-data'
-            })
-            toaster.notify(data.message, {
-                duration: 2000
-            })
-            // history.push(`/orders`)
-        } catch (e) {
-        }
+
+    const addRoomHandler = async (event: ChangeEvent<HTMLFormElement>): Promise<void> => {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const response = await fetch('/api/admin/room', {
+            method: 'POST',
+            body: formData,
+        })
+        const data = await response.json()
+        toaster.notify(data.message, {
+            duration: 2000
+        })
     }
 
     const addEmployeeHandler = async (): Promise<void> => {
@@ -97,6 +85,7 @@ const CreatePage = () => {
             const data = await request('/api/admin/employee', 'POST', {...employeeForm}, {
                 Authorization: `Bearer ${auth.token}`
             })
+            console.log(data)
             toaster.notify(data.message, {
                 duration: 2000
             })
@@ -129,20 +118,22 @@ const CreatePage = () => {
             </div>
             <div>
                 <h3>create room</h3>
-                <select onChange={selectChangeHandler} name="categories" id="categories">
-                    {options}
-                </select>
-                <input type="text" name='title' id='title' placeholder='title'
-                       onChange={roomChangeHandler}/>
-                <input type="number" name='price' id='price' placeholder='price' onChange={roomChangeHandler}/>
-                <input type="number" name='guests' id='guests' placeholder='guests' onChange={roomChangeHandler}/>
-                <input type="text" name='description' id='description' placeholder='description'
-                       onChange={roomChangeHandler}/>
-                <input type="file" name='image' id='image' placeholder='image' onChange={fileChangeHandler}/>
-                <input type="number" name='rooms' id='rooms' placeholder='rooms'
-                       onChange={roomChangeHandler}/>
-                <input type="number" name='area' id='area' placeholder='area' onChange={roomChangeHandler}/>
-                <button onClick={addRoomHandler}>Add category</button>
+                <form onSubmit={addRoomHandler}>
+                    <select name="category" id="categories">
+                        {options}
+                    </select>
+                    <input type="text" name='title' id='title' placeholder='title'
+                    />
+                    <input type="number" name='price' id='price' placeholder='price'/>
+                    <input type="number" name='guests' id='guests' placeholder='guests'/>
+                    <input type="text" name='description' id='description' placeholder='description'
+                    />
+                    <input type="file" name='image' id='image' placeholder='image'/>
+                    <input type="number" name='rooms' id='rooms' placeholder='rooms'
+                    />
+                    <input type="number" name='area' id='area' placeholder='area'/>
+                    <button>Add category</button>
+                </form>
                 {loading ? <Loader/> : null}
             </div>
             <div>
