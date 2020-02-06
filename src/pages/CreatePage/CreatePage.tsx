@@ -6,7 +6,6 @@ import {AuthContext} from "../../context/auth.context";
 import {CategoryService} from "../../APIServices/categoryService";
 import {Category, Data, Status} from "../../interfaces/clientInterfaces";
 import {StatusService} from "../../APIServices/statusService";
-import {RoomService} from "../../APIServices/roomService";
 import {EmployeeService} from "../../APIServices/employeeService";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -84,16 +83,24 @@ const CreatePage = () => {
     })
 
 
+    const fetchCategories = useCallback(() => {
+        CategoryService.getAllCategories().then(({categories}) => setFetchedCategories(categories))
+    }, [CategoryService.getAllCategories])
+
+    const fetchStatuses = useCallback(() => {
+        StatusService.getAllStatuses().then(({statuses}) => setFetchedStatuses(statuses))
+    }, [ StatusService.getAllStatuses])
+
 
 
     useEffect(() => {
+        fetchCategories()
+        fetchStatuses()
         toaster.notify(error, {
             duration: 2000
         });
-        CategoryService.getAllCategories().then(({categories}) => setFetchedCategories(categories))
-        StatusService.getAllStatuses().then(({statuses}) => setFetchedStatuses(statuses))
         clearError()
-    }, [error, clearError, CategoryService.getAllCategories, StatusService.getAllStatuses ]);
+    }, [error, clearError,fetchCategories,fetchStatuses]);
 
     if (!fetchedCategories[0] && !fetchedStatuses[0]) {
         return <Loader/>

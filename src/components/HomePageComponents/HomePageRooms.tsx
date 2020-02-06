@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Col, Container, Row} from "react-bootstrap";
 import roomImage3 from "../../assets/images/14_tokyo-prince-hotel-rooms-4-8FSuperiorTwinRoom-noon-.jpg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,16 +10,20 @@ import Loader from "../Loader/Loader";
 import {config} from "../../config";
 
 export const HomePageRooms = () => {
-    const [frooms, setRooms] = useState<Room[]>([])
+    const [fetchedRooms, setFetchedRooms] = useState<Room[]>([])
     // @ts-ignore
     const [mainRoom, setMainRoom] = useState<Room>({})
 
-    useEffect(() => {
-        RoomService.getAllRooms().then(({rooms}) => {
-            setRooms(rooms)
-            setMainRoom(frooms[0])
+    const fetchRooms = useCallback( () => {
+      RoomService.getAllRooms().then(({rooms}) => {
+            setFetchedRooms(rooms)
+            setMainRoom(rooms[0])
         })
-    },[RoomService.getAllRooms])
+    },[ RoomService.getAllRooms])
+
+    useEffect(() => {
+        fetchRooms()
+    },[fetchRooms])
 
 
 
@@ -53,7 +57,7 @@ export const HomePageRooms = () => {
                     </Col>
                 </Row>
                 <Row className='justify-content-around flex-nowrap mt-3 mr-2 ml-2 d-flex align-items-center'>
-                    {frooms? frooms.map((item) => {
+                    {fetchedRooms? fetchedRooms.map((item) => {
                         return (
                             <Col lg={3} md={3} className={'home__page-rooms-item'}>
                                 <div className={'home__page-rooms-item-title'}>
