@@ -1,40 +1,20 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import {useHttp} from "../../hooks/http.hook";
+import React, {useEffect, useState} from 'react'
 import RoomItem from "../RoomItem/RoomItem";
 import Loader from "../Loader/Loader";
+import {RoomService} from "../../APIServices/roomService";
+import {Room} from "../../interfaces/clientInterfaces";
 
-interface Room extends Document {
-    category: string;
-    userId: string;
-    isBooked: boolean;
-    title: string;
-    price: number;
-    area: number;
-    guests: number;
-    rooms: number;
-    description: string;
-    image: string;
-}
-
-export const RoomsList = () => {
-    const [rooms, setRooms] = useState([])
-    const {loading, request} = useHttp()
-
-
-    const fetchRooms = useCallback(async () => {
-        const {rooms} = await request('/api/client/rooms', "GET")
-        setRooms(rooms)
-    },[request])
-
-
-
+export const RoomsList: React.FC = () => {
+    const [rooms, setRooms] = useState<Room[]>([])
     useEffect(() => {
-        fetchRooms()
-    },[fetchRooms])
+        RoomService.getAllRooms().then(({rooms}) => setRooms(rooms))
+    }, [RoomService.getAllRooms])
+
+
     return (
         <div>
-            {loading? <Loader/> : rooms.map((room, i) => {
-                return  <RoomItem key={room + i} data={room} />
+            {!rooms[0] ? <Loader/> : rooms.map((room: Room, i: number) => {
+                return <RoomItem key={room.title + i} roomInfo={room}/>
             })}
         </div>
     )
