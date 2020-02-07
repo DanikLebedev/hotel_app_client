@@ -1,8 +1,8 @@
 import {CRUDServices} from "./CRUDServices";
-import {Data, Employees} from '../interfaces/clientInterfaces'
-export class EmployeeService {
-    public static async getAllEmployee() :Promise<Employees> {
-        const customers: Employees = await CRUDServices.getData('/api/admin/employee')
+import {Customers, Data, Employees} from '../interfaces/clientInterfaces'
+export class CustomerService {
+    public static async getAllCustomers() :Promise<Customers> {
+        const customers: Customers = await CRUDServices.getData('/api/admin/customers')
         return customers
     }
 

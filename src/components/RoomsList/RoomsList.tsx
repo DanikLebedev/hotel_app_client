@@ -9,7 +9,7 @@ export const RoomsList: React.FC = () => {
 
     const fetchRoom = useCallback( () => {
         RoomService.getAllRooms().then(({rooms}) => setFetchedRooms(rooms))
-    },[ RoomService.getAllRooms])
+    },[])
 
     useEffect(() => {
         fetchRoom()

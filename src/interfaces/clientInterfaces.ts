@@ -44,3 +44,24 @@ export interface Employee {
 export interface Employees {
     employees: Employee[]
 }
+
+export interface Customer {
+    email: string,
+    password: string,
+    order: []
+}
+
+export interface Customers {
+    customers: Customer[]
+}
+
+export interface Order {
+    category: string,
+    checkIn: string,
+    checkOut: string,
+    guests: number
+}
+
+export interface Orders {
+    orders: Order[]
+}

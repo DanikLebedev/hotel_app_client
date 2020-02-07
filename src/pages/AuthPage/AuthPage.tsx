@@ -49,7 +49,6 @@ const AuthPage: React.FC = () => {
                 duration: 2000
             })
         } catch (e) {
-            console.log(e)
         }
     }
 

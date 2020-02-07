@@ -7,19 +7,25 @@ import {CategoryService} from "../../APIServices/categoryService";
 import {Category, Data, Status} from "../../interfaces/clientInterfaces";
 import {StatusService} from "../../APIServices/statusService";
 import {EmployeeService} from "../../APIServices/employeeService";
+import { Container } from 'react-bootstrap';
+import '../../assets/rglstyles.css'
+import '../../assets/resizablestyles.css'
+import './AdminPageCreate.scss'
+
+import {Responsive, WidthProvider} from 'react-grid-layout';
+
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
-const CreatePage = () => {
-    // const history = useHistory()
+export const AdminPageCreate: React.FC = () => {
     const auth = useContext(AuthContext)
     const {error, clearError} = useHttp()
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([])
     const [postCategories, setPostCategories] = useState({})
     const [fetchedStatuses, setFetchedStatuses] = useState<Status[]>([])
     const [employeeForm, setEmployeeForm] = useState({})
-
 
 
     const addRoomHandler = async (event: ChangeEvent<HTMLFormElement>): Promise<void> => {
@@ -37,21 +43,24 @@ const CreatePage = () => {
 
     const addEmployeeHandler = async (): Promise<void> => {
         const data: Data = await EmployeeService.postEmployee({...employeeForm}, {
-                Authorization: `Bearer ${auth.token}`,
-                'Content-Type': 'application/json'
-            })
-            toaster.notify(data.message, {
-                duration: 2000
-            })
-    }
-
-    const addCategoryHandler = async (): Promise<void> => {
-        const data: Data = await CategoryService.postCategory({...postCategories}, {
-            'Authorization': `Bearer ${auth.token}`
+            Authorization: `Bearer ${auth.token}`,
+            'Content-Type': 'application/json'
         })
         toaster.notify(data.message, {
             duration: 2000
         })
+    }
+
+    const addCategoryHandler = async (): Promise<void> => {
+        const data: Data = await CategoryService.postCategory({...postCategories}, {
+            'Authorization': `Bearer ${auth.token}`,
+            'Content-Type': 'application/json'
+
+        })
+        toaster.notify(data.message, {
+            duration: 2000
+        })
+
     }
 
 
@@ -85,11 +94,12 @@ const CreatePage = () => {
 
     const fetchCategories = useCallback(() => {
         CategoryService.getAllCategories().then(({categories}) => setFetchedCategories(categories))
-    }, [CategoryService.getAllCategories])
+    }, [])
 
     const fetchStatuses = useCallback(() => {
         StatusService.getAllStatuses().then(({statuses}) => setFetchedStatuses(statuses))
-    }, [ StatusService.getAllStatuses])
+    }, [])
+
 
 
 
@@ -107,46 +117,44 @@ const CreatePage = () => {
     }
 
     return (
-        <div>
-            <h1>Create Page</h1>
-            <div>
-                <h3>create category</h3>
-                <input type="text" name='title' id='title' placeholder='title' onChange={categoryChangeHandler}/>
-                <button onClick={addCategoryHandler}>Add category</button>
-            </div>
-            <div>
-                <h3>create room</h3>
-                <form onSubmit={addRoomHandler}>
-                    <select name="category" id="categories">
+        <Container>
+            <div key={1} className='d-flex justify-content-around align-items-center mt-3 '>
+              <div className={'admin-form'}>
+                  <h3>create category</h3>
+                  <input className='form-control w-50 m-3' type="text" name='title' id='title' placeholder='title' onChange={categoryChangeHandler}/>
+                  <button className='btn btn-primary' onClick={addCategoryHandler}>Add category</button>
+              </div>
+                <form onSubmit={addRoomHandler} className='admin-form '>
+                    <h3>create room</h3>
+                    <select className={'form-control'} name="category" id="categories">
                         {options}
                     </select>
-                    <input type="text" name='title' id='title' placeholder='title'
+                    <input type="text" className={'form-control'} name='title' id='title' placeholder='title'
                     />
-                    <input type="number" name='price' id='price' placeholder='price'/>
-                    <input type="number" name='guests' id='guests' placeholder='guests'/>
-                    <input type="text" name='description' id='description' placeholder='description'
+                    <input type="number"  className={'form-control'}name='price' id='price' placeholder='price'/>
+                    <input type="number" className={'form-control'} name='guests' id='guests' placeholder='guests'/>
+                    <input type="text" className={'form-control'} name='description' id='description' placeholder='description'
                     />
-                    <input type="file" name='image' id='image' placeholder='image'/>
-                    <input type="number" name='rooms' id='rooms' placeholder='rooms'
+                    <input type="file" className={'form-control'} name='image' id='image' placeholder='image'/>
+                    <input type="number" className={'form-control'} name='rooms' id='rooms' placeholder='rooms'
                     />
-                    <input type="number" name='area' id='area' placeholder='area'/>
-                    <button>Add category</button>
+                    <input type="number" className={'form-control'} name='area' id='area' placeholder='area'/>
+                    <button className='btn btn-primary mt-3'>Add Room</button>
                 </form>
             </div>
-            <div>
+            <div className={'admin-form w-50'}>
                 <h3>create employee</h3>
                 {!statusOptions ? <Loader/>:null}
-                <input onChange={employeeChangeHandler} type="text" name='email' id='email' placeholder='email'/>
-                <input onChange={employeeChangeHandler} type="password" name='password' id='password'
+                <input onChange={employeeChangeHandler} type="text" className={'form-control'} name='email' id='email' placeholder='email'/>
+                <input onChange={employeeChangeHandler} type="password" className={'form-control'} name='password' id='password'
                        placeholder='password'/>
-                <select onChange={selectEmployeeChangeHandler} name="statuses" id="statuses">
+                <select onChange={selectEmployeeChangeHandler} className={'form-control'} name="statuses" id="statuses">
                     {statusOptions}
                 </select>
-                <button onClick={addEmployeeHandler}>Add employee</button>
+                <button className='btn btn-primary mt-3' onClick={addEmployeeHandler}>Add employee</button>
             </div>
-        </div>
+        </Container>
     )
 }
 
-export default CreatePage
 

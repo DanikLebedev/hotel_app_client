@@ -11,21 +11,18 @@ import {config} from "../../config";
 
 export const HomePageRooms = () => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([])
-    // @ts-ignore
-    const [mainRoom, setMainRoom] = useState<Room>({})
+    const [mainRoom, setMainRoom] = useState<Room>()
 
-    const fetchRooms = useCallback( () => {
-      RoomService.getAllRooms().then(({rooms}) => {
+    const fetchRooms = useCallback(  () => {
+     RoomService.getAllRooms().then(({rooms}) => {
             setFetchedRooms(rooms)
             setMainRoom(rooms[0])
         })
-    },[ RoomService.getAllRooms])
+    },[])
 
     useEffect(() => {
         fetchRooms()
     },[fetchRooms])
-
-
 
 
     return (
@@ -57,7 +54,7 @@ export const HomePageRooms = () => {
                     </Col>
                 </Row>
                 <Row className='justify-content-around flex-nowrap mt-3 mr-2 ml-2 d-flex align-items-center'>
-                    {fetchedRooms? fetchedRooms.map((item) => {
+                    {fetchedRooms? fetchedRooms.slice(0,4).map((item) => {
                         return (
                             <Col lg={3} md={3} className={'home__page-rooms-item'}>
                                 <div className={'home__page-rooms-item-title'}>

@@ -2,7 +2,6 @@ import React from 'react'
 import {Switch, Route, Redirect} from "react-router-dom";
 import {OrderPage} from "./pages/OrdersPage/OrdersPage";
 import RoomsPage from "./pages/RoomsPage/RoomsPage";
-import CreatePage from "./pages/CreatePage/CreatePage";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import { HomePage } from './pages/HomePage/HomePage';
 import {AuthAdminPage} from "./pages/AuthAdminPage/AuthAdminPage";
@@ -20,9 +19,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus:string) => any = (
                 <Route path='/orders' exact>
                     <OrderPage/>
                 </Route>
-                <Route path='/admin' exact>
-                    <CreatePage/>
-                </Route>
                 <Redirect to='/'/>
             </Switch>
         )
@@ -39,9 +35,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus:string) => any = (
                 </Route>
                 <Route path='/orders' exact>
                     <OrderPage/>
-                </Route>
-                <Route path='/admin' exact>
-                    <CreatePage/>
                 </Route>
                 <Redirect to='/'/>
             </Switch>
