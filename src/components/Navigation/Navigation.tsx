@@ -163,7 +163,7 @@ const Navigation = () => {
                         {isAuthenticated ? authComponents : null}
                         {userStatus === 'admin' ? adminComponents: null}
                     </Nav>
-                    <button className='button header_button' onClick={handleShow} >Book Room</button>
+                    <button className='button-book header_button' onClick={handleShow} >Book Room</button>
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Modal heading</Modal.Title>

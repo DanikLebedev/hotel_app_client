@@ -9,37 +9,38 @@ export const HomePageFeatures = () => {
             <Container>
                 <Row>
                     <Col lg={4}>
-                        <Card >
+                        <Card className='border-0'>
                             <Card.Body>
                                 <FontAwesomeIcon size={"4x"} icon={faBreadSlice}/>
-                                <Card.Title>Card Title</Card.Title>
+                                <Card.Title>Free Breakfast Every Day</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
+                                    Every day in the morning we have a special buffe and it's free.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem, rerum vel.
+                                    Doloribus exercitationem iusto laudantium.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col lg={4}>
-                        <Card >
+                        <Card className='border-0'>
                             <Card.Body>
                                 <FontAwesomeIcon size={"4x"} icon={faUserFriends}/>
-                                <Card.Title>Card Title</Card.Title>
+                                <Card.Title>Attenive And Open Stuff</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consequatur dicta
+                                    dolore, ex, fuga hic in inventore modi nihil nisi officiis possimus qui quo
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col lg={4}>
-                        <Card >
+                        <Card className='border-0'>
                             <Card.Body>
                                 <FontAwesomeIcon size={"4x"} icon={faKey}/>
-                                <Card.Title>Card Title</Card.Title>
+                                <Card.Title>Luxurios Rooms</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam corporis
+                                    delectus deleniti distinctio, enim exercitationem perspiciatis porro provident,
                                 </Card.Text>
                             </Card.Body>
                         </Card>

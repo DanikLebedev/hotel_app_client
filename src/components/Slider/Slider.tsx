@@ -10,7 +10,7 @@ export const Slider = () => {
         <Carousel controls={false} interval={2000} fade={true} className='slider'>
             <Carousel.Item>
                 <img
-                    style={{height: '80vh'}}
+                    style={{height: '85vh'}}
                     className="d-block w-100"
                     src={firstImg}
                     alt="First slide"
@@ -18,7 +18,7 @@ export const Slider = () => {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                    style={{height: '80vh'}}
+                    style={{height: '85vh'}}
                     className="d-block w-100"
                     src={secondImg}
                     alt="Third slide"
@@ -26,7 +26,7 @@ export const Slider = () => {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                    style={{height: '80vh'}}
+                    style={{height: '85vh'}}
                     className="d-block w-100"
                     src={thirdImg}
                     alt="Third slide"

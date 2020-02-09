@@ -1,16 +1,16 @@
 @import "src/index";
 
 .main__title {
-  margin-bottom: 250px;
+  margin-bottom: 10vh;
 }
 
 .home-page__about-us {
   padding: 15vh 0 10vh 0;
   &-photos {
     img {
-      margin-right: 20px;
-      width: 300px;
-      height: 40vh;
+      margin-right: 1rem;
+      max-width: 300px;
+      height: 450px;
     }
   }
   &-text {
@@ -18,6 +18,36 @@
   }
 }
 
+.button {
+  padding: 8px 20px;
+  margin-right: 10px;
+  background-color: $base-text-color;
+  color:  $base-dark-button-color;
+  transition: .3s ease;
+  font-size: 1.4em;
+  border: 1px solid #ffffff;
+
+  &:hover {
+    background: $base-dark-button-color;
+    color: $base-text-color;
+  }
+}
+
+.btn-transparent {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.btn-black {
+  background: #000000;
+  color: #ffffff;
+  &:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #000;
+  }
+}
 
 .section__title {
   font-weight: bold;
@@ -75,8 +105,8 @@
     }
 
     p {
-      font-size: 24px;
-      max-width: 70vw;
+      font-size: 1.5em;
+      max-width: 100%;
       margin-left: 16px;
     }
   }

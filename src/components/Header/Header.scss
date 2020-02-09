@@ -1,29 +1,19 @@
-@import "src/index";
+@import "../../../src/index";
 
 .header__title {
   font-weight: bold;
   color: #ffffff;
-  font-size: 5em;
+  font-size: 4rem;
 }
 
 
 .header__subtitle {
-  font-size: 24px;
+  font-size: 1.5em;
   color: $base-text-color;
   max-width: 40vw;
 }
 
 .button__container {
   display: flex;
-
-  .button {
-    margin-right: 10px;
-    background-color: $base-text-color;
-    color:  $base-dark-button-color;
-
-    &:hover {
-      background: $base-dark-button-color;
-      color: $base-text-color;
-    }
-  }
 }
+

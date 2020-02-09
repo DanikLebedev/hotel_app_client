@@ -1,0 +1,15 @@
+.room-page {
+  &-bg {
+    background: url("../../assets/images/dui21-deluxe-room1.add1.low-res.jpg") center center / cover;
+    height: 50vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -3;
+  }
+
+  &-wrapper {
+    padding-top: 30vh;
+  }
+}

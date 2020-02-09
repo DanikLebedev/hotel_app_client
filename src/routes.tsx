@@ -36,6 +36,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus:string) => any = (
                 <Route path='/orders' exact>
                     <OrderPage/>
                 </Route>
+                <Route path='/admin/login' exact >
+                    <AuthAdminPage/>
+                </Route>
                 <Redirect to='/'/>
             </Switch>
         )
@@ -52,6 +55,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus:string) => any = (
                 </Route>
                 <Route path='/orders' exact>
                     <OrderPage/>
+                </Route>
+                <Route path='/admin/login' exact >
+                    <AuthAdminPage/>
                 </Route>
                 <Redirect to='/'/>
             </Switch>

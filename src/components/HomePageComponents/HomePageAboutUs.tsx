@@ -16,10 +16,10 @@ export const HomePageAboutUs = () => {
                 <p className={'header__subtitle'}>Chilling out on the bed in your hotel room watching TV, while wearing your own pajamas, is sometimes the best part of vacation.</p>
                 <div className={"button__container"}>
                     <NavLink to={'/rooms'} >
-                        <button className={'button'}>See rooms</button>
+                        <button className='button'>See rooms</button>
                     </NavLink>
                     <NavLink to={'/about'} >
-                        <button className={'button'}>About us</button>
+                        <button className={'btn-transparent button'}>About us</button>
                     </NavLink>
                 </div>
             </Container>
@@ -38,11 +38,11 @@ export const HomePageAboutUs = () => {
                             southern charm, magnificent, scenery
                             and casually elegant surroundings exemplify the gentle ambience of his barrier island'
                             luxury beachfront resort</p>
-                        <button className={'button'}>Read more</button>
+                        <button className={'button btn-black'}>Read more</button>
                     </Col>
                     <Col lg={6} md={6}>
                         <div
-                            className='home-page__about-us-photos d-flex justify-content-center align-items-center'>
+                            className={'home-page__about-us-photos d-flex justify-content-center align-items-center'}>
                             <img src={roomImage1} alt="room"/>
                             <img src={roomImage2} alt="room"/>
                         </div>

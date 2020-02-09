@@ -30,7 +30,7 @@ export const HomePageRooms = () => {
             <Container fluid={true}>
                 <Row>
                     <Col lg={6} md={6} className='p-0'>
-                        <img src={roomImage3} className={'home__page-rooms-photo'} alt="room"/>
+                        {mainRoom? <img style={{width: '90%'}} src={config.baseUrl + mainRoom.image} alt="room"/>: <Loader/>}
                     </Col>
                     <Col lg={6} md={6}>
                         <h2 className={'room__title section__title'}>{mainRoom ? mainRoom.title: null}</h2>
@@ -46,9 +46,9 @@ export const HomePageRooms = () => {
                         </div>
                         <p className={'home__page-rooms-description'}>{mainRoom? mainRoom.description: null}</p>
                         <div className={"button__container"}>
-                            <button className={'button'}>Book Room</button>
+                            <button className={'button btn-black'}>Book Room</button>
                             <NavLink to={'/rooms'}>
-                                <button className={'button'}>See Room</button>
+                                <button className={'button btn-black'}>See Room</button>
                             </NavLink>
                         </div>
                     </Col>
@@ -56,10 +56,10 @@ export const HomePageRooms = () => {
                 <Row className='justify-content-around flex-nowrap mt-3 mr-2 ml-2 d-flex align-items-center'>
                     {fetchedRooms? fetchedRooms.slice(0,4).map((item) => {
                         return (
-                            <Col lg={3} md={3} className={'home__page-rooms-item'}>
+                            <Col lg={3} md={3} style={{background: `url("${config.baseUrl + item.image}") center center / cover`}} className='home__page-rooms-item'>
                                 <div className={'home__page-rooms-item-title'}>
                                     <span>{item.title}</span><span>{item.price}</span>
-                                    <img src={config.baseUrl +item.image} width={100} height={100} alt=""/>
+                                    {/*<img src={config.baseUrl +item.image} width={100} height={100} alt=""/>*/}
                                 </div>
                             </Col>
                         )
