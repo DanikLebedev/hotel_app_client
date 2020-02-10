@@ -54,12 +54,11 @@ export const HomePageRooms = () => {
                     </Col>
                 </Row>
                 <Row className='justify-content-around flex-nowrap mt-3 mr-2 ml-2 d-flex align-items-center'>
-                    {fetchedRooms? fetchedRooms.slice(0,4).map((item) => {
+                    {fetchedRooms? fetchedRooms.slice(0,4).map((item, key) => {
                         return (
-                            <Col lg={3} md={3} style={{background: `url("${config.baseUrl + item.image}") center center / cover`}} className='home__page-rooms-item'>
+                            <Col key={key} lg={3} md={3} style={{background: `url("${config.baseUrl + item.image}") center center / cover`}} className='home__page-rooms-item'>
                                 <div className={'home__page-rooms-item-title'}>
                                     <span>{item.title}</span><span>{item.price}</span>
-                                    {/*<img src={config.baseUrl +item.image} width={100} height={100} alt=""/>*/}
                                 </div>
                             </Col>
                         )

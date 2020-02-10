@@ -8,11 +8,12 @@ import 'toasted-notes/src/styles.css';
 import './AuthPage.scss'
 import Loader from '../../components/Loader/Loader';
 import {AuthContext} from "../../context/auth.context";
+import {useHistory} from 'react-router-dom'
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const AuthPage: React.FC = () => {
-
+    const history = useHistory()
     const auth = useContext(AuthContext)
 
     const {loading, request, error, clearError} = useHttp()
@@ -48,6 +49,7 @@ const AuthPage: React.FC = () => {
             toaster.notify(data.message, {
                 duration: 2000
             })
+            history.push('/')
         } catch (e) {
         }
     }

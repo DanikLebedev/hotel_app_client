@@ -10,8 +10,8 @@ export const RoomItem = (props: {roomInfo: Room}) => {
     return (
        <Container>
            <Row className='rooms-page__item mb-3'>
-               <Col lg={6}>
-                   <img style={{width: '80%', height: '80%'}} src={config.baseUrl + props.roomInfo.image } alt="img"/>
+               <Col lg={6} className='room-page__item-img'  style={{background: `url(${config.baseUrl + props.roomInfo.image}) center center / cover`}}>
+                   {/*<img style={{width: '80%', height: '80%'}} src={config.baseUrl + props.roomInfo.image } alt="img"/>*/}
                </Col>
                <Col lg={6}>
                    <h3>{props.roomInfo.title}</h3>

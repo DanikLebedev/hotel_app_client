@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useContext, useEffect, useState, } from "react";
 import {NavLink, useHistory} from "react-router-dom";
 import {AuthContext} from "../../context/auth.context";
 import './Navigation.scss'
 import engLogo from '../../assets/images/united_kingdom_640.png'
 import rusLogo from '../../assets/images/russia_round_icon_64.png'
 import hotelLogo from '../../assets/images/Rixos_Hotels_logo_logotype.png'
-import {Navbar, NavbarBrand, Nav, Row, Col, Modal, Button} from "react-bootstrap";
+import {Navbar, NavbarBrand, Nav, Row, Col, Modal} from "react-bootstrap";
 import Container from "react-bootstrap/esm/Container";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFacebookF, faTwitter, faVk} from '@fortawesome/free-brands-svg-icons'
@@ -13,7 +13,8 @@ import {Category} from "../../interfaces/clientInterfaces";
 import {CategoryService} from "../../APIServices/categoryService";
 import {OrderService} from "../../APIServices/orderService";
 import toaster from "toasted-notes";
-import {useHttp} from "../../hooks/http.hook";
+import {useHttp} from '../../hooks/http.hook'
+import DatePicker, {ChangeCallback} from 'react-bootstrap-date-picker'
 
 
 const Navigation = () => {
@@ -34,6 +35,7 @@ const Navigation = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
 
     const adminComponents = (
         <>
@@ -71,6 +73,7 @@ const Navigation = () => {
         setOrder({...order, [event.target.name]: event.target.value} )
     }
 
+
     const addOrderHandler = async () => {
           const data = await OrderService.postOrder({...order}, {
               Authorization: `Bearer ${auth.token}`,
@@ -79,6 +82,10 @@ const Navigation = () => {
           toaster.notify(data.message, {
               duration: 2000
           })
+        if (!isAuthenticated) {
+            setShow(false)
+          history.push('/auth')
+        }
     }
 
     useEffect(() => {
@@ -166,17 +173,18 @@ const Navigation = () => {
                     <button className='button-book header_button' onClick={handleShow} >Book Room</button>
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
+                            <Modal.Title>Book your room</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <div>
-                                <select  onChange={selectOrderChangeHandler} name="category" id="">
+                            <div className='d-flex justify-content-center align-items-center flex-column'>
+                                <select className={'form-control'}  onChange={selectOrderChangeHandler} name="category" id="">
                                     {options}
                                 </select>
-                                <input name={'checkIn'} onChange={onChangeHandler} type="date"/>
-                                <input name={'checkOut'}  onChange={onChangeHandler} type="date"/>
-                                <input name={'guests'}  onChange={onChangeHandler} type="number"/>
-                                <button  onClick={addOrderHandler}>
+                                <input className={'form-control'} name={'checkIn'} onChange={onChangeHandler} type="date"/>
+                                <input className={'form-control'} name={'checkOut'}  onChange={onChangeHandler} type="date"/>
+                                {/*<DatePicker onChange={onChangeHandler}/>*/}
+                                <input className={'form-control'} name={'guests'} placeholder='number of guests' onChange={onChangeHandler} type="number"/>
+                                <button className={'button btn-black'} onClick={addOrderHandler}>
                                     Send
                                 </button>
                             </div>

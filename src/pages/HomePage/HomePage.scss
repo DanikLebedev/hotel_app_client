@@ -1,7 +1,12 @@
 @import "src/index";
 
 .main__title {
-  margin-bottom: 10vh;
+  margin-bottom: 15vh;
+  margin-top: 15vh;
+}
+
+.home-page__header {
+  padding-bottom: 280px;
 }
 
 .home-page__about-us {
@@ -64,6 +69,9 @@
   &-item {
     height: 20vh;
     margin-right: 10px;
+    &:last-child {
+      margin-right: 0;
+    }
     &-title {
       display: flex;
       margin-top: 10px;

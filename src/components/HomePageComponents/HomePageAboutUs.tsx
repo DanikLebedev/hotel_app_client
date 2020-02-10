@@ -10,8 +10,9 @@ import roomImage2
 export const HomePageAboutUs = () => {
     return (
 
-        <section className={'home-page__about-us'}>
-            <Container className={'main__title'}>
+        <section className='home-page__about-us'>
+            <div className='home-page__header d-flex justify-content-center align-items-center flex-column text-left'>
+                <Slider/>
                 <h1 className='header__title'>Welcome to Rixos Hotel</h1>
                 <p className={'header__subtitle'}>Chilling out on the bed in your hotel room watching TV, while wearing your own pajamas, is sometimes the best part of vacation.</p>
                 <div className={"button__container"}>
@@ -22,8 +23,7 @@ export const HomePageAboutUs = () => {
                         <button className={'btn-transparent button'}>About us</button>
                     </NavLink>
                 </div>
-            </Container>
-            <Slider/>
+            </div>
             <Container>
                 <Row>
                     <Col lg={6} md={6}>

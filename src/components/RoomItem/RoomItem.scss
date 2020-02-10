@@ -1,4 +1,8 @@
 .rooms-page__item {
+  &-img {
+    max-width: 70%;
+    height: 80%;
+  }
   p {
     margin-right: 10px;
   }

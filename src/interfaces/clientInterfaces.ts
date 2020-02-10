@@ -1,25 +1,25 @@
-export  interface Category {
-    title: string
+export interface Category {
+    title: string;
 }
 
 export interface Categories {
-    categories: Array<Category>
+    categories: Array<Category>;
 }
 
-export interface Data extends Response{
-    message: string
+export interface Data extends Response {
+    message: string;
 }
 
 export interface Statuses {
-    statuses: Status[]
+    statuses: Status[];
 }
 
 export interface Status {
-    title: string
+    title: string;
 }
 
 export interface Rooms {
-    rooms: Room[]
+    rooms: Room[];
 }
 
 export interface Room {
@@ -36,32 +36,33 @@ export interface Room {
 }
 
 export interface Employee {
-    email: string,
-    password: string,
-    status: string
+    email: string;
+    password: string;
+    status: string;
 }
 
 export interface Employees {
-    employees: Employee[]
+    employees: Employee[];
 }
 
 export interface Customer {
-    email: string,
-    password: string,
-    order: []
+    email: string;
+    password: string;
+    order: [];
 }
 
 export interface Customers {
-    customers: Customer[]
+    customers: Customer[];
 }
 
 export interface Order {
-    category: string,
-    checkIn: string,
-    checkOut: string,
-    guests: number
+    category: string;
+    checkIn: string;
+    checkOut: string;
+    guests: number;
+    _id: string;
 }
 
 export interface Orders {
-    orders: Order[]
+    orders: Order[];
 }

@@ -1,3 +1,5 @@
+@import "src/index";
+
 .room-page {
   &-bg {
     background: url("../../assets/images/dui21-deluxe-room1.add1.low-res.jpg") center center / cover;
@@ -8,8 +10,11 @@
     left: 0;
     z-index: -3;
   }
-
+  h1 {
+    color: $base-text-color;
+    font-size: 4em;
+  }
   &-wrapper {
-    padding-top: 30vh;
+    padding-top: 35vh;
   }
 }
