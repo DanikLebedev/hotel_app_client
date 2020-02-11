@@ -61,6 +61,8 @@ export interface Order {
     checkOut: string;
     guests: number;
     _id: string;
+    status: string;
+    price: number;
 }
 
 export interface Orders {

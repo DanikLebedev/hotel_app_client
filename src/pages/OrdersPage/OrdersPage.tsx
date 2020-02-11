@@ -6,8 +6,10 @@ import { OrderService } from '../../APIServices/orderService';
 import { Order } from '../../interfaces/clientInterfaces';
 import { AuthContext } from '../../context/auth.context';
 import toaster from 'toasted-notes';
+import { Container } from 'react-bootstrap';
+import { OrderItem } from '../../components/OrderItem/OrderItem';
 
-export const OrderPage = () => {
+export const OrderPage: React.FC = () => {
     const auth = useContext(AuthContext);
     const [orders, setOrders] = useState<Order[]>([]);
     const fetchOrders = useCallback(async () => {
@@ -24,11 +26,7 @@ export const OrderPage = () => {
                 return order._id === target.id;
             });
             setOrders(filteredOrders);
-            const response = await fetch('/api/client/order/delete', {
-                method: 'DELETE',
-                body: formData,
-            });
-            const data = await response.json();
+            const data = await OrderService.deleteOrder(formData);
             toaster.notify(data.message, {
                 duration: 2000,
             });
@@ -41,28 +39,21 @@ export const OrderPage = () => {
 
     if (orders) {
         return (
-            <div>
-                {}
-                {orders.length !== 0 ? (
-                    orders.map((item, key) => {
-                        return (
-                            <ul key={key}>
-                                <li>{item.category}</li>
-                                <li>{item.checkIn}</li>
-                                <li>{item.checkOut}</li>
-                                <li>{item.guests}</li>
-                                <button onClick={deleteOrderHandler} id={item._id}>
-                                    Delete order
-                                </button>
-                            </ul>
-                        );
-                    })
-                ) : (
-                    <h1>There mo orders yet</h1>
-                )}
+            <div className="">
+                <div className="room-page-bg  d-flex justify-content-center align-items-center">
+                    <h1 className="text-white">Your Orders</h1>
+                </div>
+                <Container className="room-page-wrapper pb-5 d-flex justify-content-around align-items-center">
+                    {orders.length !== 0 ? (
+                        orders.map((item: Order, key: number) => {
+                            return <OrderItem key={key} order={item} onDelete={deleteOrderHandler} />;
+                        })
+                    ) : (
+                        <h1>There no orders yet</h1>
+                    )}
+                </Container>
             </div>
         );
     }
-
-    return <p>There no orders yet</p>;
+    return null;
 };

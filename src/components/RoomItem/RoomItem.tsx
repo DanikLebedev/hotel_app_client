@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import { config } from '../../config';
 import { Room } from '../../interfaces/clientInterfaces';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -16,14 +16,12 @@ export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: Roo
                     lg={6}
                     className="room-page__item-img"
                     style={{ background: `url(${config.baseUrl + roomInfo.image}) center center / cover` }}
-                >
-                    {/*<img style={{width: '80%', height: '80%'}} src={config.baseUrl + props.roomInfo.image } alt="img"/>*/}
-                </Col>
+                ></Col>
                 <Col lg={6}>
                     <h3>{roomInfo.title}</h3>
                     <div className="d-flex">
                         <p>Category: {roomInfo.category}</p>
-                        <p>Price: {roomInfo.price}</p>
+                        <p>Price: {roomInfo.price}$</p>
                     </div>
                     <div className="d-flex">
                         <p>Area: {roomInfo.area}</p>

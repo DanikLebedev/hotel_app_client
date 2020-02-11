@@ -17,4 +17,12 @@ export class CRUDServices {
         const data: Data = await response.json();
         return data;
     }
+    public static async deleteData(url: string, body: any): Promise<any> {
+        const response: Response = await fetch(url, {
+            method: 'DELETE',
+            body,
+        });
+        const data: Data = await response.json();
+        return data;
+    }
 }
