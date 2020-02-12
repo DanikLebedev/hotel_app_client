@@ -1,0 +1,17 @@
+.videoTag {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -3;
+  filter: blur(3px);
+}
+
+.about-us__page {
+  padding: 10vh 0 10vh 0;
+  &-photo {
+    background: url('../../assets/images/Chicago_70230862_1050x590_tcm-33720.jpg') center center / cover;
+    height: 30rem;
+  }
+}

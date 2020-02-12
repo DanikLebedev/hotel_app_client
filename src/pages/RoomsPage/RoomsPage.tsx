@@ -6,7 +6,7 @@ import './RoomsPage.scss';
 export const RoomsPage: FC = () => {
     return (
         <div className="room-page">
-            <div className="room-page-bg d-flex justify-content-center align-items-center">
+            <div className="room-page-bg d-flex justify-content-center align-items-end">
                 <h1>Book Room</h1>
             </div>
             <Container className="room-page-wrapper">

@@ -29,6 +29,8 @@ const Navigation: React.FC = () => {
         setShow(true);
     };
 
+
+
     const handleClose = () => {
         setShow(false);
     };
@@ -43,7 +45,7 @@ const Navigation: React.FC = () => {
 
     const authComponents = (
         <>
-            <NavLink activeClassName={'active-link'} className={'mr-5'} to="/orders">
+            <NavLink   onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
                 orders
             </NavLink>
         </>
@@ -52,6 +54,14 @@ const Navigation: React.FC = () => {
     const showMenuHandler = () => {
         setShowMenu(!showMenu);
     };
+
+    const cls = ['nav-wrapper']
+
+    if(showMenu) {
+        cls.push('active')
+    } else {
+        cls.push('disabled')
+    }
 
     return (
         <>
@@ -126,7 +136,7 @@ const Navigation: React.FC = () => {
                         <img style={{ filter: 'brightness(5)' }} src={hotelLogo} width={180} height={70} alt="logo" />
                     </NavbarBrand>
                     <div
-                        className={showMenu ? 'active nav-wrapper' : 'disabled nav-wrapper'}
+                        className={cls.join(' ')}
                     >
                         <Nav id={'nav__list_links'} className="nav__list_links mr-auto ml-auto  ">
                             <NavLink
@@ -144,6 +154,14 @@ const Navigation: React.FC = () => {
                                 to="/rooms"
                             >
                                 Rooms
+                            </NavLink>
+                            <NavLink
+                                onClick={() => setShowMenu(false)}
+                                activeClassName={'active-link'}
+                                className={'mr-5'}
+                                to="/about"
+                            >
+                                About Us
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
                             {userStatus === 'admin' ? adminComponents : null}

@@ -259,6 +259,19 @@ and (max-width: 1199px){
   and (min-width: 480px)
 {
 
+
+  .home-page__feedback {
+    &-title {
+      font-size: 1.3em;
+    }
+    &-subtitle {
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 1.1em;
+    }
+  }
+
   .home-page__header {
     padding-bottom: 80px;
   }
@@ -280,7 +293,6 @@ and (max-width: 1199px){
   .home-page__about-us {
     &-photos {
       margin-top: 30px;
-      //max-width: 200px;
     }
     &-title {
       font-size: 2em;

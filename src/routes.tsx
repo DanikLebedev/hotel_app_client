@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage/AuthPage';
 import { HomePage } from './pages/HomePage/HomePage';
 import { AuthAdminPage } from './pages/AuthAdminPage/AuthAdminPage';
 import NotFound from './components/ErrorsComponents/404';
+import {AboutUsPage} from "./pages/AboutUsPage/AboutUsPage";
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -22,6 +23,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 </Route>
                 <Route path="/orders" exact>
                     <OrderPage />
+                </Route>
+                <Route path="/about" exact>
+                    <AboutUsPage />
                 </Route>
                 <Route path="*" component={NotFound} />
             </Switch>
@@ -63,6 +67,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 <Route path="/admin/login" exact>
                     <AuthAdminPage />
                 </Route>
+                <Route path="/about" exact>
+                    <AboutUsPage />
+                </Route>
                 <Redirect to="/" />
             </Switch>
         );
@@ -81,6 +88,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Route>
             <Route path="/auth" exact>
                 <AuthPage />
+            </Route>
+            <Route path="/about" exact>
+                <AboutUsPage />
             </Route>
             <Route path="*" component={NotFound} />
         </Switch>

@@ -10,10 +10,12 @@ interface RoomItemProps {
 
 export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: RoomItemProps) => {
     return (
-        <Container>
+        <Container className="rooms-page__wrapper">
             <Row className="rooms-page__item mb-3">
                 <Col
-                    lg={6} md={6} sm={6}
+                    lg={6}
+                    md={6}
+                    sm={6}
                     className="room-page__item-img"
                     style={{ background: `url(${config.baseUrl + roomInfo.image}) center center / cover` }}
                 ></Col>
