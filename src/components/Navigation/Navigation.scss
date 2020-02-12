@@ -236,6 +236,9 @@ and (max-width: 1199px){
     justify-content: center;
     align-items: center;
     transition: .5s ease-in-out;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
   }
 
   .disabled {
