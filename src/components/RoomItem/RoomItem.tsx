@@ -13,11 +13,11 @@ export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: Roo
         <Container>
             <Row className="rooms-page__item mb-3">
                 <Col
-                    lg={6}
+                    lg={6} md={6} sm={6}
                     className="room-page__item-img"
                     style={{ background: `url(${config.baseUrl + roomInfo.image}) center center / cover` }}
                 ></Col>
-                <Col lg={6}>
+                <Col lg={6} md={6} sm={6}>
                     <h3>{roomInfo.title}</h3>
                     <div className="d-flex">
                         <p>Category: {roomInfo.category}</p>

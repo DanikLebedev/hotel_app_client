@@ -7,15 +7,15 @@ import thirdImg from '../../assets/images/3-high-res-restaurant-30.jpg';
 
 export const Slider = () => {
     return (
-        <Carousel controls={false} interval={2000} fade={true} className="slider">
+        <Carousel indicators={false} controls={false} interval={2000} fade={true} className="slider">
             <Carousel.Item>
-                <img style={{ height: '85vh' }} className="d-block w-100" src={firstImg} alt="First slide" />
+                <img  className="d-block w-100" src={firstImg} alt="First slide" />
             </Carousel.Item>
             <Carousel.Item>
-                <img style={{ height: '85vh' }} className="d-block w-100" src={secondImg} alt="Third slide" />
+                <img  className="d-block w-100 " src={secondImg} alt="Third slide" />
             </Carousel.Item>
             <Carousel.Item>
-                <img style={{ height: '85vh' }} className="d-block w-100" src={thirdImg} alt="Third slide" />
+                <img  className="d-block w-100" src={thirdImg} alt="Third slide" />
             </Carousel.Item>
         </Carousel>
     );
