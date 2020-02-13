@@ -1,19 +1,19 @@
 .rooms-page__item {
   border-radius: 20px;
-  padding: 15px;
+  padding: 30px;
   transition: .3s ease-in-out;
 
-  &-img {
-    max-width: 70%;
-    height: 80%;
-  }
   p {
     margin-right: 10px;
   }
   &:hover {
     color: #ffffff;
-    background: #000000;
+    background: rgba(0,0,0,.3);
   }
+}
+
+.room-page__item-img {
+ border-radius: 20px;
 }
 
 .rooms-page__wrapper {

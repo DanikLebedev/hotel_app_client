@@ -40,7 +40,7 @@ export const OrderPage: React.FC = () => {
     if (orders) {
         return (
             <div>
-                <div className="room-page-bg  d-flex justify-content-center align-items-end">
+                <div className="order-page-bg d-flex justify-content-center align-items-end">
                     <h1 className="text-white">Your Orders</h1>
                 </div>
                 <Container className="room-page-wrapper pb-5 d-flex justify-content-around align-items-center">

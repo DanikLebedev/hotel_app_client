@@ -3,7 +3,7 @@ import './AboutUsPage.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { config } from '../../config';
 
-export const AboutUsPage = () => {
+export const AboutUsPage: React.FC = () => {
     return (
         <>
             <video className="videoTag" autoPlay loop muted>
@@ -12,8 +12,7 @@ export const AboutUsPage = () => {
             <Container className="about-us__page">
                 <h1>About us</h1>
                 <Row>
-                    <Col lg={6} className="about-us__page-photo"  md={6} sm={6}>
-                    </Col>
+                    <Col lg={6} className="about-us__page-photo" md={6} sm={6}></Col>
                     <Col lg={6} md={6} sm={6}>
                         <h3>We are the best</h3>
                         <p>

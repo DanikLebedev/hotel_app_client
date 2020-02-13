@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
 import { AuthContext } from './context/auth.context';
@@ -8,7 +8,7 @@ import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 
 const App: React.FC = () => {
-    const { login, logout, token, userId, userStatus } = useAuth();
+    const { login, logout, token, userId, userStatus, userEmail } = useAuth();
     const isAuthenticated = !!token;
     const routes: JSX.Element = useRoutes(isAuthenticated, userStatus);
 
@@ -22,6 +22,7 @@ const App: React.FC = () => {
                     userId,
                     isAuthenticated,
                     userStatus,
+                    userEmail,
                 }}
             >
                 <AdminPage />
@@ -38,6 +39,7 @@ const App: React.FC = () => {
                 userId,
                 isAuthenticated,
                 userStatus,
+                userEmail,
             }}
         >
             <Router>

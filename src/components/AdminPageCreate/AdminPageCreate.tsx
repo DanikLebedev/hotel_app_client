@@ -12,11 +12,7 @@ import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import './AdminPageCreate.scss';
 
-import { Responsive, WidthProvider } from 'react-grid-layout';
-
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export const AdminPageCreate: React.FC = () => {
     const auth = useContext(AuthContext);

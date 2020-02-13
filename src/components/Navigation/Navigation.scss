@@ -199,6 +199,14 @@ and (max-width: 1199px){
     font-size: 1em;
   }
 
+  .navbar-brand {
+   img {
+     width: 140px;
+     height: 60px;
+   }
+
+  }
+
   .header__contacts {
     li {
       span {
@@ -208,6 +216,43 @@ and (max-width: 1199px){
         }
       }
     }
+  }
+
+  #burger-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .nav-wrapper {
+    #nav__list_links {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.1em;
+    }
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .disabled {
+    transform: translateX(-320px);
+  }
+  .active {
+    transform: translateX(0px);
+  }
+
+  .transition {
+    transition: .5s ease-in-out;
   }
 
 }

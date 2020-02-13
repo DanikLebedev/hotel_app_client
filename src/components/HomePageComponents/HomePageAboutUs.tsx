@@ -29,7 +29,12 @@ export const HomePageAboutUs = () => {
             </div>
             <Container fluid={true}>
                 <Row>
-                    <Col lg={6} sm={12} md={6} className={'d-flex justify-content-center align-items-center flex-column'}>
+                    <Col
+                        lg={6}
+                        sm={12}
+                        md={6}
+                        className={'d-flex justify-content-center align-items-center flex-column'}
+                    >
                         <h2 className={'section__title home-page__about-us-title'}>Hotels to celebrate life</h2>
                         <p className={'home-page__about-us-text'}>
                             We are proud to say that since our opening in '98 we have been serving our visitors in the
@@ -46,10 +51,10 @@ export const HomePageAboutUs = () => {
                     </Col>
                     <Col lg={6} md={6} sm={12}>
                         <Row className={'home-page__about-us-photos d-flex justify-content-around align-items-center'}>
-                            <Col className='d-flex justify-content-center align-items-center' lg={6} sm={6} md={6}>
+                            <Col className="d-flex justify-content-center align-items-center" lg={6} sm={6} md={6}>
                                 <img src={roomImage1} alt="room" />
                             </Col>
-                            <Col className='d-flex justify-content-center align-items-center' lg={6} sm={6} md={6}>
+                            <Col className="d-flex justify-content-center align-items-center" lg={6} sm={6} md={6}>
                                 <img src={roomImage2} alt="room" />
                             </Col>
                         </Row>

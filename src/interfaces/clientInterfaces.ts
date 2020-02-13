@@ -22,7 +22,7 @@ export interface Rooms {
     rooms: Room[];
 }
 
-export interface Room {
+export interface Room extends Object {
     category: string;
     userId: string;
     isBooked: boolean;
@@ -33,6 +33,7 @@ export interface Room {
     rooms: number;
     description: string;
     image: string;
+    _id: string;
 }
 
 export interface Employee {
@@ -60,9 +61,10 @@ export interface Order {
     checkIn: string;
     checkOut: string;
     guests: number;
-    _id: string;
-    status: string;
+    _id?: string;
+    status?: string;
     price: number;
+    comment: string;
 }
 
 export interface Orders {

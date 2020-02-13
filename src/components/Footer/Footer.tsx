@@ -8,9 +8,9 @@ import { faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-ic
 export const Footer: React.FC = () => {
     return (
         <footer>
-            <Container fluid={true}>
+            <Container>
                 <Row className="d-flex justify-content-between align-content-center ml-3 ">
-                    <Col lg={6} md={6} sm={6} className="justify-content-center align-items-center">
+                    <Col lg={8} md={8} sm={8} className="justify-content-center align-items-center">
                         <Row>
                             <Col lg={12} md={12} sm={12}>
                                 <img
@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
                             </Col>
                         </Row>
                     </Col>
-                    <Col lg={6} md={6} sm={6} className="justify-content-end align-items-center">
+                    <Col lg={4} md={4} sm={4} className="justify-content-end align-items-center">
                         <Row>
                             <h3 className={'footer__title'}>Sign Up For special offers</h3>
                         </Row>

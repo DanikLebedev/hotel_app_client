@@ -1,0 +1,19 @@
+.room-info-page {
+  padding: 3rem 0 3rem 0;
+  &-bg {
+    background: url("https://res.cloudinary.com/sonesta/image/fetch/c_crop,x_1,y_0,w_1917,h_799,q_auto:good,f_auto,fl_force_strip.lossy.progressive/c_scale,w_1920/https%3A%2F%2Fwww.sonesta.com%2Fsites%2Fdefault%2Ffiles%2FSunrise2_HighRes.jpg") center center / cover;
+    height: 50vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -3;
+  }
+
+  h1 {
+    font-size: 4em;
+  }
+  &-wrapper {
+    padding-top: 35vh;
+  }
+}

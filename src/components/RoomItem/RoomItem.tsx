@@ -3,12 +3,19 @@ import { config } from '../../config';
 import { Room } from '../../interfaces/clientInterfaces';
 import { Col, Container, Row } from 'react-bootstrap';
 import './RoomItem.scss';
+import { useHistory } from 'react-router-dom';
 
 interface RoomItemProps {
     roomInfo: Room;
 }
 
 export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: RoomItemProps) => {
+    const history = useHistory();
+
+    const showInfoHandler = () => {
+        history.push(`/rooms/${roomInfo._id}`);
+    };
+
     return (
         <Container className="rooms-page__wrapper">
             <Row className="rooms-page__item mb-3">
@@ -25,13 +32,9 @@ export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: Roo
                         <p>Category: {roomInfo.category}</p>
                         <p>Price: {roomInfo.price}$</p>
                     </div>
-                    <div className="d-flex">
-                        <p>Area: {roomInfo.area}</p>
-                        <p>Guests: {roomInfo.guests}</p>
-                        <p>Rooms: {roomInfo.rooms}</p>
-                    </div>
-                    <p>Description: {roomInfo.description}</p>
-                    <button className="button btn-black">Book Room</button>
+                    <button onClick={showInfoHandler} className="button btn-black">
+                        Show More
+                    </button>
                 </Col>
             </Row>
         </Container>

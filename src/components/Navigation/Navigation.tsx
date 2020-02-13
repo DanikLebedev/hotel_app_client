@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import './Navigation.scss';
@@ -9,30 +9,25 @@ import { Navbar, NavbarBrand, Nav, Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/esm/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
-import { OrderModal } from '../Modal/Modal';
-
-
+import { goToAnchor } from 'react-scrollable-anchor';
+import { configureAnchors } from 'react-scrollable-anchor';
 
 const Navigation: React.FC = () => {
+    configureAnchors({ offset: -100, scrollDuration: 1000 });
+
     const auth = useContext(AuthContext);
     const history = useHistory();
     const isAuthenticated = auth.isAuthenticated;
     const userStatus = auth.userStatus;
+    const userEmail = auth.userEmail;
     const logoutHandler = (event: { preventDefault: () => void }) => {
         event.preventDefault();
         auth.logout();
         history.push('/');
     };
     const [showMenu, setShowMenu] = useState(false);
-    const [show, setShow] = useState(false);
-    const handleShow = () => {
-        setShow(true);
-    };
-
-
-
-    const handleClose = () => {
-        setShow(false);
+    const goToForm = () => {
+        goToAnchor('home-page-book-form', false);
     };
 
     const adminComponents = (
@@ -45,7 +40,7 @@ const Navigation: React.FC = () => {
 
     const authComponents = (
         <>
-            <NavLink   onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
+            <NavLink onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
                 orders
             </NavLink>
         </>
@@ -55,12 +50,12 @@ const Navigation: React.FC = () => {
         setShowMenu(!showMenu);
     };
 
-    const cls = ['nav-wrapper']
+    const cls = ['nav-wrapper'];
 
-    if(showMenu) {
-        cls.push('active')
+    if (showMenu) {
+        cls.push('active', 'transition');
     } else {
-        cls.push('disabled')
+        cls.push('disabled');
     }
 
     return (
@@ -107,6 +102,7 @@ const Navigation: React.FC = () => {
                                 )}
                                 <img src="" alt="" />
                                 <span>{userStatus ? <span>{userStatus}</span> : null}</span>
+                                <span>{userEmail ? <span>{userEmail}</span> : null}</span>
                             </li>
                             <div className="separator"></div>
                             <li>
@@ -135,9 +131,7 @@ const Navigation: React.FC = () => {
                     <NavbarBrand href="/">
                         <img style={{ filter: 'brightness(5)' }} src={hotelLogo} width={180} height={70} alt="logo" />
                     </NavbarBrand>
-                    <div
-                        className={cls.join(' ')}
-                    >
+                    <div className={cls.join(' ')}>
                         <Nav id={'nav__list_links'} className="nav__list_links mr-auto ml-auto  ">
                             <NavLink
                                 onClick={() => setShowMenu(false)}
@@ -165,11 +159,10 @@ const Navigation: React.FC = () => {
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
                             {userStatus === 'admin' ? adminComponents : null}
-                            <button className="button-book header_button" onClick={handleShow}>
+                            <button className="button-book header_button" onClick={goToForm}>
                                 Book Room
                             </button>
                         </Nav>
-                        <OrderModal onClose={handleClose} show={show} />
                     </div>
                 </Navbar>
             </Container>
