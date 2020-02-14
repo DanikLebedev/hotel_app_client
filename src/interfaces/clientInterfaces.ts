@@ -65,8 +65,23 @@ export interface Order {
     status?: string;
     price: number;
     comment: string;
+    userEmail: string
 }
 
 export interface Orders {
     orders: Order[];
 }
+
+export interface OrderCart {
+    status: string;
+    orderId: string;
+    category: string;
+    checkIn: string;
+    checkOut: string;
+    userEmail: string
+}
+
+export interface OrderCarts {
+    ordercarts: OrderCart[]
+}
+

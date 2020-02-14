@@ -51,6 +51,7 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 <Route path="/admin/login" exact>
                     <AuthAdminPage />
                 </Route>
+                <Route path="*" component={NotFound} />
                 <Redirect to="/" />
             </Switch>
         );
@@ -74,6 +75,7 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 <Route path="/about" exact>
                     <AboutUsPage />
                 </Route>
+                <Route path="*" component={NotFound} />
                 <Redirect to="/" />
             </Switch>
         );

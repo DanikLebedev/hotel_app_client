@@ -11,8 +11,10 @@ import toaster from 'toasted-notes';
 import { AuthContext } from '../../context/auth.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../hooks/auth.hook';
 
 export const RoomInfoPage: React.FC = () => {
+    const userEmail = useAuth().userEmail;
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
     const [order, setOrder] = useState<Order>({
         category: '',
@@ -21,6 +23,7 @@ export const RoomInfoPage: React.FC = () => {
         comment: '',
         guests: 1,
         price: 0,
+        userEmail,
     });
     const params: { id?: string } = useParams();
     const roomId: string | undefined = params.id;
@@ -48,7 +51,7 @@ export const RoomInfoPage: React.FC = () => {
             return;
         }
         const data = await OrderService.postOrder(
-            { ...order, category: roomInfo[0].category, price: roomInfo[0].price },
+            { ...order, category: roomInfo[0].category, price: roomInfo[0].price, userEmail },
             {
                 Authorization: `Bearer ${auth.token}`,
                 'Content-Type': 'application/json',
