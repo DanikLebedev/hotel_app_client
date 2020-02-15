@@ -21,4 +21,9 @@ export class RoomService {
         const response: Data = await CRUDServices.deleteData('/api/admin/room/delete', body);
         return response;
     }
+
+    public static async updateRoom(body: {}): Promise<Data> {
+        const response: Data = await CRUDServices.putData('/api/admin/room/update', body);
+        return response;
+    }
 }

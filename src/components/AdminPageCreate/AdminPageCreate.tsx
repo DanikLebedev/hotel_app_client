@@ -18,7 +18,6 @@ export const AdminPageCreate: React.FC = () => {
     const auth = useContext(AuthContext);
     const { error, clearError } = useHttp();
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
-    const [postCategories, setPostCategories] = useState({});
     const [fetchedStatuses, setFetchedStatuses] = useState<Status[]>([]);
     const [employeeForm, setEmployeeForm] = useState({});
 
@@ -46,23 +45,6 @@ export const AdminPageCreate: React.FC = () => {
         toaster.notify(data.message, {
             duration: 2000,
         });
-    };
-
-    const addCategoryHandler = async (): Promise<void> => {
-        const data: Data = await CategoryService.postCategory(
-            { ...postCategories },
-            {
-                Authorization: `Bearer ${auth.token}`,
-                'Content-Type': 'application/json',
-            },
-        );
-        toaster.notify(data.message, {
-            duration: 2000,
-        });
-    };
-
-    const categoryChangeHandler = (event: InputEvent): void => {
-        setPostCategories({ ...postCategories, [event.target.name]: event.target.value });
     };
 
     const employeeChangeHandler = (event: InputEvent): void => {
@@ -113,20 +95,6 @@ export const AdminPageCreate: React.FC = () => {
     return (
         <Container>
             <div key={1} className="d-flex justify-content-around align-items-center mt-3 ">
-                <div className={'admin-form'}>
-                    <h3>create category</h3>
-                    <input
-                        className="form-control w-50 m-3"
-                        type="text"
-                        name="title"
-                        id="title"
-                        placeholder="title"
-                        onChange={categoryChangeHandler}
-                    />
-                    <button className="btn btn-primary" onClick={addCategoryHandler}>
-                        Add category
-                    </button>
-                </div>
                 <form onSubmit={addRoomHandler} className="admin-form ">
                     <h3>create room</h3>
                     <select className={'form-control'} name="category" id="categories">

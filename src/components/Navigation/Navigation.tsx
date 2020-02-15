@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, Suspense, ChangeEvent } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import './Navigation.scss';
@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
 import { goToAnchor } from 'react-scrollable-anchor';
 import { configureAnchors } from 'react-scrollable-anchor';
+import { useTranslation } from 'react-i18next';
 
 const Navigation: React.FC = () => {
     configureAnchors({ offset: -100, scrollDuration: 1000 });
@@ -30,22 +31,6 @@ const Navigation: React.FC = () => {
         goToAnchor('home-page-book-form', false);
     };
 
-    const adminComponents = (
-        <>
-            <NavLink activeClassName={'active-link'} className={'mr-5'} to="/admin">
-                admin
-            </NavLink>
-        </>
-    );
-
-    const authComponents = (
-        <>
-            <NavLink onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
-                orders
-            </NavLink>
-        </>
-    );
-
     const showMenuHandler = () => {
         setShowMenu(!showMenu);
     };
@@ -57,6 +42,19 @@ const Navigation: React.FC = () => {
     } else {
         cls.push('disabled');
     }
+    const { t, i18n } = useTranslation();
+
+    const changeLang = (event: ChangeEvent<HTMLInputElement>) => {
+        i18n.changeLanguage(event.target.value);
+    };
+
+    const authComponents = (
+        <>
+            <NavLink onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
+                {t('orders.label')}
+            </NavLink>
+        </>
+    );
 
     return (
         <>
@@ -70,35 +68,39 @@ const Navigation: React.FC = () => {
                             </li>
                             <div className="separator"></div>
                             <li>
-                                <span>Phone</span>
+                                <span>{t('phone.label')}</span>
                                 <span className="font-weight-bold">+39752180</span>
                             </li>
                             <div className="separator"></div>
                             <li>
-                                <span>Adress</span>
-                                <span className="font-weight-bold">Minsk, Filimonova 15</span>
+                                <span>{t('adress.label')}</span>
+                                <span className="font-weight-bold">{t('street.label')}</span>
                             </li>
                         </ul>
                     </Col>
                     <Col lg={6} md={6}>
                         <ul className="d-flex justify-content-between">
                             <li className="d-flex justify-content-center align-items-center switсh-language__wrapper">
-                                <button>
-                                    <img src={rusLogo} width={40} height={30} alt="russia" />
-                                </button>
-                                <button>
-                                    <img src={engLogo} width={40} height={30} alt="england" />
-                                </button>
+                                <div onChange={changeLang}>
+                                    <input type="radio" value="en" name="language" defaultChecked /> English
+                                    <input type="radio" value="ru" name="language" /> russian
+                                </div>
+                                {/*<button>*/}
+                                {/*    <img src={rusLogo} width={40} height={30} alt="russia" />*/}
+                                {/*</button>*/}
+                                {/*<button>*/}
+                                {/*    <img src={engLogo} width={40} height={30} alt="england" />*/}
+                                {/*</button>*/}
                             </li>
                             <li className="userInfo">
                                 {isAuthenticated ? (
                                     <Nav>
                                         <NavLink onClick={logoutHandler} to="/">
-                                            Logout
+                                            {t('logout.label')}
                                         </NavLink>
                                     </Nav>
                                 ) : (
-                                    <NavLink to="/auth">login</NavLink>
+                                    <NavLink to="/auth"> {t('login.label')}</NavLink>
                                 )}
                                 <img src="" alt="" />
                                 <span>{userStatus ? <span>{userStatus}</span> : null}</span>
@@ -139,7 +141,7 @@ const Navigation: React.FC = () => {
                                 className={'mr-5 link'}
                                 to="/"
                             >
-                                Home
+                                {t('home.label')}
                             </NavLink>
                             <NavLink
                                 onClick={() => setShowMenu(false)}
@@ -147,7 +149,7 @@ const Navigation: React.FC = () => {
                                 className={'mr-5'}
                                 to="/rooms"
                             >
-                                Rooms
+                                {t('rooms.label')}
                             </NavLink>
                             <NavLink
                                 onClick={() => setShowMenu(false)}
@@ -155,12 +157,11 @@ const Navigation: React.FC = () => {
                                 className={'mr-5'}
                                 to="/about"
                             >
-                                About Us
+                                {t('about.label')}
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
-                            {userStatus === 'admin' ? adminComponents : null}
                             <button className="button-book header_button" onClick={goToForm}>
-                                Book Room
+                                {t('book-room.label')}
                             </button>
                         </Nav>
                     </div>

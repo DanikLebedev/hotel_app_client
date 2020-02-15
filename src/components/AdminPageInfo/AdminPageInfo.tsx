@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import {
     ColumnDirective,
@@ -15,21 +15,21 @@ import {
     Search,
     Resize,
 } from '@syncfusion/ej2-react-grids';
-import { Category, Customer, Order, OrderCarts, Orders, Room, OrderCart } from '../../interfaces/clientInterfaces';
+import { Category, Customer, Employee, Order, Room } from '../../interfaces/clientInterfaces';
 import { CategoryService } from '../../APIServices/categoryService';
-import { CustomerService } from '../../APIServices/customerService';
 import { RoomService } from '../../APIServices/roomService';
 import '../../pages/AdminPage/AdminPage.scss';
 import { config } from '../../config';
 import { AuthContext } from '../../context/auth.context';
 import { OrderService } from '../../APIServices/orderService';
+import { EmployeeService } from '../../APIServices/employeeService';
 
 export const AdminPageInfo: React.FC = () => {
     const auth = useContext(AuthContext);
     const [orders, setOrders] = useState<Order[]>([]);
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
-    const [fetchedCustomer, setFetchedCustomers] = useState<Customer[]>([]);
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
+    const [employee, setEmployee] = useState<Employee[]>([]);
 
     const fetchCategories = useCallback(() => {
         CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
@@ -43,13 +43,19 @@ export const AdminPageInfo: React.FC = () => {
         RoomService.getAllRooms().then(({ rooms }) => setFetchedRooms(rooms));
     }, []);
 
+    const fetchEmployee = useCallback(() => {
+        EmployeeService.getAllEmployee().then(({ employees }) => setEmployee(employees));
+    }, []);
+
     const gridTemplate = (props: any): any => {
         const src = config.baseUrl + props.image;
         return (
-            <div
-                className="room-img"
-                style={{ background: `url("${src}") center center / cover`, height: '100px' }}
-            ></div>
+            <>
+                <div
+                    className="room-img"
+                    style={{ background: `url("${src}") center center / cover`, height: '100px' }}
+                ></div>
+            </>
         );
     };
 
@@ -57,7 +63,8 @@ export const AdminPageInfo: React.FC = () => {
         fetchCategories();
         fetchRoom();
         fetchOrders();
-    }, [fetchCategories, fetchRoom, fetchOrders]);
+        fetchEmployee();
+    }, [fetchCategories, fetchRoom, fetchOrders, fetchEmployee]);
 
     const editOptions: EditSettingsModel = {
         allowEditing: true,
@@ -67,7 +74,6 @@ export const AdminPageInfo: React.FC = () => {
         showDeleteConfirmDialog: true,
     };
 
-    console.log(fetchedCategories);
     const toolBarOptions: ToolbarItems[] = ['Edit', 'Delete', 'Update', 'Cancel', 'Add', 'Search'];
 
     async function orderActions(state: any) {
@@ -81,29 +87,56 @@ export const AdminPageInfo: React.FC = () => {
     }
 
     async function roomActions(state: any) {
-        if (state.requestType === 'save') {
-            console.log('add', state.data);
+        if (state.action === 'add') {
         } else if (state.requestType === 'delete') {
             const formData = new FormData();
             formData.append('_id', state.data[0]._id);
             await RoomService.deleteRoom(formData).then(data => console.log(data));
+        } else if (state.action === 'edit') {
+            const formData = new FormData();
+            formData.append('_id', state.data._id);
+            formData.append('category', state.data.category);
+            formData.append('title', state.data.title);
+            formData.append('price', state.data.price);
+            formData.append('guests', state.data.guests);
+            formData.append('rooms', state.data.rooms);
+            formData.append('image', state.data.image);
+            formData.append('isBooked', state.data.isBooked);
+            await RoomService.updateRoom(formData).then(data => console.log(data));
         }
     }
 
-
     async function categoryActions(state: any) {
-        if (state.requestType === 'save') {
+        if (state.action === 'add') {
             const body = { title: state.data.title };
             await CategoryService.postCategory(body, {
                 'Content-Type': 'application/json',
             });
         } else if (state.requestType === 'delete') {
-            console.log(state.data);
+            const formData = new FormData();
+            formData.append('_id', state.data[0]._id);
+            await CategoryService.deleteCategory(formData);
+        } else if (state.action === 'edit') {
             const formData = new FormData();
             formData.append('_id', state.data._id);
-            await CategoryService.deleteCategory(formData).then(data => console.log(data));
-        } else if (state.requestType === 'beginEdit') {
-            console.log(state);
+            formData.append('title', state.data.title);
+            await CategoryService.updateCategory(formData).then(data => console.log(data));
+        }
+    }
+
+    async function employeeActions(state: any) {
+        if (state.action === 'add') {
+            const body = { status: state.data.status, password: state.data.password, email: state.data.email };
+            await EmployeeService.postEmployee(body, { 'Content-Type': 'application/json'});
+        } else if (state.requestType === 'delete') {
+            const formData = new FormData();
+            formData.append('_id', state.data[0]._id);
+            await EmployeeService.deleteEmployee(formData).then(data => console.log(data));
+        } else if (state.action === 'edit') {
+            const formData = new FormData();
+            formData.append('_id', state.data._id);
+            formData.append('status', state.data.status)
+            await EmployeeService.updateEmployee(formData).then(data => console.log(data));
         }
     }
 
@@ -117,7 +150,7 @@ export const AdminPageInfo: React.FC = () => {
                     pageSettings={{ pageSize: 6 }}
                     allowFiltering={true}
                     allowGrouping={true}
-                    width={500}
+                    width={800}
                     editSettings={editOptions}
                     toolbar={toolBarOptions}
                     actionComplete={categoryActions}
@@ -137,14 +170,14 @@ export const AdminPageInfo: React.FC = () => {
                     allowGrouping={true}
                     editSettings={editOptions}
                     toolbar={toolBarOptions}
-                    actionComplete={roomActions}
+                    actionBegin={roomActions}
                 >
                     <ColumnsDirective>
                         <ColumnDirective field="title" headerText="title" textAlign="Center" width="120" />
                         <ColumnDirective
                             field="category"
                             headerText="category"
-                            dataSource={fetchedCategories}
+                            editType="dropdownedit"
                             textAlign="Center"
                             width="120"
                         />
@@ -198,7 +231,7 @@ export const AdminPageInfo: React.FC = () => {
                     editSettings={editOptions}
                     toolbar={toolBarOptions}
                     allowGrouping={true}
-                    actionComplete={orderActions}
+                    actionBegin={orderActions}
                 >
                     <ColumnsDirective>
                         <ColumnDirective field="_id" headerText="OrderID" textAlign="Left" width="50" />
@@ -224,6 +257,30 @@ export const AdminPageInfo: React.FC = () => {
                         <ColumnDirective field="userEmail" headerText="userEmail" textAlign="Left" width="50" />
                         <ColumnDirective field="status" headerText="status" textAlign="Left" width="50" />
                         <Inject services={[Page, Filter, Group, Edit, Toolbar, Resize]} />
+                    </ColumnsDirective>
+                </GridComponent>
+                <GridComponent
+                    className="mt-3"
+                    dataSource={employee}
+                    width={'80%'}
+                    allowPaging={true}
+                    pageSettings={{ pageSize: 6 }}
+                    allowFiltering={true}
+                    editSettings={editOptions}
+                    toolbar={toolBarOptions}
+                    allowGrouping={true}
+                    actionBegin={employeeActions}
+                >
+                    <ColumnsDirective>
+                        <ColumnDirective field="email" headerText="email" textAlign="Left" width="50" />
+                        <ColumnDirective field="password" headerText="password" textAlign="Left" width="50" />
+                        <ColumnDirective
+                            field="status"
+                            editType="dropdownedit"
+                            headerText="status"
+                            textAlign="Left"
+                            width="50"
+                        />
                     </ColumnsDirective>
                 </GridComponent>
             </div>

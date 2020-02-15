@@ -6,12 +6,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
+import i18n from './i18n';
+
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
     const isAuthenticated = !!token;
     const routes: JSX.Element = useRoutes(isAuthenticated, userStatus);
-
     if (userStatus === 'admin') {
         return (
             <AuthContext.Provider

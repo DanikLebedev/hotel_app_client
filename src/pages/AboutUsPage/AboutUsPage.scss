@@ -10,8 +10,13 @@
 
 .about-us__page {
   padding: 10vh 0 10vh 0;
+  color: #ffffff;
   &-photo {
     background: url('../../assets/images/Chicago_70230862_1050x590_tcm-33720.jpg') center center / cover;
     height: 30rem;
+  }
+
+  h1 {
+    font-size: 3em;
   }
 }
