@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { ContextType, useCallback, useContext, useEffect, useState } from 'react';
 import './OrdersPage.scss';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
@@ -12,17 +12,17 @@ import { OrderItem } from '../../components/OrderItem/OrderItem';
 export const OrderPage: React.FC = () => {
     const auth = useContext(AuthContext);
     const [orders, setOrders] = useState<Order[]>([]);
-    const fetchOrders = useCallback(async () => {
+    const fetchOrders: CallableFunction = useCallback(async () => {
         const { orders } = await OrderService.getUserOrders({ Authorization: `Bearer ${auth.token}` });
         setOrders(orders);
     }, [auth.token]);
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        const formData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('_id', target.id);
         if (target) {
-            const filteredOrders = orders.filter(order => {
+            const filteredOrders: Order[] = orders.filter(order => {
                 return order._id === target.id;
             });
             setOrders(filteredOrders);

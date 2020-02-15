@@ -5,12 +5,15 @@ import { HomePageRooms } from '../../components/HomePageComponents/HomePageRooms
 import { HomePageFeedback } from '../../components/HomePageComponents/HomePageFeedback';
 import { HomePageFeatures } from '../../components/HomePageComponents/HomePageFeatures';
 import { HomePageBookForm } from '../../components/HomePageComponents/HomePageBookForm';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-export const HomePage = () => {
+export const HomePage: React.FC = () => {
     return (
         <>
             <HomePageAboutUs />
-            <HomePageRooms />
+            <LazyLoadComponent>
+                <HomePageRooms />
+            </LazyLoadComponent>
             <HomePageBookForm />
             <HomePageFeedback />
             <HomePageFeatures />

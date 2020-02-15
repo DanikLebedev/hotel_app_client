@@ -1,3 +1,15 @@
+export interface LoginData {
+    email: string;
+    password: string
+}
+
+export interface RegisterData {
+    email: string;
+    password: string;
+    name: string;
+    lastName: string;
+}
+
 export interface Category {
     title: string;
 }

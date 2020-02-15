@@ -10,7 +10,7 @@ interface OrderProps {
 
 }
 
-export const OrderItem: React.FC<OrderProps> = (props: OrderProps) => {
+export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element => {
     return (
         <Card className={'order-item'} bg="dark" text="white" style={{ width: '18rem' }}>
             <Card.Header>Order №{props.order._id}</Card.Header>

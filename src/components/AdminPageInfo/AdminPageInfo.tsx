@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import {
     ColumnDirective,
@@ -23,6 +23,7 @@ import { config } from '../../config';
 import { AuthContext } from '../../context/auth.context';
 import { OrderService } from '../../APIServices/orderService';
 import { EmployeeService } from '../../APIServices/employeeService';
+import toaster from 'toasted-notes';
 
 export const AdminPageInfo: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -31,24 +32,24 @@ export const AdminPageInfo: React.FC = () => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [employee, setEmployee] = useState<Employee[]>([]);
 
-    const fetchCategories = useCallback(() => {
+    const fetchCategories: CallableFunction = useCallback(() => {
         CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
     }, []);
 
-    const fetchOrders = useCallback(() => {
+    const fetchOrders: CallableFunction = useCallback(() => {
         OrderService.getAllOrders().then(({ orders }) => setOrders(orders));
     }, []);
 
-    const fetchRoom = useCallback(() => {
+    const fetchRoom: CallableFunction = useCallback(() => {
         RoomService.getAllRooms().then(({ rooms }) => setFetchedRooms(rooms));
     }, []);
 
-    const fetchEmployee = useCallback(() => {
+    const fetchEmployee: CallableFunction = useCallback(() => {
         EmployeeService.getAllEmployee().then(({ employees }) => setEmployee(employees));
     }, []);
 
-    const gridTemplate = (props: any): any => {
-        const src = config.baseUrl + props.image;
+    const gridTemplate = (props: Room): JSX.Element => {
+        const src: string = config.baseUrl + props.image;
         return (
             <>
                 <div
@@ -76,24 +77,32 @@ export const AdminPageInfo: React.FC = () => {
 
     const toolBarOptions: ToolbarItems[] = ['Edit', 'Delete', 'Update', 'Cancel', 'Add', 'Search'];
 
-    async function orderActions(state: any) {
+    async function orderActions(state: any): Promise<void> {
         if (state.requestType === 'save') {
             console.log('add', state.data);
         } else if (state.requestType === 'delete') {
             const formData = new FormData();
             formData.append('_id', state.data[0]._id);
-            await OrderService.deleteAdminOrder(formData).then(data => console.log(data));
+            await OrderService.deleteAdminOrder(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         }
     }
 
-    async function roomActions(state: any) {
+    async function roomActions(state: any): Promise<void> {
         if (state.action === 'add') {
         } else if (state.requestType === 'delete') {
-            const formData = new FormData();
+            const formData: FormData = new FormData();
             formData.append('_id', state.data[0]._id);
-            await RoomService.deleteRoom(formData).then(data => console.log(data));
+            await RoomService.deleteRoom(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         } else if (state.action === 'edit') {
-            const formData = new FormData();
+            const formData: FormData = new FormData();
             formData.append('_id', state.data._id);
             formData.append('category', state.data.category);
             formData.append('title', state.data.title);
@@ -102,41 +111,69 @@ export const AdminPageInfo: React.FC = () => {
             formData.append('rooms', state.data.rooms);
             formData.append('image', state.data.image);
             formData.append('isBooked', state.data.isBooked);
-            await RoomService.updateRoom(formData).then(data => console.log(data));
+            await RoomService.updateRoom(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         }
     }
 
-    async function categoryActions(state: any) {
+    async function categoryActions(state: any): Promise<void> {
         if (state.action === 'add') {
-            const body = { title: state.data.title };
+            const body: {} = { title: state.data.title };
             await CategoryService.postCategory(body, {
                 'Content-Type': 'application/json',
+            }).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
             });
         } else if (state.requestType === 'delete') {
-            const formData = new FormData();
+            const formData: FormData = new FormData();
             formData.append('_id', state.data[0]._id);
-            await CategoryService.deleteCategory(formData);
+            await CategoryService.deleteCategory(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         } else if (state.action === 'edit') {
-            const formData = new FormData();
+            const formData: FormData = new FormData();
             formData.append('_id', state.data._id);
             formData.append('title', state.data.title);
-            await CategoryService.updateCategory(formData).then(data => console.log(data));
+            await CategoryService.updateCategory(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         }
     }
 
-    async function employeeActions(state: any) {
+    async function employeeActions(state: any): Promise<void> {
         if (state.action === 'add') {
-            const body = { status: state.data.status, password: state.data.password, email: state.data.email };
-            await EmployeeService.postEmployee(body, { 'Content-Type': 'application/json'});
+            const body: {} = { status: state.data.status, password: state.data.password, email: state.data.email };
+            await EmployeeService.postEmployee(body, { 'Content-Type': 'application/json' }).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         } else if (state.requestType === 'delete') {
-            const formData = new FormData();
+            const formData: FormData = new FormData();
             formData.append('_id', state.data[0]._id);
-            await EmployeeService.deleteEmployee(formData).then(data => console.log(data));
+            await EmployeeService.deleteEmployee(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         } else if (state.action === 'edit') {
-            const formData = new FormData();
+            const formData: FormData = new FormData();
             formData.append('_id', state.data._id);
-            formData.append('status', state.data.status)
-            await EmployeeService.updateEmployee(formData).then(data => console.log(data));
+            formData.append('status', state.data.status);
+            await EmployeeService.updateEmployee(formData).then(data => {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            });
         }
     }
 

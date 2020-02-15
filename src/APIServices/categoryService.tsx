@@ -1,5 +1,5 @@
 import { CRUDServices } from './CRUDServices';
-import { Categories, Data } from '../interfaces/clientInterfaces';
+import {Categories, Category, Data} from '../interfaces/clientInterfaces';
 
 export class CategoryService {
     public static async getAllCategories(): Promise<Categories> {
@@ -14,7 +14,6 @@ export class CategoryService {
 
     public static async deleteCategory(body: {}): Promise<Data> {
         const response: Data = await CRUDServices.deleteData('/api/admin/category/delete', body);
-
         return response;
     }
 

@@ -13,29 +13,29 @@ import { goToAnchor } from 'react-scrollable-anchor';
 import { configureAnchors } from 'react-scrollable-anchor';
 import { useTranslation } from 'react-i18next';
 
-const Navigation: React.FC = () => {
+const Navigation: React.FC = (): JSX.Element => {
     configureAnchors({ offset: -100, scrollDuration: 1000 });
 
     const auth = useContext(AuthContext);
     const history = useHistory();
-    const isAuthenticated = auth.isAuthenticated;
-    const userStatus = auth.userStatus;
-    const userEmail = auth.userEmail;
+    const isAuthenticated: boolean = auth.isAuthenticated;
+    const userStatus: string = auth.userStatus;
+    const userEmail: string = auth.userEmail;
     const logoutHandler = (event: { preventDefault: () => void }) => {
         event.preventDefault();
         auth.logout();
         history.push('/');
     };
-    const [showMenu, setShowMenu] = useState(false);
-    const goToForm = () => {
+    const [showMenu, setShowMenu] = useState<boolean>(false);
+    const goToForm = (): void => {
         goToAnchor('home-page-book-form', false);
     };
 
-    const showMenuHandler = () => {
+    const showMenuHandler = (): void => {
         setShowMenu(!showMenu);
     };
 
-    const cls = ['nav-wrapper'];
+    const cls: string[] = ['nav-wrapper'];
 
     if (showMenu) {
         cls.push('active', 'transition');
@@ -48,7 +48,7 @@ const Navigation: React.FC = () => {
         i18n.changeLanguage(event.target.value);
     };
 
-    const authComponents = (
+    const authComponents: JSX.Element = (
         <>
             <NavLink onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
                 {t('orders.label')}
@@ -82,15 +82,22 @@ const Navigation: React.FC = () => {
                         <ul className="d-flex justify-content-between">
                             <li className="d-flex justify-content-center align-items-center switсh-language__wrapper">
                                 <div onChange={changeLang}>
-                                    <input type="radio" value="en" name="language" defaultChecked /> English
-                                    <input type="radio" value="ru" name="language" /> russian
+                                    <label htmlFor="en" id={'england'}>
+                                        <img src={engLogo} width={40} height={30}  alt="england" />
+                                    </label>
+                                    <input
+                                        type="radio"
+                                        hidden={true}
+                                        value="en"
+                                        name="language"
+                                        id={'en'}
+                                        defaultChecked
+                                    />
+                                    <label htmlFor="ru"  id={'russian'}>
+                                        <img src={rusLogo} width={40} height={30} alt="russia" />
+                                    </label>
+                                    <input type="radio" hidden={true} value="ru" name="language" id={'ru'} />
                                 </div>
-                                {/*<button>*/}
-                                {/*    <img src={rusLogo} width={40} height={30} alt="russia" />*/}
-                                {/*</button>*/}
-                                {/*<button>*/}
-                                {/*    <img src={engLogo} width={40} height={30} alt="england" />*/}
-                                {/*</button>*/}
                             </li>
                             <li className="userInfo">
                                 {isAuthenticated ? (

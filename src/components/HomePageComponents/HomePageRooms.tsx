@@ -7,18 +7,20 @@ import { Room } from '../../interfaces/clientInterfaces';
 import { RoomService } from '../../APIServices/roomService';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';
+import { LazyLoadImage, LazyLoadComponent } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
-export const HomePageRooms = () => {
+export const HomePageRooms: React.FC = (): JSX.Element => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
-    const [index, setIndex] = useState(0);
+    const [index, setIndex] = useState<number>(0);
 
-    const fetchRooms = useCallback(() => {
+    const fetchRooms: CallableFunction = useCallback(() => {
         RoomService.getAllRooms().then(({ rooms }) => {
             setFetchedRooms(rooms);
         });
     }, []);
 
-    const changeMainRoomHandler = (key: number) => {
+    const changeMainRoomHandler = (key: number): void => {
         setIndex(key);
     };
 
@@ -32,7 +34,11 @@ export const HomePageRooms = () => {
                 <Row className={'home__page-rooms-preview'}>
                     <Col lg={6} md={6} className="p-0">
                         {fetchedRooms[index] ? (
-                            <img src={config.baseUrl + fetchedRooms[index].image} alt="room" />
+                            <LazyLoadImage
+                                effect="opacity"
+                                src={config.baseUrl + fetchedRooms[index].image}
+                                alt="room"
+                            />
                         ) : (
                             <Loader />
                         )}
@@ -84,11 +90,13 @@ export const HomePageRooms = () => {
                                 <div
                                     onClick={() => changeMainRoomHandler(key)}
                                     key={key}
-                                    style={{
-                                        background: `url("${config.baseUrl + item.image}") center center / cover`,
-                                    }}
-                                    className="home__page-rooms-item col-lg-3 col-md-3 col-sm-3"
+                                    className="home__page-rooms-item col-lg-3 col-md-3 col-sm-3 pl-0"
                                 >
+                                    <LazyLoadImage
+                                        effect='opacity'
+                                        src={config.baseUrl + item.image}
+                                        alt="room"
+                                    />
                                     <div className={'home__page-rooms-item-title'}>
                                         <span>{item.title}</span>
                                         <span>{item.price}$</span>

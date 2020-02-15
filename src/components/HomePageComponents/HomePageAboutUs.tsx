@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { withTranslation } from 'react-i18next';
 
-// eslint-disable-next-line react/prop-types
-const HomePageAboutUs = ({ t }: any) => {
+const HomePageAboutUs: React.FC = ({ t }: any): JSX.Element => {
     return (
         <section className="home-page__about-us">
             <div className="home-page__header d-flex justify-content-center align-items-center flex-column text-left">
@@ -37,10 +36,9 @@ const HomePageAboutUs = ({ t }: any) => {
                         <h2 className={'section__title home-page__about-us-title'}>{t('home-page-about.label')}</h2>
                         <p className={'home-page__about-us-text'}>{t('home-page-about.p1')}</p>
                         <p className={'home-page__about-us-text'}>{t('home-page-about.p2')}</p>
-                        <NavLink to={'/about'} >
+                        <NavLink to={'/about'}>
                             <button className={'button btn-black'}>{t('about.label')}</button>
                         </NavLink>
-
                     </Col>
                     <Col lg={6} md={6} sm={12}>
                         <Row className={'home-page__about-us-photos d-flex justify-content-around align-items-center'}>
@@ -57,5 +55,7 @@ const HomePageAboutUs = ({ t }: any) => {
         </section>
     );
 };
+
+
 
 export default withTranslation()(HomePageAboutUs);

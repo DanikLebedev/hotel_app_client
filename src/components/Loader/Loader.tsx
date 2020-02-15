@@ -1,7 +1,7 @@
-import React from 'react'
-import './Loader.scss'
+import React from 'react';
+import './Loader.scss';
 
-const Loader = () => {
+const Loader: React.FC = (): JSX.Element => {
     return (
         <div className="lds-ring">
             <div></div>
@@ -9,7 +9,7 @@ const Loader = () => {
             <div></div>
             <div></div>
         </div>
-    )
-}
+    );
+};
 
-export default Loader
+export default Loader;

@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
 
+
 export const RoomInfoPage: React.FC = () => {
     const userEmail = useAuth().userEmail;
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
@@ -28,10 +29,10 @@ export const RoomInfoPage: React.FC = () => {
     const params: { id?: string } = useParams();
     const roomId: string | undefined = params.id;
     const auth = useContext(AuthContext);
-    const isAuthenticated = auth.isAuthenticated;
+    const isAuthenticated: boolean = auth.isAuthenticated;
     const history = useHistory();
 
-    const fetchRoomInfo = useCallback(() => {
+    const fetchRoomInfo: CallableFunction = useCallback(() => {
         RoomService.getRoomById(roomId).then(({ rooms }) => setRoomInfo(rooms));
     }, []);
 
@@ -43,7 +44,7 @@ export const RoomInfoPage: React.FC = () => {
         setOrder({ ...order, [event.target.name]: event.target.value });
     };
 
-    const addOrderHandler = async () => {
+    const addOrderHandler = async (): Promise<void> => {
         if (order.checkIn > order.checkOut) {
             toaster.notify('incorrect Date, please try again', {
                 duration: 2000,
@@ -74,7 +75,7 @@ export const RoomInfoPage: React.FC = () => {
         fetchRoomInfo();
     }, [fetchRoomInfo]);
 
-    const roomInfoLayout = roomInfo.map((room, key) => {
+    const roomInfoLayout: JSX.Element[] = roomInfo.map((room, key) => {
         return (
             <Row key={key}>
                 <Col lg={6} md={6} sm={6}>

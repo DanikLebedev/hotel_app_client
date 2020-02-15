@@ -7,7 +7,7 @@ import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
 import { AdminPageCreate } from '../../components/AdminPageCreate/AdminPageCreate';
 
 export const AdminPage: React.FC = () => {
-    const routes = (
+    const routes: JSX.Element = (
         <Switch>
             <Route path="/admin/info" exact>
                 <AdminPageInfo />

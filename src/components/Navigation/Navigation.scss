@@ -1,12 +1,23 @@
 @import "src/index";
 
+#russian, #england {
+  cursor: pointer;
+  transition: .3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
 .header__contacts {
   color: $price-color;
   display: flex;
   justify-content: space-between;
+
   li {
     display: flex;
     flex-direction: column;
+
     span:nth-child(2) {
       font-size: 1.2em;
     }
@@ -21,6 +32,7 @@
     transition: .3s;
     border-radius: 50%;
     outline: none;
+
     &:hover {
       background: lightgray;
     }
@@ -30,20 +42,24 @@
 .nav__list_links {
   font-size: 1.5rem;
   text-transform: uppercase;
+
   a {
     margin: 0 10px;
     padding: 10px 20px;
     position: relative;
     color: $price-color;
     transition: .3s ease;
-    &:hover,:active {
+
+    &:hover, :active {
       text-decoration: none;
       color: $price-color;
     }
-    &:hover::before,:active {
+
+    &:hover::before, :active {
       top: 100%;
       opacity: 1;
     }
+
     &:before {
       position: absolute;
       top: 0;
@@ -56,6 +72,7 @@
       -moz-transition: top 0.3s;
       transition: top 0.3s;
     }
+
     &::after {
       position: absolute;
       top: 0;
@@ -68,22 +85,26 @@
       -moz-transition: height 0.3s;
       transition: height 0.3s;
     }
-    &:hover::after,:active {
+
+    &:hover::after, :active {
       height: 100%;
     }
   }
 }
 
 .userInfo {
-  color:$price-color;
+  color: $price-color;
+
   a {
     color: $price-color;
     text-decoration: none;
+
     a:hover {
       text-decoration: none;
     }
   }
 }
+
 .separator {
   background: $base-text-color;
   width: 1px;
@@ -102,15 +123,19 @@
   margin-right: 10px;
   cursor: pointer;
   transition: .4s ease;
+
   .icon {
     color: $base-text-color;
   }
+
   &:hover:first-child {
     background: #3b5998;
   }
+
   &:hover:nth-child(2) {
     background: #1DA1F2;
   }
+
   &:hover:nth-child(3) {
     background: #4c75a3;
   }
@@ -118,7 +143,7 @@
 
 .button-book {
   padding: 8px 20px;
-  border:none;
+  border: none;
   background: $price-color;
   color: $base-text-color;
   transition: .3s ease-in;
@@ -129,6 +154,7 @@
 
 .header_button {
   position: relative;
+
   &:before {
     content: '\0024';
     position: absolute;
@@ -136,6 +162,7 @@
     left: -30px;
     transition: all 200ms ease;
   }
+
   &:hover:before {
     left: 3px;
   }
@@ -160,7 +187,9 @@
   transform: rotate(-45deg) translate(-9px, 6px);
 }
 
-.change .bar2 {opacity: 0;}
+.change .bar2 {
+  opacity: 0;
+}
 
 .change .bar3 {
   -webkit-transform: rotate(45deg) translate(-8px, -8px);
@@ -172,17 +201,15 @@
   display: none;
 }
 
-@media screen
-and (min-device-width: 1200px)
-and (max-device-width: 1600px)
-and (-webkit-min-device-pixel-ratio: 1) {
-  .nav__list_links,.button,.button-book {
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  .nav__list_links, .button, .button-book {
     font-size: 1.3em;
   }
   .header__contacts {
     li {
       span {
         font-size: 1.1em;
+
         &:nth-child(2) {
           font-size: 1em;
         }
@@ -192,18 +219,16 @@ and (-webkit-min-device-pixel-ratio: 1) {
 }
 
 
-@media screen
-and (min-width: 768px)
-and (max-width: 1199px){
-  .nav__list_links,.button, .button-book {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .nav__list_links, .button, .button-book {
     font-size: 1em;
   }
 
   .navbar-brand {
-   img {
-     width: 140px;
-     height: 60px;
-   }
+    img {
+      width: 140px;
+      height: 60px;
+    }
 
   }
 
@@ -211,6 +236,7 @@ and (max-width: 1199px){
     li {
       span {
         font-size: 1em;
+
         &:nth-child(2) {
           font-size: 1em;
         }
@@ -232,6 +258,7 @@ and (max-width: 1199px){
       flex-direction: column;
       font-size: 1.1em;
     }
+
     display: flex;
     position: absolute;
     top: 0;
@@ -258,7 +285,7 @@ and (max-width: 1199px){
 }
 
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   #burger-button {
     position: absolute;
     top: 10px;
@@ -273,6 +300,7 @@ and (max-width: 1199px){
       flex-direction: column;
       font-size: 1.1em;
     }
+
     display: flex;
     position: absolute;
     top: 0;
@@ -292,9 +320,9 @@ and (max-width: 1199px){
   .active {
     transform: translateX(0px);
   }
-    .header__contacts {
-     display: none;
-    }
+  .header__contacts {
+    display: none;
+  }
 }
 
 

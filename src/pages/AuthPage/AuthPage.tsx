@@ -9,8 +9,17 @@ import './AuthPage.scss';
 import Loader from '../../components/Loader/Loader';
 import { AuthContext } from '../../context/auth.context';
 import { useHistory } from 'react-router-dom';
+import { LoginData, RegisterData } from '../../interfaces/clientInterfaces';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
+interface UserData {
+    token: string;
+    userId: string;
+    status: string;
+    email: string;
+    message: string;
+}
 
 const AuthPage: React.FC = () => {
     const history = useHistory();
@@ -18,8 +27,8 @@ const AuthPage: React.FC = () => {
     const [haveAccount, setHaveAccount] = useState(true);
     const { loading, request, error, clearError } = useHttp();
 
-    const [form, setForm] = useState({ email: '', password: '' });
-    const [registerForm, setRegisterForm] = useState({ email: '', password: '', name: '', lastName: '' });
+    const [form, setForm] = useState<LoginData>({ email: '', password: '' });
+    const [registerForm, setRegisterForm] = useState<RegisterData>({ email: '', password: '', name: '', lastName: '' });
 
     useEffect(() => {
         toaster.notify(error, {
@@ -38,11 +47,12 @@ const AuthPage: React.FC = () => {
 
     const registerHandler = async (): Promise<void> => {
         try {
-            const data = await request('/api/auth/register', 'POST', { ...registerForm });
+            const data: UserData = await request('/api/auth/register', 'POST', { ...registerForm });
             toaster.notify(data.message, {
                 duration: 2000,
             });
-            const loginData = await request('/api/auth/login', 'POST', { ...registerForm });
+            const loginData: UserData = await request('/api/auth/login', 'POST', { ...registerForm });
+
             auth.login(loginData.token, loginData.userId, loginData.status, loginData.email);
             history.push('/');
         } catch (e) {}
@@ -50,7 +60,7 @@ const AuthPage: React.FC = () => {
 
     const loginHandler = async (): Promise<void> => {
         try {
-            const data = await request('/api/auth/login', 'POST', { ...form });
+            const data: UserData = await request('/api/auth/login', 'POST', { ...form });
             auth.login(data.token, data.userId, data.status, data.email);
             toaster.notify(data.message, {
                 duration: 2000,
@@ -59,7 +69,7 @@ const AuthPage: React.FC = () => {
         } catch (e) {}
     };
 
-    const loginForm = (
+    const loginForm: JSX.Element = (
         <div className="auth__wrapper">
             <h1>Log in</h1>
             <label>
@@ -86,7 +96,9 @@ const AuthPage: React.FC = () => {
                     onChange={changeHandler}
                 />
             </label>
-            <button className='change-form-button' onClick={() => setHaveAccount(false)}>Don&apos;t have and account?</button>
+            <button className="change-form-button" onClick={() => setHaveAccount(false)}>
+                Don&apos;t have and account?
+            </button>
             <div className="btn__wrapper">
                 <button className="auth__btn" onClick={loginHandler}>
                     Login
@@ -96,7 +108,7 @@ const AuthPage: React.FC = () => {
         </div>
     );
 
-    const signInForm = (
+    const signInForm: JSX.Element = (
         <div className="auth__wrapper">
             <h1>Sign in</h1>
             <label>
@@ -157,9 +169,7 @@ const AuthPage: React.FC = () => {
     );
     return (
         <div className="auth">
-            <div className="wrapper">
-                {haveAccount ? loginForm : signInForm}
-            </div>
+            <div className="wrapper">{haveAccount ? loginForm : signInForm}</div>
         </div>
     );
 };

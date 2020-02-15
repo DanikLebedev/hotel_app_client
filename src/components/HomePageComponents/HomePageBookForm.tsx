@@ -10,7 +10,7 @@ import { CategoryService } from '../../APIServices/categoryService';
 import toaster from 'toasted-notes';
 import ScrollableAnchor from 'react-scrollable-anchor';
 
-export const HomePageBookForm = () => {
+export const HomePageBookForm: React.FC = (): JSX.Element => {
     const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const { error, clearError } = useHttp();
@@ -20,23 +20,17 @@ export const HomePageBookForm = () => {
     const selectOrderChangeHandler = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
         event.persist();
         const { rooms }: Rooms = await RoomService.getAllRooms();
-        const filteredRooms = rooms.filter(item => {
+        const filteredRooms: Room[] = rooms.filter(item => {
             return item.category.toString() === event.target.value.toString() && !item.isBooked;
         });
         setFilteredRooms(filteredRooms);
-        // setShowedFreeRooms(filteredRooms);
-        // setOrder({ ...order, category: event.target.value, price });
     };
 
-    const fetchCategories = useCallback(() => {
+    const fetchCategories: CallableFunction = useCallback(() => {
         CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
     }, []);
 
-    // const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setOrder({ ...order, [event.target.name]: event.target.value });
-    // };
-
-    const addOrderHandler = async () => {
+    const addOrderHandler = async (): Promise<void> => {
         if (filteredRooms.length === 0) {
             toaster.notify('Sorry, all rooms are booked', {
                 duration: 2000,
@@ -44,23 +38,9 @@ export const HomePageBookForm = () => {
         } else {
             history.push(`/rooms/${filteredRooms[0]._id}`);
         }
-
-        // const data = await OrderService.postOrder(
-        //     { ...order },
-        //     {
-        //         Authorization: `Bearer ${auth.token}`,
-        //         'Content-Type': 'application/json',
-        //     },
-        // );
-        // toaster.notify(data.message, {
-        //     duration: 2000,
-        // });
-        // if (!isAuthenticated) {
-        //     history.push('/auth');
-        // }
     };
 
-    const options = fetchedCategories.map(({ title }, index) => {
+    const options: JSX.Element[] = fetchedCategories.map(({ title }, index) => {
         return (
             <option key={title + index} value={title}>
                 {title}

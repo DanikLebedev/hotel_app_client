@@ -53,17 +53,6 @@ export const Footer: React.FC = () => {
                         </Row>
                     </Col>
                 </Row>
-                {/*<Row className="mb-3 align-items-center">*/}
-                {/*    <Col lg={6} md={6} sm={6}></Col>*/}
-                {/*    <Col lg={6} md={6} sm={6}>*/}
-                {/*        */}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-                {/*<Row>*/}
-                {/*    <Col lg={6} md={6} sm={6}>*/}
-                {/*     */}
-                {/*    </Col>*/}
-                {/*</Row>*/}
             </Container>
         </footer>
     );

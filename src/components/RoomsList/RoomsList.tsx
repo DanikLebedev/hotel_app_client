@@ -4,7 +4,7 @@ import Loader from '../Loader/Loader';
 import { RoomService } from '../../APIServices/roomService';
 import { Room } from '../../interfaces/clientInterfaces';
 
-export const RoomsList: React.FC = () => {
+export const RoomsList: React.FC = (): JSX.Element => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
 
     const fetchRoom: CallableFunction = useCallback(() => {
