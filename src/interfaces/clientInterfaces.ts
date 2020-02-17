@@ -61,6 +61,8 @@ export interface Employees {
 export interface Customer {
     email: string;
     password: string;
+    name: string;
+    lastName: string;
     order: [];
 }
 

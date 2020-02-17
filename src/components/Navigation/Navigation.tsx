@@ -9,6 +9,7 @@ import { Navbar, NavbarBrand, Nav, Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/esm/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
+import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { goToAnchor } from 'react-scrollable-anchor';
 import { configureAnchors } from 'react-scrollable-anchor';
 import { useTranslation } from 'react-i18next';
@@ -60,7 +61,7 @@ const Navigation: React.FC = (): JSX.Element => {
         <>
             <Container>
                 <Row className="pt-3">
-                    <Col lg={6} md={6}>
+                    <Col lg={6} md={5} sm={4}>
                         <ul className="header__contacts">
                             <li>
                                 <span>Email</span>
@@ -78,12 +79,12 @@ const Navigation: React.FC = (): JSX.Element => {
                             </li>
                         </ul>
                     </Col>
-                    <Col lg={6} md={6}>
-                        <ul className="d-flex justify-content-between">
+                    <Col lg={6} md={7} sm={8}>
+                        <ul className="d-flex justify-content-between settings-wrapper">
                             <li className="d-flex justify-content-center align-items-center switсh-language__wrapper">
                                 <div onChange={changeLang}>
                                     <label htmlFor="en" id={'england'}>
-                                        <img src={engLogo} width={40} height={30}  alt="england" />
+                                        <img src={engLogo} width={40} height={30} alt="england" />
                                     </label>
                                     <input
                                         type="radio"
@@ -93,7 +94,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                         id={'en'}
                                         defaultChecked
                                     />
-                                    <label htmlFor="ru"  id={'russian'}>
+                                    <label htmlFor="ru" id={'russian'}>
                                         <img src={rusLogo} width={40} height={30} alt="russia" />
                                     </label>
                                     <input type="radio" hidden={true} value="ru" name="language" id={'ru'} />
@@ -103,14 +104,17 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {isAuthenticated ? (
                                     <Nav>
                                         <NavLink onClick={logoutHandler} to="/">
+                                            <FontAwesomeIcon icon={faSignOutAlt} />
                                             {t('logout.label')}
                                         </NavLink>
                                     </Nav>
                                 ) : (
-                                    <NavLink to="/auth"> {t('login.label')}</NavLink>
+                                    <NavLink to="/auth">
+                                        <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
+                                    </NavLink>
                                 )}
                                 <img src="" alt="" />
-                                <span>{userStatus ? <span>{userStatus}</span> : null}</span>
+                                <span>{userStatus ? <span>{userStatus} </span> : null}</span>&#32;
                                 <span>{userEmail ? <span>{userEmail}</span> : null}</span>
                             </li>
                             <div className="separator"></div>

@@ -7,12 +7,17 @@ interface OrderProps {
     key: number;
     order: Order;
     onDelete: (event: React.MouseEvent<EventTarget, MouseEvent>) => Promise<void>;
-
+    classes: string[];
+    deleted: boolean;
 }
-
 export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element => {
     return (
-        <Card className={'order-item'} bg="dark" text="white" style={{ width: '18rem' }}>
+        <Card
+            className={props.deleted ? 'order-item deleted-order' : 'order-item'}
+            bg="dark"
+            text="white"
+            style={{ width: '18rem' }}
+        >
             <Card.Header>Order №{props.order._id}</Card.Header>
             <Card.Body>
                 <Card.Title>Room&apos;s category: {props.order.category}</Card.Title>

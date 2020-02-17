@@ -42,10 +42,22 @@ const HomePageAboutUs: React.FC = ({ t }: any): JSX.Element => {
                     </Col>
                     <Col lg={6} md={6} sm={12}>
                         <Row className={'home-page__about-us-photos d-flex justify-content-around align-items-center'}>
-                            <Col className="d-flex justify-content-center align-items-center" lg={6} sm={6} md={6}>
+                            <Col
+                                className="d-flex justify-content-center align-items-center"
+                                lg={6}
+                                sm={6}
+                                md={6}
+                                xs={6}
+                            >
                                 <img src={roomImage1} alt="room" />
                             </Col>
-                            <Col className="d-flex justify-content-center align-items-center" lg={6} sm={6} md={6}>
+                            <Col
+                                className="d-flex justify-content-center align-items-center"
+                                lg={6}
+                                sm={6}
+                                md={6}
+                                xs={6}
+                            >
                                 <img src={roomImage2} alt="room" />
                             </Col>
                         </Row>
@@ -55,7 +67,5 @@ const HomePageAboutUs: React.FC = ({ t }: any): JSX.Element => {
         </section>
     );
 };
-
-
 
 export default withTranslation()(HomePageAboutUs);

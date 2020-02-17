@@ -17,18 +17,19 @@ export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: Roo
     };
 
     return (
-        <Container className="rooms-page__wrapper">
+        <Container className={'rooms-page__wrapper'}>
             <Row className="rooms-page__item mb-3">
                 <Col
                     lg={6}
                     md={6}
                     sm={6}
+                    xs={6}
                     className="room-page__item-img"
                     style={{ background: `url(${config.baseUrl + roomInfo.image}) center center / cover` }}
                 ></Col>
-                <Col lg={6} md={6} sm={6}>
+                <Col lg={6} md={6} sm={6} xs={6}>
                     <h3>{roomInfo.title}</h3>
-                    <div className="d-flex">
+                    <div className="rooms-page__item-text">
                         <p>Category: {roomInfo.category}</p>
                         <p>Price: {roomInfo.price}$</p>
                     </div>

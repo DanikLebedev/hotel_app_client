@@ -97,7 +97,7 @@ const AuthPage: React.FC = () => {
                 />
             </label>
             <button className="change-form-button" onClick={() => setHaveAccount(false)}>
-                Don&apos;t have and account?
+                Don&apos;t have an account?
             </button>
             <div className="btn__wrapper">
                 <button className="auth__btn" onClick={loginHandler}>
@@ -168,9 +168,10 @@ const AuthPage: React.FC = () => {
         </div>
     );
     return (
-        <div className="auth">
+        <>
+            <div className="auth"></div>
             <div className="wrapper">{haveAccount ? loginForm : signInForm}</div>
-        </div>
+        </>
     );
 };
 

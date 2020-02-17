@@ -184,10 +184,10 @@ export const AdminPageInfo: React.FC = () => {
                     className="mt-3"
                     dataSource={fetchedCategories}
                     allowPaging={true}
+                    width={'80%'}
                     pageSettings={{ pageSize: 6 }}
                     allowFiltering={true}
                     allowGrouping={true}
-                    width={800}
                     editSettings={editOptions}
                     toolbar={toolBarOptions}
                     actionComplete={categoryActions}

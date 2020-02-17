@@ -149,6 +149,7 @@
   transition: .3s ease-in;
   overflow: hidden;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 
 
@@ -233,15 +234,7 @@
   }
 
   .header__contacts {
-    li {
-      span {
-        font-size: 1em;
-
-        &:nth-child(2) {
-          font-size: 1em;
-        }
-      }
-    }
+    display: none;
   }
 
   #burger-button {
@@ -253,6 +246,7 @@
   }
 
   .nav-wrapper {
+    z-index: 30;
     #nav__list_links {
       display: flex;
       flex-direction: column;

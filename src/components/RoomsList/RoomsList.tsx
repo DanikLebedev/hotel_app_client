@@ -16,7 +16,7 @@ export const RoomsList: React.FC = (): JSX.Element => {
     }, [fetchRoom]);
 
     return (
-        <div>
+        <div >
             {!fetchedRooms[0] ? (
                 <Loader />
             ) : (

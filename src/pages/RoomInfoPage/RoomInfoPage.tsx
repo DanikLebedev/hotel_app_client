@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
 
-
 export const RoomInfoPage: React.FC = () => {
     const userEmail = useAuth().userEmail;
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
@@ -82,7 +81,7 @@ export const RoomInfoPage: React.FC = () => {
                     <img style={{ width: '100%', height: '100%' }} src={config.baseUrl + room.image} alt="room" />
                 </Col>
                 <Col>
-                    <h3 className={'room-info-page-title'}>{room.title}</h3>
+                    <h3 className={'room-info-page-title'}>{room.title.toString()}</h3>
                     <h5 className={'room-info-page-subtitle'}>{room.category}</h5>
                     <p className={'room-info-page-description'}>
                         {room.description}
@@ -90,7 +89,7 @@ export const RoomInfoPage: React.FC = () => {
                         libero optio quis rem sed voluptate voluptatibus. Ab assumenda dignissimos id inventore iste
                         nesciunt pariatur, possimus veniam?
                     </p>
-                    <div className="d-flex justify-content-around">
+                    <div className="d-flex justify-content-around room-info-page-icons">
                         <span>
                             <FontAwesomeIcon color="green" icon={faMoneyCheck} /> Price: {room.price}$
                         </span>

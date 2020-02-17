@@ -8,9 +8,9 @@ import { faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-ic
 export const Footer: React.FC = () => {
     return (
         <footer>
-            <Container>
+            <Container fluid={true}>
                 <Row className="d-flex justify-content-between align-content-center ml-3 ">
-                    <Col lg={8} md={8} sm={8} className="justify-content-center align-items-center">
+                    <Col lg={8} md={8} sm={8} className="justify-content-center ">
                         <Row>
                             <Col lg={12} md={12} sm={12}>
                                 <img
@@ -23,19 +23,19 @@ export const Footer: React.FC = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col className="d-flex flex-column" lg={4} md={4} sm={4}>
+                            <Col className="d-flex footer-contacts-wrapper" lg={4} md={4} sm={4}>
                                 <span>
                                     <FontAwesomeIcon icon={faEnvelope} color="#C6A47E" /> Email Adress
                                 </span>
                                 <span className="font-weight-bold">RixosHotelMail.ru</span>
                             </Col>
-                            <Col lg={4} className="d-flex flex-column" md={4} sm={4}>
+                            <Col lg={4} className="d-flex footer-contacts-wrapper" md={4} sm={4}>
                                 <span>
                                     <FontAwesomeIcon icon={faPhone} color="#C6A47E" /> Mobile Phone
                                 </span>
                                 <span className="font-weight-bold">+34654891321</span>
                             </Col>
-                            <Col className="d-flex flex-column" lg={4} md={4} sm={4}>
+                            <Col className="d-flex footer-contacts-wrapper" lg={4} md={4} sm={4}>
                                 <span>
                                     <FontAwesomeIcon icon={faMapMarked} color="#C6A47E" /> Hotel Adress
                                 </span>
@@ -43,11 +43,11 @@ export const Footer: React.FC = () => {
                             </Col>
                         </Row>
                     </Col>
-                    <Col lg={4} md={4} sm={4} className="justify-content-end align-items-center">
+                    <Col lg={4} md={4} sm={4} className="justify-content-end ">
                         <Row>
                             <h3 className={'footer__title'}>Sign Up For special offers</h3>
                         </Row>
-                        <Row className="mb-3 align-items-center">
+                        <Row className="mb-3">
                             <input type="text" placeholder="Your email..." className={'subsribe_input'} />
                             <button className={'button'}>Subscribe</button>
                         </Row>

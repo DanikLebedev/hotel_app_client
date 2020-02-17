@@ -1,17 +1,47 @@
 
-.order-page-bg {
-  background: url("../../assets/images/manila_14.jpg") center center / cover;
-  height: 50vh;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -3;
-  h1 {
-    color: #ffffff;
-    font-size: 4em;
+.order-page {
+  &-wrapper {
+    min-height: 80vh;
   }
 
+  &-bg {
+    background: url("../../assets/images/7112.jpg") center center / cover;
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -3;
+    filter: brightness(.6);
+  }
+
+  &-user-info {
+    background: rgba(255, 255, 255, .5);
+    text-align: center;
+    color: #000000;
+    padding: 10px;
+    border-radius: 20px;
+    height: 15em;
+
+  }
+}
+
+.deleted-order {
+  animation: slideOut .5s linear;
+}
+
+@keyframes slideOut {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
 }
 
 .order-item {
