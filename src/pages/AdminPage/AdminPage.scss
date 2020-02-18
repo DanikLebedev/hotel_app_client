@@ -14,3 +14,33 @@
     z-index: 10;
   }
 }
+
+.icon-buttons {
+  background: none;
+  border: none;
+  margin: 0 10px;
+  padding: 10px;
+  transition: .3s ease;
+  z-index: 10;
+  &:hover {
+    color: #4c75a3;
+  }
+  svg {
+    z-index: -1;
+  }
+}
+
+.close-button {
+  background: none;
+  border: none;
+  margin: 0 10px;
+  transition: .3s ease;
+  color: #ffffff;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 30px;
+  &:hover {
+    color: red;
+  }
+}

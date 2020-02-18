@@ -12,9 +12,9 @@ export const AdminPage: React.FC = () => {
             <Route path="/admin/info" exact>
                 <AdminPageInfo />
             </Route>
-            <Route path="/admin/create" exact>
-                <AdminPageCreate />
-            </Route>
+            {/*<Route path="/admin/create" exact>*/}
+            {/*    <AdminPageCreate />*/}
+            {/*</Route>*/}
             <Redirect to={'/admin/info'} />
         </Switch>
     );

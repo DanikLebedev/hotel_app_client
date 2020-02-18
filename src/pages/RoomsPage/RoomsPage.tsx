@@ -3,6 +3,7 @@ import RoomsList from '../../components/RoomsList/RoomsList';
 import { Container } from 'react-bootstrap';
 import './RoomsPage.scss';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { HomePageBookForm } from '../../components/HomePageComponents/HomePageBookForm';
 
 export const RoomsPage: FC = () => {
     return (
@@ -15,6 +16,7 @@ export const RoomsPage: FC = () => {
                     <RoomsList />
                 </LazyLoadComponent>
             </Container>
+            <HomePageBookForm />
         </div>
     );
 };

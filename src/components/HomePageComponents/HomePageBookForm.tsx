@@ -21,7 +21,7 @@ export const HomePageBookForm: React.FC = (): JSX.Element => {
         event.persist();
         const { rooms }: Rooms = await RoomService.getAllRooms();
         const filteredRooms: Room[] = rooms.filter(item => {
-            return item.category.toString() === event.target.value.toString() && !item.isBooked;
+            return item.category.toString() === event.target.value.toString();
         });
         setFilteredRooms(filteredRooms);
     };
@@ -31,13 +31,7 @@ export const HomePageBookForm: React.FC = (): JSX.Element => {
     }, []);
 
     const addOrderHandler = async (): Promise<void> => {
-        if (filteredRooms.length === 0) {
-            toaster.notify('Sorry, all rooms are booked', {
-                duration: 2000,
-            });
-        } else {
-            history.push(`/rooms/${filteredRooms[0]._id}`);
-        }
+        history.push(`/rooms/${filteredRooms[0]._id}`);
     };
 
     const options: JSX.Element[] = fetchedCategories.map(({ title }, index) => {
@@ -61,7 +55,7 @@ export const HomePageBookForm: React.FC = (): JSX.Element => {
             <ScrollableAnchor id={'home-page-book-form'}>
                 <Row>
                     <Col lg={12} md={12} sm={12}>
-                        <div className="d-flex home-page__book-form justify-content-center align-items-center flex-column">
+                        <div className="home-page__book-form">
                             <h2>Choose Your Room</h2>
                             <select
                                 className={'form-control w-50 m-2'}

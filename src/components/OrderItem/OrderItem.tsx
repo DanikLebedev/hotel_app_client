@@ -1,7 +1,6 @@
 import React from 'react';
 import { Order } from '../../interfaces/clientInterfaces';
-import { Card } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 interface OrderProps {
     key: number;
@@ -12,26 +11,22 @@ interface OrderProps {
 }
 export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element => {
     return (
-        <Card
-            className={props.deleted ? 'order-item deleted-order' : 'order-item'}
-            bg="dark"
-            text="white"
-            style={{ width: '18rem' }}
-        >
-            <Card.Header>Order №{props.order._id}</Card.Header>
-            <Card.Body>
-                <Card.Title>Room&apos;s category: {props.order.category}</Card.Title>
-                <Card.Text>Check In: {props.order.checkIn.split('T')[0]}</Card.Text>
-                <Card.Text>Check Out: {props.order.checkOut.split('T')[0]}</Card.Text>
-                <Card.Text>Number of Guests: {props.order.guests}</Card.Text>
-                <Card.Text>Status: {props.order.status}</Card.Text>
-                <Card.Text>Price: {props.order.price}</Card.Text>
-                <Card.Text>Wishes: {props.order.comment}</Card.Text>
-
-                <Button variant="light" id={props.order._id} onClick={props.onDelete}>
-                    Delete Order
-                </Button>
-            </Card.Body>
-        </Card>
+        <Row className={props.classes.join(' ')}>
+            <Col lg={12} md={12} sm={12} xs={12}>
+                <h3>Order №{props.order._id}</h3>
+                <ul className="order-info">
+                    <li>Room&apos;s category: {props.order.category}</li>
+                    <li>Check In: {props.order.checkIn.split('T')[0]}</li>
+                    <li>Check Out: {props.order.checkOut.split('T')[0]}</li>
+                    <li>Number of Guests: {props.order.guests}</li>
+                    <li>Status: {props.order.status}</li>
+                    <li>Price: {props.order.price}$</li>
+                    <li>Wishes: {props.order.comment}</li>
+                </ul>
+                <button className={'button'} onClick={props.onDelete} id={props.order._id}>
+                    Delete order
+                </button>
+            </Col>
+        </Row>
     );
 };

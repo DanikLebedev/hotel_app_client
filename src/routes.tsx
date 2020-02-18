@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { OrderPage } from './pages/OrdersPage/OrdersPage';
 import RoomsPage from './pages/RoomsPage/RoomsPage';
@@ -8,6 +8,7 @@ import { AuthAdminPage } from './pages/AuthAdminPage/AuthAdminPage';
 import NotFound from './components/ErrorsComponents/404';
 import { AboutUsPage } from './pages/AboutUsPage/AboutUsPage';
 import { RoomInfoPage } from './pages/RoomInfoPage/RoomInfoPage';
+import Loader from './components/Loader/Loader';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -20,10 +21,14 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                     <HomePage />
                 </Route>
                 <Route path="/rooms" exact>
-                    <RoomsPage />
+                    <Suspense fallback={<Loader />}>
+                        <RoomsPage />
+                    </Suspense>
                 </Route>
                 <Route path="/orders" exact>
-                    <OrderPage />
+                    <Suspense fallback={<Loader />}>
+                        <OrderPage />
+                    </Suspense>
                 </Route>
                 <Route path="/about" exact>
                     <AboutUsPage />
@@ -46,7 +51,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                     <RoomsPage />
                 </Route>
                 <Route path="/orders" exact>
-                    <OrderPage />
+                    <Suspense fallback={<Loader />}>
+                        <OrderPage />
+                    </Suspense>
                 </Route>
                 <Route path="/admin/login" exact>
                     <AuthAdminPage />

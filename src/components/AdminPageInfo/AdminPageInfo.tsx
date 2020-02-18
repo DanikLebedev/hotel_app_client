@@ -24,6 +24,7 @@ import { AuthContext } from '../../context/auth.context';
 import { OrderService } from '../../APIServices/orderService';
 import { EmployeeService } from '../../APIServices/employeeService';
 import toaster from 'toasted-notes';
+import { RoomDataGrid } from '../RoomDataGrid/RoomDataGrid';
 
 export const AdminPageInfo: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -184,10 +185,10 @@ export const AdminPageInfo: React.FC = () => {
                     className="mt-3"
                     dataSource={fetchedCategories}
                     allowPaging={true}
-                    width={'80%'}
                     pageSettings={{ pageSize: 6 }}
                     allowFiltering={true}
                     allowGrouping={true}
+                    width={800}
                     editSettings={editOptions}
                     toolbar={toolBarOptions}
                     actionComplete={categoryActions}
@@ -197,67 +198,68 @@ export const AdminPageInfo: React.FC = () => {
                     </ColumnsDirective>
                     <Inject services={[Page, Group, Edit, Toolbar, Search, Resize]} />
                 </GridComponent>
-                <GridComponent
-                    className="mt-3"
-                    dataSource={fetchedRooms}
-                    width="100%"
-                    allowPaging={true}
-                    pageSettings={{ pageSize: 6 }}
-                    allowFiltering={true}
-                    allowGrouping={true}
-                    editSettings={editOptions}
-                    toolbar={toolBarOptions}
-                    actionBegin={roomActions}
-                >
-                    <ColumnsDirective>
-                        <ColumnDirective field="title" headerText="title" textAlign="Center" width="120" />
-                        <ColumnDirective
-                            field="category"
-                            headerText="category"
-                            editType="dropdownedit"
-                            textAlign="Center"
-                            width="120"
-                        />
-                        <ColumnDirective field="price" headerText="price" textAlign="Center" width="120" />
-                        <ColumnDirective
-                            field="area"
-                            headerText="area"
-                            editType="numericedit"
-                            textAlign="Center"
-                            width="120"
-                        />
-                        <ColumnDirective
-                            field="guests"
-                            headerText="guests"
-                            editType="numericedit"
-                            textAlign="Center"
-                            width="120"
-                        />
-                        <ColumnDirective
-                            field="rooms"
-                            headerText="rooms"
-                            editType="numericedit"
-                            textAlign="Center"
-                            width="120"
-                        />
-                        <ColumnDirective
-                            field="image"
-                            headerText="image"
-                            textAlign="Center"
-                            width="120"
-                            template={gridTemplate}
-                        />
-                        <ColumnDirective
-                            field="isBooked"
-                            headerText="booked"
-                            displayAsCheckBox={true}
-                            editType="booleanedit"
-                            textAlign="Center"
-                            width="120"
-                        />
-                        <Inject services={[Page, Filter, Group, Edit, Toolbar, Resize]} />
-                    </ColumnsDirective>
-                </GridComponent>
+                {/*<GridComponent*/}
+                {/*    className="mt-3"*/}
+                {/*    dataSource={fetchedRooms}*/}
+                {/*    width="100%"*/}
+                {/*    allowPaging={true}*/}
+                {/*    pageSettings={{ pageSize: 6 }}*/}
+                {/*    allowFiltering={true}*/}
+                {/*    allowGrouping={true}*/}
+                {/*    editSettings={editOptions}*/}
+                {/*    toolbar={toolBarOptions}*/}
+                {/*    actionBegin={roomActions}*/}
+                {/*>*/}
+                {/*    <ColumnsDirective>*/}
+                {/*        <ColumnDirective field="title" headerText="title" textAlign="Center" width="120" />*/}
+                {/*        <ColumnDirective*/}
+                {/*            field="category"*/}
+                {/*            headerText="category"*/}
+                {/*            editType="dropdownedit"*/}
+                {/*            textAlign="Center"*/}
+                {/*            width="120"*/}
+                {/*        />*/}
+                {/*        <ColumnDirective field="price" headerText="price" textAlign="Center" width="120" />*/}
+                {/*        <ColumnDirective*/}
+                {/*            field="area"*/}
+                {/*            headerText="area"*/}
+                {/*            editType="numericedit"*/}
+                {/*            textAlign="Center"*/}
+                {/*            width="120"*/}
+                {/*        />*/}
+                {/*        <ColumnDirective*/}
+                {/*            field="guests"*/}
+                {/*            headerText="guests"*/}
+                {/*            editType="numericedit"*/}
+                {/*            textAlign="Center"*/}
+                {/*            width="120"*/}
+                {/*        />*/}
+                {/*        <ColumnDirective*/}
+                {/*            field="rooms"*/}
+                {/*            headerText="rooms"*/}
+                {/*            editType="numericedit"*/}
+                {/*            textAlign="Center"*/}
+                {/*            width="120"*/}
+                {/*        />*/}
+                {/*        <ColumnDirective*/}
+                {/*            field="image"*/}
+                {/*            headerText="image"*/}
+                {/*            textAlign="Center"*/}
+                {/*            width="120"*/}
+                {/*            template={gridTemplate}*/}
+                {/*        />*/}
+                {/*        <ColumnDirective*/}
+                {/*            field="isBooked"*/}
+                {/*            headerText="booked"*/}
+                {/*            displayAsCheckBox={true}*/}
+                {/*            editType="booleanedit"*/}
+                {/*            textAlign="Center"*/}
+                {/*            width="120"*/}
+                {/*        />*/}
+                {/*        <Inject services={[Page, Filter, Group, Edit, Toolbar, Resize]} />*/}
+                {/*    </ColumnsDirective>*/}
+                {/*</GridComponent>*/}
+                <RoomDataGrid />
                 <GridComponent
                     className="mt-3"
                     dataSource={orders}

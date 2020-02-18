@@ -36,7 +36,6 @@ export interface Rooms {
 
 export interface Room extends Object {
     category: string;
-    userId: string;
     isBooked: boolean;
     title: string;
     price: number;
@@ -45,7 +44,7 @@ export interface Room extends Object {
     rooms: number;
     description: string;
     image: string;
-    _id: string;
+    _id?: string;
 }
 
 export interface Employee {

@@ -2,6 +2,7 @@ import React from 'react';
 import './AboutUsPage.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { config } from '../../config';
+import {HomePageBookForm} from "../../components/HomePageComponents/HomePageBookForm";
 
 export const AboutUsPage: React.FC = () => {
     return (
@@ -22,6 +23,7 @@ export const AboutUsPage: React.FC = () => {
                         </p>
                     </Col>
                 </Row>
+                <HomePageBookForm/>
             </Container>
         </>
     );
