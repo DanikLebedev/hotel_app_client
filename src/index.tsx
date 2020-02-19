@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import i18n from './i18n';
 import { I18nextProvider } from 'react-i18next';
 import Loader from './components/Loader/Loader';

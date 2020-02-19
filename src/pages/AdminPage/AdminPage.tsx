@@ -4,7 +4,7 @@ import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import { AdminNavigation } from '../../components/AdminNavigation/AdminNavigation';
 import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
-import { AdminPageCreate } from '../../components/AdminPageCreate/AdminPageCreate';
+
 
 export const AdminPage: React.FC = () => {
     const routes: JSX.Element = (
@@ -12,9 +12,6 @@ export const AdminPage: React.FC = () => {
             <Route path="/admin/info" exact>
                 <AdminPageInfo />
             </Route>
-            {/*<Route path="/admin/create" exact>*/}
-            {/*    <AdminPageCreate />*/}
-            {/*</Route>*/}
             <Redirect to={'/admin/info'} />
         </Switch>
     );

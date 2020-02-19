@@ -1,6 +1,6 @@
 export interface LoginData {
     email: string;
-    password: string
+    password: string;
 }
 
 export interface RegisterData {
@@ -78,7 +78,7 @@ export interface Order {
     status?: string;
     price: number;
     comment: string;
-    userEmail: string
+    userEmail: string;
 }
 
 export interface Orders {
@@ -91,10 +91,21 @@ export interface OrderCart {
     category: string;
     checkIn: string;
     checkOut: string;
-    userEmail: string
+    userEmail: string;
 }
 
 export interface OrderCarts {
-    ordercarts: OrderCart[]
+    ordercarts: OrderCart[];
 }
 
+export interface Feedback {
+    userEmail: string;
+    userName: string;
+    userLastName: string;
+    message: string;
+    approved: boolean;
+}
+
+export interface Feedbacks {
+    feedbacks: Feedback[];
+}

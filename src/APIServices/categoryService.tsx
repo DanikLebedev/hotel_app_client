@@ -1,5 +1,5 @@
 import { CRUDServices } from './CRUDServices';
-import {Categories, Category, Data} from '../interfaces/clientInterfaces';
+import { Categories, Data } from '../interfaces/clientInterfaces';
 
 export class CategoryService {
     public static async getAllCategories(): Promise<Categories> {

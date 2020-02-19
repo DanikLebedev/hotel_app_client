@@ -15,11 +15,9 @@ import {
     Search,
     Resize,
 } from '@syncfusion/ej2-react-grids';
-import { Category, Customer, Employee, Order, Room } from '../../interfaces/clientInterfaces';
+import { Category, Employee, Order } from '../../interfaces/clientInterfaces';
 import { CategoryService } from '../../APIServices/categoryService';
-import { RoomService } from '../../APIServices/roomService';
 import '../../pages/AdminPage/AdminPage.scss';
-import { config } from '../../config';
 import { AuthContext } from '../../context/auth.context';
 import { OrderService } from '../../APIServices/orderService';
 import { EmployeeService } from '../../APIServices/employeeService';
@@ -30,7 +28,6 @@ export const AdminPageInfo: React.FC = () => {
     const auth = useContext(AuthContext);
     const [orders, setOrders] = useState<Order[]>([]);
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
-    const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [employee, setEmployee] = useState<Employee[]>([]);
 
     const fetchCategories: CallableFunction = useCallback(() => {
@@ -41,32 +38,15 @@ export const AdminPageInfo: React.FC = () => {
         OrderService.getAllOrders().then(({ orders }) => setOrders(orders));
     }, []);
 
-    const fetchRoom: CallableFunction = useCallback(() => {
-        RoomService.getAllRooms().then(({ rooms }) => setFetchedRooms(rooms));
-    }, []);
-
     const fetchEmployee: CallableFunction = useCallback(() => {
         EmployeeService.getAllEmployee().then(({ employees }) => setEmployee(employees));
     }, []);
 
-    const gridTemplate = (props: Room): JSX.Element => {
-        const src: string = config.baseUrl + props.image;
-        return (
-            <>
-                <div
-                    className="room-img"
-                    style={{ background: `url("${src}") center center / cover`, height: '100px' }}
-                ></div>
-            </>
-        );
-    };
-
     useEffect(() => {
         fetchCategories();
-        fetchRoom();
         fetchOrders();
         fetchEmployee();
-    }, [fetchCategories, fetchRoom, fetchOrders, fetchEmployee]);
+    }, [fetchCategories, fetchOrders, fetchEmployee]);
 
     const editOptions: EditSettingsModel = {
         allowEditing: true,
@@ -85,34 +65,6 @@ export const AdminPageInfo: React.FC = () => {
             const formData = new FormData();
             formData.append('_id', state.data[0]._id);
             await OrderService.deleteAdminOrder(formData).then(data => {
-                toaster.notify(data.message, {
-                    duration: 2000,
-                });
-            });
-        }
-    }
-
-    async function roomActions(state: any): Promise<void> {
-        if (state.action === 'add') {
-        } else if (state.requestType === 'delete') {
-            const formData: FormData = new FormData();
-            formData.append('_id', state.data[0]._id);
-            await RoomService.deleteRoom(formData).then(data => {
-                toaster.notify(data.message, {
-                    duration: 2000,
-                });
-            });
-        } else if (state.action === 'edit') {
-            const formData: FormData = new FormData();
-            formData.append('_id', state.data._id);
-            formData.append('category', state.data.category);
-            formData.append('title', state.data.title);
-            formData.append('price', state.data.price);
-            formData.append('guests', state.data.guests);
-            formData.append('rooms', state.data.rooms);
-            formData.append('image', state.data.image);
-            formData.append('isBooked', state.data.isBooked);
-            await RoomService.updateRoom(formData).then(data => {
                 toaster.notify(data.message, {
                     duration: 2000,
                 });
@@ -198,67 +150,6 @@ export const AdminPageInfo: React.FC = () => {
                     </ColumnsDirective>
                     <Inject services={[Page, Group, Edit, Toolbar, Search, Resize]} />
                 </GridComponent>
-                {/*<GridComponent*/}
-                {/*    className="mt-3"*/}
-                {/*    dataSource={fetchedRooms}*/}
-                {/*    width="100%"*/}
-                {/*    allowPaging={true}*/}
-                {/*    pageSettings={{ pageSize: 6 }}*/}
-                {/*    allowFiltering={true}*/}
-                {/*    allowGrouping={true}*/}
-                {/*    editSettings={editOptions}*/}
-                {/*    toolbar={toolBarOptions}*/}
-                {/*    actionBegin={roomActions}*/}
-                {/*>*/}
-                {/*    <ColumnsDirective>*/}
-                {/*        <ColumnDirective field="title" headerText="title" textAlign="Center" width="120" />*/}
-                {/*        <ColumnDirective*/}
-                {/*            field="category"*/}
-                {/*            headerText="category"*/}
-                {/*            editType="dropdownedit"*/}
-                {/*            textAlign="Center"*/}
-                {/*            width="120"*/}
-                {/*        />*/}
-                {/*        <ColumnDirective field="price" headerText="price" textAlign="Center" width="120" />*/}
-                {/*        <ColumnDirective*/}
-                {/*            field="area"*/}
-                {/*            headerText="area"*/}
-                {/*            editType="numericedit"*/}
-                {/*            textAlign="Center"*/}
-                {/*            width="120"*/}
-                {/*        />*/}
-                {/*        <ColumnDirective*/}
-                {/*            field="guests"*/}
-                {/*            headerText="guests"*/}
-                {/*            editType="numericedit"*/}
-                {/*            textAlign="Center"*/}
-                {/*            width="120"*/}
-                {/*        />*/}
-                {/*        <ColumnDirective*/}
-                {/*            field="rooms"*/}
-                {/*            headerText="rooms"*/}
-                {/*            editType="numericedit"*/}
-                {/*            textAlign="Center"*/}
-                {/*            width="120"*/}
-                {/*        />*/}
-                {/*        <ColumnDirective*/}
-                {/*            field="image"*/}
-                {/*            headerText="image"*/}
-                {/*            textAlign="Center"*/}
-                {/*            width="120"*/}
-                {/*            template={gridTemplate}*/}
-                {/*        />*/}
-                {/*        <ColumnDirective*/}
-                {/*            field="isBooked"*/}
-                {/*            headerText="booked"*/}
-                {/*            displayAsCheckBox={true}*/}
-                {/*            editType="booleanedit"*/}
-                {/*            textAlign="Center"*/}
-                {/*            width="120"*/}
-                {/*        />*/}
-                {/*        <Inject services={[Page, Filter, Group, Edit, Toolbar, Resize]} />*/}
-                {/*    </ColumnsDirective>*/}
-                {/*</GridComponent>*/}
                 <RoomDataGrid />
                 <GridComponent
                     className="mt-3"

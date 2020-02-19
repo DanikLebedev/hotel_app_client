@@ -115,45 +115,125 @@ export const RoomInfoPage: React.FC = () => {
             </div>
             <Container className="room-info-page-wrapper">
                 {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}
-                <Row>
-                    <Col lg={12} md={12} sm={12} className="mt-3">
-                        <h3 className="text-center">Book Room</h3>
-                        <div className="d-flex justify-content-center align-items-center flex-column">
-                            <input
-                                className={'form-control w-50'}
-                                name={'checkIn'}
-                                onChange={onChangeHandler}
-                                type="date"
-                                value={order.checkIn}
-                            />
-                            <input
-                                className={'form-control w-50'}
-                                name={'checkOut'}
-                                onChange={onChangeHandler}
-                                type="date"
-                                value={order.checkOut}
-                            />
-                            <input
-                                className={'form-control w-50'}
-                                name={'guests'}
-                                placeholder="number of guests"
-                                onChange={onChangeHandler}
-                                type="number"
-                                value={order.guests}
-                            />
-                            <textarea
-                                onChange={onChangeTextAreaHandler}
-                                className={'form-control w-50'}
-                                name={'comment'}
-                                placeholder="enter your wishes"
-                                value={order.comment}
-                            />
-                            <button className={'button btn-black'} onClick={addOrderHandler}>
-                                book room
-                            </button>
+                {/*<Row>*/}
+                {/*    <Col lg={12} md={12} sm={12} className="mt-3">*/}
+                {/*<div className="">*/}
+                {/*    <h3 className="">Book Room</h3>*/}
+                {/*<Row>*/}
+                {/*    <Col lg={6}>*/}
+                {/*        <label htmlFor="checkIn">Check In</label>*/}
+                {/*        <input*/}
+                {/*            className={'form-control w-50'}*/}
+                {/*            name={'checkIn'}*/}
+                {/*            onChange={onChangeHandler}*/}
+                {/*            type="date"*/}
+                {/*            value={order.checkIn}*/}
+                {/*            id={'checkIn'}*/}
+                {/*        />*/}
+                {/*    </Col>*/}
+                {/*    <Col lg={6}>*/}
+                {/*        <label htmlFor="checkOut">Check Out</label>*/}
+                {/*        <input*/}
+                {/*            className={'form-control w-50'}*/}
+                {/*            name={'checkOut'}*/}
+                {/*            onChange={onChangeHandler}*/}
+                {/*            type="date"*/}
+                {/*            value={order.checkOut}*/}
+                {/*            id={'checkOut'}*/}
+                {/*        />*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
+                {/*<Row>*/}
+                {/*    <Col lg={6}>*/}
+                {/*        <label htmlFor="guests">Guests</label>*/}
+                {/*        <input*/}
+                {/*            className={'form-control w-50'}*/}
+                {/*            name={'guests'}*/}
+                {/*            placeholder="number of guests"*/}
+                {/*            onChange={onChangeHandler}*/}
+                {/*            type="number"*/}
+                {/*            value={order.guests}*/}
+                {/*            id={'guests'}*/}
+                {/*        />*/}
+                {/*    </Col>*/}
+                {/*    <Col lg={6}>*/}
+                {/*        <label htmlFor="comment">Your Wishes</label>*/}
+                {/*        <textarea*/}
+                {/*            onChange={onChangeTextAreaHandler}*/}
+                {/*            className={'form-control w-50'}*/}
+                {/*            name={'comment'}*/}
+                {/*            placeholder="enter your wishes"*/}
+                {/*            value={order.comment}*/}
+                {/*            id={'comment'}*/}
+                {/*        />*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
+                <div className="booking-form">
+                    <div className="form-header">
+                        <h1>Make your reservation</h1>
+                    </div>
+                    <div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <span className="form-label">Check In</span>
+                                    <input
+                                        className="form-control"
+                                        onChange={onChangeHandler}
+                                        value={order.checkIn}
+                                        name={'checkIn'}
+                                        type="date"
+                                        required
+                                    />
+                                </div>
+                                <span className="in-out hidden-xs hidden-sm">&#8652;</span>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <span className="form-label">Check out</span>
+                                    <input
+                                        className="form-control"
+                                        onChange={onChangeHandler}
+                                        value={order.checkOut}
+                                        name={'checkOut'}
+                                        type="date"
+                                        required
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </Col>
-                </Row>
+                        <div className="row align-items-end">
+                            <div className="col-md-3">
+                                <span className="form-label">Number of guests</span>
+                                <input
+                                    className="form-control"
+                                    onChange={onChangeHandler}
+                                    value={order.guests}
+                                    name={'guests'}
+                                    type="number"
+                                    required
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <span className="form-label">Your Wishes</span>
+                                <textarea
+                                    onChange={onChangeTextAreaHandler}
+                                    className={'form-control'}
+                                    name={'comment'}
+                                    placeholder="enter your wishes"
+                                    value={order.comment}
+                                    id={'comment'}
+
+                                />
+                            </div>
+                            <div className="col-md-3">
+                                <div className="form-btn">
+                                    <button onClick={addOrderHandler} className="submit-btn">Check availability</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </Container>
         </div>
     );

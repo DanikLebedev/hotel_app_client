@@ -17,7 +17,7 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
     if (isAuthenticated) {
         return (
             <Switch>
-                <Route path="/" exact>
+                <Route  path="/" exact>
                     <HomePage />
                 </Route>
                 <Route path="/rooms" exact>

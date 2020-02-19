@@ -1,3 +1,5 @@
+@import 'src/index';
+
 .rooms-page__item {
   border-radius: 20px;
   padding: 30px;
@@ -9,7 +11,7 @@
 
   &:hover {
     color: #ffffff;
-    background: rgba(0, 0, 0, .3);
+    background: $price-color;
   }
 }
 

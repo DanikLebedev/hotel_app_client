@@ -1,4 +1,4 @@
-
+@import "src/index";
 .order-page {
   &-wrapper {
     min-height: 80vh;
@@ -16,15 +16,13 @@
   }
 
   &-user-info {
-    background: rgba(255, 255, 255, .5);
-    color: #000000;
+    animation: slideInLeft .5s ease;
+    background: $price-color;
+    color: #ffffff;
     padding: 10px;
-    border-radius: 20px;
-    height: 10em;
-    font-weight: bold;
-
+    border-radius: 3px;
   }
-  h2 {
+  h2,h4 {
     text-align: center;
     color: #ffffff;
   }
@@ -52,8 +50,44 @@
 .order-item {
   margin-bottom: 10px;
   transition: .5s ease-in-out;
-  background: rgba(255, 255, 255, .5);
+  background: $price-color;
   padding: 10px;
+  color: #ffffff;
   border-radius: 20px;
+  animation: slideInLeft .8s ease;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  .button {
+    background: #ffffff;
+    color: $price-color;
+  }
 }
 
+.feedback-form {
+  animation: slideInLeft .3s ;
+  padding: 10px;
+  border-radius: 3px;
+  color: #000000;
+  margin-top: 10px;
+  text-align: center;
+  .button {
+    background: $price-color;
+    color: #ffffff;
+    border-radius: 3px;
+    border: none;
+  }
+  textarea {
+    border-radius: 3px;
+    margin: 10px 0;
+    resize: none;
+    background: $price-color;
+    color: #ffffff;
+    border: none;
+    &::placeholder {
+      color: #ffffff;
+    }
+    &:focus {
+      background: $price-color;
+      color: #ffffff;
+    }
+  }
+}

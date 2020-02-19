@@ -7,7 +7,7 @@ import { Room } from '../../interfaces/clientInterfaces';
 import { RoomService } from '../../APIServices/roomService';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';
-import { LazyLoadImage, LazyLoadComponent } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 export const HomePageRooms: React.FC = (): JSX.Element => {
@@ -33,7 +33,7 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
         <section className={'home__page-rooms'}>
             <Container fluid={true}>
                 <Row className={'home__page-rooms-preview'}>
-                    <Col lg={6} md={6} sm={12} xs={12} className="p-0 ">
+                    <Col lg={6} md={6} sm={12} xs={12} className="p-0 home__page-rooms-preview-main-photo">
                         {fetchedRooms[index] ? (
                             <LazyLoadImage
                                 effect="opacity"
@@ -50,21 +50,21 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                         </h2>
                         <div className={'room-info'}>
                             <p>
-                                <span>{fetchedRooms[index] ? fetchedRooms[index].price : null}</span>/Per Night
+                                <span>{fetchedRooms[index] ? fetchedRooms[index].price : null}$</span>/Per Night
                             </p>
                             <span className={'home-page-separator'}></span>
                         </div>
-                        <div className={'room__icons'}>
+                        <div className="room__icons">
                             <span>
-                                <FontAwesomeIcon icon={faBed} />
+                                <FontAwesomeIcon className={'mr-2'} icon={faBed} />
                                 {fetchedRooms[index] ? fetchedRooms[index].rooms : null} rooms
                             </span>
                             <span>
-                                <FontAwesomeIcon icon={faUserAlt} />
+                                <FontAwesomeIcon className={'mr-2'} icon={faUserAlt} />
                                 {fetchedRooms[index] ? fetchedRooms[index].guests : null} guests
                             </span>
                             <span>
-                                <FontAwesomeIcon icon={faBuilding} />
+                                <FontAwesomeIcon className={'mr-2'} icon={faBuilding} />
                                 {fetchedRooms[index] ? fetchedRooms[index].area : null}m<sup>2</sup>
                             </span>
                         </div>
@@ -92,7 +92,7 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                                 <div
                                     onClick={() => changeMainRoomHandler(key)}
                                     key={key}
-                                    className="home__page-rooms-item col-lg-3 col-md-3 col-sm-12 pl-0 mb-2"
+                                    className="home__page-rooms-item col-lg-3 col-md-6 col-sm-12 pl-0 mb-2"
                                 >
                                     <LazyLoadImage effect="opacity" src={config.baseUrl + item.image} alt="room" />
                                     <div className={'home__page-rooms-item-title'}>

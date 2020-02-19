@@ -1,6 +1,8 @@
 @import "src/index";
 @import "src/components/Navigation/Navigation";
 
+
+
 .main__title {
   margin-bottom: 15vh;
   margin-top: 15vh;
@@ -9,11 +11,14 @@
 .room__icons {
   display: flex;
   flex-direction: column;
+  span {
+
+  }
 }
+
 
 .home-page__book-form {
   padding: 10px;
-  border: 2px solid #000000;
   border-radius: 20px;
   transition: .3s ease-in-out;
   margin: 10px auto;
@@ -21,12 +26,11 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background: #000;
-  color: #ffffff;
   width: 50%;
-  &:hover {
-    background: #ffffff;
-    color: #000000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  .button {
+    margin-top: 10px;
+    background: $price-color;
   }
 }
 
@@ -58,6 +62,7 @@
     img {
       height: 20rem;
       max-width: 300px;
+      animation: slideInRight .8s ease-in-out;
     }
   }
 
@@ -66,6 +71,22 @@
     font-size: 1.3em;
   }
 }
+
+@keyframes slideInRight {
+  from {
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateY(0);
+  }
+
+}
+
 
 @keyframes fly {
   from {
@@ -101,9 +122,10 @@
   font-size: 1.4em;
   border: 1px solid #ffffff;
   white-space: nowrap;
+  border-radius: 3px;
 
   &:hover {
-    background: $base-dark-button-color;
+    background: #000000;
     color: $base-text-color;
   }
 }
@@ -139,6 +161,7 @@
     img {
       width: 90%;
       height: 25rem;
+      object-fit: cover;
     }
   }
 
@@ -160,6 +183,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
 
     &:hover {
@@ -226,6 +250,7 @@
 }
 
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+
   .home-page__header {
     padding-bottom: 140px;
   }
@@ -266,6 +291,9 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
+  .home-page-rooms-row {
+    flex-wrap: wrap;
+  }
   .home-page__header {
     padding-bottom: 150px;
   }
@@ -315,15 +343,15 @@
   }
 }
 
-.home-page-rooms-row {
-  flex-wrap: nowrap;
-}
 
 .photo-wrapper {
   background: url("../../assets/images/38736452-luxurious-bed-with-cushion-in-royal-bedroom-interior-hotel-room-in-bright-colors-vertical-orientatio.jpg") center center / cover;
 }
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
+  .home-page-rooms-row {
+    flex-wrap: wrap;
+  }
 
   .button {
     font-size: 1.2em;
@@ -397,6 +425,15 @@
 
 
 @media screen and (min-width: 300px) and (max-width: 480px) {
+  .arrow-icon {
+    font-size: 2em;
+    margin-top: 3rem;
+  }
+  .home__page-rooms-preview  {
+    img {
+      height: 15rem;
+    }
+  }
   .separator {
     display: none;
   }
@@ -419,9 +456,7 @@
     font-size: 1em;
   }
 
-  .slider {
 
-  }
   .navbar-expand {
     justify-content: center !important;
   }
@@ -442,6 +477,7 @@
   }
 
   .home-page__about-us {
+    padding-top: 0;
     &-title {
       font-size: 1.2em;
     }

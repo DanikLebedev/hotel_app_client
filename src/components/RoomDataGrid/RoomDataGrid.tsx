@@ -1,17 +1,16 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { Category, Room } from '../../interfaces/clientInterfaces';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Room } from '../../interfaces/clientInterfaces';
 import { RoomService } from '../../APIServices/roomService';
 import { CategoryService } from '../../APIServices/categoryService';
-import Loader from '../Loader/Loader';
 import { Table } from 'react-bootstrap';
 import { config } from '../../config';
 import toaster from 'toasted-notes';
-import { OrderService } from '../../APIServices/orderService';
-import { AdminPageCreate } from '../AdminPageCreate/AdminPageCreate';
+import { RoomForm } from '../AdminRoomForm/RoomForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusSquare, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 export const RoomDataGrid: React.FC = () => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
-    const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [editProps, setEditProps] = useState<Room>({
@@ -28,10 +27,6 @@ export const RoomDataGrid: React.FC = () => {
 
     const fetchRoom: CallableFunction = useCallback(() => {
         RoomService.getAllRooms().then(({ rooms }) => setFetchedRooms(rooms));
-    }, []);
-
-    const fetchCategories: CallableFunction = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
     }, []);
 
     const editRoomHandler = (event: React.MouseEvent<EventTarget>) => {
@@ -62,6 +57,7 @@ export const RoomDataGrid: React.FC = () => {
     };
 
     const addRoomHandler = () => {
+        setIsEdit(false);
         setShowModal(true);
     };
 
@@ -70,9 +66,8 @@ export const RoomDataGrid: React.FC = () => {
     };
 
     useEffect(() => {
-        fetchCategories();
         fetchRoom();
-    }, [fetchCategories, fetchRoom, fetchedRooms]);
+    }, [fetchRoom, fetchedRooms]);
 
     return (
         <>
@@ -88,7 +83,10 @@ export const RoomDataGrid: React.FC = () => {
                         <th>area</th>
                         <th>image</th>
                         <th>
-                            actions <button onClick={addRoomHandler}>Add</button>
+                            actions
+                            <button className={'icon-buttons'} onClick={addRoomHandler}>
+                                <FontAwesomeIcon color="green" icon={faPlusSquare} />
+                            </button>
                         </th>
                     </tr>
                 </thead>
@@ -116,11 +114,16 @@ export const RoomDataGrid: React.FC = () => {
                                           ></div>
                                       </td>
                                       <td>
-                                          <button id={room._id} onClick={deleteRoomHandler}>
-                                              Delete
+                                          <button className={'icon-buttons'} id={room._id} onClick={deleteRoomHandler}>
+                                              <FontAwesomeIcon color="red" icon={faTrash} />
                                           </button>
-                                          <button id={room._id} onClick={editRoomHandler}>
-                                              Edit
+                                          <button
+                                              color="grey"
+                                              className={'icon-buttons'}
+                                              id={room._id}
+                                              onClick={editRoomHandler}
+                                          >
+                                              <FontAwesomeIcon icon={faEdit} />
                                           </button>
                                       </td>
                                   </tr>
@@ -129,7 +132,7 @@ export const RoomDataGrid: React.FC = () => {
                         : null}
                 </tbody>
             </Table>
-            <AdminPageCreate show={showModal} isEdit={isEdit} editProps={editProps} closeModal={closeModal} />
+            <RoomForm show={showModal} isEdit={isEdit} editProps={editProps} closeModal={closeModal} />
         </>
     );
 };

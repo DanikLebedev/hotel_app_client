@@ -9,7 +9,7 @@ import { Navbar, NavbarBrand, Nav, Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/esm/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
-import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSignInAlt, faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';
 import { goToAnchor } from 'react-scrollable-anchor';
 import { configureAnchors } from 'react-scrollable-anchor';
 import { useTranslation } from 'react-i18next';
@@ -64,17 +64,23 @@ const Navigation: React.FC = (): JSX.Element => {
                     <Col lg={6} md={5} sm={4}>
                         <ul className="header__contacts">
                             <li>
-                                <span>Email</span>
+                                <span>
+                                    <FontAwesomeIcon icon={faEnvelope} /> Email
+                                </span>
                                 <span className="font-weight-bold">hotel@mail.ru</span>
                             </li>
                             <div className="separator"></div>
                             <li>
-                                <span>{t('phone.label')}</span>
+                                <span>
+                                    <FontAwesomeIcon icon={faPhone} /> {t('phone.label')}
+                                </span>
                                 <span className="font-weight-bold">+39752180</span>
                             </li>
                             <div className="separator"></div>
                             <li>
-                                <span>{t('adress.label')}</span>
+                                <span>
+                                    <FontAwesomeIcon icon={faMapMarked} /> {t('adress.label')}
+                                </span>
                                 <span className="font-weight-bold">{t('street.label')}</span>
                             </li>
                         </ul>

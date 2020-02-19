@@ -7,7 +7,6 @@ interface OrderProps {
     order: Order;
     onDelete: (event: React.MouseEvent<EventTarget, MouseEvent>) => Promise<void>;
     classes: string[];
-    deleted: boolean;
 }
 export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element => {
     return (

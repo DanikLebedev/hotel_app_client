@@ -1,3 +1,14 @@
+@import "src/index";
+
+input[type=date] {
+  -webkit-appearance: none;
+}
+input[type=date]::-webkit-inner-spin-button,
+ {
+  display: none;
+  -webkit-appearance: none;
+}
+
 .room-info-page {
   padding: 3rem 0 3rem 0;
   &-bg {
@@ -16,6 +27,8 @@
   &-wrapper {
     padding-top: 35vh;
   }
+
+
 }
 
 @media screen
@@ -46,4 +59,106 @@ and (min-width: 480px){
 
 @media screen and (max-width: 480px) {
 
+}
+
+.booking-form {
+  background-color: #fff;
+  max-width: 768px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  width: 100%;
+  margin: 30px auto ;
+  padding: 30px;
+  border-radius: 3px;
+}
+
+.booking-form .form-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.booking-form .form-header h1 {
+  font-weight: 700;
+  font-size: 38px;
+  color: #0c0c09;
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+
+.booking-form .form-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.booking-form .form-control {
+  background-color: #fff;
+  height: 50px;
+  padding: 0px 20px;
+  border: 1px solid #e1e1e1;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 3px;
+  color: #6b6b6d;
+  font-size: 1em;
+}
+
+.booking-form .form-control::-webkit-input-placeholder {
+  color: #e1e1e1;
+}
+
+.booking-form .form-control:-ms-input-placeholder {
+  color: #e1e1e1;
+}
+
+.booking-form .form-control::placeholder {
+  color: #e1e1e1;
+}
+
+.booking-form .form-control:focus {
+  border-color:$price-color;;
+}
+
+.booking-form input[type="date"].form-control:invalid {
+  color: #e1e1e1;
+}
+
+
+.booking-form .form-label {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 3px;
+  display: inline-block;
+  color: $price-color;;
+  text-transform: capitalize;
+}
+
+.booking-form .in-out {
+  position: absolute;
+  font-size: 24px;
+  color: $price-color;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 20;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  bottom: 25px;
+}
+
+.booking-form .form-btn {
+  margin-top: 23px;
+}
+
+.booking-form .submit-btn {
+  color: #fff;
+  background-color: $price-color;;
+  font-weight: 700;
+  height: 50px;
+  border: none;
+  display: block;
+  font-size: 1em;
+  width: 100%;
+  text-transform: capitalize;
+  border-radius: 3px;
 }

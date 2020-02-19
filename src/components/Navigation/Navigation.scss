@@ -150,6 +150,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-transform: uppercase;
+  border-radius: 3px;
 }
 
 
@@ -173,6 +174,7 @@
 .nav-wrapper {
   display: flex;
   justify-content: space-around;
+  z-index: 10;
 }
 
 .bar1, .bar2, .bar3 {

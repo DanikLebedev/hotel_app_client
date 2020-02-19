@@ -36,7 +36,7 @@ export const HomePageBookForm: React.FC = (): JSX.Element => {
 
     const options: JSX.Element[] = fetchedCategories.map(({ title }, index) => {
         return (
-            <option key={title + index} value={title}>
+            <option className={'form-control'} key={title + index} value={title}>
                 {title}
             </option>
         );
@@ -57,11 +57,7 @@ export const HomePageBookForm: React.FC = (): JSX.Element => {
                     <Col lg={12} md={12} sm={12}>
                         <div className="home-page__book-form">
                             <h2>Choose Your Room</h2>
-                            <select
-                                className={'form-control w-50 m-2'}
-                                onChange={selectOrderChangeHandler}
-                                name="category"
-                            >
+                            <select className={'form-control mt-2'} onChange={selectOrderChangeHandler} name="category">
                                 {options}
                             </select>
                             <button className={'button btn-black'} onClick={addOrderHandler}>

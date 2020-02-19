@@ -2,7 +2,6 @@ import React from 'react';
 import './AboutUsPage.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { config } from '../../config';
-import {HomePageBookForm} from "../../components/HomePageComponents/HomePageBookForm";
 
 export const AboutUsPage: React.FC = () => {
     return (
@@ -14,7 +13,7 @@ export const AboutUsPage: React.FC = () => {
                 <h1 className="text-white text-center">About us</h1>
                 <Row>
                     <Col lg={6} className="about-us__page-photo" md={6} sm={6}></Col>
-                    <Col lg={6} md={6} sm={6}>
+                    <Col lg={6} md={6} sm={6} className="about-us__page-text">
                         <h3>We are the best</h3>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolor ex ipsam mollitia nam
@@ -23,7 +22,14 @@ export const AboutUsPage: React.FC = () => {
                         </p>
                     </Col>
                 </Row>
-                <HomePageBookForm/>
+            </Container>
+            <Container fluid={true}>
+                <Row className={'about-us__page-gallery'}>
+                    <Col lg={3}>asdasd</Col>
+                    <Col lg={3}>asd</Col>
+                    <Col lg={3}>asd</Col>
+                    <Col lg={3}>asd</Col>
+                </Row>
             </Container>
         </>
     );
