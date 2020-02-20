@@ -71,7 +71,7 @@ export const RoomDataGrid: React.FC = () => {
 
     return (
         <>
-            <Table bordered className="m-3">
+            <Table hover variant="dark" bordered className="m-3">
                 <thead>
                     <tr>
                         <th>Category</th>
@@ -117,13 +117,8 @@ export const RoomDataGrid: React.FC = () => {
                                           <button className={'icon-buttons'} id={room._id} onClick={deleteRoomHandler}>
                                               <FontAwesomeIcon color="red" icon={faTrash} />
                                           </button>
-                                          <button
-                                              color="grey"
-                                              className={'icon-buttons'}
-                                              id={room._id}
-                                              onClick={editRoomHandler}
-                                          >
-                                              <FontAwesomeIcon icon={faEdit} />
+                                          <button className={'icon-buttons'} id={room._id} onClick={editRoomHandler}>
+                                              <FontAwesomeIcon color="white" icon={faEdit} />
                                           </button>
                                       </td>
                                   </tr>

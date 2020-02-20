@@ -99,7 +99,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
             duration: 2000,
         });
         clearError();
-    }, [error, clearError, fetchCategories, props.isEdit]);
+    }, [error, clearError, fetchCategories, props.isEdit, props.editProps]);
 
     if (!fetchedCategories[0]) {
         return <Loader />;

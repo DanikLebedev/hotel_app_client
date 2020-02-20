@@ -6,8 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
-import i18n from './i18n';
-
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -43,8 +42,9 @@ const App: React.FC = () => {
                 userEmail,
             }}
         >
-            <Router >
+            <Router>
                 <Header />
+                <ScrollToTop />
                 {routes}
             </Router>
             <Footer />

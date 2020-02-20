@@ -139,6 +139,11 @@
 
 .home__page-rooms {
   padding-bottom: 30px;
+  &-price {
+    font-size: 2em;
+    color: $price-color;
+    font-weight: bold;
+  }
 
   &-preview {
     transition: .5s ease;
@@ -512,4 +517,31 @@
     }
   }
 
+}
+
+
+.home-page-articles {
+  &-item {
+    position: relative;
+    overflow: hidden;
+    transition: .5s ease-in-out;
+    .article-info {
+      background: #ffffff;
+      width: 80%;
+      padding: 10px;
+      position: absolute;
+      margin-left: 10px;
+      bottom: 5%;
+      left: 0;
+      transform: translateY(140px);
+      transition: .5s ease-in-out;
+    }
+    &:hover {
+      filter: grayscale(.75);
+      .article-info {
+       transform: translateY(0);
+
+      }
+    }
+  }
 }

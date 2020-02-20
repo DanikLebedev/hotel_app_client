@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
+import { Container, Tabs, Tab } from 'react-bootstrap';
 import {
     ColumnDirective,
     ColumnsDirective,
@@ -132,88 +132,96 @@ export const AdminPageInfo: React.FC = () => {
 
     return (
         <Container>
-            <div className="d-flex justify-content-around flex-wrap">
-                <GridComponent
-                    className="mt-3"
-                    dataSource={fetchedCategories}
-                    allowPaging={true}
-                    pageSettings={{ pageSize: 6 }}
-                    allowFiltering={true}
-                    allowGrouping={true}
-                    width={800}
-                    editSettings={editOptions}
-                    toolbar={toolBarOptions}
-                    actionComplete={categoryActions}
-                >
-                    <ColumnsDirective>
-                        <ColumnDirective field="title" headerText="category" textAlign="Left" width="30" />
-                    </ColumnsDirective>
-                    <Inject services={[Page, Group, Edit, Toolbar, Search, Resize]} />
-                </GridComponent>
-                <RoomDataGrid />
-                <GridComponent
-                    className="mt-3"
-                    dataSource={orders}
-                    width={'80%'}
-                    allowPaging={true}
-                    pageSettings={{ pageSize: 6 }}
-                    allowFiltering={true}
-                    editSettings={editOptions}
-                    toolbar={toolBarOptions}
-                    allowGrouping={true}
-                    actionBegin={orderActions}
-                >
-                    <ColumnsDirective>
-                        <ColumnDirective field="_id" headerText="OrderID" textAlign="Left" width="50" />
-                        <ColumnDirective field="category" headerText="Room category" textAlign="Left" width="50" />
-                        <ColumnDirective
-                            field="checkIn"
-                            headerText="checkIn"
-                            editType="datepickeredit"
-                            textAlign="Left"
-                            width="50"
-                            type="date"
-                            format="yMd"
-                        />
-                        <ColumnDirective
-                            field="checkOut"
-                            headerText="checkOut"
-                            editType="datepickeredit"
-                            textAlign="Left"
-                            width="50"
-                            type="date"
-                            format="yMd"
-                        />
-                        <ColumnDirective field="userEmail" headerText="userEmail" textAlign="Left" width="50" />
-                        <ColumnDirective field="status" headerText="status" textAlign="Left" width="50" />
-                        <Inject services={[Page, Filter, Group, Edit, Toolbar, Resize]} />
-                    </ColumnsDirective>
-                </GridComponent>
-                <GridComponent
-                    className="mt-3"
-                    dataSource={employee}
-                    width={'80%'}
-                    allowPaging={true}
-                    pageSettings={{ pageSize: 6 }}
-                    allowFiltering={true}
-                    editSettings={editOptions}
-                    toolbar={toolBarOptions}
-                    allowGrouping={true}
-                    actionBegin={employeeActions}
-                >
-                    <ColumnsDirective>
-                        <ColumnDirective field="email" headerText="email" textAlign="Left" width="50" />
-                        <ColumnDirective field="password" headerText="password" textAlign="Left" width="50" />
-                        <ColumnDirective
-                            field="status"
-                            editType="dropdownedit"
-                            headerText="status"
-                            textAlign="Left"
-                            width="50"
-                        />
-                    </ColumnsDirective>
-                </GridComponent>
-            </div>
+            <Tabs defaultActiveKey="category" id="uncontrolled-tab-example">
+                <Tab eventKey="category" title="Categories">
+                    <GridComponent
+                        className="mt-3"
+                        dataSource={fetchedCategories}
+                        allowPaging={true}
+                        pageSettings={{ pageSize: 6 }}
+                        allowFiltering={true}
+                        allowGrouping={true}
+                        width={800}
+                        editSettings={editOptions}
+                        toolbar={toolBarOptions}
+                        actionComplete={categoryActions}
+                    >
+                        <ColumnsDirective>
+                            <ColumnDirective field="title" headerText="category" textAlign="Left" width="30" />
+                        </ColumnsDirective>
+                        <Inject services={[Page, Group, Edit, Toolbar, Search, Resize]} />
+                    </GridComponent>
+                </Tab>
+                <Tab eventKey="rooms" title="Rooms">
+                    <RoomDataGrid />
+                </Tab>
+                <Tab eventKey="orders" title="Orders">
+                    <GridComponent
+                        className="mt-3"
+                        dataSource={orders}
+                        width={'80%'}
+                        allowPaging={true}
+                        pageSettings={{ pageSize: 6 }}
+                        allowFiltering={true}
+                        editSettings={editOptions}
+                        toolbar={toolBarOptions}
+                        allowGrouping={true}
+                        actionBegin={orderActions}
+                    >
+                        <ColumnsDirective>
+                            <ColumnDirective field="_id" headerText="OrderID" textAlign="Left" width="50" />
+                            <ColumnDirective field="category" headerText="Room category" textAlign="Left" width="50" />
+                            <ColumnDirective
+                                field="checkIn"
+                                headerText="checkIn"
+                                editType="datepickeredit"
+                                textAlign="Left"
+                                width="50"
+                                type="date"
+                                format="yMd"
+                            />
+                            <ColumnDirective
+                                field="checkOut"
+                                headerText="checkOut"
+                                editType="datepickeredit"
+                                textAlign="Left"
+                                width="50"
+                                type="date"
+                                format="yMd"
+                            />
+                            <ColumnDirective field="userEmail" headerText="userEmail" textAlign="Left" width="50" />
+                            <ColumnDirective field="status" headerText="status" textAlign="Left" width="50" />
+                            <Inject services={[Page, Filter, Group, Edit, Toolbar, Resize]} />
+                        </ColumnsDirective>
+                    </GridComponent>
+                </Tab>
+                <Tab title={'Employees'} eventKey="employees">
+                    <GridComponent
+                        className="mt-3"
+                        dataSource={employee}
+                        width={'80%'}
+                        allowPaging={true}
+                        pageSettings={{ pageSize: 6 }}
+                        allowFiltering={true}
+                        editSettings={editOptions}
+                        toolbar={toolBarOptions}
+                        allowGrouping={true}
+                        actionBegin={employeeActions}
+                    >
+                        <ColumnsDirective>
+                            <ColumnDirective field="email" headerText="email" textAlign="Left" width="50" />
+                            <ColumnDirective field="password" headerText="password" textAlign="Left" width="50" />
+                            <ColumnDirective
+                                field="status"
+                                editType="dropdownedit"
+                                headerText="status"
+                                textAlign="Left"
+                                width="50"
+                            />
+                        </ColumnsDirective>
+                    </GridComponent>
+                </Tab>
+            </Tabs>
         </Container>
     );
 };

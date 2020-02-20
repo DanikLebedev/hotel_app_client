@@ -115,59 +115,6 @@ export const RoomInfoPage: React.FC = () => {
             </div>
             <Container className="room-info-page-wrapper">
                 {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}
-                {/*<Row>*/}
-                {/*    <Col lg={12} md={12} sm={12} className="mt-3">*/}
-                {/*<div className="">*/}
-                {/*    <h3 className="">Book Room</h3>*/}
-                {/*<Row>*/}
-                {/*    <Col lg={6}>*/}
-                {/*        <label htmlFor="checkIn">Check In</label>*/}
-                {/*        <input*/}
-                {/*            className={'form-control w-50'}*/}
-                {/*            name={'checkIn'}*/}
-                {/*            onChange={onChangeHandler}*/}
-                {/*            type="date"*/}
-                {/*            value={order.checkIn}*/}
-                {/*            id={'checkIn'}*/}
-                {/*        />*/}
-                {/*    </Col>*/}
-                {/*    <Col lg={6}>*/}
-                {/*        <label htmlFor="checkOut">Check Out</label>*/}
-                {/*        <input*/}
-                {/*            className={'form-control w-50'}*/}
-                {/*            name={'checkOut'}*/}
-                {/*            onChange={onChangeHandler}*/}
-                {/*            type="date"*/}
-                {/*            value={order.checkOut}*/}
-                {/*            id={'checkOut'}*/}
-                {/*        />*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-                {/*<Row>*/}
-                {/*    <Col lg={6}>*/}
-                {/*        <label htmlFor="guests">Guests</label>*/}
-                {/*        <input*/}
-                {/*            className={'form-control w-50'}*/}
-                {/*            name={'guests'}*/}
-                {/*            placeholder="number of guests"*/}
-                {/*            onChange={onChangeHandler}*/}
-                {/*            type="number"*/}
-                {/*            value={order.guests}*/}
-                {/*            id={'guests'}*/}
-                {/*        />*/}
-                {/*    </Col>*/}
-                {/*    <Col lg={6}>*/}
-                {/*        <label htmlFor="comment">Your Wishes</label>*/}
-                {/*        <textarea*/}
-                {/*            onChange={onChangeTextAreaHandler}*/}
-                {/*            className={'form-control w-50'}*/}
-                {/*            name={'comment'}*/}
-                {/*            placeholder="enter your wishes"*/}
-                {/*            value={order.comment}*/}
-                {/*            id={'comment'}*/}
-                {/*        />*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
                 <div className="booking-form">
                     <div className="form-header">
                         <h1>Make your reservation</h1>
@@ -223,12 +170,13 @@ export const RoomInfoPage: React.FC = () => {
                                     placeholder="enter your wishes"
                                     value={order.comment}
                                     id={'comment'}
-
                                 />
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
-                                    <button onClick={addOrderHandler} className="submit-btn">Check availability</button>
+                                    <button onClick={addOrderHandler} className="submit-btn">
+                                        Check availability
+                                    </button>
                                 </div>
                             </div>
                         </div>

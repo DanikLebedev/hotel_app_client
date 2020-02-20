@@ -150,6 +150,10 @@ and (min-width: 480px){
   margin-top: 23px;
 }
 
+#comment {
+  resize: none;
+}
+
 .booking-form .submit-btn {
   color: #fff;
   background-color: $price-color;;

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Nav } from 'react-bootstrap';
 import { NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const AdminNavigation: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -14,15 +16,9 @@ export const AdminNavigation: React.FC = () => {
 
     return (
         <Nav className="justify-content-center" activeKey="/home">
-            <Nav.Item className={'mr-2'}>
-                <NavLink to="/admin/info">Info</NavLink>
-            </Nav.Item>
-            <Nav.Item>
-                <NavLink to="/admin/create">Add content</NavLink>
-            </Nav.Item>
             <Nav.Item>
                 <NavLink onClick={logoutHandler} to="/">
-                    Logout
+                    <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                 </NavLink>
             </Nav.Item>
         </Nav>

@@ -6,6 +6,7 @@ import { HomePageFeedback } from '../../components/HomePageComponents/HomePageFe
 import { HomePageFeatures } from '../../components/HomePageComponents/HomePageFeatures';
 import { HomePageBookForm } from '../../components/HomePageComponents/HomePageBookForm';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { HomePageArticles } from '../../components/HomePageComponents/HomePageArticles';
 
 export const HomePage: React.FC = () => {
     return (
@@ -17,6 +18,7 @@ export const HomePage: React.FC = () => {
             <HomePageBookForm />
             <HomePageFeedback />
             <HomePageFeatures />
+            <HomePageArticles />
         </>
     );
 };

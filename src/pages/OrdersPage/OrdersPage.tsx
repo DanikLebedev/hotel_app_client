@@ -9,11 +9,10 @@ import toaster from 'toasted-notes';
 import { Container, Col, Row } from 'react-bootstrap';
 import { OrderItem } from '../../components/OrderItem/OrderItem';
 import { CustomerService } from '../../APIServices/customerService';
-import { HomePageBookForm } from '../../components/HomePageComponents/HomePageBookForm';
 import Loader from '../../components/Loader/Loader';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 export const OrderPage: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -83,11 +82,16 @@ export const OrderPage: React.FC = () => {
                         {userInfo ? (
                             <div className="order-page-user-info">
                                 <p>
-                                    <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email} <button>Edit</button>
+                                    <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}{' '}
+                                    <button className={'icon-buttons'}>
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
                                 </p>
                                 <p>
                                     <FontAwesomeIcon icon={faUser} /> Full name: {userInfo.name} {userInfo.lastName}{' '}
-                                    <button>Edit</button>
+                                    <button className={'icon-buttons'}>
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
                                 </p>
                             </div>
                         ) : (

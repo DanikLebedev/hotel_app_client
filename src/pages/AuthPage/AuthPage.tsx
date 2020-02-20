@@ -70,7 +70,7 @@ const AuthPage: React.FC = () => {
     };
 
     const loginForm: JSX.Element = (
-        <div className="auth__wrapper">
+        <div className="auth__wrapper login-form">
             <h1>Log in</h1>
             <label>
                 <FontAwesomeIcon icon={faUser} />
@@ -109,7 +109,7 @@ const AuthPage: React.FC = () => {
     );
 
     const signInForm: JSX.Element = (
-        <div className="auth__wrapper">
+        <div className="auth__wrapper signin-form">
             <h1>Sign in</h1>
             <label>
                 <FontAwesomeIcon icon={faUser} />
@@ -159,6 +159,9 @@ const AuthPage: React.FC = () => {
                     onChange={changeRegisterInputHandler}
                 />
             </label>
+            <button className="change-form-button" onClick={() => setHaveAccount(true)}>
+                Have an account?
+            </button>
             <div className="btn__wrapper">
                 <button className="auth__btn" onClick={registerHandler}>
                     Register

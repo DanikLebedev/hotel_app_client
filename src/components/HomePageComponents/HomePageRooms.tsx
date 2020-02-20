@@ -50,9 +50,11 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                         </h2>
                         <div className={'room-info'}>
                             <p>
-                                <span>{fetchedRooms[index] ? fetchedRooms[index].price : null}$</span>/Per Night
+                                <span className={'home__page-rooms-price'}>
+                                    {fetchedRooms[index] ? fetchedRooms[index].price : null}$
+                                </span>
+                                /Per Night
                             </p>
-                            <span className={'home-page-separator'}></span>
                         </div>
                         <div className="room__icons">
                             <span>
@@ -69,7 +71,9 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                             </span>
                         </div>
                         <p className={'home__page-rooms-description'}>
-                            {fetchedRooms[index] ? fetchedRooms[index].description : null}
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores harum nulla odit officiis
+                            quos! Autem dolorum maiores vitae. Accusamus culpa cumque eligendi enim ex repellendus sunt!
+                            Earum iusto sapiente unde?{fetchedRooms[index] ? fetchedRooms[index].description : null}
                         </p>
                         <div className={'button__container'}>
                             <button
