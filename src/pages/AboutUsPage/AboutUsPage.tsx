@@ -6,13 +6,13 @@ import galleryPhoto1 from '../../assets/images/7112.jpg';
 import galleryPhoto2 from '../../assets/images/dui21-deluxe-room1.add1.low-res.jpg';
 import galleryPhoto3 from '../../assets/images/3-high-res-restaurant-30.jpg';
 import galleryPhoto4 from '../../assets/images/528941482_200fcf18b2_b.jpg';
-import {BookForm} from "../../components/BookForm/BookForm";
+import {FindRoomForm} from "../../components/FindRoomForm/FindRoomForm";
 
 
 export const AboutUsPage: React.FC = () => {
     return (
         <>
-            <BookForm />
+            <FindRoomForm />
             <video className="videoTag" autoPlay loop muted>
                 <source src={config.baseUrl + 'video.mp4'} type="video/mp4" />
             </video>

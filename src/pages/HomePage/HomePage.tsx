@@ -6,12 +6,12 @@ import { HomePageFeedback } from '../../components/HomePageComponents/HomePageFe
 import { HomePageFeatures } from '../../components/HomePageComponents/HomePageFeatures';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { HomePageArticles } from '../../components/HomePageComponents/HomePageArticles';
-import { BookForm } from '../../components/BookForm/BookForm';
+import { FindRoomForm } from '../../components/FindRoomForm/FindRoomForm';
 
 export const HomePage: React.FC = () => {
     return (
         <>
-            <BookForm />
+            <FindRoomForm />
             <HomePageAboutUs />
             <LazyLoadComponent>
                 <HomePageRooms />

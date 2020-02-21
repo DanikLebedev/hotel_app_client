@@ -9,9 +9,9 @@
 
 .auth {
   background: url("../../assets/images/bg-01.jpg") no-repeat center center / cover;
-  min-height: 100vh;
+  min-height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: -3;

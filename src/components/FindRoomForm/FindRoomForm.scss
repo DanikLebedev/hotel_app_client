@@ -1,0 +1,132 @@
+@import "src/index";
+
+.fixed-form-wrapper {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 30%;
+  right: 0;
+  z-index: 20;
+  transition: .6s ease-in-out;
+  animation: shake 3s infinite;
+
+  .toggle-fixed-form {
+    border-radius: 3px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    background: $price-color;
+    padding: 10px;
+
+  }
+
+  .fixed-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.fixed-form-active {
+  right: 240px;
+}
+
+.find-room-form {
+  border: 2px solid $price-color;
+  padding: 20px 25px;
+  background: #ffffff;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  label {
+    font-size: 1.1em;
+    color: $price-color;
+    font-weight: bold;
+    margin:5px;
+  }
+  input {
+    border-radius: 3px;
+    border: 1px solid $price-color;
+    padding: 10px;
+    margin: 10px;
+  }
+  input[type=date] {
+    -webkit-appearance: none;
+    color: $price-color;
+    &::placeholder {
+      color: $price-color;
+    }
+  }
+  input[type=date]::-webkit-inner-spin-button,
+  {
+    display: none;
+    -webkit-appearance: none;
+  }
+  button {
+    color: #fff;
+    background-color: $price-color;;
+    font-weight: 700;
+    border: none;
+    display: block;
+    font-size: 1em;
+    text-transform: capitalize;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+}
+
+
+@keyframes shake {
+  from {
+    transform: translateX(220px);
+  }
+  50% {
+    transform: translateX(210px);
+  }
+
+  to {
+    transform: translateX(220px);
+  }
+}
+
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .toggle-fixed-form {
+      font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 480px) {
+
+}
+
+@media screen and (min-width: 300px) and (max-width: 480px) {
+
+  .fixed-form-wrapper {
+    right: 10px;
+  }
+
+  .fixed-form-active {
+    right: 240px;
+  }
+
+
+
+  .toggle-fixed-form {
+    font-size: 0.8em !important;
+    width: 80px;
+  }
+
+  .find-room-form {
+    font-size: 0.8em;
+  }
+
+}

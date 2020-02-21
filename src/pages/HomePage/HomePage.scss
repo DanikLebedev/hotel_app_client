@@ -413,6 +413,14 @@
 
 
 @media screen and (min-width: 300px) and (max-width: 480px) {
+
+  .grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
   .arrow-icon {
     font-size: 2em;
     margin-top: 3rem;

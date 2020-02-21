@@ -177,14 +177,11 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('about.label')}
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
-                            <button className="button-book header_button" onClick={goToForm}>
-                                {t('book-room.label')}
-                            </button>
                         </Nav>
                     </div>
                 </Navbar>
             </Container>
-            <div id={'burger-button'} className={showMenu ? 'change' : ''} onClick={showMenuHandler}>
+            <div id='burger-button' className={showMenu ? 'change' : ''} onClick={showMenuHandler}>
                 <div className="bar1"></div>
                 <div className="bar2"></div>
                 <div className="bar3"></div>

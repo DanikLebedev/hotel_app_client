@@ -111,7 +111,6 @@ export const RoomInfoPage: React.FC = () => {
     return (
         <div className="room-info-page">
             <div className="room-info-page-bg d-flex justify-content-center align-items-end">
-                <h1 className="text-white">Room Info Page</h1>
             </div>
             <Container className="room-info-page-wrapper">
                 {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}

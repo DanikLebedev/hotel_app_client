@@ -6,9 +6,9 @@
 
   &-bg {
     background: url("../../assets/images/7112.jpg") center center / cover;
-    min-height: 100vh;
-    width: 100%;
-    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: -3;
@@ -48,7 +48,6 @@
 }
 
 .order-item {
-  margin-bottom: 10px;
   transition: .5s ease-in-out;
   background: $price-color;
   padding: 10px;
@@ -56,6 +55,7 @@
   border-radius: 20px;
   animation: slideInRight .8s ease;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
   .button {
     background: #ffffff;
     color: $price-color;
@@ -94,10 +94,6 @@
 
 
   @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
-    .order-page {
-      &-bg {
-        min-height: 105vh;
-      }
-    }
+
   }
 

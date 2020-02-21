@@ -13,7 +13,7 @@ import Loader from '../../components/Loader/Loader';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
-import {BookForm} from "../../components/BookForm/BookForm";
+import {FindRoomForm} from "../../components/FindRoomForm/FindRoomForm";
 
 export const OrderPage: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -75,14 +75,14 @@ export const OrderPage: React.FC = () => {
 
     return (
         <div className="order-page">
-            <BookForm />
+            <FindRoomForm />
             <div className="order-page-bg"></div>
             <Container className="order-page-wrapper">
                 <Row>
-                    <Col lg={4} md={4} sm={4}>
-                        <h2>User Info</h2>
+                    <Col lg={3} md={3} sm={3} xs={12}>
                         {userInfo ? (
                             <div className="order-page-user-info">
+                                <h4>Your Info</h4>
                                 <p>
                                     <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}{' '}
                                     <button className={'icon-buttons'}>
@@ -114,9 +114,9 @@ export const OrderPage: React.FC = () => {
                             </button>
                         </div>
                     </Col>
-                    <Col lg={8} md={8} sm={8} className="d-flex justify-content-around align-items-center flex-column">
-                        <h2>Your Orders</h2>
-                        <div className="d-flex flex-column">
+                    <Col lg={8} md={8} sm={8} xs={12} className="d-flex justify-content-around align-items-center flex-column">
+                        <h4>Your Orders</h4>
+                        <div className="d-flex justify-content-center align-items-center flex-column">
                             {orders ? (
                                 orders.map((item: Order, key: number) => {
                                     return (

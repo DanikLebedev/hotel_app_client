@@ -23,9 +23,23 @@
 and (min-width: 768px)
 and (max-width: 1199px){
   .room-page {
+    h1 {
+      font-size: 3em;
+    }
    &-wrapper {
      padding-top: 40vh;
    }
   }
 }
 
+
+@media screen and (min-width: 300px) and (max-width: 480px) {
+  .room-page {
+    h1 {
+      font-size: 2em;
+    }
+    &-wrapper {
+      padding-top: 20vh;
+    }
+  }
+}
