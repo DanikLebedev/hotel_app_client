@@ -6,7 +6,7 @@ import engLogo from '../../assets/images/united_kingdom_640.png';
 import rusLogo from '../../assets/images/russia_round_icon_64.png';
 import hotelLogo from '../../assets/images/Rixos_Hotels_logo_logotype.png';
 import { Navbar, NavbarBrand, Nav, Row, Col } from 'react-bootstrap';
-import Container from 'react-bootstrap/esm/Container';
+import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
 import { faSignOutAlt, faSignInAlt, faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';

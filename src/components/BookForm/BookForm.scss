@@ -1,0 +1,67 @@
+@import "src/index";
+
+.fixed-form-wrapper {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 30%;
+  right: 0;
+  z-index: 20;
+  transition: .6s ease-in-out;
+  animation: shake 3s infinite;
+
+  .toggle-fixed-form {
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-right: 50px solid $price-color;
+  }
+
+  .fixed-form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.fixed-form-active {
+  right: 400px;
+}
+
+@keyframes shake {
+  from {
+    transform: translateX(400px);
+  }
+  50% {
+    transform: translateX(410px);
+  }
+
+  to {
+    transform: translateX(400px);
+  }
+}
+
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+
+}
+
+@media screen and (max-width: 768px) and (min-width: 480px) {
+
+}
+
+@media screen and (min-width: 300px) and (max-width: 480px) {
+ .fixed-form-wrapper {
+   right: 300px;
+ }
+  .booking-form {
+    font-size: 1em;
+  }
+
+}

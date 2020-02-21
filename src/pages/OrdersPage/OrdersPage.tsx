@@ -13,6 +13,7 @@ import Loader from '../../components/Loader/Loader';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
+import {BookForm} from "../../components/BookForm/BookForm";
 
 export const OrderPage: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -74,7 +75,8 @@ export const OrderPage: React.FC = () => {
 
     return (
         <div className="order-page">
-            <div className="order-page-bg d-flex justify-content-center align-items-end"></div>
+            <BookForm />
+            <div className="order-page-bg"></div>
             <Container className="order-page-wrapper">
                 <Row>
                     <Col lg={4} md={4} sm={4}>

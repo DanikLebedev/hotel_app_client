@@ -33,7 +33,7 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
         <section className={'home__page-rooms'}>
             <Container fluid={true}>
                 <Row className={'home__page-rooms-preview'}>
-                    <Col lg={6} md={6} sm={12} xs={12} className="p-0 home__page-rooms-preview-main-photo">
+                    <Col lg={6} md={6} sm={12} xs={12} className=" p-0 home__page-rooms-preview-main-photo">
                         {fetchedRooms[index] ? (
                             <LazyLoadImage
                                 effect="opacity"
@@ -89,7 +89,7 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                         </div>
                     </Col>
                 </Row>
-                <div className="justify-content-around home-page-rooms-row mt-3 mr-2 ml-2 d-flex align-items-center">
+                <div className="justify-content-center home-page-rooms-row mt-3 d-flex align-items-center">
                     {fetchedRooms ? (
                         fetchedRooms.slice(0, 4).map((item, key) => {
                             return (

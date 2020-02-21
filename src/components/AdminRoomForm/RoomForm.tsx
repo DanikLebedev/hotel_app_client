@@ -1,18 +1,19 @@
-import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
+import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from 'react';
 import toaster from 'toasted-notes';
-import { useHttp } from '../../hooks/http.hook';
+import {useHttp} from '../../hooks/http.hook';
 import Loader from '../../components/Loader/Loader';
-import { AuthContext } from '../../context/auth.context';
-import { CategoryService } from '../../APIServices/categoryService';
-import { Category, Data, Room } from '../../interfaces/clientInterfaces';
-import { Container } from 'react-bootstrap';
+import {AuthContext} from '../../context/auth.context';
+import {CategoryService} from '../../APIServices/categoryService';
+import {Category, Data, Room} from '../../interfaces/clientInterfaces';
+import {Container, Tab, Tabs} from 'react-bootstrap';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import './RoomForm.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
 interface RoomForm {
     closeModal: () => void;
     show: boolean;
@@ -22,7 +23,7 @@ interface RoomForm {
 
 export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     const auth = useContext(AuthContext);
-    const { error, clearError } = useHttp();
+    const {error, clearError} = useHttp();
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const [roomForm, setRoomForm] = useState<Room>(props.editProps);
     const addRoomHandler = async (event: ChangeEvent<HTMLFormElement>): Promise<void> => {
@@ -52,21 +53,21 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     };
 
     const roomChangeHandler = (event: InputEvent): void => {
-        setRoomForm({ ...roomForm, [event.target.name]: event.target.value });
+        setRoomForm({...roomForm, [event.target.name]: event.target.value});
     };
 
     const fileChangeHandler = (event: InputEvent): void => {
         if (event.target.files) {
-            setRoomForm({ ...roomForm, [event.target.name]: event.target.files[0] });
+            setRoomForm({...roomForm, [event.target.name]: event.target.files[0]});
         }
     };
 
     const selectRoomChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
-        setRoomForm({ ...roomForm, category: event.target.value });
+        setRoomForm({...roomForm, category: event.target.value});
         console.log(roomForm);
     };
 
-    const options = fetchedCategories.map(({ title }, index) => {
+    const options = fetchedCategories.map(({title}, index) => {
         return (
             <option key={title + index} value={title}>
                 {title}
@@ -75,7 +76,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     });
 
     const fetchCategories = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
+        CategoryService.getAllCategories().then(({categories}) => setFetchedCategories(categories));
     }, []);
 
     useEffect(() => {
@@ -102,7 +103,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     }, [error, clearError, fetchCategories, props.isEdit, props.editProps]);
 
     if (!fetchedCategories[0]) {
-        return <Loader />;
+        return <Loader/>;
     }
 
     return (
@@ -110,83 +111,172 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <form onSubmit={addRoomHandler} className="admin-form ">
                     <h3>create room</h3>
-                    <select
-                        className={'form-control'}
-                        onChange={selectRoomChangeHandler}
-                        name="category"
-                        id="categories"
-                        value={roomForm.category}
-                    >
-                        {options}
-                    </select>
-                    <input
-                        onChange={roomChangeHandler}
-                        type="text"
-                        className={'form-control'}
-                        value={roomForm.title}
-                        name="title"
-                        id="title"
-                        placeholder="title"
-                    />
-                    <input
-                        type="number"
-                        onChange={roomChangeHandler}
-                        className={'form-control'}
-                        value={roomForm.price}
-                        name="price"
-                        id="price"
-                        placeholder="price"
-                    />
-                    <input
-                        type="number"
-                        className={'form-control'}
-                        onChange={roomChangeHandler}
-                        value={roomForm.guests}
-                        name="guests"
-                        id="guests"
-                        placeholder="guests"
-                    />
-                    <input
-                        type="text"
-                        className={'form-control'}
-                        onChange={roomChangeHandler}
-                        name="description"
-                        id="description"
-                        placeholder="description"
-                        value={roomForm.description}
-                    />
-                    <input
-                        type="file"
-                        onChange={fileChangeHandler}
-                        className={'form-control'}
-                        name="image"
-                        id="image"
-                        defaultValue={roomForm.image}
-                        placeholder="image"
-                    />
-                    <input
-                        type="number"
-                        className={'form-control'}
-                        onChange={roomChangeHandler}
-                        value={roomForm.rooms}
-                        name="rooms"
-                        id="rooms"
-                        placeholder="rooms"
-                    />
-                    <input
-                        type="number"
-                        onChange={roomChangeHandler}
-                        className={'form-control'}
-                        value={roomForm.area}
-                        name="area"
-                        id="area"
-                        placeholder="area"
-                    />
-                    {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id} /> : null}
-                    <button className="btn btn-primary mt-3">Add Room</button>
+                    <Tabs defaultActiveKey="en" id="uncontrolled-tab-example">
+                        <Tab eventKey="en" title="En">
+                            <label htmlFor="categories">Choose Category</label>
+                            <select
+                                className={'form-control'}
+                                onChange={selectRoomChangeHandler}
+                                name="category"
+                                id="categories"
+                                value={roomForm.category}
+                            >
+                                {options}
+                            </select>
+                            <label htmlFor="title">Enter the Title</label>
+                            <input
+                                onChange={roomChangeHandler}
+                                type="text"
+                                className={'form-control'}
+                                value={roomForm.title}
+                                name="title"
+                                id="title"
+                                placeholder="title"
+                            />
+                            <label htmlFor="price">Enter the Price</label>
+                            <input
+                                type="number"
+                                onChange={roomChangeHandler}
+                                className={'form-control'}
+                                value={roomForm.price}
+                                name="price"
+                                id="price"
+                                placeholder="price"
+                            />
+                            <label htmlFor="guests">Enter number of guests</label>
+                            <input
+                                type="number"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                value={roomForm.guests}
+                                name="guests"
+                                id="guests"
+                                placeholder="guests"
+                            />
+                            <label htmlFor="description">Input Description</label>
+                            <input
+                                type="text"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                name="description"
+                                id="description"
+                                placeholder="description"
+                                value={roomForm.description}
+                            />
+                            <label htmlFor="image">Add Image</label>
+                            <input
+                                type="file"
+                                onChange={fileChangeHandler}
+                                className={'form-control'}
+                                name="image"
+                                id="image"
+                                defaultValue={roomForm.image}
+                                placeholder="image"
+                            />
+                            <label htmlFor="rooms">Enter number of rooms</label>
+                            <input
+                                type="number"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                value={roomForm.rooms}
+                                name="rooms"
+                                id="rooms"
+                                placeholder="rooms"
+                            />
+                            <label htmlFor="area">Enter the area</label>
+                            <input
+                                type="number"
+                                onChange={roomChangeHandler}
+                                className={'form-control'}
+                                value={roomForm.area}
+                                name="area"
+                                id="area"
+                                placeholder="area"
+                            />
+                            {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id}/> : null}
+                            <button className="btn btn-primary mt-3">Add Room</button>
+                        </Tab>
+                        <Tab eventKey="ru" title="Ru">
+                            <select
+                                className={'form-control'}
+                                onChange={selectRoomChangeHandler}
+                                name="category"
+                                id="categories"
+                                value={roomForm.category}
+                            >
+                                {options}
+                            </select>
+                            <input
+                                onChange={roomChangeHandler}
+                                type="text"
+                                className={'form-control'}
+                                value={roomForm.title}
+                                name="title"
+                                id="title"
+                                placeholder="title"
+                            />
+                            <input
+                                type="number"
+                                onChange={roomChangeHandler}
+                                className={'form-control'}
+                                value={roomForm.price}
+                                name="price"
+                                id="price"
+                                placeholder="price"
+                            />
+                            <input
+                                type="number"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                value={roomForm.guests}
+                                name="guests"
+                                id="guests"
+                                placeholder="guests"
+                            />
+                            <input
+                                type="text"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                name="description"
+                                id="description"
+                                placeholder="description"
+                                value={roomForm.description}
+                            />
+                            <input
+                                type="file"
+                                onChange={fileChangeHandler}
+                                className={'form-control'}
+                                name="image"
+                                id="image"
+                                defaultValue={roomForm.image}
+                                placeholder="image"
+                            />
+                            <input
+                                type="number"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                value={roomForm.rooms}
+                                name="rooms"
+                                id="rooms"
+                                placeholder="rooms"
+                            />
+                            <input
+                                type="number"
+                                onChange={roomChangeHandler}
+                                className={'form-control'}
+                                value={roomForm.area}
+                                name="area"
+                                id="area"
+                                placeholder="area"
+                            />
+                            {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id}/> : null}
+                            <button className="btn btn-primary mt-3">Add Room</button>
+                        </Tab>
+                    </Tabs>
+
                 </form>
                 <button className={'close-button'} onClick={() => props.closeModal()}>
-                    <FontAwesomeIcon icon={faWindowClose} />
+                    <FontAwesomeIcon icon={faWindowClose}/>
                 </button>
             </div>
         </Container>
