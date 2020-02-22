@@ -16,8 +16,8 @@ export class EmployeeService {
         return response;
     }
 
-    public static async updateEmployee(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.putData('/api/admin/employee/update', body);
+    public static async updateEmployee(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.putData('/api/admin/employee/update', body, headers);
         return response;
     }
 }

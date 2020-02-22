@@ -17,8 +17,8 @@ export class FeedbackService {
         return response;
     }
 
-    public static async updateFeedback(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.putData('/api/admin/feedbacks/update', body);
+    public static async updateFeedback(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.putData('/api/admin/feedbacks/update', body, headers);
         return response;
     }
 }

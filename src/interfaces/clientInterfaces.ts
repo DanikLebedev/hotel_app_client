@@ -12,6 +12,7 @@ export interface RegisterData {
 
 export interface Category {
     title: string;
+    _id?: string;
 }
 
 export interface Categories {
@@ -51,6 +52,7 @@ export interface Employee {
     email: string;
     password: string;
     status: string;
+    _id?: string;
 }
 
 export interface Employees {
@@ -92,6 +94,7 @@ export interface OrderCart {
     checkIn: string;
     checkOut: string;
     userEmail: string;
+    _id?: string;
 }
 
 export interface OrderCarts {
@@ -99,6 +102,7 @@ export interface OrderCarts {
 }
 
 export interface Feedback {
+    _id?: string;
     userEmail: string;
     userName: string;
     userLastName: string;

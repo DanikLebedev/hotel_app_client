@@ -7,11 +7,39 @@
 @import url('https://cdn.syncfusion.com/ej2/ej2-splitbuttons/styles/material.css');
 @import url('https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css');
 
-#grid_1064713241_1category_hidden {
-  background: #ffffff;
-  option {
-    background: #ffffff;
-    z-index: 10;
+.page-link {
+  cursor: pointer;
+}
+
+.grid-table-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.grid-table {
+  background: lightslategrey;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 10px 5px 5px #cdcdcd;
+  thead {
+    tr {
+      border-top: none;
+    }
+  }
+  tr {
+    color: #ffffff;
+    padding: 10px;
+    border-top: 2px solid #000000;
+  }
+  td,th {
+    border-right: 2px solid #000000;
+    padding: 10px;
+    &:last-child {
+      border-right: none;
+    }
   }
 }
 

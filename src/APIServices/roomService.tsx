@@ -22,8 +22,8 @@ export class RoomService {
         return response;
     }
 
-    public static async updateRoom(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.putData('/api/admin/room/update', body);
+    public static async updateRoom(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.putData('/api/admin/room/update', body, headers);
         return response;
     }
 }

@@ -47,6 +47,13 @@
     font-weight: bold;
     margin:5px;
   }
+  select {
+    border-radius: 3px;
+    border: 1px solid $price-color;
+    padding: 10px;
+    margin: 10px;
+    color: $price-color;
+  }
   input {
     border-radius: 3px;
     border: 1px solid $price-color;

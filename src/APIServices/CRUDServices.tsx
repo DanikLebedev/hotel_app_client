@@ -26,10 +26,11 @@ export class CRUDServices {
         return data;
     }
 
-    public static async putData(url: string, body: any): Promise<any> {
+    public static async putData(url: string, body: any, headers: any): Promise<any> {
         const response: Response = await fetch(url, {
             method: 'PUT',
             body,
+            headers
         });
         const data: Data = await response.json();
         return data;

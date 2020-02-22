@@ -1,18 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Room } from '../../interfaces/clientInterfaces';
-import { RoomService } from '../../APIServices/roomService';
-import { CategoryService } from '../../APIServices/categoryService';
+import { Room } from '../../../../interfaces/clientInterfaces';
+import { RoomService } from '../../../../APIServices/roomService';
+import { CategoryService } from '../../../../APIServices/categoryService';
 import { Table } from 'react-bootstrap';
-import { config } from '../../config';
+import { config } from '../../../../config';
 import toaster from 'toasted-notes';
-import { RoomForm } from '../AdminRoomForm/RoomForm';
+import { RoomForm } from '../../GridsForms/AdminRoomForm/RoomForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Pagination } from '../../../Pagination/Pagination';
 
 export const RoomDataGrid: React.FC = () => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage] = useState(3);
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const currentRoom = fetchedRooms.slice(indexOfFirstPost, indexOfLastPost);
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
     const [editProps, setEditProps] = useState<Room>({
         area: 0,
         category: '',
@@ -70,8 +80,8 @@ export const RoomDataGrid: React.FC = () => {
     }, [fetchRoom, fetchedRooms]);
 
     return (
-        <>
-            <Table hover variant="dark" bordered className="m-3">
+        <div className="grid-table-wrapper">
+            <table  className="m-3 grid-table">
                 <thead>
                     <tr>
                         <th>Category</th>
@@ -91,8 +101,8 @@ export const RoomDataGrid: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fetchedRooms.length
-                        ? fetchedRooms.map((room, key) => {
+                    {currentRoom.length
+                        ? currentRoom.map((room, key) => {
                               return (
                                   <tr key={key}>
                                       <td>{room.category}</td>
@@ -126,8 +136,14 @@ export const RoomDataGrid: React.FC = () => {
                           })
                         : null}
                 </tbody>
-            </Table>
+            </table>
+            <Pagination
+                postPerPage={postPerPage}
+                totalPosts={fetchedRooms.length}
+                paginate={paginate}
+                currentPage={currentPage}
+            />
             <RoomForm show={showModal} isEdit={isEdit} editProps={editProps} closeModal={closeModal} />
-        </>
+        </div>
     );
 };

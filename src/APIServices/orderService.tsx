@@ -6,8 +6,8 @@ export class OrderService {
         return userOrders;
     }
 
-    public static async getAllOrders(): Promise<Orders> {
-        const orders: Orders = await CRUDServices.getData('/api/admin/orders');
+    public static async getAllOrders(): Promise<OrderCarts> {
+        const orders: OrderCarts = await CRUDServices.getData('/api/admin/orders');
         return orders;
     }
 

@@ -32,8 +32,8 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
     return (
         <section className={'home__page-rooms'}>
             <Container fluid={true}>
-                <Row className={'home__page-rooms-preview'}>
-                    <Col lg={6} md={6} sm={12} xs={12} className=" p-0 home__page-rooms-preview-main-photo">
+                <Row className='home__page-rooms-preview'>
+                    <Col lg={6} md={6} sm={12} xs={12} className="p-0 home__page-rooms-preview-main-photo">
                         {fetchedRooms[index] ? (
                             <LazyLoadImage
                                 effect="opacity"

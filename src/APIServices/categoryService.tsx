@@ -17,8 +17,8 @@ export class CategoryService {
         return response;
     }
 
-    public static async updateCategory(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.putData('/api/admin/category/update', body);
+    public static async updateCategory(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.putData('/api/admin/category/update', body, headers);
         return response;
     }
 }
