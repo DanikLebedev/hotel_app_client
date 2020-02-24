@@ -3,7 +3,7 @@
   border: 2px solid #1DA1F2;
   padding: 10px;
   display: flex;
-  width: 500px;
+  width: 30rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -11,6 +11,7 @@
 }
 .show-modal {
   display: block;
+  animation: slideInLeft .5s ;
 }
 
 .hide-modal {

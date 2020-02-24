@@ -181,7 +181,7 @@ const Navigation: React.FC = (): JSX.Element => {
                     </div>
                 </Navbar>
             </Container>
-            <div id='burger-button' className={showMenu ? 'change' : ''} onClick={showMenuHandler}>
+            <div id="burger-button" className={showMenu ? 'change' : ''} onClick={showMenuHandler}>
                 <div className="bar1"></div>
                 <div className="bar2"></div>
                 <div className="bar3"></div>

@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Room } from '../../../../interfaces/clientInterfaces';
 import { RoomService } from '../../../../APIServices/roomService';
-import { CategoryService } from '../../../../APIServices/categoryService';
-import { Table } from 'react-bootstrap';
 import { config } from '../../../../config';
 import toaster from 'toasted-notes';
 import { RoomForm } from '../../GridsForms/AdminRoomForm/RoomForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from '../../../Pagination/Pagination';
+import { IconButton } from '@material-ui/core';
+import { Add, Delete, Edit } from '@material-ui/icons';
 
 export const RoomDataGrid: React.FC = () => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
@@ -81,22 +81,22 @@ export const RoomDataGrid: React.FC = () => {
 
     return (
         <div className="grid-table-wrapper">
-            <table  className="m-3 grid-table">
+            <table className="m-3 grid-table">
                 <thead>
                     <tr>
                         <th>Category</th>
-                        <th>title</th>
-                        <th>price</th>
-                        <th>guests</th>
-                        <th>description</th>
-                        <th>rooms</th>
-                        <th>area</th>
-                        <th>image</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Guests</th>
+                        <th>Description</th>
+                        <th>Rooms</th>
+                        <th>Area</th>
+                        <th>Image</th>
                         <th>
-                            actions
-                            <button className={'icon-buttons'} onClick={addRoomHandler}>
-                                <FontAwesomeIcon color="green" icon={faPlusSquare} />
-                            </button>
+                            Actions
+                            <IconButton className={'icon-buttons'} onClick={addRoomHandler}>
+                                <Add />
+                            </IconButton>
                         </th>
                     </tr>
                 </thead>
@@ -124,12 +124,20 @@ export const RoomDataGrid: React.FC = () => {
                                           ></div>
                                       </td>
                                       <td>
-                                          <button className={'icon-buttons'} id={room._id} onClick={deleteRoomHandler}>
-                                              <FontAwesomeIcon color="red" icon={faTrash} />
-                                          </button>
-                                          <button className={'icon-buttons'} id={room._id} onClick={editRoomHandler}>
-                                              <FontAwesomeIcon color="white" icon={faEdit} />
-                                          </button>
+                                          <IconButton
+                                              className={'icon-buttons'}
+                                              id={room._id}
+                                              onClick={deleteRoomHandler}
+                                          >
+                                              <Delete color="error" />
+                                          </IconButton>
+                                          <IconButton
+                                              className={'icon-buttons'}
+                                              id={room._id}
+                                              onClick={editRoomHandler}
+                                          >
+                                              <Edit color="primary" />
+                                          </IconButton>
                                       </td>
                                   </tr>
                               );

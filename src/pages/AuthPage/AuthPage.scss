@@ -7,6 +7,22 @@
   min-height: 80vh;
 }
 
+@keyframes swipeOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+
+.swipe-out {
+  animation: swipeOut .5s ease-in-out !important;
+}
+
+
 .auth {
   background: url("../../assets/images/bg-01.jpg") no-repeat center center / cover;
   min-height: 100%;
@@ -17,6 +33,7 @@
   z-index: -3;
   filter: brightness(0.5);
 }
+
 .change-form-button {
   background: transparent;
   color: #1DA1F2;
@@ -32,6 +49,7 @@
   padding: 40px;
   border-radius: 20px;
   text-align: center;
+
   .auth__input {
     width: 200px;
     padding: 10px;
@@ -47,6 +65,7 @@
 .btn__wrapper {
   display: flex;
   justify-content: space-around;
+
   .auth__btn {
     margin-right: 10px;
     text-decoration: none;
@@ -60,6 +79,7 @@
 
 .signin-form {
   animation: slideInRight .5s;
+
 }
 
 .login-form {

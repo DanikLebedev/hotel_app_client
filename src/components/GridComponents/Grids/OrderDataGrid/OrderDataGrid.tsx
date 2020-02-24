@@ -41,11 +41,11 @@ export const OrderDataGrid = () => {
             <table className="m-3 grid-table">
                 <thead>
                     <tr>
-                        <th>category</th>
-                        <th>checkIn</th>
-                        <th>checkOut</th>
-                        <th>status</th>
-                        <th>userEmail</th>
+                        <th>Category</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Status</th>
+                        <th>User Email</th>
                     </tr>
                 </thead>
                 <tbody>

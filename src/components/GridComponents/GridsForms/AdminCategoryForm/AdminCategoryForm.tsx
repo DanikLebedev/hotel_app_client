@@ -55,7 +55,7 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
         <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
-                    <h3>room form</h3>
+                    <h3>Category form</h3>
                     <label htmlFor="title">Enter the Title</label>
                     <input
                         onChange={categoryChangeHandler}

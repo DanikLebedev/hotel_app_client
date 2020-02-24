@@ -47,6 +47,16 @@
   }
 }
 
+.change-user-info-form {
+  border: 2px solid $price-color;
+  background: #ffffff;
+  padding: 30px;
+  width: 30rem;
+  input {
+    margin-bottom: 10px;
+  }
+}
+
 .order-item {
   transition: .5s ease-in-out;
   background: $price-color;

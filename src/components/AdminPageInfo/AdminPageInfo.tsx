@@ -9,7 +9,7 @@ import { FeedbackDataGrid } from '../GridComponents/Grids/FeedbackDataGrid/Feedb
 
 export const AdminPageInfo: React.FC = () => {
     return (
-        <Container>
+        <Container className={'admin-page'}>
             <Tabs defaultActiveKey="category" id="uncontrolled-tab-example">
                 <Tab eventKey="category" className="w-50" title="Categories">
                     <CategoryDataGrid />

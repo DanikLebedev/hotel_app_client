@@ -11,6 +11,9 @@ import './RoomForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { RoomService } from '../../../../APIServices/roomService';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -21,7 +24,14 @@ interface RoomForm {
     isEdit: boolean;
 }
 
+const useStyles = makeStyles(theme => ({
+    input: {
+        display: 'none',
+    },
+}));
+
 export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
+    const classes = useStyles();
     const { error, clearError } = useHttp();
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const [roomForm, setRoomForm] = useState<Room>(props.editProps);
@@ -56,9 +66,9 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
         }
     };
 
-    const selectRoomChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const selectRoomChangeHandler = (event: any): void => {
         setRoomForm({ ...roomForm, category: event.target.value });
-        console.log(roomForm);
+        console.log(event.target.value);
     };
 
     const options = fetchedCategories.map(({ title }, index) => {
@@ -104,7 +114,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
         <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <form onSubmit={addRoomHandler} className="admin-form ">
-                    <h3>create room</h3>
+                    <h3>{props.isEdit ? 'Update' : 'Create'} room</h3>
                     <label htmlFor="categories">Choose Category</label>
                     <select
                         className={'form-control'}
@@ -155,13 +165,20 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                         placeholder="description"
                         value={roomForm.description}
                     />
-                    <label htmlFor="image">Add Image</label>
+                    <label htmlFor="contained-button-file">
+                        Add photo
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+                        </IconButton>
+                    </label>
                     <input
+                        accept="image/*"
+                        className={classes.input}
+                        id="contained-button-file"
+                        multiple
                         type="file"
                         onChange={fileChangeHandler}
-                        className={'form-control'}
                         name="image"
-                        id="image"
                         defaultValue={roomForm.image}
                         placeholder="image"
                     />
@@ -186,7 +203,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                         placeholder="area"
                     />
                     {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id} /> : null}
-                    <button className="btn btn-primary mt-3">Add Room</button>
+                    <button className="btn btn-primary mt-3">{props.isEdit ? 'Update' : 'Create'} Room</button>
                 </form>
                 <button className={'close-button'} onClick={(): void => props.closeModal()}>
                     <FontAwesomeIcon icon={faWindowClose} />

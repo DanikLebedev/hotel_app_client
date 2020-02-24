@@ -27,7 +27,9 @@ export const FindRoomForm = () => {
     }, []);
 
     const addOrderHandler = async (): Promise<void> => {
-        history.push(`/rooms/${filteredRooms[0]._id}`);
+        history.push(`/rooms/${filteredRooms[0]._id}`, {
+            rooms: filteredRooms,
+        });
     };
 
     const options: JSX.Element[] = fetchedCategories.map(({ title }, index) => {

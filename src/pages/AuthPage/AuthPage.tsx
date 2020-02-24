@@ -35,7 +35,7 @@ const AuthPage: React.FC = () => {
             duration: 2000,
         });
         clearError();
-    }, [error, clearError]);
+    }, [error, clearError, haveAccount]);
 
     const changeHandler = (event: InputEvent): void => {
         setForm({ ...form, [event.target.name]: event.target.value });
@@ -70,7 +70,7 @@ const AuthPage: React.FC = () => {
     };
 
     const loginForm: JSX.Element = (
-        <div className="auth__wrapper login-form">
+        <div className={haveAccount ? 'auth__wrapper login-form' : 'auth__wrapper login-form swipe-out'}>
             <h1>Log in</h1>
             <label>
                 <FontAwesomeIcon icon={faUser} />

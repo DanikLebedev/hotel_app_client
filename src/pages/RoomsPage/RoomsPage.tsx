@@ -3,7 +3,6 @@ import RoomsList from '../../components/RoomsList/RoomsList';
 import { Container } from 'react-bootstrap';
 import './RoomsPage.scss';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { HomePageBookForm } from '../../components/HomePageComponents/HomePageBookForm';
 import {FindRoomForm} from "../../components/FindRoomForm/FindRoomForm";
 
 export const RoomsPage: FC = () => {

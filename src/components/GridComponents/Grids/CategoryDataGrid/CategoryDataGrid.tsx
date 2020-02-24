@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import toaster from 'toasted-notes';
 import { AdminCategoryForm } from '../../GridsForms/AdminCategoryForm/AdminCategoryForm';
-
+import { IconButton } from '@material-ui/core';
+import { Add, Delete, Edit } from '@material-ui/icons';
 
 export const CategoryDataGrid = () => {
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
@@ -66,10 +67,10 @@ export const CategoryDataGrid = () => {
                     <tr>
                         <th>Title</th>
                         <th>
-                            actions
-                            <button className={'icon-buttons'} onClick={addCategoryHandler}>
-                                <FontAwesomeIcon color="green" icon={faPlusSquare} />
-                            </button>
+                            Actions
+                            <IconButton className={'icon-buttons'} onClick={addCategoryHandler}>
+                                <Add />
+                            </IconButton>
                         </th>
                     </tr>
                 </thead>
@@ -80,20 +81,20 @@ export const CategoryDataGrid = () => {
                                   <tr key={key}>
                                       <td>{category.title}</td>
                                       <td>
-                                          <button
+                                          <IconButton
                                               className={'icon-buttons'}
                                               id={category._id}
                                               onClick={deleteCategoryHandler}
                                           >
-                                              <FontAwesomeIcon color="red" icon={faTrash} />
-                                          </button>
-                                          <button
+                                              <Delete color="error" />
+                                          </IconButton>
+                                          <IconButton
                                               className={'icon-buttons'}
                                               id={category._id}
                                               onClick={editCategoryHandler}
                                           >
-                                              <FontAwesomeIcon color="white" icon={faEdit} />
-                                          </button>
+                                              <Edit color="primary" />
+                                          </IconButton>
                                       </td>
                                   </tr>
                               );

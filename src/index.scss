@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Cuprum:400,700&display=swap');
 @import "~bootstrap";
- $base-text-color: #ffffff;
+
+$base-text-color: #ffffff;
 $base-dark-button-color: #2a221d;
 $base-light-button-color: #ffffff;
-$price-color:  #c6a47e;
+$price-color: #c6a47e;
+
+
+body {
+  font-family: 'Cuprum', sans-serif;
+}
 
 * {
   margin: 0;
-    padding: 0;
-    font-family: 'Cuprum', sans-serif;
+  padding: 0;
+
 }
+
 ul {
-    list-style: none;
+  list-style: none;
 }
 

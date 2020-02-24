@@ -1,7 +1,7 @@
 import React from 'react';
 import './HomePage.scss';
 import HomePageAboutUs from '../../components/HomePageComponents/HomePageAboutUs';
-import { HomePageRooms } from '../../components/HomePageComponents/HomePageRooms';
+import HomePageRooms from '../../components/HomePageComponents/HomePageRooms';
 import { HomePageFeedback } from '../../components/HomePageComponents/HomePageFeedback';
 import { HomePageFeatures } from '../../components/HomePageComponents/HomePageFeatures';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';

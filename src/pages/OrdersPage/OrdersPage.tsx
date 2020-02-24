@@ -3,22 +3,34 @@ import './OrdersPage.scss';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import { OrderService } from '../../APIServices/orderService';
-import { Customer, Feedback, Order } from '../../interfaces/clientInterfaces';
+import { Customer, Data, Feedback, Order } from '../../interfaces/clientInterfaces';
 import { AuthContext } from '../../context/auth.context';
 import toaster from 'toasted-notes';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Modal } from 'react-bootstrap';
 import { OrderItem } from '../../components/OrderItem/OrderItem';
 import { CustomerService } from '../../APIServices/customerService';
 import Loader from '../../components/Loader/Loader';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
-import {FindRoomForm} from "../../components/FindRoomForm/FindRoomForm";
+import { FindRoomForm } from '../../components/FindRoomForm/FindRoomForm';
+import { IconButton } from '@material-ui/core';
+import { Edit } from '@material-ui/icons';
+import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
 
 export const OrderPage: React.FC = () => {
     const auth = useContext(AuthContext);
     const [orders, setOrders] = useState<Order[]>([]);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+    const [editProps, setEditProps] = useState<Customer>({
+        email: '',
+        lastName: '',
+        name: '',
+        order: [],
+        password: '',
+    });
     const [feedbackForm, setFeedbackForm] = useState<Feedback>({
         approved: false,
         message: '',
@@ -27,6 +39,7 @@ export const OrderPage: React.FC = () => {
         userName: '',
     });
     const [cls, setCls] = useState<Array<string>>(['order-item']);
+    const [show, setShow] = useState(false);
     const fetchOrders: CallableFunction = useCallback(async () => {
         const { orders } = await OrderService.getUserOrders({ Authorization: `Bearer ${auth.token}` });
         setOrders(orders);
@@ -68,6 +81,13 @@ export const OrderPage: React.FC = () => {
         });
     };
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+        setEditProps({ ...userInfo });
+        setIsEdit(true)
+        setShow(true);
+    };
+
     useEffect(() => {
         fetchOrders();
         fetchCustomerInfo();
@@ -84,17 +104,14 @@ export const OrderPage: React.FC = () => {
                             <div className="order-page-user-info">
                                 <h4>Your Info</h4>
                                 <p>
-                                    <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}{' '}
-                                    <button className={'icon-buttons'}>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
+                                    <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}
                                 </p>
                                 <p>
                                     <FontAwesomeIcon icon={faUser} /> Full name: {userInfo.name} {userInfo.lastName}{' '}
-                                    <button className={'icon-buttons'}>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
                                 </p>
+                                <IconButton onClick={handleShow}>
+                                    <Edit />
+                                </IconButton>
                             </div>
                         ) : (
                             <Loader />
@@ -114,7 +131,13 @@ export const OrderPage: React.FC = () => {
                             </button>
                         </div>
                     </Col>
-                    <Col lg={8} md={8} sm={8} xs={12} className="d-flex justify-content-around align-items-center flex-column">
+                    <Col
+                        lg={8}
+                        md={8}
+                        sm={8}
+                        xs={12}
+                        className="d-flex justify-content-around align-items-center flex-column"
+                    >
                         <h4>Your Orders</h4>
                         <div className="d-flex justify-content-center align-items-center flex-column">
                             {orders ? (
@@ -129,6 +152,7 @@ export const OrderPage: React.FC = () => {
                         </div>
                     </Col>
                 </Row>
+                <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
             </Container>
         </div>
     );

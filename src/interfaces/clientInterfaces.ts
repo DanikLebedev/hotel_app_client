@@ -65,6 +65,7 @@ export interface Customer {
     name: string;
     lastName: string;
     order: [];
+    id?: string
 }
 
 export interface Customers {

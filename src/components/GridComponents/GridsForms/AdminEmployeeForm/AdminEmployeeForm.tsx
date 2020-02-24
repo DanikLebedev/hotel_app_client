@@ -70,7 +70,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
         <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
-                    <h3>room form</h3>
+                    <h3>Employee form</h3>
                     <label htmlFor="email">Enter the Title</label>
                     <input
                         onChange={employeeChangeHandler}
@@ -97,7 +97,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         {statusOptions}
                     </select>
                     <button onClick={addEmployeeHandler} className="btn btn-primary mt-3">
-                        Add Category
+                        {props.isEdit ? 'Update' : 'Create'} Employee
                     </button>
                 </div>
                 <button className={'close-button'} onClick={() => props.closeModal()}>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { Order, Room } from '../../interfaces/clientInterfaces';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { RoomService } from '../../APIServices/roomService';
 import { Col, Container, Row } from 'react-bootstrap';
 import { config } from '../../config';
@@ -12,9 +12,12 @@ import { AuthContext } from '../../context/auth.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
+import { Modal, Button } from 'react-bootstrap';
 
 export const RoomInfoPage: React.FC = () => {
     const userEmail = useAuth().userEmail;
+    const [show, setShow] = useState(false);
+
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
     const [order, setOrder] = useState<Order>({
         category: '',
@@ -30,7 +33,8 @@ export const RoomInfoPage: React.FC = () => {
     const auth = useContext(AuthContext);
     const isAuthenticated: boolean = auth.isAuthenticated;
     const history = useHistory();
-
+    const location = useLocation();
+    console.log(location.state);
     const fetchRoomInfo: CallableFunction = useCallback(() => {
         RoomService.getRoomById(roomId).then(({ rooms }) => setRoomInfo(rooms));
     }, []);
@@ -40,7 +44,13 @@ export const RoomInfoPage: React.FC = () => {
     };
 
     const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setOrder({ ...order, [event.target.name]: event.target.value });
+        setOrder({
+            ...order,
+            [event.target.name]: event.target.value,
+            category: roomInfo[0].category,
+            price: roomInfo[0].price,
+            userEmail,
+        });
     };
 
     const addOrderHandler = async (): Promise<void> => {
@@ -51,7 +61,7 @@ export const RoomInfoPage: React.FC = () => {
             return;
         }
         const data = await OrderService.postOrder(
-            { ...order, category: roomInfo[0].category, price: roomInfo[0].price, userEmail },
+            { ...order },
             {
                 Authorization: `Bearer ${auth.token}`,
                 'Content-Type': 'application/json',
@@ -69,6 +79,8 @@ export const RoomInfoPage: React.FC = () => {
             history.push('/auth');
         }
     };
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         fetchRoomInfo();
@@ -110,8 +122,7 @@ export const RoomInfoPage: React.FC = () => {
 
     return (
         <div className="room-info-page">
-            <div className="room-info-page-bg d-flex justify-content-center align-items-end">
-            </div>
+            <div className="room-info-page-bg d-flex justify-content-center align-items-end"></div>
             <Container className="room-info-page-wrapper">
                 {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}
                 <div className="booking-form">
@@ -173,7 +184,7 @@ export const RoomInfoPage: React.FC = () => {
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
-                                    <button onClick={addOrderHandler} className="submit-btn">
+                                    <button onClick={handleShow} className="submit-btn">
                                         Check availability
                                     </button>
                                 </div>
@@ -182,6 +193,28 @@ export const RoomInfoPage: React.FC = () => {
                     </div>
                 </div>
             </Container>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm your data</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ul>
+                        <li>Check In: {order.checkIn}</li>
+                        <li>Check Out: {order.checkOut}</li>
+                        <li>Category: {order.category}</li>
+                        <li>Price: {order.price}$</li>
+                        <li>Comment: {order.comment}</li>
+                    </ul>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button className="button-book" onClick={handleClose}>
+                        Close
+                    </button>
+                    <button className="button-book" onClick={addOrderHandler}>
+                        Add order
+                    </button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };

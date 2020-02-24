@@ -9,8 +9,9 @@ import Loader from '../Loader/Loader';
 import { config } from '../../config';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
+import { withTranslation } from 'react-i18next';
 
-export const HomePageRooms: React.FC = (): JSX.Element => {
+const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [index, setIndex] = useState<number>(0);
     const history = useHistory();
@@ -32,7 +33,7 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
     return (
         <section className={'home__page-rooms'}>
             <Container fluid={true}>
-                <Row className='home__page-rooms-preview'>
+                <Row className="home__page-rooms-preview">
                     <Col lg={6} md={6} sm={12} xs={12} className="p-0 home__page-rooms-preview-main-photo">
                         {fetchedRooms[index] ? (
                             <LazyLoadImage
@@ -53,17 +54,19 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                                 <span className={'home__page-rooms-price'}>
                                     {fetchedRooms[index] ? fetchedRooms[index].price : null}$
                                 </span>
-                                /Per Night
-                            </p>
+                                /{t('home-page-rooms.per-night.label')}
+                        </p>
                         </div>
                         <div className="room__icons">
                             <span>
                                 <FontAwesomeIcon className={'mr-2'} icon={faBed} />
-                                {fetchedRooms[index] ? fetchedRooms[index].rooms : null} rooms
+                                {fetchedRooms[index] ? fetchedRooms[index].rooms : null}{' '}
+                                {t('home-page-rooms.rooms.label')}
                             </span>
                             <span>
                                 <FontAwesomeIcon className={'mr-2'} icon={faUserAlt} />
-                                {fetchedRooms[index] ? fetchedRooms[index].guests : null} guests
+                                {fetchedRooms[index] ? fetchedRooms[index].guests : null}{' '}
+                                {t('home-page-rooms.guests.label')}
                             </span>
                             <span>
                                 <FontAwesomeIcon className={'mr-2'} icon={faBuilding} />
@@ -71,9 +74,7 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
                             </span>
                         </div>
                         <p className={'home__page-rooms-description'}>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores harum nulla odit officiis
-                            quos! Autem dolorum maiores vitae. Accusamus culpa cumque eligendi enim ex repellendus sunt!
-                            Earum iusto sapiente unde?{fetchedRooms[index] ? fetchedRooms[index].description : null}
+                            {fetchedRooms[index] ? t(`home-page-rooms.${fetchedRooms[index].category}.description`) : null}
                         </p>
                         <div className={'button__container'}>
                             <button
@@ -114,3 +115,5 @@ export const HomePageRooms: React.FC = (): JSX.Element => {
         </section>
     );
 };
+
+export default withTranslation()(HomePageRooms);

@@ -5,6 +5,8 @@ import { faEdit, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons
 import toaster from 'toasted-notes';
 import { EmployeeService } from '../../../../APIServices/employeeService';
 import { AdminEmployeeForm } from '../../GridsForms/AdminEmployeeForm/AdminEmployeeForm';
+import { IconButton } from '@material-ui/core';
+import { Add, Delete, Edit } from '@material-ui/icons';
 
 export const EmployeeDataGrid = () => {
     const [employees, setEmployee] = useState<Employee[]>([]);
@@ -64,10 +66,10 @@ export const EmployeeDataGrid = () => {
                         <th>Email</th>
                         <th>Status</th>
                         <th>
-                            actions
-                            <button className={'icon-buttons'} onClick={addEmployeeHandler}>
-                                <FontAwesomeIcon color="green" icon={faPlusSquare} />
-                            </button>
+                            Actions
+                            <IconButton className={'icon-buttons'} onClick={addEmployeeHandler}>
+                                <Add/>
+                            </IconButton>
                         </th>
                     </tr>
                 </thead>
@@ -79,20 +81,20 @@ export const EmployeeDataGrid = () => {
                                       <td>{employee.email}</td>
                                       <td>{employee.status}</td>
                                       <td>
-                                          <button
+                                          <IconButton
                                               className={'icon-buttons'}
                                               id={employee._id}
                                               onClick={deleteEmployeeHandler}
                                           >
-                                              <FontAwesomeIcon color="red" icon={faTrash} />
-                                          </button>
-                                          <button
+                                            <Delete color='error'/>
+                                          </IconButton>
+                                          <IconButton
                                               className={'icon-buttons'}
                                               id={employee._id}
                                               onClick={editEmployeeHandler}
                                           >
-                                              <FontAwesomeIcon color="white" icon={faEdit} />
-                                          </button>
+                                             <Edit color='primary'/>
+                                          </IconButton>
                                       </td>
                                   </tr>
                               );
