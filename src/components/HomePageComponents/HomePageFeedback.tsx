@@ -1,25 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Carousel, Col, Container, Row } from 'react-bootstrap';
 import { Feedback } from '../../interfaces/clientInterfaces';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import Loader from '../Loader/Loader';
+import { ClientContext } from '../../context/client.context';
 
 export const HomePageFeedback: React.FC = (): JSX.Element => {
-    const [fetchedFeedbacks, setFetchedFeedbacks] = useState<Feedback[]>([]);
-
-    const fetchFeedback = useCallback(() => {
-        FeedbackService.getAllFeedbacks().then(({ feedbacks }) => {
-            const filteredFeedbacks = feedbacks.filter(feedback => {
-                return feedback.approved;
-            });
-
-            setFetchedFeedbacks(filteredFeedbacks);
-        });
-    }, []);
-
-    useEffect(() => {
-        fetchFeedback();
-    }, [fetchFeedback]);
+    const fetchedFeedbacks = useContext(ClientContext).fetchedFeedbacks;
 
     return (
         <section className="home-page__feedback mt-5 mb-5">

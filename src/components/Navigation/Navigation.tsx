@@ -1,6 +1,6 @@
 import React, { useContext, useState, Suspense, ChangeEvent } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { AuthContext } from '../../context/auth.context';
+import { ClientContext } from '../../context/client.context';
 import './Navigation.scss';
 import engLogo from '../../assets/images/united_kingdom_640.png';
 import rusLogo from '../../assets/images/russia_round_icon_64.png';
@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 const Navigation: React.FC = (): JSX.Element => {
     configureAnchors({ offset: -100, scrollDuration: 1000 });
 
-    const auth = useContext(AuthContext);
+    const auth = useContext(ClientContext);
     const history = useHistory();
     const isAuthenticated: boolean = auth.isAuthenticated;
     const userStatus: string = auth.userStatus;

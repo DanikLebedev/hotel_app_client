@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Customer } from '../../interfaces/clientInterfaces';
 import { CustomerService } from '../../APIServices/customerService';
-import { AuthContext } from '../../context/auth.context';
+import { ClientContext } from '../../context/client.context';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -19,8 +19,7 @@ interface EditUserInfoForm {
 
 export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfoForm) => {
     const [userForm, setUserForm] = useState<Customer>(props.editProps);
-    const auth = useContext(AuthContext);
-
+    const auth = useContext(ClientContext);
 
     const addCategoryHandler = async (): Promise<void> => {
         if (props.isEdit) {

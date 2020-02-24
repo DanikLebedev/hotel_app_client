@@ -3,8 +3,8 @@ import './OrdersPage.scss';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import { OrderService } from '../../APIServices/orderService';
-import { Customer, Data, Feedback, Order } from '../../interfaces/clientInterfaces';
-import { AuthContext } from '../../context/auth.context';
+import { Customer, Data, Feedback, Order, OrderCart } from '../../interfaces/clientInterfaces';
+import { ClientContext } from '../../context/client.context';
 import toaster from 'toasted-notes';
 import { Container, Col, Row, Modal } from 'react-bootstrap';
 import { OrderItem } from '../../components/OrderItem/OrderItem';
@@ -14,16 +14,18 @@ import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FindRoomForm } from '../../components/FindRoomForm/FindRoomForm';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Button } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 export const OrderPage: React.FC = () => {
-    const auth = useContext(AuthContext);
+    const auth = useContext(ClientContext);
     const [orders, setOrders] = useState<Order[]>([]);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
+    const [orderHistory, setOrderHistory] = useState<OrderCart[]>([]);
     const [editProps, setEditProps] = useState<Customer>({
         email: '',
         lastName: '',
@@ -49,6 +51,11 @@ export const OrderPage: React.FC = () => {
         const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${auth.token}` });
         setUserInfo(customer);
     }, [auth.token]);
+
+    const fetchOrdersHistory = useCallback(async () => {
+        const { ordercarts } = await OrderService.getOrdersHistory({ Authorization: `Bearer ${auth.token}` });
+        setOrderHistory(ordercarts);
+    }, []);
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
@@ -84,14 +91,33 @@ export const OrderPage: React.FC = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setEditProps({ ...userInfo });
-        setIsEdit(true)
+        setIsEdit(true);
         setShow(true);
     };
+
+    const showOrdersHistory = () => {
+        setShowModal(true);
+    };
+
+    const closeOrdersHistory = () => {
+        setShowModal(false)
+    }
 
     useEffect(() => {
         fetchOrders();
         fetchCustomerInfo();
-    }, [fetchOrders, fetchCustomerInfo, orders]);
+        fetchOrdersHistory();
+    }, [fetchOrders, fetchCustomerInfo, orders, fetchOrdersHistory]);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage] = useState(8);
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const currentPosts = orderHistory.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div className="order-page">
@@ -112,6 +138,7 @@ export const OrderPage: React.FC = () => {
                                 <IconButton onClick={handleShow}>
                                     <Edit />
                                 </IconButton>
+                                <Button onClick={showOrdersHistory}>Show orders history</Button>
                             </div>
                         ) : (
                             <Loader />
@@ -138,7 +165,7 @@ export const OrderPage: React.FC = () => {
                         xs={12}
                         className="d-flex justify-content-around align-items-center flex-column"
                     >
-                        <h4>Your Orders</h4>
+                        <h4>Your Available Orders</h4>
                         <div className="d-flex justify-content-center align-items-center flex-column">
                             {orders ? (
                                 orders.map((item: Order, key: number) => {
@@ -152,6 +179,50 @@ export const OrderPage: React.FC = () => {
                         </div>
                     </Col>
                 </Row>
+                <Modal show={showModal} onHide={closeOrdersHistory}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Orders History</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="grid-table-wrapper">
+                            <table className="m-3 grid-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentPosts.length
+                                        ? currentPosts.map((order, key) => {
+                                              return (
+                                                  <tr key={key}>
+                                                      <td>{order.category}</td>
+                                                      <td>{order.checkIn.split('T')[0]}</td>
+                                                      <td>{order.checkOut.split('T')[0]}</td>
+                                                      <td>{order.status}</td>
+                                                  </tr>
+                                              );
+                                          })
+                                        : null}
+                                </tbody>
+                            </table>
+                            <Pagination
+                                postPerPage={postPerPage}
+                                totalPosts={orderHistory.length}
+                                currentPage={currentPage}
+                                paginate={paginate}
+                            />
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className="button-book" onClick={closeOrdersHistory}>
+                            Close
+                        </button>
+                    </Modal.Footer>
+                </Modal>
                 <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
             </Container>
         </div>

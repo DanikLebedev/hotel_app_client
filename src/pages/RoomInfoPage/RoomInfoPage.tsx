@@ -8,11 +8,12 @@ import Loader from '../../components/Loader/Loader';
 import './RoomInfoPage.scss';
 import { OrderService } from '../../APIServices/orderService';
 import toaster from 'toasted-notes';
-import { AuthContext } from '../../context/auth.context';
+import { ClientContext } from '../../context/client.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
 import { Modal, Button } from 'react-bootstrap';
+import { Select, MenuItem } from '@material-ui/core';
 
 export const RoomInfoPage: React.FC = () => {
     const userEmail = useAuth().userEmail;
@@ -30,11 +31,10 @@ export const RoomInfoPage: React.FC = () => {
     });
     const params: { id?: string } = useParams();
     const roomId: string | undefined = params.id;
-    const auth = useContext(AuthContext);
+    const auth = useContext(ClientContext);
     const isAuthenticated: boolean = auth.isAuthenticated;
     const history = useHistory();
-    const location = useLocation();
-    console.log(location.state);
+
     const fetchRoomInfo: CallableFunction = useCallback(() => {
         RoomService.getRoomById(roomId).then(({ rooms }) => setRoomInfo(rooms));
     }, []);

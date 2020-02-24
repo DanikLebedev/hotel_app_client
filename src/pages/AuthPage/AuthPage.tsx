@@ -7,7 +7,7 @@ import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
 import './AuthPage.scss';
 import Loader from '../../components/Loader/Loader';
-import { AuthContext } from '../../context/auth.context';
+import { ClientContext } from '../../context/client.context';
 import { useHistory } from 'react-router-dom';
 import { LoginData, RegisterData } from '../../interfaces/clientInterfaces';
 
@@ -23,7 +23,7 @@ interface UserData {
 
 const AuthPage: React.FC = () => {
     const history = useHistory();
-    const auth = useContext(AuthContext);
+    const auth = useContext(ClientContext);
     const [haveAccount, setHaveAccount] = useState(true);
     const { loading, request, error, clearError } = useHttp();
 

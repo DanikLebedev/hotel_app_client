@@ -1,5 +1,5 @@
 import { CRUDServices } from './CRUDServices';
-import { Data, Orders, OrderCarts } from '../interfaces/clientInterfaces';
+import { Data, Orders, OrderCarts, OrderCart } from '../interfaces/clientInterfaces';
 export class OrderService {
     public static async getUserOrders(headers: any): Promise<Orders> {
         const userOrders: Orders = await CRUDServices.getData('/api/client/order', headers);
@@ -19,6 +19,11 @@ export class OrderService {
     public static async deleteOrder(body: {}): Promise<Data> {
         const response: Data = await CRUDServices.deleteData('/api/client/order/delete', body);
         return response;
+    }
+
+    public static async getOrdersHistory(headers?: {}): Promise<OrderCarts> {
+        const orders: OrderCarts = await CRUDServices.getData('/api/client/orderHistory', headers);
+        return orders;
     }
 
     public static async deleteAdminOrder(body: {}): Promise<Data> {

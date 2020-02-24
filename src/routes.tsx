@@ -9,6 +9,7 @@ import NotFound from './components/ErrorsComponents/404';
 import { AboutUsPage } from './pages/AboutUsPage/AboutUsPage';
 import { RoomInfoPage } from './pages/RoomInfoPage/RoomInfoPage';
 import Loader from './components/Loader/Loader';
+import { SearchRoomsPage } from './pages/SearchRoomsPage/SearchRoomsPage';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -35,6 +36,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 </Route>
                 <Route path="/rooms/:id">
                     <RoomInfoPage />
+                </Route>
+                <Route path="/searchRooms">
+                    <SearchRoomsPage />
                 </Route>
                 <Route component={NotFound} />
             </Switch>

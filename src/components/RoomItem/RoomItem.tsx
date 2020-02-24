@@ -7,9 +7,10 @@ import { useHistory } from 'react-router-dom';
 
 interface RoomItemProps {
     roomInfo: Room;
+    searchRoom: boolean;
 }
 
-export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: RoomItemProps) => {
+export const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, searchRoom }: RoomItemProps) => {
     const history = useHistory();
 
     const showInfoHandler = () => {
@@ -18,7 +19,7 @@ export const RoomItem: ({ roomInfo }: RoomItemProps) => any = ({ roomInfo }: Roo
 
     return (
         <Container className={'rooms-page__wrapper'}>
-            <Row className="rooms-page__item mb-3">
+            <Row className={searchRoom ? 'search-room-page__item mb-3' : 'rooms-page__item mb-3'}>
                 <Col
                     lg={6}
                     md={6}

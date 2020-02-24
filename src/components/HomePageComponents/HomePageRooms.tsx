@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faBuilding, faUserAlt } from '@fortawesome/free-solid-svg-icons';
@@ -10,25 +10,18 @@ import { config } from '../../config';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { withTranslation } from 'react-i18next';
+import { ClientContext } from '../../context/client.context';
 
 const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
-    const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [index, setIndex] = useState<number>(0);
     const history = useHistory();
+    const fetchedRooms = useContext(ClientContext).fetchedRooms;
 
-    const fetchRooms: CallableFunction = useCallback(() => {
-        RoomService.getAllRooms().then(({ rooms }) => {
-            setFetchedRooms(rooms);
-        });
-    }, []);
 
     const changeMainRoomHandler = (key: number): void => {
         setIndex(key);
     };
 
-    useEffect(() => {
-        fetchRooms();
-    }, [fetchRooms]);
 
     return (
         <section className={'home__page-rooms'}>
@@ -55,7 +48,7 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                                     {fetchedRooms[index] ? fetchedRooms[index].price : null}$
                                 </span>
                                 /{t('home-page-rooms.per-night.label')}
-                        </p>
+                            </p>
                         </div>
                         <div className="room__icons">
                             <span>
@@ -74,7 +67,9 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                             </span>
                         </div>
                         <p className={'home__page-rooms-description'}>
-                            {fetchedRooms[index] ? t(`home-page-rooms.${fetchedRooms[index].category}.description`) : null}
+                            {fetchedRooms[index]
+                                ? t(`home-page-rooms.${fetchedRooms[index].category}.description`)
+                                : null}
                         </p>
                         <div className={'button__container'}>
                             <button

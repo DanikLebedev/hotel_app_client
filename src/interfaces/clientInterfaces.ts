@@ -35,7 +35,7 @@ export interface Rooms {
     rooms: Room[];
 }
 
-export interface Room extends Object {
+export interface Room {
     category: string;
     isBooked: boolean;
     title: string;

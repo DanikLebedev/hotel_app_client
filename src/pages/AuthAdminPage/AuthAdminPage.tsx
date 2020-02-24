@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../context/auth.context';
+import { AdminContext } from '../../context/admin.context';
 import { useHttp } from '../../hooks/http.hook';
 import toaster from 'toasted-notes';
 import './AuthAdminPage.scss';
@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 export const AuthAdminPage = () => {
-    const auth = useContext(AuthContext);
+    const auth = useContext(AdminContext);
     const { request, error, clearError } = useHttp();
     const [form, setForm] = useState({ email: '', password: '' });
     const history = useHistory();
