@@ -1,7 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import RoomItem from '../RoomItem/RoomItem';
 import Loader from '../Loader/Loader';
-import { RoomService } from '../../APIServices/roomService';
 import { Room } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 

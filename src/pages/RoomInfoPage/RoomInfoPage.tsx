@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { Order, Room } from '../../interfaces/clientInterfaces';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { RoomService } from '../../APIServices/roomService';
 import { Col, Container, Row } from 'react-bootstrap';
 import { config } from '../../config';
@@ -12,12 +12,21 @@ import { ClientContext } from '../../context/client.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
-import { Modal, Button } from 'react-bootstrap';
-import { Select, MenuItem } from '@material-ui/core';
+import { Modal } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
+
+interface RoomInfoPageFormData {
+    checkIn: string;
+    checkOut: string;
+    comment: string;
+    guests: number;
+}
 
 export const RoomInfoPage: React.FC = () => {
     const userEmail = useAuth().userEmail;
     const [show, setShow] = useState(false);
+    const { register, handleSubmit, errors } = useForm<RoomInfoPageFormData>();
 
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
     const [order, setOrder] = useState<Order>({
@@ -37,7 +46,7 @@ export const RoomInfoPage: React.FC = () => {
 
     const fetchRoomInfo: CallableFunction = useCallback(() => {
         RoomService.getRoomById(roomId).then(({ rooms }) => setRoomInfo(rooms));
-    }, []);
+    }, [roomId]);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setOrder({ ...order, [event.target.name]: event.target.value });
@@ -135,13 +144,14 @@ export const RoomInfoPage: React.FC = () => {
                                 <div className="form-group">
                                     <span className="form-label">Check In</span>
                                     <input
+                                        ref={register({ required: true })}
                                         className="form-control"
                                         onChange={onChangeHandler}
-                                        value={order.checkIn}
                                         name={'checkIn'}
                                         type="date"
                                         required
                                     />
+                                    <ErrorMessage error={errors.checkIn} type={'error'} />
                                 </div>
                                 <span className="in-out hidden-xs hidden-sm">&#8652;</span>
                             </div>
@@ -149,13 +159,14 @@ export const RoomInfoPage: React.FC = () => {
                                 <div className="form-group">
                                     <span className="form-label">Check out</span>
                                     <input
+                                        ref={register({ required: true })}
                                         className="form-control"
                                         onChange={onChangeHandler}
-                                        value={order.checkOut}
                                         name={'checkOut'}
                                         type="date"
                                         required
                                     />
+                                    <ErrorMessage error={errors.checkOut} type={'error'} />
                                 </div>
                             </div>
                         </div>
@@ -164,27 +175,28 @@ export const RoomInfoPage: React.FC = () => {
                                 <span className="form-label">Number of guests</span>
                                 <input
                                     className="form-control"
+                                    ref={register({ required: true, min: 1 })}
                                     onChange={onChangeHandler}
-                                    value={order.guests}
                                     name={'guests'}
                                     type="number"
                                     required
                                 />
+                                <ErrorMessage error={errors.guests} type={'error'} />
                             </div>
                             <div className="col-md-4">
                                 <span className="form-label">Your Wishes</span>
                                 <textarea
                                     onChange={onChangeTextAreaHandler}
+                                    ref={register()}
                                     className={'form-control'}
                                     name={'comment'}
                                     placeholder="enter your wishes"
-                                    value={order.comment}
                                     id={'comment'}
                                 />
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
-                                    <button onClick={handleShow} className="submit-btn">
+                                    <button onClick={handleSubmit(handleShow)} className="submit-btn">
                                         Check availability
                                     </button>
                                 </div>

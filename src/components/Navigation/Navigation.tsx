@@ -1,4 +1,4 @@
-import React, { useContext, useState, Suspense, ChangeEvent } from 'react';
+import React, { useContext, useState, ChangeEvent } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { ClientContext } from '../../context/client.context';
 import './Navigation.scss';
@@ -10,13 +10,9 @@ import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
 import { faSignOutAlt, faSignInAlt, faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';
-import { goToAnchor } from 'react-scrollable-anchor';
-import { configureAnchors } from 'react-scrollable-anchor';
 import { useTranslation } from 'react-i18next';
 
 const Navigation: React.FC = (): JSX.Element => {
-    configureAnchors({ offset: -100, scrollDuration: 1000 });
-
     const auth = useContext(ClientContext);
     const history = useHistory();
     const isAuthenticated: boolean = auth.isAuthenticated;
@@ -28,9 +24,6 @@ const Navigation: React.FC = (): JSX.Element => {
         history.push('/');
     };
     const [showMenu, setShowMenu] = useState<boolean>(false);
-    const goToForm = (): void => {
-        goToAnchor('home-page-book-form', false);
-    };
 
     const showMenuHandler = (): void => {
         setShowMenu(!showMenu);

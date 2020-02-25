@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import Loader from '../Loader/Loader';
 import { Room, Rooms } from '../../interfaces/clientInterfaces';
 import { array } from 'prop-types';
@@ -13,7 +13,7 @@ export const SearchRoomsList: React.FC<Rooms> = (props: Rooms): JSX.Element => {
             ) : (
                 props.rooms.map((room: Room, i: number) => {
                     return (
-                        <div>
+                        <div key={i}>
                             <RoomItem searchRoom={true} key={i} roomInfo={room} />
                         </div>
                     );

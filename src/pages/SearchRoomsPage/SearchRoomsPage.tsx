@@ -23,7 +23,7 @@ export const SearchRoomsPage: FC = () => {
             });
             setFetchedRooms(filteredRooms);
         });
-    }, []);
+    }, [historyState.category]);
 
     useEffect(() => {
         fetchRooms();

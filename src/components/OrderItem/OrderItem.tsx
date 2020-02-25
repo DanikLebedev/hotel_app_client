@@ -1,6 +1,5 @@
 import React from 'react';
 import { Order } from '../../interfaces/clientInterfaces';
-import { Col, Row } from 'react-bootstrap';
 
 interface OrderProps {
     key: number;

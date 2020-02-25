@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import toaster from 'toasted-notes';
-import { useHttp } from '../../../../hooks/http.hook';
 import Loader from '../../../Loader/Loader';
 import { CategoryService } from '../../../../APIServices/categoryService';
 import { Category, Data, Room } from '../../../../interfaces/clientInterfaces';
@@ -14,6 +13,7 @@ import { RoomService } from '../../../../APIServices/roomService';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { AdminContext } from '../../../../context/admin.context';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -32,8 +32,8 @@ const useStyles = makeStyles(theme => ({
 
 export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     const classes = useStyles();
-    const { error, clearError } = useHttp();
-    const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    // const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    const fetchedCategories = useContext(AdminContext).fetchedCategories;
     const [roomForm, setRoomForm] = useState<Room>(props.editProps);
     const addRoomHandler = async (event: ChangeEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
@@ -79,12 +79,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
         );
     });
 
-    const fetchCategories = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
-    }, []);
-
     useEffect(() => {
-        fetchCategories();
         if (props.isEdit) {
             setRoomForm(props.editProps);
         } else {
@@ -100,11 +95,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                 title: '',
             });
         }
-        toaster.notify(error, {
-            duration: 2000,
-        });
-        clearError();
-    }, [error, clearError, fetchCategories, props.isEdit, props.editProps]);
+    }, [props.isEdit, props.editProps]);
 
     if (!fetchedCategories[0]) {
         return <Loader />;

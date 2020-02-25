@@ -1,41 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
-import { useHttp } from '../../hooks/http.hook';
 import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
 import './AuthPage.scss';
 import Loader from '../../components/Loader/Loader';
 import { ClientContext } from '../../context/client.context';
 import { useHistory } from 'react-router-dom';
-import { LoginData, RegisterData } from '../../interfaces/clientInterfaces';
+import { LoginData, RegisterData, UserData } from '../../interfaces/clientInterfaces';
+import { AuthService } from '../../APIServices/authService';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-interface UserData {
-    token: string;
-    userId: string;
-    status: string;
+type FormData = {
     email: string;
-    message: string;
-}
+    password: string;
+    name?: string;
+    lastName?: string;
+};
 
 const AuthPage: React.FC = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const history = useHistory();
     const auth = useContext(ClientContext);
     const [haveAccount, setHaveAccount] = useState(true);
-    const { loading, request, error, clearError } = useHttp();
 
     const [form, setForm] = useState<LoginData>({ email: '', password: '' });
     const [registerForm, setRegisterForm] = useState<RegisterData>({ email: '', password: '', name: '', lastName: '' });
 
-    useEffect(() => {
-        toaster.notify(error, {
-            duration: 2000,
-        });
-        clearError();
-    }, [error, clearError, haveAccount]);
+    const { register, handleSubmit, errors } = useForm<FormData>();
 
     const changeHandler = (event: InputEvent): void => {
         setForm({ ...form, [event.target.name]: event.target.value });
@@ -47,12 +43,17 @@ const AuthPage: React.FC = () => {
 
     const registerHandler = async (): Promise<void> => {
         try {
-            const data: UserData = await request('/api/auth/register', 'POST', { ...registerForm });
+            setLoading(true);
+            const data: UserData = await AuthService.registerUser(registerForm, {
+                'Content-Type': 'application/json',
+            });
             toaster.notify(data.message, {
                 duration: 2000,
             });
-            const loginData: UserData = await request('/api/auth/login', 'POST', { ...registerForm });
-
+            const loginData: UserData = await AuthService.loginUser(registerForm, {
+                'Content-Type': 'application/json',
+            });
+            setLoading(false);
             auth.login(loginData.token, loginData.userId, loginData.status, loginData.email);
             history.push('/');
         } catch (e) {}
@@ -60,11 +61,15 @@ const AuthPage: React.FC = () => {
 
     const loginHandler = async (): Promise<void> => {
         try {
-            const data: UserData = await request('/api/auth/login', 'POST', { ...form });
+            setLoading(true);
+            const data: UserData = await AuthService.loginUser(form, {
+                'Content-Type': 'application/json',
+            });
             auth.login(data.token, data.userId, data.status, data.email);
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            setLoading(false);
             history.push('/');
         } catch (e) {}
     };
@@ -80,9 +85,10 @@ const AuthPage: React.FC = () => {
                     name="email"
                     id="email"
                     placeholder="e.g asd@mail.ru"
-                    value={form.email}
                     onChange={changeHandler}
+                    ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                 />
+                <ErrorMessage error={errors.email} type={'error'} />
             </label>
             <label>
                 <FontAwesomeIcon icon={faLock} />
@@ -92,15 +98,16 @@ const AuthPage: React.FC = () => {
                     name="password"
                     id="password"
                     placeholder="password"
-                    value={form.password}
                     onChange={changeHandler}
+                    ref={register({ required: true, minLength: 6 })}
                 />
+                <ErrorMessage error={errors.password} type={'error'} />
             </label>
             <button className="change-form-button" onClick={() => setHaveAccount(false)}>
                 Don&apos;t have an account?
             </button>
             <div className="btn__wrapper">
-                <button className="auth__btn" onClick={loginHandler}>
+                <button className="auth__btn" onClick={handleSubmit(loginHandler)}>
                     Login
                 </button>
             </div>
@@ -119,9 +126,10 @@ const AuthPage: React.FC = () => {
                     name="email"
                     id="email"
                     placeholder="e.g asd@mail.ru"
-                    value={registerForm.email}
                     onChange={changeRegisterInputHandler}
+                    ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                 />
+                <ErrorMessage error={errors.email} type={'error'} />
             </label>
             <label>
                 <FontAwesomeIcon icon={faLock} />
@@ -131,9 +139,10 @@ const AuthPage: React.FC = () => {
                     name="password"
                     id="password"
                     placeholder="password"
-                    value={registerForm.password}
                     onChange={changeRegisterInputHandler}
+                    ref={register({ required: true, minLength: 6 })}
                 />
+                <ErrorMessage error={errors.password} type={'error'} />
             </label>
             <label>
                 <FontAwesomeIcon icon={faUser} />
@@ -143,9 +152,10 @@ const AuthPage: React.FC = () => {
                     name="name"
                     id="name"
                     placeholder="your name"
-                    value={registerForm.name}
                     onChange={changeRegisterInputHandler}
+                    ref={register({ required: true })}
                 />
+                <ErrorMessage error={errors.name} type={'error'} />
             </label>
             <label>
                 <FontAwesomeIcon icon={faUser} />
@@ -155,15 +165,16 @@ const AuthPage: React.FC = () => {
                     name="lastName"
                     id="lastName"
                     placeholder="your last name"
-                    value={registerForm.lastName}
                     onChange={changeRegisterInputHandler}
+                    ref={register({ required: true })}
                 />
+                <ErrorMessage error={errors.lastName} type={'error'} />
             </label>
             <button className="change-form-button" onClick={() => setHaveAccount(true)}>
                 Have an account?
             </button>
             <div className="btn__wrapper">
-                <button className="auth__btn" onClick={registerHandler}>
+                <button className="auth__btn" onClick={handleSubmit(registerHandler)}>
                     Register
                 </button>
             </div>

@@ -1,15 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Employee } from '../../../../interfaces/clientInterfaces';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import toaster from 'toasted-notes';
 import { EmployeeService } from '../../../../APIServices/employeeService';
 import { AdminEmployeeForm } from '../../GridsForms/AdminEmployeeForm/AdminEmployeeForm';
 import { IconButton } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
+import { AdminContext } from '../../../../context/admin.context';
 
 export const EmployeeDataGrid = () => {
-    const [employees, setEmployee] = useState<Employee[]>([]);
+    const employees = useContext(AdminContext).fetchedAllEmployee;
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [editProps, setEditProps] = useState<Employee>({ email: '', password: '', status: '' });
@@ -17,14 +16,6 @@ export const EmployeeDataGrid = () => {
     const closeModal = (): void => {
         setShowModal(false);
     };
-
-    const fetchEmployee: CallableFunction = useCallback(() => {
-        EmployeeService.getAllEmployee().then(({ employees }) => setEmployee(employees));
-    }, []);
-
-    useEffect(() => {
-        fetchEmployee();
-    }, [fetchEmployee]);
 
     const editEmployeeHandler = (event: React.MouseEvent<EventTarget>) => {
         setIsEdit(true);
@@ -40,10 +31,9 @@ export const EmployeeDataGrid = () => {
 
     const deleteEmployeeHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        const filteredRooms = employees.filter(employee => {
+        employees.filter(employee => {
             return employee._id !== target.id;
         });
-        setEmployee(filteredRooms);
         const formData = new FormData();
         formData.append('_id', target.id);
         await EmployeeService.deleteEmployee(formData).then(data => {
@@ -68,7 +58,7 @@ export const EmployeeDataGrid = () => {
                         <th>
                             Actions
                             <IconButton className={'icon-buttons'} onClick={addEmployeeHandler}>
-                                <Add/>
+                                <Add />
                             </IconButton>
                         </th>
                     </tr>
@@ -86,14 +76,14 @@ export const EmployeeDataGrid = () => {
                                               id={employee._id}
                                               onClick={deleteEmployeeHandler}
                                           >
-                                            <Delete color='error'/>
+                                              <Delete color="error" />
                                           </IconButton>
                                           <IconButton
                                               className={'icon-buttons'}
                                               id={employee._id}
                                               onClick={editEmployeeHandler}
                                           >
-                                             <Edit color='primary'/>
+                                              <Edit color="primary" />
                                           </IconButton>
                                       </td>
                                   </tr>

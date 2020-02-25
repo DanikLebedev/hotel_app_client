@@ -1,10 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faBuilding, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useHistory } from 'react-router-dom';
-import { Room } from '../../interfaces/clientInterfaces';
-import { RoomService } from '../../APIServices/roomService';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -17,11 +15,9 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
     const history = useHistory();
     const fetchedRooms = useContext(ClientContext).fetchedRooms;
 
-
     const changeMainRoomHandler = (key: number): void => {
         setIndex(key);
     };
-
 
     return (
         <section className={'home__page-rooms'}>

@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Room } from '../../../../interfaces/clientInterfaces';
 import { RoomService } from '../../../../APIServices/roomService';
 import { config } from '../../../../config';
 import toaster from 'toasted-notes';
 import { RoomForm } from '../../GridsForms/AdminRoomForm/RoomForm';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from '../../../Pagination/Pagination';
 import { IconButton } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
+import { AdminContext } from '../../../../context/admin.context';
 
 export const RoomDataGrid: React.FC = () => {
-    const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
+    const fetchedRooms = useContext(AdminContext).fetchedRooms;
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,9 +34,6 @@ export const RoomDataGrid: React.FC = () => {
         title: '',
     });
 
-    const fetchRoom: CallableFunction = useCallback(() => {
-        RoomService.getAllRooms().then(({ rooms }) => setFetchedRooms(rooms));
-    }, []);
 
     const editRoomHandler = (event: React.MouseEvent<EventTarget>) => {
         setIsEdit(true);
@@ -53,10 +49,9 @@ export const RoomDataGrid: React.FC = () => {
 
     const deleteRoomHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        const filteredRooms = fetchedRooms.filter(room => {
+        fetchedRooms.filter(room => {
             return room._id !== target.id;
         });
-        setFetchedRooms(filteredRooms);
         const formData = new FormData();
         formData.append('_id', target.id);
         await RoomService.deleteRoom(formData).then(data => {
@@ -74,10 +69,6 @@ export const RoomDataGrid: React.FC = () => {
     const closeModal = (): void => {
         setShowModal(false);
     };
-
-    useEffect(() => {
-        fetchRoom();
-    }, [fetchRoom, fetchedRooms]);
 
     return (
         <div className="grid-table-wrapper">

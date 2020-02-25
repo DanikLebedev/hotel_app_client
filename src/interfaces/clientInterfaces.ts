@@ -114,3 +114,11 @@ export interface Feedback {
 export interface Feedbacks {
     feedbacks: Feedback[];
 }
+
+export interface UserData {
+    token: string;
+    userId: string;
+    status: string;
+    email: string;
+    message: string;
+}

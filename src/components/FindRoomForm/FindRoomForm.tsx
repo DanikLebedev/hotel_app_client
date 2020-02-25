@@ -1,12 +1,14 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import './FindRoomForm.scss';
-import { Category, OrderCart, OrderCarts, Room } from '../../interfaces/clientInterfaces';
-import { useHttp } from '../../hooks/http.hook';
+import { Category, OrderCart, OrderCarts } from '../../interfaces/clientInterfaces';
 import { useHistory } from 'react-router-dom';
 import { CategoryService } from '../../APIServices/categoryService';
 import toaster from 'toasted-notes';
 import { FormControl, InputLabel, MenuItem, makeStyles, Select } from '@material-ui/core';
 import { OrderService } from '../../APIServices/orderService';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
+import { ClientContext } from '../../context/client.context';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -29,48 +31,57 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+interface FindRoomFormData {
+    checkIn: string;
+    checkOut: string;
+    category: string;
+}
+
 export const FindRoomForm = () => {
+    const { register, handleSubmit, errors } = useForm<FindRoomFormData>();
+    const auth = useContext(ClientContext).isAuthenticated;
     const classes = useStyles();
     const [showForm, setShowForm] = useState(false);
-    const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const [findRoomForm, setFindRoomForm] = useState({
         checkIn: '',
         checkOut: '',
         category: '',
     });
-    const { error, clearError } = useHttp();
     const history = useHistory();
     const selectOrderChangeHandler = (event: any): void => {
         setFindRoomForm({ ...findRoomForm, [event.target.name]: event.target.value });
-        // event.persist();
-        //         // const { rooms }: Rooms = await RoomService.getAllRooms();
-        //         // const filteredRooms: Room[] = rooms.filter(item => {
-        //         //     return item.category.toString() === event.target.value.toString();
-        //         // });
-        //         // setFilteredRooms(filteredRooms);
     };
 
     const fetchCategories: CallableFunction = useCallback(() => {
         CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
     }, []);
 
-    const addOrderHandler = async (): Promise<void> => {
-        const { ordercarts }: OrderCarts = await OrderService.getAllOrders();
-        const filteredOrders = ordercarts.filter(order => {
-            return (
-                order.category === findRoomForm.category &&
-                Date.parse(order.checkOut) > Date.parse(findRoomForm.checkIn)
-            );
-        });
-        if (filteredOrders.length === 0) {
-            toaster.notify('sorry all rooms are booked', {
-                duration: 2000,
+    const CheckRoomHandler = async (): Promise<void> => {
+        if (auth) {
+            const { ordercarts }: OrderCarts = await OrderService.getAllOrders();
+            const bookedOrders: OrderCart[] = ordercarts.filter(order => {
+                return (
+                    order.category === findRoomForm.category &&
+                    Date.parse(order.checkOut) > Date.parse(findRoomForm.checkIn) &&
+                    order.status === 'booked'
+                );
             });
+            const filteredByCategoryOrders: OrderCart[] = ordercarts.filter(order => {
+                return order.category === findRoomForm.category;
+            });
+            if (bookedOrders.length !== 0) {
+                toaster.notify('sorry all rooms are booked', {
+                    duration: 2000,
+                });
+            } else {
+                history.push(`/searchRooms`, {
+                    category: filteredByCategoryOrders[0].category,
+                });
+            }
+        } else {
+            history.push('/auth');
         }
-        history.push(`/searchRooms`, {
-            category: filteredOrders[0].category,
-        });
     };
     const changeDateOrderHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setFindRoomForm({ ...findRoomForm, [event.target.name]: event.target.value });
@@ -86,11 +97,7 @@ export const FindRoomForm = () => {
 
     useEffect(() => {
         fetchCategories();
-        toaster.notify(error, {
-            duration: 2000,
-        });
-        clearError();
-    }, [fetchCategories, error, clearError]);
+    }, [fetchCategories]);
 
     const ToggleFormHandler = (): void => {
         setShowForm(!showForm);
@@ -102,10 +109,24 @@ export const FindRoomForm = () => {
             </div>
             <div>
                 <div className="find-room-form">
-                    <label htmlFor={'checkIn'}>CheckIn</label>
-                    <input type="date" id="checkIn" onChange={changeDateOrderHandler} name="checkIn" />
-                    <label htmlFor={'checkOut'}>CheckOut</label>
-                    <input type="date" id="checkIn" onChange={changeDateOrderHandler} name="checkOut" />
+                    <label htmlFor={'checkIn'}>Check In</label>
+                    <input
+                        ref={register({ required: true })}
+                        type="date"
+                        id="checkIn"
+                        onChange={changeDateOrderHandler}
+                        name="checkIn"
+                    />
+                    <ErrorMessage error={errors.checkIn} type={'error'} />
+                    <label htmlFor={'checkOut'}>Check Out</label>
+                    <input
+                        ref={register({ required: true })}
+                        type="date"
+                        id="checkIn"
+                        onChange={changeDateOrderHandler}
+                        name="checkOut"
+                    />
+                    <ErrorMessage error={errors.checkOut} type={'error'} />
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label" className={classes.label}>
                             Category
@@ -121,7 +142,7 @@ export const FindRoomForm = () => {
                             {options}
                         </Select>
                     </FormControl>
-                    <button onClick={addOrderHandler}>Check rooms</button>
+                    <button onClick={handleSubmit(CheckRoomHandler)}>Check rooms</button>
                 </div>
             </div>
         </div>

@@ -7,10 +7,13 @@ import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import { Feedback, Room } from './interfaces/clientInterfaces';
+import {Category, Employee, Feedback, OrderCart, Room} from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
 import { FeedbackService } from './APIServices/feedbackService';
+import { CategoryService } from './APIServices/categoryService';
+import {OrderService} from "./APIServices/orderService";
+import {EmployeeService} from "./APIServices/employeeService";
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -18,14 +21,28 @@ const App: React.FC = () => {
     const routes: JSX.Element = useRoutes(isAuthenticated, userStatus);
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [fetchedFeedbacks, setFetchedFeedbacks] = useState<Feedback[]>([]);
+    const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    const [fetchedAllOrders, setFetchedAllOrders] = useState<OrderCart[]>([])
+    const [fetchedAllEmployee, setFetchedAllEmployee] = useState<Employee[]>([])
+
+    const fetchEmployee: CallableFunction = useCallback(() => {
+        EmployeeService.getAllEmployee().then(({ employees }) => setFetchedAllEmployee(employees));
+    }, []);
+
+
+    const fetchAllOrders: CallableFunction = useCallback(() => {
+        OrderService.getAllOrders().then(({ ordercarts }) => {
+            setFetchedAllOrders(ordercarts);
+        });
+    }, []);
+
+    const fetchCategories: CallableFunction = useCallback(() => {
+        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
+    }, []);
 
     const fetchFeedback = useCallback(() => {
         FeedbackService.getAllFeedbacks().then(({ feedbacks }) => {
-            const filteredFeedbacks = feedbacks.filter(feedback => {
-                return feedback.approved;
-            });
-
-            setFetchedFeedbacks(filteredFeedbacks);
+            setFetchedFeedbacks(feedbacks);
         });
     }, []);
 
@@ -36,7 +53,10 @@ const App: React.FC = () => {
     useEffect(() => {
         fetchRoom();
         fetchFeedback();
-    }, [fetchRoom, fetchFeedback]);
+        fetchCategories();
+        fetchAllOrders();
+        fetchEmployee();
+    }, [fetchRoom, fetchFeedback, fetchedCategories, fetchAllOrders, fetchEmployee()]);
 
     if (userStatus === 'admin') {
         return (
@@ -48,6 +68,11 @@ const App: React.FC = () => {
                     userId,
                     isAuthenticated,
                     userStatus,
+                    fetchedCategories,
+                    fetchedFeedbacks,
+                    fetchedRooms,
+                    fetchedAllOrders,
+                    fetchedAllEmployee
                 }}
             >
                 <AdminPage />
@@ -67,6 +92,7 @@ const App: React.FC = () => {
                 userEmail,
                 fetchedRooms,
                 fetchedFeedbacks,
+                fetchedCategories,
             }}
         >
             <Router>

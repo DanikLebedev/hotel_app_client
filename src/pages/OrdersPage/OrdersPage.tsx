@@ -1,9 +1,9 @@
-import React, { ChangeEvent, ContextType, useCallback, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import './OrdersPage.scss';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import { OrderService } from '../../APIServices/orderService';
-import { Customer, Data, Feedback, Order, OrderCart } from '../../interfaces/clientInterfaces';
+import { Customer, Feedback, Order, OrderCart, OrderCarts, Orders } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 import toaster from 'toasted-notes';
 import { Container, Col, Row, Modal } from 'react-bootstrap';
@@ -12,14 +12,22 @@ import { CustomerService } from '../../APIServices/customerService';
 import Loader from '../../components/Loader/Loader';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FindRoomForm } from '../../components/FindRoomForm/FindRoomForm';
 import { IconButton, Button } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
+
+interface FeedbackFormData {
+    message: string;
+}
 
 export const OrderPage: React.FC = () => {
+    const { register, handleSubmit, errors } = useForm<FeedbackFormData>();
+
     const auth = useContext(ClientContext);
     const [orders, setOrders] = useState<Order[]>([]);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
@@ -43,7 +51,7 @@ export const OrderPage: React.FC = () => {
     const [cls, setCls] = useState<Array<string>>(['order-item']);
     const [show, setShow] = useState(false);
     const fetchOrders: CallableFunction = useCallback(async () => {
-        const { orders } = await OrderService.getUserOrders({ Authorization: `Bearer ${auth.token}` });
+        const { orders }: Orders = await OrderService.getUserOrders({ Authorization: `Bearer ${auth.token}` });
         setOrders(orders);
     }, [auth.token]);
 
@@ -53,16 +61,18 @@ export const OrderPage: React.FC = () => {
     }, [auth.token]);
 
     const fetchOrdersHistory = useCallback(async () => {
-        const { ordercarts } = await OrderService.getOrdersHistory({ Authorization: `Bearer ${auth.token}` });
+        const { ordercarts }: OrderCarts = await OrderService.getOrdersHistory({
+            Authorization: `Bearer ${auth.token}`,
+        });
         setOrderHistory(ordercarts);
-    }, []);
+    }, [auth.token]);
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
         const formData: FormData = new FormData();
         formData.append('_id', target.id);
         if (target) {
-            const filteredOrders: Order[] = orders.filter(order => {
+            const filteredOrders = orders.filter(order => {
                 return order._id === target.id;
             });
             setCls((prevState: string[]) => [...prevState, 'deleted-order']);
@@ -100,14 +110,8 @@ export const OrderPage: React.FC = () => {
     };
 
     const closeOrdersHistory = () => {
-        setShowModal(false)
-    }
-
-    useEffect(() => {
-        fetchOrders();
-        fetchCustomerInfo();
-        fetchOrdersHistory();
-    }, [fetchOrders, fetchCustomerInfo, orders, fetchOrdersHistory]);
+        setShowModal(false);
+    };
 
     const [currentPage, setCurrentPage] = useState(1);
     const [postPerPage] = useState(8);
@@ -118,6 +122,12 @@ export const OrderPage: React.FC = () => {
     const paginate = (pageNumber: number) => {
         setCurrentPage(pageNumber);
     };
+
+    useEffect(() => {
+        fetchOrders();
+        fetchCustomerInfo();
+        fetchOrdersHistory();
+    }, [orders, fetchOrders, fetchCustomerInfo, fetchOrdersHistory]);
 
     return (
         <div className="order-page">
@@ -152,8 +162,10 @@ export const OrderPage: React.FC = () => {
                                 placeholder={'your feedback...'}
                                 onChange={changeFeedbackTextHandler}
                                 name={'message'}
+                                ref={register({ required: true })}
                             />
-                            <button onClick={addFeedbackHandler} className={'button'}>
+                            <ErrorMessage error={errors.message} type={'error'} />
+                            <button onClick={handleSubmit(addFeedbackHandler)} className={'button'}>
                                 Send feedback
                             </button>
                         </div>

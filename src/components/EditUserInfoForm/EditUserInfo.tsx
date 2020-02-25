@@ -1,12 +1,14 @@
 import { Container } from 'react-bootstrap';
 import React, { useContext, useEffect, useState } from 'react';
-import { Category, Data } from '../../interfaces/clientInterfaces';
+import { Data } from '../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Customer } from '../../interfaces/clientInterfaces';
 import { CustomerService } from '../../APIServices/customerService';
 import { ClientContext } from '../../context/client.context';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -17,11 +19,19 @@ interface EditUserInfoForm {
     isEdit: boolean;
 }
 
+interface OrdersPageFormData {
+    email: string;
+    name: string;
+    lastName: string;
+}
+
 export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfoForm) => {
+    const { register, handleSubmit, errors } = useForm<OrdersPageFormData>();
+
     const [userForm, setUserForm] = useState<Customer>(props.editProps);
     const auth = useContext(ClientContext);
 
-    const addCategoryHandler = async (): Promise<void> => {
+    const updateInfoHandler = async (): Promise<void> => {
         if (props.isEdit) {
             const data: Data = await CustomerService.updateCustomer(JSON.stringify(userForm), {
                 'Content-Type': 'application/json',
@@ -62,7 +72,9 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
                         name="name"
                         id="name"
                         placeholder="name"
+                        ref={register({ required: true })}
                     />
+                    <ErrorMessage error={errors.name} type={'error'} />
                     <label htmlFor="email">Your last name</label>
                     <input
                         onChange={userInfoChangeHandler}
@@ -72,7 +84,10 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
                         name="lastName"
                         id="lastName"
                         placeholder="lastName"
+                        ref={register({ required: true })}
                     />
+                    <ErrorMessage error={errors.lastName} type={'error'} />
+
                     <label htmlFor="email">Your email</label>
                     <input
                         onChange={userInfoChangeHandler}
@@ -82,8 +97,11 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
                         name="email"
                         id="email"
                         placeholder="email"
+                        ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                     />
-                    <button onClick={addCategoryHandler} className="button-book">
+                    <ErrorMessage error={errors.email} type={'error'} />
+
+                    <button onClick={handleSubmit(updateInfoHandler)} className="button-book">
                         Update Info
                     </button>
                 </div>

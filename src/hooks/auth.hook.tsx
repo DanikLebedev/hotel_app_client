@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { State } from 'react-spring';
 
 const storageName = 'userData';
 

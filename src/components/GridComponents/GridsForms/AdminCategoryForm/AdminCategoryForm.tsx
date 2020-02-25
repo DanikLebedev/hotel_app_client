@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Category, Data } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';

@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Category } from '../../../../interfaces/clientInterfaces';
 import { CategoryService } from '../../../../APIServices/categoryService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import toaster from 'toasted-notes';
 import { AdminCategoryForm } from '../../GridsForms/AdminCategoryForm/AdminCategoryForm';
 import { IconButton } from '@material-ui/core';

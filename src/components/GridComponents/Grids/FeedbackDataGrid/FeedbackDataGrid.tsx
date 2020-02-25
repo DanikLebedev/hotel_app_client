@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Employee, Feedback } from '../../../../interfaces/clientInterfaces';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {  Feedback } from '../../../../interfaces/clientInterfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faPlusSquare, faTrash, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {  faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import toaster from 'toasted-notes';
-import { EmployeeService } from '../../../../APIServices/employeeService';
-import { AdminEmployeeForm } from '../../GridsForms/AdminEmployeeForm/AdminEmployeeForm';
 import { FeedbackService } from '../../../../APIServices/feedbackService';
 import { AdminFeedbackForm } from '../../GridsForms/AdminFeedbackForm/AdminFeedbackForm';
 import { IconButton } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
+import {AdminContext} from "../../../../context/admin.context";
 
 export const FeedbackDataGrid = () => {
-    const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
+    const feedbacks = useContext(AdminContext).fetchedFeedbacks
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [editProps, setEditProps] = useState<Feedback>({
@@ -26,13 +25,6 @@ export const FeedbackDataGrid = () => {
         setShowModal(false);
     };
 
-    const fetchFeedback: CallableFunction = useCallback(() => {
-        FeedbackService.getAllFeedbacks().then(({ feedbacks }) => setFeedbacks(feedbacks));
-    }, []);
-
-    useEffect(() => {
-        fetchFeedback();
-    }, [fetchFeedback, feedbacks]);
 
     const editFeedbackHandler = (event: React.MouseEvent<EventTarget>) => {
         setIsEdit(true);
@@ -48,10 +40,9 @@ export const FeedbackDataGrid = () => {
 
     const deleteFeedbackHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        const filteredFeedbacks = feedbacks.filter(feedback => {
+        feedbacks.filter(feedback => {
             return feedback._id !== target.id;
         });
-        setFeedbacks(filteredFeedbacks);
         const formData = new FormData();
         formData.append('_id', target.id);
         await FeedbackService.deleteFeedback(formData).then(data => {

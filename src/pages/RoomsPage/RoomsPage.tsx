@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import RoomsList from '../../components/RoomsList/RoomsList';
 import { Container } from 'react-bootstrap';
 import './RoomsPage.scss';

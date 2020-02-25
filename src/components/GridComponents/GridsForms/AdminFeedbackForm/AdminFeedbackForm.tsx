@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Data, Feedback } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -63,14 +63,6 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
                         value="checkedA"
                         color='primary'
                     />
-                    {/*<input*/}
-                    {/*    type="checkbox"*/}
-                    {/*    className={'form-control'}*/}
-                    {/*    name={'approved'}*/}
-                    {/*    id={'approved'}*/}
-                    {/*    onChange={onChangeHandler}*/}
-                    {/*    checked={feedbackForm.approved}*/}
-                    {/*/>*/}
                     <button onClick={addFeedbackHandler} className="btn btn-primary mt-3">
                         Update Feedback
                     </button>

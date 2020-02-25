@@ -1,5 +1,5 @@
 import { CRUDServices } from './CRUDServices';
-import { Data, Room, Rooms } from '../interfaces/clientInterfaces';
+import { Data, Rooms } from '../interfaces/clientInterfaces';
 
 export class RoomService {
     public static async getAllRooms(): Promise<Rooms> {

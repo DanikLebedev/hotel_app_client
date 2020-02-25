@@ -1,6 +1,5 @@
 import { createContext } from 'react';
-import { Feedback, Room } from '../interfaces/clientInterfaces';
-import { func } from 'prop-types';
+import { Category, Feedback, Room } from '../interfaces/clientInterfaces';
 
 interface ClientContext {
     token: string | null;
@@ -12,6 +11,7 @@ interface ClientContext {
     userEmail: string;
     fetchedRooms: Room[];
     fetchedFeedbacks: Feedback[];
+    fetchedCategories: Category[];
 }
 
 function noop(): void {}
@@ -46,6 +46,11 @@ export const ClientContext = createContext<ClientContext>({
             userLastName: '',
             message: '',
             approved: false,
+        },
+    ],
+    fetchedCategories: [
+        {
+            title: '',
         },
     ],
 });
