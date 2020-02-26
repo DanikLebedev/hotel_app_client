@@ -129,8 +129,8 @@ const AuthPage: React.FC = () => {
                     onChange={changeRegisterInputHandler}
                     ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                 />
-                <ErrorMessage error={errors.email} type={'error'} />
             </label>
+            <ErrorMessage error={errors.email} type={'error'} />
             <label>
                 <FontAwesomeIcon icon={faLock} />
                 <input
@@ -142,8 +142,8 @@ const AuthPage: React.FC = () => {
                     onChange={changeRegisterInputHandler}
                     ref={register({ required: true, minLength: 6 })}
                 />
-                <ErrorMessage error={errors.password} type={'error'} />
             </label>
+            <ErrorMessage error={errors.password} type={'error'} />
             <label>
                 <FontAwesomeIcon icon={faUser} />
                 <input
@@ -155,8 +155,8 @@ const AuthPage: React.FC = () => {
                     onChange={changeRegisterInputHandler}
                     ref={register({ required: true })}
                 />
-                <ErrorMessage error={errors.name} type={'error'} />
             </label>
+            <ErrorMessage error={errors.name} type={'error'} />
             <label>
                 <FontAwesomeIcon icon={faUser} />
                 <input
@@ -168,8 +168,8 @@ const AuthPage: React.FC = () => {
                     onChange={changeRegisterInputHandler}
                     ref={register({ required: true })}
                 />
-                <ErrorMessage error={errors.lastName} type={'error'} />
             </label>
+            <ErrorMessage error={errors.lastName} type={'error'} />
             <button className="change-form-button" onClick={() => setHaveAccount(true)}>
                 Have an account?
             </button>

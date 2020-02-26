@@ -413,6 +413,13 @@
 
 
 @media screen and (min-width: 300px) and (max-width: 480px) {
+  .change-user-info-form {
+    width: 250px;
+  }
+
+  .order-page-history {
+    height: 400px;
+  }
 
   .grid {
     display: flex;

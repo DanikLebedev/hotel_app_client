@@ -7,13 +7,13 @@ import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import {Category, Employee, Feedback, OrderCart, Room} from './interfaces/clientInterfaces';
+import { Category, Employee, Feedback, OrderCart, Room } from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
 import { FeedbackService } from './APIServices/feedbackService';
 import { CategoryService } from './APIServices/categoryService';
-import {OrderService} from "./APIServices/orderService";
-import {EmployeeService} from "./APIServices/employeeService";
+import { OrderService } from './APIServices/orderService';
+import { EmployeeService } from './APIServices/employeeService';
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -22,13 +22,12 @@ const App: React.FC = () => {
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
     const [fetchedFeedbacks, setFetchedFeedbacks] = useState<Feedback[]>([]);
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
-    const [fetchedAllOrders, setFetchedAllOrders] = useState<OrderCart[]>([])
-    const [fetchedAllEmployee, setFetchedAllEmployee] = useState<Employee[]>([])
+    const [fetchedAllOrders, setFetchedAllOrders] = useState<OrderCart[]>([]);
+    const [fetchedAllEmployee, setFetchedAllEmployee] = useState<Employee[]>([]);
 
     const fetchEmployee: CallableFunction = useCallback(() => {
         EmployeeService.getAllEmployee().then(({ employees }) => setFetchedAllEmployee(employees));
     }, []);
-
 
     const fetchAllOrders: CallableFunction = useCallback(() => {
         OrderService.getAllOrders().then(({ ordercarts }) => {
@@ -56,7 +55,7 @@ const App: React.FC = () => {
         fetchCategories();
         fetchAllOrders();
         fetchEmployee();
-    }, [fetchRoom, fetchFeedback, fetchedCategories, fetchAllOrders, fetchEmployee()]);
+    }, [fetchRoom, fetchFeedback, fetchCategories, fetchAllOrders, fetchEmployee]);
 
     if (userStatus === 'admin') {
         return (
@@ -72,7 +71,7 @@ const App: React.FC = () => {
                     fetchedFeedbacks,
                     fetchedRooms,
                     fetchedAllOrders,
-                    fetchedAllEmployee
+                    fetchedAllEmployee,
                 }}
             >
                 <AdminPage />

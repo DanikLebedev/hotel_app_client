@@ -1,22 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { Category } from '../../../../interfaces/clientInterfaces';
 import { CategoryService } from '../../../../APIServices/categoryService';
 import toaster from 'toasted-notes';
 import { AdminCategoryForm } from '../../GridsForms/AdminCategoryForm/AdminCategoryForm';
-import { IconButton } from '@material-ui/core';
+import { IconButton, TextField } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
+import { AdminContext } from '../../../../context/admin.context';
+
 
 export const CategoryDataGrid = () => {
-    const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    const fetchedCategories = useContext(AdminContext).fetchedCategories;
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [editProps, setEditProps] = useState<Category>({
         title: '',
     });
+    const [search, setSearch] = useState('');
+    const [categories, setCategories] = useState(fetchedCategories);
 
-    const fetchCategories: CallableFunction = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
-    }, []);
+    function updateComponent(): void {
+        CategoryService.getAllCategories().then(({ categories }) => setCategories(categories));
+    }
 
     const editCategoryHandler = (event: React.MouseEvent<EventTarget>): void => {
         setIsEdit(true);
@@ -30,12 +34,15 @@ export const CategoryDataGrid = () => {
         }
     };
 
+    const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {
+        setSearch(event.target.value);
+    };
+
     const deleteCategoryHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        const filteredCategories = fetchedCategories.filter(category => {
+        fetchedCategories.filter(category => {
             return category._id !== target.id;
         });
-        setFetchedCategories(filteredCategories);
         const formData = new FormData();
         formData.append('_id', target.id);
         await CategoryService.deleteCategory(formData).then(data => {
@@ -54,16 +61,28 @@ export const CategoryDataGrid = () => {
         setShowModal(false);
     };
 
+    const filteredFetchedCategories = categories.filter(category => {
+        return category.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
+
     useEffect(() => {
-        fetchCategories();
-    }, [fetchCategories, fetchedCategories]);
+        updateComponent();
+    }, [fetchedCategories]);
 
     return (
         <div className="grid-table-wrapper">
             <table className="m-3 grid-table">
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th className={'search-by-input-wrapper'}>
+                            <p>Title</p>
+                            <TextField
+                                id="standard-basic"
+                                name="category-input"
+                                onChange={dataSearch}
+                                label=" Search by title"
+                            />
+                        </th>
                         <th>
                             Actions
                             <IconButton className={'icon-buttons'} onClick={addCategoryHandler}>
@@ -73,8 +92,8 @@ export const CategoryDataGrid = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fetchedCategories.length
-                        ? fetchedCategories.map((category, key) => {
+                    {filteredFetchedCategories.length
+                        ? filteredFetchedCategories.map((category, key) => {
                               return (
                                   <tr key={key}>
                                       <td>{category.title}</td>
@@ -100,7 +119,13 @@ export const CategoryDataGrid = () => {
                         : null}
                 </tbody>
             </table>
-            <AdminCategoryForm show={showModal} isEdit={isEdit} editProps={editProps} closeModal={closeModal} />
+            <AdminCategoryForm
+                update={updateComponent}
+                show={showModal}
+                isEdit={isEdit}
+                editProps={editProps}
+                closeModal={closeModal}
+            />
         </div>
     );
 };

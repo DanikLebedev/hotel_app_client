@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toaster from 'toasted-notes';
 import Loader from '../../../Loader/Loader';
-import { CategoryService } from '../../../../APIServices/categoryService';
-import { Category, Data, Room } from '../../../../interfaces/clientInterfaces';
+import { Data, Room } from '../../../../interfaces/clientInterfaces';
 import { Container } from 'react-bootstrap';
 import '../../../../assets/rglstyles.css';
 import '../../../../assets/resizablestyles.css';
@@ -22,6 +21,7 @@ interface RoomForm {
     show: boolean;
     editProps: Room;
     isEdit: boolean;
+    update: () => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -32,9 +32,9 @@ const useStyles = makeStyles(theme => ({
 
 export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     const classes = useStyles();
-    // const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const fetchedCategories = useContext(AdminContext).fetchedCategories;
     const [roomForm, setRoomForm] = useState<Room>(props.editProps);
+
     const addRoomHandler = async (event: ChangeEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
         const formData: FormData = new FormData(event.target);
@@ -43,6 +43,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         } else {
             const response: Response = await fetch('/api/admin/room', {
                 method: 'POST',
@@ -52,6 +53,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         }
         props.closeModal();
     };
@@ -68,7 +70,6 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
 
     const selectRoomChangeHandler = (event: any): void => {
         setRoomForm({ ...roomForm, category: event.target.value });
-        console.log(event.target.value);
     };
 
     const options = fetchedCategories.map(({ title }, index) => {

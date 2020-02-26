@@ -2,10 +2,10 @@ import { Container } from 'react-bootstrap';
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Data, Employee, Status } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
-import { CategoryService } from '../../../../APIServices/categoryService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { StatusService } from '../../../../APIServices/statusService';
+import { EmployeeService } from '../../../../APIServices/employeeService';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -14,6 +14,7 @@ interface AdminEmployeeForm {
     show: boolean;
     editProps: Employee;
     isEdit: boolean;
+    update: () => void;
 }
 
 export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmployeeForm) => {
@@ -22,19 +23,21 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
 
     const addEmployeeHandler = async (): Promise<void> => {
         if (props.isEdit) {
-            const data: Data = await CategoryService.updateCategory(JSON.stringify(employeeForm), {
+            const data: Data = await EmployeeService.updateEmployee(JSON.stringify(employeeForm), {
                 'Content-Type': 'application/json',
             });
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         } else {
-            const data: Data = await CategoryService.postCategory(employeeForm, {
+            const data: Data = await EmployeeService.updateEmployee(employeeForm, {
                 'Content-Type': 'application/json',
             });
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         }
         props.closeModal();
     };
@@ -71,14 +74,14 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
                     <h3>Employee form</h3>
-                    <label htmlFor="email">Enter the Title</label>
+                    <label htmlFor="employee-email">Enter the Title</label>
                     <input
                         onChange={employeeChangeHandler}
                         type="text"
                         className={'form-control'}
                         value={employeeForm.email}
                         name="email"
-                        id="email"
+                        id="employee-email"
                         placeholder="xxx@xxx.xxx"
                     />
                     <label htmlFor="email">Enter the Password</label>

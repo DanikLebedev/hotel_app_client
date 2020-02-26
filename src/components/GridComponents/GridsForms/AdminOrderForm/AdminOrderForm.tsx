@@ -14,6 +14,7 @@ interface AdminOrderForm {
     show: boolean;
     editProps: OrderCart;
     isEdit: boolean;
+    update: () => void;
 }
 
 export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) => {
@@ -28,6 +29,7 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         } else {
             const data: Data = await OrderService.postOrder(orderForm, {
                 'Content-Type': 'application/json',
@@ -35,6 +37,7 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         }
         props.closeModal();
     };
@@ -68,12 +71,11 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
         fetchCategories();
     }, [props.isEdit, props.editProps, fetchCategories]);
 
-
     return (
         <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
-                    <h3>Employee form</h3>
+                    <h3>Order form</h3>
                     <label htmlFor="email">Customer Email</label>
                     <input
                         onChange={orderChangeHandler}

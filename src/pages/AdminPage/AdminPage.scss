@@ -2,6 +2,18 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 
+
+.sort-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  margin-left: 10px;
+  transition: .3s;
+  &:hover {
+    color: lightslategrey;
+  }
+}
+
 .page-link {
   cursor: pointer;
 }

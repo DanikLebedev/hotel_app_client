@@ -1,17 +1,20 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { Employee } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { EmployeeService } from '../../../../APIServices/employeeService';
 import { AdminEmployeeForm } from '../../GridsForms/AdminEmployeeForm/AdminEmployeeForm';
-import { IconButton } from '@material-ui/core';
+import { IconButton, TextField } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 
 export const EmployeeDataGrid = () => {
-    const employees = useContext(AdminContext).fetchedAllEmployee;
+    const fetchedEmployees = useContext(AdminContext).fetchedAllEmployee;
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [editProps, setEditProps] = useState<Employee>({ email: '', password: '', status: '' });
+    const [search, setSearch] = useState('');
+    const [inputName, setInputName] = useState('');
+    const [employees, setEmployees] = useState<Employee[]>(fetchedEmployees);
 
     const closeModal = (): void => {
         setShowModal(false);
@@ -41,6 +44,26 @@ export const EmployeeDataGrid = () => {
                 duration: 2000,
             });
         });
+        update();
+    };
+
+    const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {
+        setSearch(event.target.value);
+        setInputName(event.target.name);
+    };
+
+    const filteredEmployee = (): Employee[] => {
+        if (inputName === 'email-input') {
+            return employees.filter(item => {
+                return item.email.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+            });
+        } else if (inputName === 'status-input') {
+            return employees.filter(item => {
+                return item.status.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+            });
+        } else {
+            return employees;
+        }
     };
 
     const addEmployeeHandler = () => {
@@ -48,13 +71,37 @@ export const EmployeeDataGrid = () => {
         setShowModal(true);
     };
 
+    function update() {
+        EmployeeService.getAllEmployee().then(({ employees }) => setEmployees(employees));
+    }
+
+    useEffect(() => {
+        update();
+    }, [fetchedEmployees]);
+
     return (
         <div className="grid-table-wrapper">
             <table className="m-3 grid-table">
                 <thead>
                     <tr>
-                        <th>Email</th>
-                        <th>Status</th>
+                        <th>
+                            <p>Email</p>
+                            <TextField
+                                id="standard-basic"
+                                name="email-input"
+                                onChange={dataSearch}
+                                label=" Search by guests"
+                            />
+                        </th>
+                        <th>
+                            <p>Status</p>{' '}
+                            <TextField
+                                id="standard-basic"
+                                name="status-input"
+                                onChange={dataSearch}
+                                label=" Search by guests"
+                            />
+                        </th>
                         <th>
                             Actions
                             <IconButton className={'icon-buttons'} onClick={addEmployeeHandler}>
@@ -64,8 +111,8 @@ export const EmployeeDataGrid = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {employees.length
-                        ? employees.map((employee, key) => {
+                    {filteredEmployee().length
+                        ? filteredEmployee().map((employee, key) => {
                               return (
                                   <tr key={key}>
                                       <td>{employee.email}</td>
@@ -92,7 +139,13 @@ export const EmployeeDataGrid = () => {
                         : null}
                 </tbody>
             </table>
-            <AdminEmployeeForm closeModal={closeModal} show={showModal} editProps={editProps} isEdit={isEdit} />
+            <AdminEmployeeForm
+                update={update}
+                closeModal={closeModal}
+                show={showModal}
+                editProps={editProps}
+                isEdit={isEdit}
+            />
         </div>
     );
 };

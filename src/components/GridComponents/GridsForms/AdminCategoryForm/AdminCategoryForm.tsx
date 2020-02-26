@@ -13,6 +13,7 @@ interface CategoryForm {
     show: boolean;
     editProps: Category;
     isEdit: boolean;
+    update: () => void;
 }
 
 export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) => {
@@ -26,6 +27,7 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         } else {
             const data: Data = await CategoryService.postCategory(categoryForm, {
                 'Content-Type': 'application/json',
@@ -33,6 +35,7 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         }
         props.closeModal();
     };

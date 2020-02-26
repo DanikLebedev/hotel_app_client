@@ -14,6 +14,7 @@ interface FeedbackForm {
     show: boolean;
     editProps: Feedback;
     isEdit: boolean;
+    update: () => void;
 }
 
 export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) => {
@@ -27,6 +28,7 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         } else {
             const data: Data = await FeedbackService.postFeedback(feedbackForm, {
                 'Content-Type': 'application/json',
@@ -34,6 +36,7 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            props.update();
         }
         props.closeModal();
     };
@@ -61,7 +64,7 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
                         name={'approved'}
                         onChange={onChangeHandler}
                         value="checkedA"
-                        color='primary'
+                        color="primary"
                     />
                     <button onClick={addFeedbackHandler} className="btn btn-primary mt-3">
                         Update Feedback

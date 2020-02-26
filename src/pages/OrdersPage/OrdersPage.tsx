@@ -114,7 +114,7 @@ export const OrderPage: React.FC = () => {
     };
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage] = useState(8);
+    const [postPerPage] = useState(4);
     const indexOfLastPost = currentPage * postPerPage;
     const indexOfFirstPost = indexOfLastPost - postPerPage;
     const currentPosts = orderHistory.slice(indexOfFirstPost, indexOfLastPost);
@@ -197,7 +197,7 @@ export const OrderPage: React.FC = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <div className="grid-table-wrapper">
-                            <table className="m-3 grid-table">
+                            <table className="m-3 grid-table order-page-history">
                                 <thead>
                                     <tr>
                                         <th>Category</th>
