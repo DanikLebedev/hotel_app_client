@@ -7,7 +7,16 @@ import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import { Category, Employee, Feedback, OrderCart, Room } from './interfaces/clientInterfaces';
+import {
+    Category,
+    Employee,
+    Feedback,
+    Order,
+    OrderCart,
+    OrderCarts,
+    Orders,
+    Room,
+} from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
 import { FeedbackService } from './APIServices/feedbackService';
@@ -24,6 +33,19 @@ const App: React.FC = () => {
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
     const [fetchedAllOrders, setFetchedAllOrders] = useState<OrderCart[]>([]);
     const [fetchedAllEmployee, setFetchedAllEmployee] = useState<Employee[]>([]);
+    const [fetchedUserOrders, setFetchedUserOrders] = useState<Order[]>([]);
+    const [orderHistory, setOrderHistory] = useState<OrderCart[]>([]);
+
+    const fetchOrdersHistory = useCallback(() => {
+        OrderService.getOrdersHistory({ Authorization: `Bearer ${token}` }).then(({ ordercarts }) =>
+            setOrderHistory(ordercarts),
+        );
+    }, [token]);
+
+    const fetchOrders: CallableFunction = useCallback(async () => {
+        const { orders }: Orders = await OrderService.getUserOrders({ Authorization: `Bearer ${token}` });
+        setFetchedUserOrders(orders);
+    }, [token]);
 
     const fetchEmployee: CallableFunction = useCallback(() => {
         EmployeeService.getAllEmployee().then(({ employees }) => setFetchedAllEmployee(employees));
@@ -55,7 +77,11 @@ const App: React.FC = () => {
         fetchCategories();
         fetchAllOrders();
         fetchEmployee();
-    }, [fetchRoom, fetchFeedback, fetchCategories, fetchAllOrders, fetchEmployee]);
+        if (isAuthenticated && userStatus !== 'admin') {
+            fetchOrders();
+            fetchOrdersHistory();
+        }
+    }, [fetchRoom, fetchFeedback, fetchCategories, fetchAllOrders, fetchEmployee, fetchOrders, fetchOrdersHistory]);
 
     if (userStatus === 'admin') {
         return (
@@ -92,6 +118,8 @@ const App: React.FC = () => {
                 fetchedRooms,
                 fetchedFeedbacks,
                 fetchedCategories,
+                fetchedUserOrders,
+                orderHistory,
             }}
         >
             <Router>

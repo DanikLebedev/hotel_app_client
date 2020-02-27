@@ -182,7 +182,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="category-input"
                                 onChange={dataSearch}
-                                label=" Search by category"
                             />
                         </th>
                         <th>
@@ -191,7 +190,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="title-input"
                                 onChange={dataSearch}
-                                label=" Search by title"
                             />
                         </th>
                         <th>
@@ -200,7 +198,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="price-input"
                                 onChange={dataSearch}
-                                label=" Search by price"
                             />
                             <button className="sort-button" onClick={() => onSortChange('price')}>
                                 <i
@@ -218,7 +215,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="guests-input"
                                 onChange={dataSearch}
-                                label=" Search by guests"
                             />
                             <button className="sort-button" onClick={() => onSortChange('guests')}>
                                 <i
@@ -236,7 +232,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="descr-input"
                                 onChange={dataSearch}
-                                label=" Search by descr"
                             />
                         </th>
                         <th>
@@ -245,7 +240,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="rooms-input"
                                 onChange={dataSearch}
-                                label=" Search by rooms"
                             />
                             <button className="sort-button" onClick={() => onSortChange('rooms')}>
                                 <i
@@ -263,7 +257,6 @@ export const RoomDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="area-input"
                                 onChange={dataSearch}
-                                label=" Search by area"
                             />
                             <button className="sort-button" onClick={() => onSortChange('area')}>
                                 <i

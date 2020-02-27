@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { StatusService } from '../../../../APIServices/statusService';
 import { EmployeeService } from '../../../../APIServices/employeeService';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '../../../ErrorsComponents/ErrorMessage';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -17,9 +19,16 @@ interface AdminEmployeeForm {
     update: () => void;
 }
 
+interface AdminEmployeeFormData {
+    email: string;
+    password: string;
+    status: string;
+}
+
 export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmployeeForm) => {
     const [employeeForm, setEmployeeForm] = useState<Employee>(props.editProps);
     const [statuses, setStatuses] = useState<Status[]>([]);
+    const { register, handleSubmit, errors } = useForm<AdminEmployeeFormData>();
 
     const addEmployeeHandler = async (): Promise<void> => {
         if (props.isEdit) {
@@ -83,7 +92,9 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         name="email"
                         id="employee-email"
                         placeholder="xxx@xxx.xxx"
+                        ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                     />
+                    <ErrorMessage error={errors.email} type={'error'} />
                     <label htmlFor="email">Enter the Password</label>
                     <input
                         onChange={employeeChangeHandler}
@@ -94,12 +105,21 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         id="password"
                         placeholder="password"
                         disabled={props.isEdit}
+                        ref={register({ required: true })}
                     />
+                    <ErrorMessage error={errors.password} type={'error'} />
                     <label htmlFor="status">Choose status</label>
-                    <select name="status" className={'form-control'} onChange={selectChangeHandler} id="status">
+                    <select
+                        ref={register({ required: true })}
+                        name="status"
+                        className={'form-control'}
+                        onChange={selectChangeHandler}
+                        id="status"
+                    >
                         {statusOptions}
                     </select>
-                    <button onClick={addEmployeeHandler} className="btn btn-primary mt-3">
+                    <ErrorMessage error={errors.password} type={'error'} />
+                    <button onClick={handleSubmit(addEmployeeHandler)} className="btn btn-primary mt-3">
                         {props.isEdit ? 'Update' : 'Create'} Employee
                     </button>
                 </div>

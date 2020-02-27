@@ -90,7 +90,6 @@ export const EmployeeDataGrid = () => {
                                 id="standard-basic"
                                 name="email-input"
                                 onChange={dataSearch}
-                                label=" Search by guests"
                             />
                         </th>
                         <th>
@@ -99,7 +98,6 @@ export const EmployeeDataGrid = () => {
                                 id="standard-basic"
                                 name="status-input"
                                 onChange={dataSearch}
-                                label=" Search by guests"
                             />
                         </th>
                         <th>

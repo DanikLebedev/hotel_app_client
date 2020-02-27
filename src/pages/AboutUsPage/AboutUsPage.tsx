@@ -6,10 +6,10 @@ import galleryPhoto1 from '../../assets/images/7112.jpg';
 import galleryPhoto2 from '../../assets/images/dui21-deluxe-room1.add1.low-res.jpg';
 import galleryPhoto3 from '../../assets/images/3-high-res-restaurant-30.jpg';
 import galleryPhoto4 from '../../assets/images/528941482_200fcf18b2_b.jpg';
-import {FindRoomForm} from "../../components/FindRoomForm/FindRoomForm";
+import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
+import { withTranslation } from 'react-i18next';
 
-
-export const AboutUsPage: React.FC = () => {
+const AboutUsPage: React.FC = ({ t }: any) => {
     return (
         <>
             <FindRoomForm />
@@ -17,16 +17,12 @@ export const AboutUsPage: React.FC = () => {
                 <source src={config.baseUrl + 'video.mp4'} type="video/mp4" />
             </video>
             <Container className="about-us__page">
-                <h1 className="text-white text-center">About us</h1>
+                <h1 className="text-white text-center">{t('about.label')}</h1>
                 <Row>
                     <Col lg={6} className="about-us__page-photo" md={6} sm={6}></Col>
                     <Col lg={6} md={6} sm={6} className="about-us__page-text">
-                        <h3>We are the best</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolor ex ipsam mollitia nam
-                            neque nobis numquam placeat tempore voluptates! Aut cum dolores inventore iusto nam natus
-                            praesentium sit suscipit!
-                        </p>
+                        <h3>{t('about-page-subtitle')}</h3>
+                        <p>{t('about-page-text')}</p>
                     </Col>
                 </Row>
             </Container>
@@ -75,3 +71,5 @@ export const AboutUsPage: React.FC = () => {
         </>
     );
 };
+
+export default withTranslation()(AboutUsPage);

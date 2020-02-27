@@ -1,7 +1,7 @@
 @import 'src/index';
 
 .rooms-page__item {
-  border-radius: 20px;
+ box-shadow: 5px 5px 5px 5px #cdcdcd;
   padding: 30px;
   transition: .3s ease-in-out;
 

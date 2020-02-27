@@ -69,6 +69,7 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
                         id="title"
                         placeholder="title"
                     />
+
                     <button onClick={addCategoryHandler} className="btn btn-primary mt-3">
                         Add Category
                     </button>

@@ -11,7 +11,7 @@ export const AdminPageInfo: React.FC = () => {
     return (
         <Container className={'admin-page'} fluid={true}>
             <Tabs defaultActiveKey="category" id="uncontrolled-tab-example">
-                <Tab eventKey="category" className="w-50" title="Categories">
+                <Tab eventKey="category" title="Categories">
                     <CategoryDataGrid />
                 </Tab>
                 <Tab eventKey="rooms" title="Rooms">

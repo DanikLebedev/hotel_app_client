@@ -136,7 +136,6 @@ export const OrderDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="category-input"
                                 onChange={dataSearch}
-                                label=" Search by category"
                             />
                         </th>
                         <th>
@@ -145,7 +144,6 @@ export const OrderDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="checkIn-input"
                                 onChange={dataSearch}
-                                label="Search by checkIn"
                             />
                             <button className="sort-button" onClick={(): void => onSortChange('checkIn')}>
                                 <i
@@ -163,7 +161,6 @@ export const OrderDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="checkOut-input"
                                 onChange={dataSearch}
-                                label="Search by checkOut"
                             />
                             <button className="sort-button" onClick={(): void => onSortChange('checkOut')}>
                                 <i
@@ -181,7 +178,6 @@ export const OrderDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="status-input"
                                 onChange={dataSearch}
-                                label=" Search by status"
                             />
                         </th>
                         <th>
@@ -190,7 +186,6 @@ export const OrderDataGrid: React.FC = () => {
                                 id="standard-basic"
                                 name="user-email-input"
                                 onChange={dataSearch}
-                                label=" Search by user email"
                             />
                         </th>
                         <th>

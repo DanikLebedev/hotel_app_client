@@ -30,7 +30,7 @@ export class CRUDServices {
         const response: Response = await fetch(url, {
             method: 'PUT',
             body,
-            headers
+            headers,
         });
         const data: Data = await response.json();
         return data;

@@ -123,7 +123,6 @@ export const FeedbackDataGrid = () => {
                                 id="standard-basic"
                                 name="user-email-input"
                                 onChange={dataSearch}
-                                label=" Search by title"
                             />
                         </th>
                         <th>
@@ -132,7 +131,6 @@ export const FeedbackDataGrid = () => {
                                 id="standard-basic"
                                 name="user-name-input"
                                 onChange={dataSearch}
-                                label=" Search by title"
                             />
                         </th>
                         <th>
@@ -141,7 +139,6 @@ export const FeedbackDataGrid = () => {
                                 id="standard-basic"
                                 name="message-input"
                                 onChange={dataSearch}
-                                label=" Search by title"
                             />
                         </th>
                         <th>

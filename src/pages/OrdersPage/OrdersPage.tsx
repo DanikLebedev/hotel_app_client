@@ -3,7 +3,7 @@ import './OrdersPage.scss';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import { OrderService } from '../../APIServices/orderService';
-import { Customer, Feedback, Order, OrderCart, OrderCarts, Orders } from '../../interfaces/clientInterfaces';
+import { Customer, Feedback, Order } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 import toaster from 'toasted-notes';
 import { Container, Col, Row, Modal } from 'react-bootstrap';
@@ -13,7 +13,7 @@ import Loader from '../../components/Loader/Loader';
 import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FindRoomForm } from '../../components/FindRoomForm/FindRoomForm';
+import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
 import { IconButton, Button } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
@@ -27,13 +27,14 @@ interface FeedbackFormData {
 
 export const OrderPage: React.FC = () => {
     const { register, handleSubmit, errors } = useForm<FeedbackFormData>();
-
-    const auth = useContext(ClientContext);
-    const [orders, setOrders] = useState<Order[]>([]);
+    const context = useContext(ClientContext);
+    const fetchedOrders = context.fetchedUserOrders;
+    const fetchedOrderHistory = context.orderHistory;
+    const [orders, setOrders] = useState<Order[]>(fetchedOrders);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-    const [orderHistory, setOrderHistory] = useState<OrderCart[]>([]);
+    const [orderHistory, setOrderHistory] = useState(fetchedOrderHistory);
     const [editProps, setEditProps] = useState<Customer>({
         email: '',
         lastName: '',
@@ -50,22 +51,20 @@ export const OrderPage: React.FC = () => {
     });
     const [cls, setCls] = useState<Array<string>>(['order-item']);
     const [show, setShow] = useState(false);
-    const fetchOrders: CallableFunction = useCallback(async () => {
-        const { orders }: Orders = await OrderService.getUserOrders({ Authorization: `Bearer ${auth.token}` });
-        setOrders(orders);
-    }, [auth.token]);
+
+    function update() {
+        OrderService.getUserOrders({ Authorization: `Bearer ${context.token}` }).then(({ orders }) =>
+            setOrders(orders),
+        );
+        OrderService.getOrdersHistory({ Authorization: `Bearer ${context.token}` }).then(({ ordercarts }) =>
+            setOrderHistory(ordercarts),
+        );
+    }
 
     const fetchCustomerInfo: CallableFunction = useCallback(async () => {
-        const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${auth.token}` });
+        const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${context.token}` });
         setUserInfo(customer);
-    }, [auth.token]);
-
-    const fetchOrdersHistory = useCallback(async () => {
-        const { ordercarts }: OrderCarts = await OrderService.getOrdersHistory({
-            Authorization: `Bearer ${auth.token}`,
-        });
-        setOrderHistory(ordercarts);
-    }, [auth.token]);
+    }, [context.token]);
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
@@ -81,6 +80,7 @@ export const OrderPage: React.FC = () => {
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            update();
         }
     };
 
@@ -91,7 +91,7 @@ export const OrderPage: React.FC = () => {
     const addFeedbackHandler = async (): Promise<void> => {
         const data = await FeedbackService.postFeedback(
             { ...feedbackForm, userEmail: userInfo.email, userName: userInfo.name, userLastName: userInfo.lastName },
-            { Authorization: `Bearer ${auth.token}`, 'Content-Type': 'application/json' },
+            { Authorization: `Bearer ${context.token}`, 'Content-Type': 'application/json' },
         );
         toaster.notify(data.message, {
             duration: 2000,
@@ -124,10 +124,9 @@ export const OrderPage: React.FC = () => {
     };
 
     useEffect(() => {
-        fetchOrders();
+        update();
         fetchCustomerInfo();
-        fetchOrdersHistory();
-    }, [orders, fetchOrders, fetchCustomerInfo, fetchOrdersHistory]);
+    }, [fetchedOrders, fetchCustomerInfo]);
 
     return (
         <div className="order-page">

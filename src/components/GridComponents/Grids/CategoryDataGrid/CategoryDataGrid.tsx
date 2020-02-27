@@ -7,7 +7,6 @@ import { IconButton, TextField } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 
-
 export const CategoryDataGrid = () => {
     const fetchedCategories = useContext(AdminContext).fetchedCategories;
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -52,7 +51,7 @@ export const CategoryDataGrid = () => {
         });
     };
 
-    const addCategoryHandler = () => {
+    const addCategoryHandler = (): void => {
         setIsEdit(false);
         setShowModal(true);
     };
@@ -76,12 +75,7 @@ export const CategoryDataGrid = () => {
                     <tr>
                         <th className={'search-by-input-wrapper'}>
                             <p>Title</p>
-                            <TextField
-                                id="standard-basic"
-                                name="category-input"
-                                onChange={dataSearch}
-                                label=" Search by title"
-                            />
+                            <TextField id="standard-basic" name="category-input" onChange={dataSearch} />
                         </th>
                         <th>
                             Actions
@@ -119,6 +113,7 @@ export const CategoryDataGrid = () => {
                         : null}
                 </tbody>
             </table>
+
             <AdminCategoryForm
                 update={updateComponent}
                 show={showModal}

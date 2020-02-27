@@ -1,4 +1,4 @@
-import React, { useContext, useState, ChangeEvent } from 'react';
+import React, { useContext, useState, ChangeEvent, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { ClientContext } from '../../context/client.context';
 import './Navigation.scss';
@@ -23,6 +23,7 @@ const Navigation: React.FC = (): JSX.Element => {
         auth.logout();
         history.push('/');
     };
+
     const [showMenu, setShowMenu] = useState<boolean>(false);
 
     const showMenuHandler = (): void => {

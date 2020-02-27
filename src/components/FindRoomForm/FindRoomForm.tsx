@@ -9,6 +9,7 @@ import { OrderService } from '../../APIServices/orderService';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
 import { ClientContext } from '../../context/client.context';
+import { withTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -37,12 +38,12 @@ interface FindRoomFormData {
     category: string;
 }
 
-export const FindRoomForm = () => {
+export const FindRoomForm: React.FC = ({ t }: any) => {
     const { register, handleSubmit, errors } = useForm<FindRoomFormData>();
     const auth = useContext(ClientContext).isAuthenticated;
     const classes = useStyles();
     const [showForm, setShowForm] = useState(false);
-    const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    const fetchedCategories = useContext(ClientContext).fetchedCategories;
     const [findRoomForm, setFindRoomForm] = useState({
         checkIn: '',
         checkOut: '',
@@ -52,10 +53,6 @@ export const FindRoomForm = () => {
     const selectOrderChangeHandler = (event: any): void => {
         setFindRoomForm({ ...findRoomForm, [event.target.name]: event.target.value });
     };
-
-    const fetchCategories: CallableFunction = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
-    }, []);
 
     const CheckRoomHandler = async (): Promise<void> => {
         if (auth) {
@@ -95,17 +92,13 @@ export const FindRoomForm = () => {
         );
     });
 
-    useEffect(() => {
-        fetchCategories();
-    }, [fetchCategories]);
-
     const ToggleFormHandler = (): void => {
         setShowForm(!showForm);
     };
     return (
         <div className={showForm ? 'fixed-form-wrapper fixed-form-active' : 'fixed-form-wrapper'}>
             <div className="toggle-fixed-form" onClick={ToggleFormHandler}>
-                Book Room
+                {t('book-room.label')}
             </div>
             <div>
                 <div className="find-room-form">
@@ -148,3 +141,5 @@ export const FindRoomForm = () => {
         </div>
     );
 };
+
+export default withTranslation()(FindRoomForm);

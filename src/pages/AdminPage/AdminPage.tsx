@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import '../../assets/rglstyles.css';
-import '../../assets/resizablestyles.css';
 import { AdminNavigation } from '../../components/AdminNavigation/AdminNavigation';
 import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 
 export const AdminPage: React.FC = () => {

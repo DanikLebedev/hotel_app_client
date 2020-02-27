@@ -5,12 +5,13 @@ import { Col, Container, Row } from 'react-bootstrap';
 import './RoomItem.scss';
 import { useHistory } from 'react-router-dom';
 
-interface RoomItemProps {
+
+interface RoomItemProps  {
     roomInfo: Room;
     searchRoom: boolean;
 }
 
-export const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, searchRoom }: RoomItemProps) => {
+const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, searchRoom }: RoomItemProps) => {
     const history = useHistory();
 
     const showInfoHandler = () => {
