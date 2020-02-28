@@ -43,7 +43,7 @@ export const RoomDataGrid: React.FC = () => {
         title: '',
     });
 
-    function update() {
+    function update(): void {
         RoomService.getAllRooms().then(({ rooms }) => setRooms(rooms));
     }
 
@@ -178,104 +178,90 @@ export const RoomDataGrid: React.FC = () => {
                     <tr>
                         <th>
                             <p>Category</p>
-                            <TextField
-                                id="standard-basic"
-                                name="category-input"
-                                onChange={dataSearch}
-                            />
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="category-input" onChange={dataSearch} />
+                            </div>
                         </th>
                         <th>
                             <p>Title</p>
-                            <TextField
-                                id="standard-basic"
-                                name="title-input"
-                                onChange={dataSearch}
-                            />
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="title-input" onChange={dataSearch} />
+                            </div>
                         </th>
-                        <th>
+                        <th style={{ width: '80px' }}>
                             <p>Price</p>
-                            <TextField
-                                id="standard-basic"
-                                name="price-input"
-                                onChange={dataSearch}
-                            />
-                            <button className="sort-button" onClick={() => onSortChange('price')}>
-                                <i
-                                    className={
-                                        field === 'price'
-                                            ? `fas fa-${sortNumbersTypes('price')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="price-input" onChange={dataSearch} />
+                                <button className="sort-button" onClick={() => onSortChange('price')}>
+                                    <i
+                                        className={
+                                            field === 'price'
+                                                ? `fas fa-${sortNumbersTypes('price')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </div>
                         </th>
-                        <th>
+                        <th style={{ width: '80px' }}>
                             <p>Guests</p>
-                            <TextField
-                                id="standard-basic"
-                                name="guests-input"
-                                onChange={dataSearch}
-                            />
-                            <button className="sort-button" onClick={() => onSortChange('guests')}>
-                                <i
-                                    className={
-                                        field === 'guests'
-                                            ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="guests-input" onChange={dataSearch} />
+                                <button className="sort-button" onClick={() => onSortChange('guests')}>
+                                    <i
+                                        className={
+                                            field === 'guests'
+                                                ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </div>
                         </th>
                         <th>
                             <p>Description</p>
-                            <TextField
-                                id="standard-basic"
-                                name="descr-input"
-                                onChange={dataSearch}
-                            />
+                            <TextField id="standard-basic" name="descr-input" onChange={dataSearch} />
                         </th>
-                        <th>
-                            <p>Number of Rooms</p>
-                            <TextField
-                                id="standard-basic"
-                                name="rooms-input"
-                                onChange={dataSearch}
-                            />
-                            <button className="sort-button" onClick={() => onSortChange('rooms')}>
-                                <i
-                                    className={
-                                        field === 'rooms'
-                                            ? `fas fa-${sortNumbersTypes('rooms')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                        <th style={{ width: '80px' }}>
+                            <p>Rooms</p>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="rooms-input" onChange={dataSearch} />
+                                <button className="sort-button" onClick={() => onSortChange('rooms')}>
+                                    <i
+                                        className={
+                                            field === 'rooms'
+                                                ? `fas fa-${sortNumbersTypes('rooms')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </div>
                         </th>
-                        <th>
+                        <th style={{ width: '80px' }}>
                             <p>Area</p>
-                            <TextField
-                                id="standard-basic"
-                                name="area-input"
-                                onChange={dataSearch}
-                            />
-                            <button className="sort-button" onClick={() => onSortChange('area')}>
-                                <i
-                                    className={
-                                        field === 'area'
-                                            ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="area-input" onChange={dataSearch} />
+                                <button className="sort-button" onClick={() => onSortChange('area')}>
+                                    <i
+                                        className={
+                                            field === 'area'
+                                                ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </div>
                         </th>
                         <th>
                             <p>Image</p>
                         </th>
                         <th>
-                            Actions
-                            <IconButton className={'icon-buttons'} onClick={addRoomHandler}>
-                                <Add />
-                            </IconButton>
+                            <p>Actions</p>
+                            <div className={'d-flex'}>
+                                <IconButton className={'icon-buttons'} onClick={addRoomHandler}>
+                                    <Add />
+                                </IconButton>
+                            </div>
                         </th>
                     </tr>
                 </thead>
@@ -291,7 +277,7 @@ export const RoomDataGrid: React.FC = () => {
                                       <td>{room.description}</td>
                                       <td>{room.rooms}</td>
                                       <td>{room.area}</td>
-                                      <td>
+                                      <td style={{ minWidth: '200px' }}>
                                           <div
                                               className="room-img"
                                               style={{
@@ -300,7 +286,7 @@ export const RoomDataGrid: React.FC = () => {
                                                   height: '100px',
                                                   width: '100%',
                                               }}
-                                          ></div>
+                                          />
                                       </td>
                                       <td>
                                           <IconButton

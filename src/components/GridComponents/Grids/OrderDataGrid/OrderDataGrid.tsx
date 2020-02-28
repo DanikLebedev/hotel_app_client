@@ -44,6 +44,10 @@ export const OrderDataGrid: React.FC = () => {
             return orders.filter(order => {
                 return order.checkOut.toLowerCase().indexOf(search.toLowerCase()) !== -1;
             });
+        } else if (inputName === 'status-input') {
+            return orders.filter(order => {
+                return order.status.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+            });
         } else {
             return orders;
         }
@@ -132,61 +136,47 @@ export const OrderDataGrid: React.FC = () => {
                     <tr>
                         <th>
                             <p>Category</p>
-                            <TextField
-                                id="standard-basic"
-                                name="category-input"
-                                onChange={dataSearch}
-                            />
+                            <TextField id="standard-basic" name="category-input" onChange={dataSearch} />
                         </th>
                         <th>
                             <p>Check In</p>
-                            <TextField
-                                id="standard-basic"
-                                name="checkIn-input"
-                                onChange={dataSearch}
-                            />
-                            <button className="sort-button" onClick={(): void => onSortChange('checkIn')}>
-                                <i
-                                    className={
-                                        field === 'checkIn'
-                                            ? `fas fa-${sortNumbersTypes('checkIn')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="checkIn-input" onChange={dataSearch} />
+                                <button className="sort-button" onClick={(): void => onSortChange('checkIn')}>
+                                    <i
+                                        className={
+                                            field === 'checkIn'
+                                                ? `fas fa-${sortNumbersTypes('checkIn')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </div>
                         </th>
                         <th>
                             <p>Check Out</p>
-                            <TextField
-                                id="standard-basic"
-                                name="checkOut-input"
-                                onChange={dataSearch}
-                            />
-                            <button className="sort-button" onClick={(): void => onSortChange('checkOut')}>
-                                <i
-                                    className={
-                                        field === 'checkOut'
-                                            ? `fas fa-${sortNumbersTypes('checkOut')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="checkOut-input" onChange={dataSearch} />
+                                <button className="sort-button" onClick={(): void => onSortChange('checkOut')}>
+                                    <i
+                                        className={
+                                            field === 'checkOut'
+                                                ? `fas fa-${sortNumbersTypes('checkOut')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </div>
                         </th>
                         <th>
                             <p>Status</p>
-                            <TextField
-                                id="standard-basic"
-                                name="status-input"
-                                onChange={dataSearch}
-                            />
+                            <TextField id="standard-basic" name="status-input" onChange={dataSearch} />
                         </th>
                         <th>
                             <p>User Email</p>
-                            <TextField
-                                id="standard-basic"
-                                name="user-email-input"
-                                onChange={dataSearch}
-                            />
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="user-email-input" onChange={dataSearch} />
+                            </div>
                         </th>
                         <th>
                             Actions

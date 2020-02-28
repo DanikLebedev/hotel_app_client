@@ -6,7 +6,7 @@ import { OrderService } from '../../APIServices/orderService';
 import { Customer, Feedback, Order, OrderCart } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 import toaster from 'toasted-notes';
-import { Container, Col, Row, Modal } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import { OrderItem } from '../../components/OrderItem/OrderItem';
 import { CustomerService } from '../../APIServices/customerService';
 import Loader from '../../components/Loader/Loader';
@@ -14,8 +14,8 @@ import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
-import { IconButton, Button } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { IconButton, Button, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
+import { Edit, Settings, Close, Send, History } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { useForm } from 'react-hook-form';
@@ -33,7 +33,9 @@ export const OrderPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>(fetchedOrders);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [showFeedbackModal, setShowFeedbackModal] = useState<boolean>(false)
     const [isEdit, setIsEdit] = useState<boolean>(false);
+    const [showToolBar, setShowToolBar] = useState<boolean>(false);
     const [orderHistory, setOrderHistory] = useState<OrderCart[]>(fetchedOrderHistory);
     const [editProps, setEditProps] = useState<Customer>({
         email: '',
@@ -98,6 +100,10 @@ export const OrderPage: React.FC = () => {
         });
     };
 
+    const onToggleToolBar = () => {
+        setShowToolBar(!showToolBar);
+    };
+
     const handleClose = (): void => setShow(false);
     const handleShow = (): void => {
         setEditProps({ ...userInfo });
@@ -106,11 +112,20 @@ export const OrderPage: React.FC = () => {
     };
 
     const showOrdersHistory = (): void => {
-        setShowModal(true);
+        setShowModal(!showModal);
     };
 
     const closeOrdersHistory = (): void => {
-        setShowModal(false);
+        setShowModal(!showModal);
+    };
+
+    const showFeedbackForm = (): void => {
+        setShowFeedbackModal(true);
+    };
+
+    const closeFeedbackForm = (): void => {
+        setShowFeedbackModal(false);
+
     };
 
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -131,12 +146,23 @@ export const OrderPage: React.FC = () => {
     return (
         <div className="order-page">
             <FindRoomForm />
-            <div className="order-page-bg"/>
+            <div className="order-page-bg" />
             <Container className="order-page-wrapper">
                 <Row>
-                    <Col lg={3} md={3} sm={3} xs={12}>
+                    <Col lg={3} md={3} sm={3} xs={9}>
                         {userInfo ? (
                             <div className="order-page-user-info">
+                                <div className={showToolBar ? 'setting-wrapper open-settings' : 'setting-wrapper'}>
+                                    <Button onClick={handleShow}>
+                                        <Edit />
+                                    </Button>
+                                    <Button onClick={showOrdersHistory}>
+                                        <History />
+                                    </Button>
+                                    <Button onClick={showFeedbackForm}>
+                                        <Send />
+                                    </Button>
+                                </div>
                                 <h4>Your Info</h4>
                                 <p>
                                     <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}
@@ -144,30 +170,14 @@ export const OrderPage: React.FC = () => {
                                 <p>
                                     <FontAwesomeIcon icon={faUser} /> Full name: {userInfo.name} {userInfo.lastName}{' '}
                                 </p>
-                                <IconButton onClick={handleShow}>
-                                    <Edit />
+
+                                <IconButton className={'settings-button'} color="inherit" onClick={onToggleToolBar}>
+                                    <Settings />
                                 </IconButton>
-                                <Button onClick={showOrdersHistory}>Show orders history</Button>
                             </div>
                         ) : (
                             <Loader />
                         )}
-                        <div className={'feedback-form'}>
-                            <h4>Leave your feedback</h4>
-                            <textarea
-                                rows={5}
-                                cols={45}
-                                className={'form-control'}
-                                placeholder={'your feedback...'}
-                                onChange={changeFeedbackTextHandler}
-                                name={'message'}
-                                ref={register({ required: true })}
-                            />
-                            <ErrorMessage error={errors.message} type={'error'} />
-                            <button onClick={handleSubmit(addFeedbackHandler)} className={'button'}>
-                                Send feedback
-                            </button>
-                        </div>
                     </Col>
                     <Col
                         lg={8}
@@ -176,7 +186,7 @@ export const OrderPage: React.FC = () => {
                         xs={12}
                         className="d-flex justify-content-around align-items-center flex-column"
                     >
-                        <h4>Your Available Orders</h4>
+                        <h4 className='text-white'>Your Current Orders</h4>
                         <div className="d-flex justify-content-center align-items-center flex-column">
                             {orders ? (
                                 orders.map((item: Order, key: number) => {
@@ -190,11 +200,14 @@ export const OrderPage: React.FC = () => {
                         </div>
                     </Col>
                 </Row>
-                <Modal show={showModal} onHide={closeOrdersHistory}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Orders History</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
+                <Dialog open={showModal} onClose={closeOrdersHistory}>
+                    <DialogTitle className="close-modal-button">
+                        <IconButton  onClick={closeOrdersHistory} >
+                            <Close />
+                        </IconButton>
+                    </DialogTitle>
+                    <DialogContent>
+                        <h4>Orders history</h4>
                         <div className="grid-table-wrapper">
                             <table className="m-3 grid-table order-page-history">
                                 <thead>
@@ -227,13 +240,33 @@ export const OrderPage: React.FC = () => {
                                 paginate={paginate}
                             />
                         </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="button-book" onClick={closeOrdersHistory}>
-                            Close
-                        </button>
-                    </Modal.Footer>
-                </Modal>
+                    </DialogContent>
+                </Dialog>
+                <Dialog open={showFeedbackModal} onClose={closeFeedbackForm}>
+                    <DialogTitle className="close-modal-button">
+                        <IconButton onClick={closeFeedbackForm}>
+                            <Close />
+                        </IconButton>
+                    </DialogTitle>
+                    <DialogContent>
+                        <h4>Leave your feedback</h4>
+                        <div className={'feedback-form'}>
+                            <textarea
+                                rows={5}
+                                cols={45}
+                                className={'form-control'}
+                                placeholder={'your feedback...'}
+                                onChange={changeFeedbackTextHandler}
+                                name={'message'}
+                                ref={register({ required: true })}
+                            />
+                            <ErrorMessage error={errors.message} type={'error'} />
+                            <button onClick={handleSubmit(addFeedbackHandler)} className={'button'}>
+                                Send feedback <Send/>
+                            </button>
+                        </div>
+                    </DialogContent>
+                </Dialog>
                 <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
             </Container>
         </div>

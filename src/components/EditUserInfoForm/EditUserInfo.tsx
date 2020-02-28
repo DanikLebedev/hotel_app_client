@@ -62,7 +62,7 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
         <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="change-user-info-form ">
-                    <h3>Category form</h3>
+                    <h3>Change User form</h3>
                     <label htmlFor="name">Your name</label>
                     <input
                         onChange={userInfoChangeHandler}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Order } from '../../interfaces/clientInterfaces';
+import {Delete} from "@material-ui/icons";
 
 interface OrderProps {
     key: number;
@@ -20,7 +21,7 @@ export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element 
                 <li>Wishes: {props.order.comment}</li>
             </ul>
             <button className={'button'} onClick={props.onDelete} id={props.order._id}>
-                Delete order
+                Delete order <Delete/>
             </button>
         </div>
     );

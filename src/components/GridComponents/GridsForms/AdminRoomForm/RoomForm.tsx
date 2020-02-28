@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toaster from 'toasted-notes';
 import Loader from '../../../Loader/Loader';
 import { Data, Room } from '../../../../interfaces/clientInterfaces';
-import { Container } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import '../../../../assets/rglstyles.css';
 import '../../../../assets/resizablestyles.css';
 import './RoomForm.scss';
@@ -107,93 +107,121 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <form onSubmit={addRoomHandler} className="admin-form ">
                     <h3>{props.isEdit ? 'Update' : 'Create'} room</h3>
-                    <label htmlFor="categories">Choose Category</label>
-                    <select
-                        className={'form-control'}
-                        onChange={selectRoomChangeHandler}
-                        name="category"
-                        id="categories"
-                        value={roomForm.category}
-                    >
-                        {options}
-                    </select>
-                    <label htmlFor="title">Enter the Title</label>
-                    <input
-                        onChange={roomChangeHandler}
-                        type="text"
-                        className={'form-control'}
-                        value={roomForm.title}
-                        name="title"
-                        id="title"
-                        placeholder="title"
-                    />
-                    <label htmlFor="price">Enter the Price</label>
-                    <input
-                        type="number"
-                        onChange={roomChangeHandler}
-                        className={'form-control'}
-                        value={roomForm.price}
-                        name="price"
-                        id="price"
-                        placeholder="price"
-                    />
-                    <label htmlFor="guests">Enter number of guests</label>
-                    <input
-                        type="number"
-                        className={'form-control'}
-                        onChange={roomChangeHandler}
-                        value={roomForm.guests}
-                        name="guests"
-                        id="guests"
-                        placeholder="guests"
-                    />
-                    <label htmlFor="description">Input Description</label>
-                    <input
-                        type="text"
-                        className={'form-control'}
-                        onChange={roomChangeHandler}
-                        name="description"
-                        id="description"
-                        placeholder="description"
-                        value={roomForm.description}
-                    />
-                    <label htmlFor="contained-button-file">
-                        Add photo
-                        <IconButton color="primary" aria-label="upload picture" component="span">
-                            <PhotoCamera />
-                        </IconButton>
-                    </label>
-                    <input
-                        accept="image/*"
-                        className={classes.input}
-                        id="contained-button-file"
-                        multiple
-                        type="file"
-                        onChange={fileChangeHandler}
-                        name="image"
-                        defaultValue={roomForm.image}
-                        placeholder="image"
-                    />
-                    <label htmlFor="rooms">Enter number of rooms</label>
-                    <input
-                        type="number"
-                        className={'form-control'}
-                        onChange={roomChangeHandler}
-                        value={roomForm.rooms}
-                        name="rooms"
-                        id="rooms"
-                        placeholder="rooms"
-                    />
-                    <label htmlFor="area">Enter the area</label>
-                    <input
-                        type="number"
-                        onChange={roomChangeHandler}
-                        className={'form-control'}
-                        value={roomForm.area}
-                        name="area"
-                        id="area"
-                        placeholder="area"
-                    />
+                    <Row>
+                        <Col lg={6} md={6} sm={6}>
+                            {' '}
+                            <label htmlFor="categories">Choose Category</label>
+                            <select
+                                className={'form-control'}
+                                onChange={selectRoomChangeHandler}
+                                name="category"
+                                id="categories"
+                                value={roomForm.category}
+                            >
+                                {options}
+                            </select>
+                        </Col>
+                        <Col lg={6} md={6} sm={6}>
+                            {' '}
+                            <label htmlFor="title">Enter the Title</label>
+                            <input
+                                onChange={roomChangeHandler}
+                                type="text"
+                                className={'form-control'}
+                                value={roomForm.title}
+                                name="title"
+                                id="title"
+                                placeholder="title"
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg={6} md={6} sm={6}>
+                            <label htmlFor="price">Enter the Price</label>
+                            <input
+                                type="number"
+                                onChange={roomChangeHandler}
+                                className={'form-control'}
+                                value={roomForm.price}
+                                name="price"
+                                id="price"
+                                placeholder="price"
+                            />
+                        </Col>
+                        <Col lg={6} md={6} sm={6}>
+                            {' '}
+                            <label htmlFor="guests">Enter number of guests</label>
+                            <input
+                                type="number"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                value={roomForm.guests}
+                                name="guests"
+                                id="guests"
+                                placeholder="guests"
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg={6} md={6} sm={6}>
+                            <label htmlFor="description">Input Description</label>
+                            <input
+                                type="text"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                name="description"
+                                id="description"
+                                placeholder="description"
+                                value={roomForm.description}
+                            />
+                        </Col>
+                        <Col lg={6} md={6} sm={6}>
+                            <label htmlFor="contained-button-file">
+                                Add photo
+                                <IconButton color="primary" aria-label="upload picture" component="span">
+                                    <PhotoCamera />
+                                </IconButton>
+                            </label>
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="contained-button-file"
+                                multiple
+                                type="file"
+                                onChange={fileChangeHandler}
+                                name="image"
+                                defaultValue={roomForm.image}
+                                placeholder="image"
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg={6} md={6} sm={6}>
+                            <label htmlFor="rooms">Enter number of rooms</label>
+                            <input
+                                type="number"
+                                className={'form-control'}
+                                onChange={roomChangeHandler}
+                                value={roomForm.rooms}
+                                name="rooms"
+                                id="rooms"
+                                placeholder="rooms"
+                            />
+                        </Col>
+                        <Col lg={6} md={6} sm={6}>
+                            <label htmlFor="area">Enter the area</label>
+                            <input
+                                type="number"
+                                onChange={roomChangeHandler}
+                                className={'form-control'}
+                                value={roomForm.area}
+                                name="area"
+                                id="area"
+                                placeholder="area"
+                            />
+                        </Col>
+                    </Row>
+
                     {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id} /> : null}
                     <button className="btn btn-primary mt-3">{props.isEdit ? 'Update' : 'Create'} Room</button>
                 </form>

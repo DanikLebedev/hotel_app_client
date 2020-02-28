@@ -99,8 +99,10 @@
   a {
     color: #ffffff;
     text-decoration: none;
+    transition: .3s;
 
-    a:hover {
+    &:hover {
+      color: $price-color;
       text-decoration: none;
     }
   }

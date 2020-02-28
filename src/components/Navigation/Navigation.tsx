@@ -108,13 +108,13 @@ const Navigation: React.FC = (): JSX.Element => {
                             <li className="userInfo">
                                 {isAuthenticated ? (
                                     <Nav>
-                                        <NavLink onClick={logoutHandler} to="/">
+                                        <NavLink className={'auth-link'} onClick={logoutHandler} to="/">
                                             <FontAwesomeIcon icon={faSignOutAlt} />
                                             {t('logout.label')}
                                         </NavLink>
                                     </Nav>
                                 ) : (
-                                    <NavLink to="/auth">
+                                    <NavLink to="/auth" className={'auth-link'}>
                                         <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
                                     </NavLink>
                                 )}
