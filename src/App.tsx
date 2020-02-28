@@ -7,22 +7,14 @@ import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import {
-    Category,
-    Employee,
-    Feedback,
-    Order,
-    OrderCart,
-    OrderCarts,
-    Orders,
-    Room,
-} from './interfaces/clientInterfaces';
+import { Category, Employee, Feedback, Order, OrderCart, Orders, Room } from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
 import { FeedbackService } from './APIServices/feedbackService';
 import { CategoryService } from './APIServices/categoryService';
 import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
+import Favicon from 'react-favicon';
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -36,7 +28,7 @@ const App: React.FC = () => {
     const [fetchedUserOrders, setFetchedUserOrders] = useState<Order[]>([]);
     const [orderHistory, setOrderHistory] = useState<OrderCart[]>([]);
 
-    const fetchOrdersHistory = useCallback(() => {
+    const fetchOrdersHistory: CallableFunction = useCallback(() => {
         OrderService.getOrdersHistory({ Authorization: `Bearer ${token}` }).then(({ ordercarts }) =>
             setOrderHistory(ordercarts),
         );
@@ -61,7 +53,7 @@ const App: React.FC = () => {
         CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
     }, []);
 
-    const fetchFeedback = useCallback(() => {
+    const fetchFeedback: CallableFunction = useCallback(() => {
         FeedbackService.getAllFeedbacks().then(({ feedbacks }) => {
             setFetchedFeedbacks(feedbacks);
         });

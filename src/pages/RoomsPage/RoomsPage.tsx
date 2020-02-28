@@ -5,7 +5,7 @@ import './RoomsPage.scss';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import  FindRoomForm  from '../../components/FindRoomForm/FindRoomForm';
 
-const RoomsPage: FC = () => {
+const RoomsPage: FC = (): JSX.Element => {
     return (
         <div className="room-page">
             <FindRoomForm />

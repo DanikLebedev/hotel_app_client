@@ -60,7 +60,7 @@
 
   &-photos {
     img {
-      height: 20rem;
+      object-fit: cover;
       max-width: 300px;
       animation: slideInRight .8s ease-in-out;
     }

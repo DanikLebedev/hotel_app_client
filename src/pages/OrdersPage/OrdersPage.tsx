@@ -3,7 +3,7 @@ import './OrdersPage.scss';
 import '../../assets/rglstyles.css';
 import '../../assets/resizablestyles.css';
 import { OrderService } from '../../APIServices/orderService';
-import { Customer, Feedback, Order } from '../../interfaces/clientInterfaces';
+import { Customer, Feedback, Order, OrderCart } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 import toaster from 'toasted-notes';
 import { Container, Col, Row, Modal } from 'react-bootstrap';
@@ -27,14 +27,14 @@ interface FeedbackFormData {
 
 export const OrderPage: React.FC = () => {
     const { register, handleSubmit, errors } = useForm<FeedbackFormData>();
-    const context = useContext(ClientContext);
-    const fetchedOrders = context.fetchedUserOrders;
-    const fetchedOrderHistory = context.orderHistory;
+    const context: ClientContext = useContext(ClientContext);
+    const fetchedOrders: Order[] = context.fetchedUserOrders;
+    const fetchedOrderHistory: OrderCart[] = context.orderHistory;
     const [orders, setOrders] = useState<Order[]>(fetchedOrders);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-    const [orderHistory, setOrderHistory] = useState(fetchedOrderHistory);
+    const [orderHistory, setOrderHistory] = useState<OrderCart[]>(fetchedOrderHistory);
     const [editProps, setEditProps] = useState<Customer>({
         email: '',
         lastName: '',
@@ -52,7 +52,7 @@ export const OrderPage: React.FC = () => {
     const [cls, setCls] = useState<Array<string>>(['order-item']);
     const [show, setShow] = useState(false);
 
-    function update() {
+    function update(): void {
         OrderService.getUserOrders({ Authorization: `Bearer ${context.token}` }).then(({ orders }) =>
             setOrders(orders),
         );
@@ -71,7 +71,7 @@ export const OrderPage: React.FC = () => {
         const formData: FormData = new FormData();
         formData.append('_id', target.id);
         if (target) {
-            const filteredOrders = orders.filter(order => {
+            const filteredOrders: Order[] = orders.filter(order => {
                 return order._id === target.id;
             });
             setCls((prevState: string[]) => [...prevState, 'deleted-order']);
@@ -84,7 +84,7 @@ export const OrderPage: React.FC = () => {
         }
     };
 
-    const changeFeedbackTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const changeFeedbackTextHandler = (event: ChangeEvent<HTMLTextAreaElement>): void => {
         setFeedbackForm({ ...feedbackForm, [event.target.name]: event.target.value });
     };
 
@@ -98,28 +98,28 @@ export const OrderPage: React.FC = () => {
         });
     };
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => {
+    const handleClose = (): void => setShow(false);
+    const handleShow = (): void => {
         setEditProps({ ...userInfo });
         setIsEdit(true);
         setShow(true);
     };
 
-    const showOrdersHistory = () => {
+    const showOrdersHistory = (): void => {
         setShowModal(true);
     };
 
-    const closeOrdersHistory = () => {
+    const closeOrdersHistory = (): void => {
         setShowModal(false);
     };
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage] = useState(4);
-    const indexOfLastPost = currentPage * postPerPage;
-    const indexOfFirstPost = indexOfLastPost - postPerPage;
-    const currentPosts = orderHistory.slice(indexOfFirstPost, indexOfLastPost);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [postPerPage] = useState<number>(4);
+    const indexOfLastPost: number = currentPage * postPerPage;
+    const indexOfFirstPost: number = indexOfLastPost - postPerPage;
+    const currentPosts: OrderCart[] = orderHistory.slice(indexOfFirstPost, indexOfLastPost);
 
-    const paginate = (pageNumber: number) => {
+    const paginate = (pageNumber: number): void => {
         setCurrentPage(pageNumber);
     };
 
@@ -131,7 +131,7 @@ export const OrderPage: React.FC = () => {
     return (
         <div className="order-page">
             <FindRoomForm />
-            <div className="order-page-bg"></div>
+            <div className="order-page-bg"/>
             <Container className="order-page-wrapper">
                 <Row>
                     <Col lg={3} md={3} sm={3} xs={12}>

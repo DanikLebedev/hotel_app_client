@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import {Category, Feedback, Order, OrderCart, Room} from '../interfaces/clientInterfaces';
 
-interface ClientContext {
+export interface ClientContext {
     token: string | null;
     userId: string | null;
     login: (jwtToken: any, id: any, status: any, email: any) => void;

@@ -14,7 +14,7 @@ interface RoomItemProps  {
 const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, searchRoom }: RoomItemProps) => {
     const history = useHistory();
 
-    const showInfoHandler = () => {
+    const showInfoHandler = (): void => {
         history.push(`/rooms/${roomInfo._id}`);
     };
 
@@ -28,7 +28,7 @@ const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, 
                     xs={6}
                     className="room-page__item-img"
                     style={{ background: `url(${config.baseUrl + roomInfo.image}) center center / cover` }}
-                ></Col>
+                />
                 <Col lg={6} md={6} sm={6} xs={6}>
                     <h3>{roomInfo.title}</h3>
                     <div className="rooms-page__item-text">

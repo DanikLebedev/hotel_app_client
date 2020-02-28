@@ -25,8 +25,8 @@ type FormData = {
 const AuthPage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const history = useHistory();
-    const auth = useContext(ClientContext);
-    const [haveAccount, setHaveAccount] = useState(true);
+    const auth: ClientContext = useContext(ClientContext);
+    const [haveAccount, setHaveAccount] = useState<boolean>(true);
 
     const [form, setForm] = useState<LoginData>({ email: '', password: '' });
     const [registerForm, setRegisterForm] = useState<RegisterData>({ email: '', password: '', name: '', lastName: '' });
@@ -183,7 +183,7 @@ const AuthPage: React.FC = () => {
     );
     return (
         <>
-            <div className="auth"></div>
+            <div className="auth"/>
             <div className="wrapper">{haveAccount ? loginForm : signInForm}</div>
         </>
     );

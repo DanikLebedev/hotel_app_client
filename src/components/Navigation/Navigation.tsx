@@ -18,7 +18,7 @@ const Navigation: React.FC = (): JSX.Element => {
     const isAuthenticated: boolean = auth.isAuthenticated;
     const userStatus: string = auth.userStatus;
     const userEmail: string = auth.userEmail;
-    const logoutHandler = (event: { preventDefault: () => void }) => {
+    const logoutHandler = (event: { preventDefault: () => void }): void => {
         event.preventDefault();
         auth.logout();
         history.push('/');
@@ -39,13 +39,18 @@ const Navigation: React.FC = (): JSX.Element => {
     }
     const { t, i18n } = useTranslation();
 
-    const changeLang = (event: ChangeEvent<HTMLInputElement>) => {
+    const changeLang = (event: ChangeEvent<HTMLInputElement>): void => {
         i18n.changeLanguage(event.target.value);
     };
 
     const authComponents: JSX.Element = (
         <>
-            <NavLink onClick={() => setShowMenu(false)} activeClassName={'active-link'} className={'mr-5'} to="/orders">
+            <NavLink
+                onClick={(): void => setShowMenu(false)}
+                activeClassName={'active-link'}
+                className={'mr-5'}
+                to="/orders"
+            >
                 {t('orders.label')}
             </NavLink>
         </>
@@ -63,14 +68,14 @@ const Navigation: React.FC = (): JSX.Element => {
                                 </span>
                                 <span className="font-weight-bold">hotel@mail.ru</span>
                             </li>
-                            <div className="separator"></div>
+                            <div className="separator" />
                             <li>
                                 <span>
                                     <FontAwesomeIcon icon={faPhone} /> {t('phone.label')}
                                 </span>
                                 <span className="font-weight-bold">+39752180</span>
                             </li>
-                            <div className="separator"></div>
+                            <div className="separator" />
                             <li>
                                 <span>
                                     <FontAwesomeIcon icon={faMapMarked} /> {t('adress.label')}
@@ -117,7 +122,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 <span>{userStatus ? <span>{userStatus} </span> : null}</span>&#32;
                                 <span>{userEmail ? <span>{userEmail}</span> : null}</span>
                             </li>
-                            <div className="separator"></div>
+                            <div className="separator" />
                             <li>
                                 <ul className="d-flex justify-content-center">
                                     <li className="social_icon">
@@ -147,7 +152,7 @@ const Navigation: React.FC = (): JSX.Element => {
                     <div className={cls.join(' ')}>
                         <Nav id={'nav__list_links'} className="nav__list_links mr-auto ml-auto  ">
                             <NavLink
-                                onClick={() => setShowMenu(false)}
+                                onClick={(): void => setShowMenu(false)}
                                 activeClassName={'active-link'}
                                 className={'mr-5 link'}
                                 to="/"
@@ -155,7 +160,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('home.label')}
                             </NavLink>
                             <NavLink
-                                onClick={() => setShowMenu(false)}
+                                onClick={(): void => setShowMenu(false)}
                                 activeClassName={'active-link'}
                                 className={'mr-5'}
                                 to="/rooms"
@@ -163,7 +168,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('rooms.label')}
                             </NavLink>
                             <NavLink
-                                onClick={() => setShowMenu(false)}
+                                onClick={(): void => setShowMenu(false)}
                                 activeClassName={'active-link'}
                                 className={'mr-5'}
                                 to="/about"
@@ -176,9 +181,9 @@ const Navigation: React.FC = (): JSX.Element => {
                 </Navbar>
             </Container>
             <div id="burger-button" className={showMenu ? 'change' : ''} onClick={showMenuHandler}>
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
+                <div className="bar1" />
+                <div className="bar2" />
+                <div className="bar3" />
             </div>
         </>
     );

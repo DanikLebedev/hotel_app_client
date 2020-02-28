@@ -19,7 +19,7 @@ const AboutUsPage: React.FC = ({ t }: any) => {
             <Container className="about-us__page">
                 <h1 className="text-white text-center">{t('about.label')}</h1>
                 <Row>
-                    <Col lg={6} className="about-us__page-photo" md={6} sm={6}></Col>
+                    <Col lg={6} className="about-us__page-photo" md={6} sm={6} />
                     <Col lg={6} md={6} sm={6} className="about-us__page-text">
                         <h3>{t('about-page-subtitle')}</h3>
                         <p>{t('about-page-text')}</p>

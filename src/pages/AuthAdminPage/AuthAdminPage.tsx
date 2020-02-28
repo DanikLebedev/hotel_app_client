@@ -20,7 +20,7 @@ type AdminFormData = {
 
 export const AuthAdminPage = () => {
     const { register, handleSubmit, errors } = useForm<AdminFormData>();
-    const auth = useContext(ClientContext);
+    const auth: ClientContext = useContext(ClientContext);
     const [form, setForm] = useState({ email: '', password: '' });
     const history = useHistory();
 
@@ -49,7 +49,7 @@ export const AuthAdminPage = () => {
 
     return (
         <>
-            <div className="auth-admin"></div>
+            <div className="auth-admin" />
             <div className="auth-admin-wrapper">
                 <div className="auth-admin-form">
                     <h1 className="text-center">Admin Authorization</h1>

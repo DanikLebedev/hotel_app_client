@@ -5,7 +5,7 @@ import { Room } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 
 export const RoomsList: React.FC = (): JSX.Element => {
-    const fetchedRooms = useContext(ClientContext).fetchedRooms;
+    const fetchedRooms: Room[] = useContext(ClientContext).fetchedRooms;
     return (
         <div>
             {!fetchedRooms[0] ? (

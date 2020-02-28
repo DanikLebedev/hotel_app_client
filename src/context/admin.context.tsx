@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { Category, Employee, Feedback, OrderCart, Room } from '../interfaces/clientInterfaces';
 
-interface AdminContext {
+export interface AdminContext {
     token: string | null;
     userId: string | null;
     login: (jwtToken: any, id: any, status: any, email: any) => void;

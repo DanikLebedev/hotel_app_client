@@ -23,9 +23,9 @@ interface RoomInfoPageFormData {
     guests: number;
 }
 
-export const RoomInfoPage: React.FC = () => {
-    const userEmail = useAuth().userEmail;
-    const [show, setShow] = useState(false);
+export const RoomInfoPage: React.FC = (): JSX.Element => {
+    const userEmail: string = useAuth().userEmail;
+    const [show, setShow] = useState<boolean>(false);
     const { register, handleSubmit, errors } = useForm<RoomInfoPageFormData>();
 
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
@@ -40,7 +40,7 @@ export const RoomInfoPage: React.FC = () => {
     });
     const params: { id?: string } = useParams();
     const roomId: string | undefined = params.id;
-    const auth = useContext(ClientContext);
+    const auth: ClientContext = useContext(ClientContext);
     const isAuthenticated: boolean = auth.isAuthenticated;
     const history = useHistory();
 
@@ -48,11 +48,11 @@ export const RoomInfoPage: React.FC = () => {
         RoomService.getRoomById(roomId).then(({ rooms }) => setRoomInfo(rooms));
     }, [roomId]);
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         setOrder({ ...order, [event.target.name]: event.target.value });
     };
 
-    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>): void => {
         setOrder({
             ...order,
             [event.target.name]: event.target.value,
@@ -88,8 +88,8 @@ export const RoomInfoPage: React.FC = () => {
             history.push('/auth');
         }
     };
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = (): void => setShow(false);
+    const handleShow = (): void => setShow(true);
 
     useEffect(() => {
         fetchRoomInfo();
@@ -131,7 +131,7 @@ export const RoomInfoPage: React.FC = () => {
 
     return (
         <div className="room-info-page">
-            <div className="room-info-page-bg d-flex justify-content-center align-items-end"></div>
+            <div className="room-info-page-bg d-flex justify-content-center align-items-end"/>
             <Container className="room-info-page-wrapper">
                 {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}
                 <div className="booking-form">

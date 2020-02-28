@@ -1,4 +1,3 @@
-
 export const config = {
     baseUrl: 'http://localhost:5000/static/',
     crudUrl: 'http://localhost:3000',
@@ -79,6 +78,6 @@ export function filteredArrays(array: any[], inputName: string, search: string) 
             return item.rooms.toLowerCase().indexOf(search.toLowerCase()) !== -1;
         });
     } else {
-        return array
+        return array;
     }
 }

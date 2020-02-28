@@ -6,6 +6,7 @@ import './index.scss';
 import i18n from './i18n';
 import { I18nextProvider } from 'react-i18next';
 import Loader from './components/Loader/Loader';
+
 ReactDOM.render(
     <Suspense
         fallback={
@@ -21,7 +22,4 @@ ReactDOM.render(
     document.getElementById('root'),
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

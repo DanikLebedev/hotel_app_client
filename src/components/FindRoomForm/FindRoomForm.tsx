@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import './FindRoomForm.scss';
-import { Category, OrderCart, OrderCarts } from '../../interfaces/clientInterfaces';
+import { OrderCart, OrderCarts } from '../../interfaces/clientInterfaces';
 import { useHistory } from 'react-router-dom';
-import { CategoryService } from '../../APIServices/categoryService';
 import toaster from 'toasted-notes';
 import { FormControl, InputLabel, MenuItem, makeStyles, Select } from '@material-ui/core';
 import { OrderService } from '../../APIServices/orderService';
@@ -80,7 +79,7 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
             history.push('/auth');
         }
     };
-    const changeDateOrderHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const changeDateOrderHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         setFindRoomForm({ ...findRoomForm, [event.target.name]: event.target.value });
     };
 

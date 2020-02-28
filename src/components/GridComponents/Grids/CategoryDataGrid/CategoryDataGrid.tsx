@@ -7,15 +7,15 @@ import { IconButton, TextField } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 
-export const CategoryDataGrid = () => {
-    const fetchedCategories = useContext(AdminContext).fetchedCategories;
+export const CategoryDataGrid: React.FC = () => {
+    const fetchedCategories: Category[] = useContext(AdminContext).fetchedCategories;
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [editProps, setEditProps] = useState<Category>({
         title: '',
     });
-    const [search, setSearch] = useState('');
-    const [categories, setCategories] = useState(fetchedCategories);
+    const [search, setSearch] = useState<string>('');
+    const [categories, setCategories] = useState<Category[]>(fetchedCategories);
 
     function updateComponent(): void {
         CategoryService.getAllCategories().then(({ categories }) => setCategories(categories));
@@ -24,7 +24,7 @@ export const CategoryDataGrid = () => {
     const editCategoryHandler = (event: React.MouseEvent<EventTarget>): void => {
         setIsEdit(true);
         const target = event.target as HTMLButtonElement;
-        const filteredCategories = fetchedCategories.find(category => {
+        const filteredCategories: Category | undefined = fetchedCategories.find(category => {
             return category._id === target.id;
         });
         if (filteredCategories) {
@@ -39,10 +39,10 @@ export const CategoryDataGrid = () => {
 
     const deleteCategoryHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        fetchedCategories.filter(category => {
+        fetchedCategories.filter((category) => {
             return category._id !== target.id;
         });
-        const formData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('_id', target.id);
         await CategoryService.deleteCategory(formData).then(data => {
             toaster.notify(data.message, {
@@ -60,7 +60,7 @@ export const CategoryDataGrid = () => {
         setShowModal(false);
     };
 
-    const filteredFetchedCategories = categories.filter(category => {
+    const filteredFetchedCategories: Category[] = categories.filter((category) => {
         return category.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     });
 

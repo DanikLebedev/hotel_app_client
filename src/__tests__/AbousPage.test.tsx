@@ -1,9 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import AboutUsPage from '../pages/AboutUsPage/AboutUsPage';
 
-import { AboutUsPage } from '../pages/AboutUsPage/AboutUsPage';
-
-describe('<AboutUsPage />', () => {
+describe('About us oage', () => {
     test('should display a page', async () => {
         // ???
     });
