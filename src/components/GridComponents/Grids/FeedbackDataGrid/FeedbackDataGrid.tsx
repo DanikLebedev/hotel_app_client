@@ -5,7 +5,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import toaster from 'toasted-notes';
 import { FeedbackService } from '../../../../APIServices/feedbackService';
 import { AdminFeedbackForm } from '../../GridsForms/AdminFeedbackForm/AdminFeedbackForm';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
@@ -119,45 +119,37 @@ export const FeedbackDataGrid = () => {
                     <tr>
                         <th>
                             <p>User Email</p>
-                            <TextField
-                                id="standard-basic"
-                                name="user-email-input"
-                                onChange={dataSearch}
-                            />
+                            <TextField id="standard-basic" name="user-email-input" onChange={dataSearch} />
                         </th>
                         <th>
                             <p>User full name</p>{' '}
-                            <TextField
-                                id="standard-basic"
-                                name="user-name-input"
-                                onChange={dataSearch}
-                            />
+                            <TextField id="standard-basic" name="user-name-input" onChange={dataSearch} />
                         </th>
                         <th>
-                            <p>Message</p>{' '}
-                            <TextField
-                                id="standard-basic"
-                                name="message-input"
-                                onChange={dataSearch}
-                            />
+                            <p>Message</p> <TextField id="standard-basic" name="message-input" onChange={dataSearch} />
                         </th>
                         <th>
                             <p>Approved</p>
-                            <button className="sort-button" onClick={() => onSortChange('approved')}>
-                                <i
-                                    className={
-                                        field === 'approved'
-                                            ? `fas fa-${sortNumbersTypes('approved')[currentSort].class}`
-                                            : 'fas fa-sort'
-                                    }
-                                />
-                            </button>
+                            <Tooltip title={'Sort'}>
+                                <button className="sort-button" onClick={() => onSortChange('approved')}>
+                                    <i
+                                        className={
+                                            field === 'approved'
+                                                ? `fas fa-${sortNumbersTypes('approved')[currentSort].class}`
+                                                : 'fas fa-sort'
+                                        }
+                                    />
+                                </button>
+                            </Tooltip>
+
                         </th>
                         <th>
                             Actions
-                            <IconButton className="icon-buttons" onClick={addFeedbackHandler}>
-                                <Add color="action" />
-                            </IconButton>
+                            <Tooltip title={'Add'}>
+                                <IconButton className="icon-buttons" onClick={addFeedbackHandler}>
+                                    <Add color="action" />
+                                </IconButton>
+                            </Tooltip>
                         </th>
                     </tr>
                 </thead>
@@ -181,20 +173,24 @@ export const FeedbackDataGrid = () => {
                                               )}
                                           </td>
                                           <td>
-                                              <IconButton
-                                                  className={'icon-buttons'}
-                                                  id={feedback._id}
-                                                  onClick={deleteFeedbackHandler}
-                                              >
-                                                  <Delete color="error" />
-                                              </IconButton>
-                                              <IconButton
-                                                  className={'icon-buttons'}
-                                                  id={feedback._id}
-                                                  onClick={editFeedbackHandler}
-                                              >
-                                                  <Edit color="primary" />
-                                              </IconButton>
+                                              <Tooltip title={'Delete'}>
+                                                  <IconButton
+                                                      className={'icon-buttons'}
+                                                      id={feedback._id}
+                                                      onClick={deleteFeedbackHandler}
+                                                  >
+                                                      <Delete color="error" />
+                                                  </IconButton>
+                                              </Tooltip>
+                                              <Tooltip title={'Edit'}>
+                                                  <IconButton
+                                                      className={'icon-buttons'}
+                                                      id={feedback._id}
+                                                      onClick={editFeedbackHandler}
+                                                  >
+                                                      <Edit color="primary" />
+                                                  </IconButton>
+                                              </Tooltip>
                                           </td>
                                       </tr>
                                   );

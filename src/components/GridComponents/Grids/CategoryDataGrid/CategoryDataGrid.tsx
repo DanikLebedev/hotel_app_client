@@ -3,7 +3,7 @@ import { Category } from '../../../../interfaces/clientInterfaces';
 import { CategoryService } from '../../../../APIServices/categoryService';
 import toaster from 'toasted-notes';
 import { AdminCategoryForm } from '../../GridsForms/AdminCategoryForm/AdminCategoryForm';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 
@@ -39,7 +39,7 @@ export const CategoryDataGrid: React.FC = () => {
 
     const deleteCategoryHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
-        fetchedCategories.filter((category) => {
+        fetchedCategories.filter(category => {
             return category._id !== target.id;
         });
         const formData: FormData = new FormData();
@@ -60,7 +60,7 @@ export const CategoryDataGrid: React.FC = () => {
         setShowModal(false);
     };
 
-    const filteredFetchedCategories: Category[] = categories.filter((category) => {
+    const filteredFetchedCategories: Category[] = categories.filter(category => {
         return category.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     });
 
@@ -78,10 +78,12 @@ export const CategoryDataGrid: React.FC = () => {
                             <TextField id="standard-basic" name="category-input" onChange={dataSearch} />
                         </th>
                         <th>
-                            Actions
-                            <IconButton className={'icon-buttons'} onClick={addCategoryHandler}>
-                                <Add />
-                            </IconButton>
+                            <p>Actions</p>
+                            <Tooltip title={'Add'}>
+                                <IconButton className={'icon-buttons'} onClick={addCategoryHandler}>
+                                    <Add />
+                                </IconButton>
+                            </Tooltip>
                         </th>
                     </tr>
                 </thead>
@@ -92,20 +94,24 @@ export const CategoryDataGrid: React.FC = () => {
                                   <tr key={key}>
                                       <td>{category.title}</td>
                                       <td>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={category._id}
-                                              onClick={deleteCategoryHandler}
-                                          >
-                                              <Delete color="error" />
-                                          </IconButton>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={category._id}
-                                              onClick={editCategoryHandler}
-                                          >
-                                              <Edit color="primary" />
-                                          </IconButton>
+                                          <Tooltip title={'Delete'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={category._id}
+                                                  onClick={deleteCategoryHandler}
+                                              >
+                                                  <Delete color="error" />
+                                              </IconButton>
+                                          </Tooltip>
+                                          <Tooltip title={'Edit'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={category._id}
+                                                  onClick={editCategoryHandler}
+                                              >
+                                                  <Edit color="primary" />
+                                              </IconButton>
+                                          </Tooltip>
                                       </td>
                                   </tr>
                               );

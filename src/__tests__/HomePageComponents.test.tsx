@@ -1,9 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { HomePageArticles } from '../components/HomePageComponents/HomePageArticles';
-import ReactDOM from 'react-dom';
+import HomePageAboutUs from '../components/HomePageComponents/HomePageAboutUs';
+import { shallow } from 'enzyme';
 
-it('should renders without crashing', function() {
-    const div = document.createElement('div');
-    ReactDOM.render(<HomePageArticles />, div);
+it('should renders a homePageArticles', function() {
+    const wrapper = shallow(<HomePageAboutUs />);
+    expect(wrapper).toMatchSnapshot();
 });

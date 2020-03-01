@@ -12,10 +12,10 @@ export const ErrorMessage = ({ error }: ErrorMessage) => {
         switch (error.type) {
             case 'required':
                 return (
-                    <p className={'validate-error'}>
+                    <span className='validate-error'>
                         <Error color={'error'} />
                         This is required
-                    </p>
+                    </span>
                 );
             case 'minLength':
                 return (

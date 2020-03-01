@@ -131,7 +131,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
 
     return (
         <div className="room-info-page">
-            <div className="room-info-page-bg d-flex justify-content-center align-items-end"/>
+            <div className="room-info-page-bg d-flex justify-content-center align-items-end" />
             <Container className="room-info-page-wrapper">
                 {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}
                 <div className="booking-form">
@@ -139,8 +139,8 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                         <h1>Make your reservation</h1>
                     </div>
                     <div>
-                        <div className="row">
-                            <div className="col-md-6">
+                        <div className="row align-items-center">
+                            <div className="col-md-5">
                                 <div className="form-group">
                                     <span className="form-label">Check In</span>
                                     <input
@@ -151,11 +151,13 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                         type="date"
                                         required
                                     />
-                                    <ErrorMessage error={errors.checkIn} type={'error'} />
                                 </div>
-                                <span className="in-out hidden-xs hidden-sm">&#8652;</span>
+                                <ErrorMessage error={errors.checkIn} type={'error'} />
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-2 d-flex justify-content-center align-items-center">
+                                <span>&#8652;</span>
+                            </div>
+                            <div className="col-md-5">
                                 <div className="form-group">
                                     <span className="form-label">Check out</span>
                                     <input
@@ -166,8 +168,10 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                         type="date"
                                         required
                                     />
-                                    <ErrorMessage error={errors.checkOut} type={'error'} />
                                 </div>
+                                <span className="error-field">
+                                    <ErrorMessage error={errors.checkOut} type={'error'} />
+                                </span>
                             </div>
                         </div>
                         <div className="row align-items-end">
@@ -181,7 +185,9 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                     type="number"
                                     required
                                 />
-                                <ErrorMessage error={errors.guests} type={'error'} />
+                                <span className="error-field">
+                                    <ErrorMessage error={errors.guests} type={'error'} />
+                                </span>
                             </div>
                             <div className="col-md-4">
                                 <span className="form-label">Your Wishes</span>

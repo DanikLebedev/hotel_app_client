@@ -2,7 +2,7 @@ import React, { useContext, useState, ChangeEvent, useEffect } from 'react';
 import { OrderCart } from '../../../../interfaces/clientInterfaces';
 import { OrderService } from '../../../../APIServices/orderService';
 import { Pagination } from '../../../Pagination/Pagination';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import toaster from 'toasted-notes';
 import { AdminOrderForm } from '../../GridsForms/AdminOrderForm/AdminOrderForm';
@@ -142,30 +142,34 @@ export const OrderDataGrid: React.FC = () => {
                             <p>Check In</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="checkIn-input" onChange={dataSearch} />
-                                <button className="sort-button" onClick={(): void => onSortChange('checkIn')}>
-                                    <i
-                                        className={
-                                            field === 'checkIn'
-                                                ? `fas fa-${sortNumbersTypes('checkIn')[currentSort].class}`
-                                                : 'fas fa-sort'
-                                        }
-                                    />
-                                </button>
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={(): void => onSortChange('checkIn')}>
+                                        <i
+                                            className={
+                                                field === 'checkIn'
+                                                    ? `fas fa-${sortNumbersTypes('checkIn')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </th>
                         <th>
                             <p>Check Out</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="checkOut-input" onChange={dataSearch} />
-                                <button className="sort-button" onClick={(): void => onSortChange('checkOut')}>
-                                    <i
-                                        className={
-                                            field === 'checkOut'
-                                                ? `fas fa-${sortNumbersTypes('checkOut')[currentSort].class}`
-                                                : 'fas fa-sort'
-                                        }
-                                    />
-                                </button>
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={(): void => onSortChange('checkOut')}>
+                                        <i
+                                            className={
+                                                field === 'checkOut'
+                                                    ? `fas fa-${sortNumbersTypes('checkOut')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </th>
                         <th>
@@ -179,10 +183,12 @@ export const OrderDataGrid: React.FC = () => {
                             </div>
                         </th>
                         <th>
-                            Actions
-                            <IconButton className={'icon-buttons'} onClick={addOrderHandler}>
-                                <Add />
-                            </IconButton>
+                            <p>Actions</p>
+                            <Tooltip title={'Add'}>
+                                <IconButton className={'icon-buttons'} onClick={addOrderHandler}>
+                                    <Add />
+                                </IconButton>
+                            </Tooltip>
                         </th>
                     </tr>
                 </thead>
@@ -197,20 +203,24 @@ export const OrderDataGrid: React.FC = () => {
                                       <td>{order.status}</td>
                                       <td>{order.userEmail}</td>
                                       <td>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={order._id}
-                                              onClick={deleteOrderHandler}
-                                          >
-                                              <Delete color="error" />
-                                          </IconButton>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={order._id}
-                                              onClick={editOrderHandler}
-                                          >
-                                              <Edit color="primary" />
-                                          </IconButton>
+                                          <Tooltip title={'Delete'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={order._id}
+                                                  onClick={deleteOrderHandler}
+                                              >
+                                                  <Delete color="error" />
+                                              </IconButton>
+                                          </Tooltip>
+                                          <Tooltip title={'Edit'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={order._id}
+                                                  onClick={editOrderHandler}
+                                              >
+                                                  <Edit color="primary" />
+                                              </IconButton>
+                                          </Tooltip>
                                       </td>
                                   </tr>
                               );

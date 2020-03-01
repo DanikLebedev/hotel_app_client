@@ -1,9 +1,9 @@
-@import "src/index";
+@import "../../styles/variables";
 
 input[type=date] {
   -webkit-appearance: none;
 }
-input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-inner-spin-button
  {
   display: none;
   -webkit-appearance: none;
@@ -49,7 +49,7 @@ input[type=date]::-webkit-inner-spin-button,
   font-size: 2em;
   color: #0c0c09;
   margin-top: 0;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .booking-form .form-group {
@@ -60,7 +60,7 @@ input[type=date]::-webkit-inner-spin-button,
 .booking-form .form-control {
   background-color: #fff;
   height: 50px;
-  padding: 0px 20px;
+  padding: 0 20px;
   border: 1px solid #e1e1e1;
   -webkit-box-shadow: none;
   box-shadow: none;

@@ -16,7 +16,6 @@ const Navigation: React.FC = (): JSX.Element => {
     const auth = useContext(ClientContext);
     const history = useHistory();
     const isAuthenticated: boolean = auth.isAuthenticated;
-    const userStatus: string = auth.userStatus;
     const userEmail: string = auth.userEmail;
     const logoutHandler = (event: { preventDefault: () => void }): void => {
         event.preventDefault();
@@ -46,6 +45,7 @@ const Navigation: React.FC = (): JSX.Element => {
     const authComponents: JSX.Element = (
         <>
             <NavLink
+                id={'navigation-link'}
                 onClick={(): void => setShowMenu(false)}
                 activeClassName={'active-link'}
                 className={'mr-5'}
@@ -86,7 +86,7 @@ const Navigation: React.FC = (): JSX.Element => {
                     </Col>
                     <Col lg={6} md={7} sm={8}>
                         <ul className="d-flex justify-content-between settings-wrapper">
-                            <li className="d-flex justify-content-center align-items-center switсh-language__wrapper">
+                            <li className="switсh-language__wrapper">
                                 <div onChange={changeLang}>
                                     <label htmlFor="en" id={'england'}>
                                         <img src={engLogo} width={40} height={30} alt="england" />
@@ -118,8 +118,6 @@ const Navigation: React.FC = (): JSX.Element => {
                                         <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
                                     </NavLink>
                                 )}
-                                <img src="" alt="" />
-                                <span>{userStatus ? <span>{userStatus} </span> : null}</span>&#32;
                                 <span>{userEmail ? <span>{userEmail}</span> : null}</span>
                             </li>
                             <div className="separator" />
@@ -145,13 +143,48 @@ const Navigation: React.FC = (): JSX.Element => {
                         </ul>
                     </Col>
                 </Row>
-                <Navbar>
+                <Navbar id={'navbar'}>
                     <NavbarBrand href="/">
                         <img style={{ filter: 'brightness(5)' }} src={hotelLogo} width={180} height={70} alt="logo" />
                     </NavbarBrand>
                     <div className={cls.join(' ')}>
                         <Nav id={'nav__list_links'} className="nav__list_links mr-auto ml-auto  ">
+                            <div className="switсh-language__wrapper-burger-menu">
+                                <div onChange={changeLang}>
+                                    <label htmlFor="en" id={'england'}>
+                                        <img src={engLogo} width={40} height={30} alt="england" />
+                                    </label>
+                                    <input
+                                        type="radio"
+                                        hidden={true}
+                                        value="en"
+                                        name="language"
+                                        id={'en'}
+                                        defaultChecked
+                                    />
+                                    <label htmlFor="ru" id={'russian'}>
+                                        <img src={rusLogo} width={40} height={30} alt="russia" />
+                                    </label>
+                                    <input type="radio" hidden={true} value="ru" name="language" id={'ru'} />
+                                    {isAuthenticated ? (
+                                        <NavLink
+                                            id={'auth-link-burger-menu'}
+                                            className={'auth-link '}
+                                            onClick={logoutHandler}
+                                            to="/"
+                                        >
+                                            <FontAwesomeIcon icon={faSignOutAlt} />
+                                            {t('logout.label')}
+                                        </NavLink>
+                                    ) : (
+                                        <NavLink to="/auth" id={'auth-link-burger-menu'} className={'auth-link '}>
+                                            <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
+                                        </NavLink>
+                                    )}
+                                </div>
+                            </div>
                             <NavLink
+                                id={'navigation-link'}
                                 onClick={(): void => setShowMenu(false)}
                                 activeClassName={'active-link'}
                                 className={'mr-5 link'}
@@ -160,6 +193,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('home.label')}
                             </NavLink>
                             <NavLink
+                                id={'navigation-link'}
                                 onClick={(): void => setShowMenu(false)}
                                 activeClassName={'active-link'}
                                 className={'mr-5'}
@@ -168,6 +202,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('rooms.label')}
                             </NavLink>
                             <NavLink
+                                id={'navigation-link'}
                                 onClick={(): void => setShowMenu(false)}
                                 activeClassName={'active-link'}
                                 className={'mr-5'}
@@ -176,8 +211,10 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('about.label')}
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
+
                         </Nav>
                     </div>
+                    <div className={showMenu ? 'drawer open-drawer' : 'drawer'} />
                 </Navbar>
             </Container>
             <div id="burger-button" className={showMenu ? 'change' : ''} onClick={showMenuHandler}>

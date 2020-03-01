@@ -1,4 +1,4 @@
-@import "src/index";
+@import "../../styles/variables";
 
 .fixed-form-wrapper {
   display: flex;
@@ -67,7 +67,7 @@
       color: $price-color;
     }
   }
-  input[type=date]::-webkit-inner-spin-button,
+  input[type=date]::-webkit-inner-spin-button
   {
     display: none;
     -webkit-appearance: none;

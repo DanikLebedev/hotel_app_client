@@ -3,7 +3,7 @@ import { Employee } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { EmployeeService } from '../../../../APIServices/employeeService';
 import { AdminEmployeeForm } from '../../GridsForms/AdminEmployeeForm/AdminEmployeeForm';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 
@@ -19,6 +19,10 @@ export const EmployeeDataGrid = () => {
     const closeModal = (): void => {
         setShowModal(false);
     };
+
+    function update(): void {
+        EmployeeService.getAllEmployee().then(({ employees }) => setEmployees(employees));
+    }
 
     const editEmployeeHandler = (event: React.MouseEvent<EventTarget>) => {
         setIsEdit(true);
@@ -71,9 +75,7 @@ export const EmployeeDataGrid = () => {
         setShowModal(true);
     };
 
-    function update() {
-        EmployeeService.getAllEmployee().then(({ employees }) => setEmployees(employees));
-    }
+
 
     useEffect(() => {
         update();
@@ -86,25 +88,18 @@ export const EmployeeDataGrid = () => {
                     <tr>
                         <th>
                             <p>Email</p>
-                            <TextField
-                                id="standard-basic"
-                                name="email-input"
-                                onChange={dataSearch}
-                            />
+                            <TextField id="standard-basic" name="email-input" onChange={dataSearch} />
                         </th>
                         <th>
-                            <p>Status</p>{' '}
-                            <TextField
-                                id="standard-basic"
-                                name="status-input"
-                                onChange={dataSearch}
-                            />
+                            <p>Status</p> <TextField id="standard-basic" name="status-input" onChange={dataSearch} />
                         </th>
                         <th>
                             Actions
-                            <IconButton className={'icon-buttons'} onClick={addEmployeeHandler}>
-                                <Add />
-                            </IconButton>
+                            <Tooltip title={'Add'}>
+                                <IconButton className={'icon-buttons'} onClick={addEmployeeHandler}>
+                                    <Add />
+                                </IconButton>
+                            </Tooltip>
                         </th>
                     </tr>
                 </thead>
@@ -116,20 +111,24 @@ export const EmployeeDataGrid = () => {
                                       <td>{employee.email}</td>
                                       <td>{employee.status}</td>
                                       <td>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={employee._id}
-                                              onClick={deleteEmployeeHandler}
-                                          >
-                                              <Delete color="error" />
-                                          </IconButton>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={employee._id}
-                                              onClick={editEmployeeHandler}
-                                          >
-                                              <Edit color="primary" />
-                                          </IconButton>
+                                          <Tooltip title={'Delete'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={employee._id}
+                                                  onClick={deleteEmployeeHandler}
+                                              >
+                                                  <Delete color="error" />
+                                              </IconButton>
+                                          </Tooltip>
+                                          <Tooltip title={'Edit'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={employee._id}
+                                                  onClick={editEmployeeHandler}
+                                              >
+                                                  <Edit color="primary" />
+                                              </IconButton>
+                                          </Tooltip>
                                       </td>
                                   </tr>
                               );

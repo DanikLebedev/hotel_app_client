@@ -14,7 +14,7 @@ import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
-import { IconButton, Button, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
+import { IconButton, Button, Dialog, DialogTitle, DialogContent, Tooltip } from '@material-ui/core';
 import { Edit, Settings, Close, Send, History } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
 import { Pagination } from '../../components/Pagination/Pagination';
@@ -33,7 +33,7 @@ export const OrderPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>(fetchedOrders);
     const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [showFeedbackModal, setShowFeedbackModal] = useState<boolean>(false)
+    const [showFeedbackModal, setShowFeedbackModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [showToolBar, setShowToolBar] = useState<boolean>(false);
     const [orderHistory, setOrderHistory] = useState<OrderCart[]>(fetchedOrderHistory);
@@ -125,7 +125,6 @@ export const OrderPage: React.FC = () => {
 
     const closeFeedbackForm = (): void => {
         setShowFeedbackModal(false);
-
     };
 
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -153,15 +152,21 @@ export const OrderPage: React.FC = () => {
                         {userInfo ? (
                             <div className="order-page-user-info">
                                 <div className={showToolBar ? 'setting-wrapper open-settings' : 'setting-wrapper'}>
-                                    <Button onClick={handleShow}>
-                                        <Edit />
-                                    </Button>
-                                    <Button onClick={showOrdersHistory}>
-                                        <History />
-                                    </Button>
-                                    <Button onClick={showFeedbackForm}>
-                                        <Send />
-                                    </Button>
+                                    <Tooltip title={'Edit info'}>
+                                        <Button onClick={handleShow}>
+                                            <Edit />
+                                        </Button>
+                                    </Tooltip>
+                                    <Tooltip title={'Show history'}>
+                                        <Button onClick={showOrdersHistory}>
+                                            <History />
+                                        </Button>
+                                    </Tooltip>
+                                    <Tooltip title={'Leave feedback'}>
+                                        <Button onClick={showFeedbackForm}>
+                                            <Send />
+                                        </Button>
+                                    </Tooltip>
                                 </div>
                                 <h4>Your Info</h4>
                                 <p>
@@ -170,10 +175,23 @@ export const OrderPage: React.FC = () => {
                                 <p>
                                     <FontAwesomeIcon icon={faUser} /> Full name: {userInfo.name} {userInfo.lastName}{' '}
                                 </p>
-
-                                <IconButton className={'settings-button'} color="inherit" onClick={onToggleToolBar}>
-                                    <Settings />
-                                </IconButton>
+                                <div className={'setting-button-wrapper'}>
+                                    <IconButton
+                                        className={
+                                            showToolBar ? 'settings-button active-settings-icon' : 'settings-button'
+                                        }
+                                        color="inherit"
+                                        onClick={onToggleToolBar}
+                                    >
+                                        <Settings />
+                                    </IconButton>
+                                    <IconButton
+                                        className={showToolBar ? 'close-button active-close-icon' : 'close-button'}
+                                        onClick={onToggleToolBar}
+                                    >
+                                        <Close />
+                                    </IconButton>
+                                </div>
                             </div>
                         ) : (
                             <Loader />
@@ -186,7 +204,7 @@ export const OrderPage: React.FC = () => {
                         xs={12}
                         className="d-flex justify-content-around align-items-center flex-column"
                     >
-                        <h4 className='text-white'>Your Current Orders</h4>
+                        <h4 className="text-white">Your Current Orders</h4>
                         <div className="d-flex justify-content-center align-items-center flex-column">
                             {orders ? (
                                 orders.map((item: Order, key: number) => {
@@ -202,7 +220,7 @@ export const OrderPage: React.FC = () => {
                 </Row>
                 <Dialog open={showModal} onClose={closeOrdersHistory}>
                     <DialogTitle className="close-modal-button">
-                        <IconButton  onClick={closeOrdersHistory} >
+                        <IconButton onClick={closeOrdersHistory}>
                             <Close />
                         </IconButton>
                     </DialogTitle>
@@ -262,7 +280,7 @@ export const OrderPage: React.FC = () => {
                             />
                             <ErrorMessage error={errors.message} type={'error'} />
                             <button onClick={handleSubmit(addFeedbackHandler)} className={'button'}>
-                                Send feedback <Send/>
+                                Send feedback <Send />
                             </button>
                         </div>
                     </DialogContent>

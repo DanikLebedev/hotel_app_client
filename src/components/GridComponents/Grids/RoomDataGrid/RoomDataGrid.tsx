@@ -5,7 +5,7 @@ import { config } from '../../../../config';
 import toaster from 'toasted-notes';
 import { RoomForm } from '../../GridsForms/AdminRoomForm/RoomForm';
 import { Pagination } from '../../../Pagination/Pagination';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
@@ -192,30 +192,34 @@ export const RoomDataGrid: React.FC = () => {
                             <p>Price</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="price-input" onChange={dataSearch} />
-                                <button className="sort-button" onClick={() => onSortChange('price')}>
-                                    <i
-                                        className={
-                                            field === 'price'
-                                                ? `fas fa-${sortNumbersTypes('price')[currentSort].class}`
-                                                : 'fas fa-sort'
-                                        }
-                                    />
-                                </button>
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={() => onSortChange('price')}>
+                                        <i
+                                            className={
+                                                field === 'price'
+                                                    ? `fas fa-${sortNumbersTypes('price')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </th>
                         <th style={{ width: '80px' }}>
                             <p>Guests</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="guests-input" onChange={dataSearch} />
-                                <button className="sort-button" onClick={() => onSortChange('guests')}>
-                                    <i
-                                        className={
-                                            field === 'guests'
-                                                ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
-                                                : 'fas fa-sort'
-                                        }
-                                    />
-                                </button>
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={() => onSortChange('guests')}>
+                                        <i
+                                            className={
+                                                field === 'guests'
+                                                    ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </th>
                         <th>
@@ -226,30 +230,34 @@ export const RoomDataGrid: React.FC = () => {
                             <p>Rooms</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="rooms-input" onChange={dataSearch} />
-                                <button className="sort-button" onClick={() => onSortChange('rooms')}>
-                                    <i
-                                        className={
-                                            field === 'rooms'
-                                                ? `fas fa-${sortNumbersTypes('rooms')[currentSort].class}`
-                                                : 'fas fa-sort'
-                                        }
-                                    />
-                                </button>
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={() => onSortChange('rooms')}>
+                                        <i
+                                            className={
+                                                field === 'rooms'
+                                                    ? `fas fa-${sortNumbersTypes('rooms')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </th>
                         <th style={{ width: '80px' }}>
                             <p>Area</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="area-input" onChange={dataSearch} />
-                                <button className="sort-button" onClick={() => onSortChange('area')}>
-                                    <i
-                                        className={
-                                            field === 'area'
-                                                ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
-                                                : 'fas fa-sort'
-                                        }
-                                    />
-                                </button>
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={() => onSortChange('area')}>
+                                        <i
+                                            className={
+                                                field === 'area'
+                                                    ? `fas fa-${sortNumbersTypes('guests')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </th>
                         <th>
@@ -258,9 +266,11 @@ export const RoomDataGrid: React.FC = () => {
                         <th>
                             <p>Actions</p>
                             <div className={'d-flex'}>
-                                <IconButton className={'icon-buttons'} onClick={addRoomHandler}>
-                                    <Add />
-                                </IconButton>
+                                <Tooltip title={'Add'}>
+                                    <IconButton className={'icon-buttons'} onClick={addRoomHandler}>
+                                        <Add />
+                                    </IconButton>
+                                </Tooltip>
                             </div>
                         </th>
                     </tr>
@@ -289,20 +299,24 @@ export const RoomDataGrid: React.FC = () => {
                                           />
                                       </td>
                                       <td>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={room._id}
-                                              onClick={deleteRoomHandler}
-                                          >
-                                              <Delete color="error" />
-                                          </IconButton>
-                                          <IconButton
-                                              className={'icon-buttons'}
-                                              id={room._id}
-                                              onClick={editRoomHandler}
-                                          >
-                                              <Edit color="primary" />
-                                          </IconButton>
+                                          <Tooltip title={'Delete'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={room._id}
+                                                  onClick={deleteRoomHandler}
+                                              >
+                                                  <Delete color="error" />
+                                              </IconButton>
+                                          </Tooltip>
+                                          <Tooltip title={'Edit'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={room._id}
+                                                  onClick={editRoomHandler}
+                                              >
+                                                  <Edit color="primary" />
+                                              </IconButton>
+                                          </Tooltip>
                                       </td>
                                   </tr>
                               );

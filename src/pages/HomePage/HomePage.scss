@@ -1,6 +1,4 @@
-@import "src/index";
-@import "src/components/Navigation/Navigation";
-
+@import "../../styles/variables";
 
 
 .main__title {
@@ -11,28 +9,8 @@
 .room__icons {
   display: flex;
   flex-direction: column;
-  span {
-
-  }
 }
 
-
-.home-page__book-form {
-  padding: 10px;
-  border-radius: 20px;
-  transition: .3s ease-in-out;
-  margin: 10px auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  .button {
-    margin-top: 10px;
-    background: $price-color;
-  }
-}
 
 .home-page__header {
   padding-bottom: 180px;
@@ -132,6 +110,7 @@
   }
 }
 
+
 .section__title {
   font-weight: bold;
   font-size: 3em;
@@ -146,8 +125,6 @@
   }
 
   &-preview {
-    transition: .5s ease;
-
     img {
       width: 90%;
       height: 25rem;
@@ -267,9 +244,6 @@
       font-size: 2.5em;
     }
 
-    img {
-
-    }
 
     &-text {
       font-size: 1em;
@@ -332,9 +306,7 @@
 }
 
 
-.photo-wrapper {
-  background: url("../../assets/images/38736452-luxurious-bed-with-cushion-in-royal-bedroom-interior-hotel-room-in-bright-colors-vertical-orientatio.jpg") center center / cover;
-}
+
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
   .home-page-rooms-row {
@@ -413,20 +385,6 @@
 
 
 @media screen and (min-width: 300px) and (max-width: 480px) {
-  .change-user-info-form {
-    width: 250px;
-  }
-
-  .order-page-history {
-    height: 400px;
-  }
-
-  .grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
 
   .arrow-icon {
     font-size: 2em;
@@ -464,10 +422,7 @@
     justify-content: center !important;
   }
 
-  .settings-wrapper {
-    flex-direction: column;
-    align-items: flex-end;
-  }
+
   ul {
     .social_icon {
       width: 30px;

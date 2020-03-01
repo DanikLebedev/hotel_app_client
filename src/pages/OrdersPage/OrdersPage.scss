@@ -1,4 +1,4 @@
-@import "src/index";
+@import "../../styles/variables";
 .order-page {
   &-wrapper {
     min-height: 80vh;
@@ -46,8 +46,31 @@
       z-index: 12;
       top: 0;
       right: 0;
+      transition: .5s;
+      outline: none;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transition: .5s;
+      opacity: 0;
+      outline: none;
+
     }
   }
+}
+
+.active-close-icon {
+  transform: rotateY(-180deg);
+  opacity: 1 !important;
+}
+
+
+.active-settings-icon {
+  transform: rotateY(180deg);
+  opacity: 0;
 }
 
 .close-modal-button {
@@ -121,6 +144,22 @@
     margin: 10px 0;
     resize: none;
     border: 1px solid #000000;
+  }
+}
+
+@media screen and (min-width: 300px) and (max-width: 480px) {
+
+  .settings-wrapper {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .change-user-info-form {
+    width: 250px;
+  }
+
+  .order-page-history {
+    height: 400px;
   }
 }
 

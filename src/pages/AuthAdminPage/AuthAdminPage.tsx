@@ -52,7 +52,7 @@ export const AuthAdminPage = () => {
             <div className="auth-admin" />
             <div className="auth-admin-wrapper">
                 <div className="auth-admin-form">
-                    <h1 className="text-center">Admin Authorization</h1>
+                    <h1 className="text-center">Admin Login</h1>
                     <label>
                         <FontAwesomeIcon icon={faUser} />
                         <input
