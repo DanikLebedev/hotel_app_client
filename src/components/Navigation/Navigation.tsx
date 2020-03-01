@@ -18,6 +18,7 @@ const Navigation: React.FC = (): JSX.Element => {
     const isAuthenticated: boolean = auth.isAuthenticated;
     const userEmail: string = auth.userEmail;
     const logoutHandler = (event: { preventDefault: () => void }): void => {
+        setShowMenu(false);
         event.preventDefault();
         auth.logout();
         history.push('/');
@@ -114,7 +115,11 @@ const Navigation: React.FC = (): JSX.Element => {
                                         </NavLink>
                                     </Nav>
                                 ) : (
-                                    <NavLink to="/auth" className={'auth-link'}>
+                                    <NavLink
+                                        to="/auth"
+                                        onClick={(): void => setShowMenu(false)}
+                                        className={'auth-link'}
+                                    >
                                         <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
                                     </NavLink>
                                 )}
@@ -177,7 +182,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                             {t('logout.label')}
                                         </NavLink>
                                     ) : (
-                                        <NavLink to="/auth" id={'auth-link-burger-menu'} className={'auth-link '}>
+                                        <NavLink to="/auth" id={'auth-link-burger-menu'}  onClick={(): void => setShowMenu(false)} className={'auth-link '}>
                                             <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
                                         </NavLink>
                                     )}
@@ -211,7 +216,6 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('about.label')}
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
-
                         </Nav>
                     </div>
                     <div className={showMenu ? 'drawer open-drawer' : 'drawer'} />

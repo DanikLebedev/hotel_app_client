@@ -68,13 +68,13 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                                 : null}
                         </p>
                         <div className={'button__container'}>
-                            <button
+                            <NavLink
+                                to={`/rooms/${fetchedRooms[index]._id}`}
                                 id={fetchedRooms[index] ? fetchedRooms[index]._id : ''}
-                                onClick={() => history.push(`/rooms/${fetchedRooms[index]._id}`)}
                                 className={'button btn-black'}
                             >
                                 {t('book-room.label')}
-                            </button>
+                            </NavLink>
                             <NavLink to={'/rooms'}>
                                 <button className={'button btn-black'}>{t('see-rooms.label')}</button>
                             </NavLink>

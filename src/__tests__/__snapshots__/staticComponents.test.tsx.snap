@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+
+exports[`should render correctly with no props 1`] = `
+<HomePageAboutUs
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;
+
+exports[`should render rooms item with given data 1`] = `
+<Container
+  className="rooms-page__wrapper"
+  fluid={false}
+>
+  <ForwardRef
+    className="rooms-page__item mb-3"
+    noGutters={false}
+  >
+    <Col
+      className="room-page__item-img"
+      lg={6}
+      md={6}
+      sm={6}
+      style={
+        Object {
+          "background": "url(http://localhost:5000/static/string) center center / cover",
+        }
+      }
+      xs={6}
+    />
+    <Col
+      lg={6}
+      md={6}
+      sm={6}
+      xs={6}
+    >
+      <h3>
+        string
+      </h3>
+      <div
+        className="rooms-page__item-text"
+      >
+        <p>
+          Category: 
+          Standart
+        </p>
+        <p>
+          Price: 
+          123
+          $
+        </p>
+      </div>
+      <button
+        className="button btn-black"
+        onClick={[Function]}
+      >
+        Show More
+      </button>
+    </Col>
+  </ForwardRef>
+</Container>
+`;

@@ -11,7 +11,7 @@ import { withTranslation } from 'react-i18next';
 
 const AboutUsPage: React.FC = ({ t }: any) => {
     return (
-        <>
+        <div>
             <FindRoomForm />
             <video className="videoTag" autoPlay loop muted>
                 <source src={config.baseUrl + 'video.mp4'} type="video/mp4" />
@@ -68,7 +68,7 @@ const AboutUsPage: React.FC = ({ t }: any) => {
                     </div>
                 </Row>
             </Container>
-        </>
+        </div>
     );
 };
 

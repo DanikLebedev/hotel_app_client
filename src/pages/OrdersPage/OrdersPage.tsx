@@ -54,14 +54,14 @@ export const OrderPage: React.FC = () => {
     const [cls, setCls] = useState<Array<string>>(['order-item']);
     const [show, setShow] = useState(false);
 
-    function update(): void {
+    const update = useCallback(() => {
         OrderService.getUserOrders({ Authorization: `Bearer ${context.token}` }).then(({ orders }) =>
             setOrders(orders),
         );
         OrderService.getOrdersHistory({ Authorization: `Bearer ${context.token}` }).then(({ ordercarts }) =>
             setOrderHistory(ordercarts),
         );
-    }
+    }, [context.token]);
 
     const fetchCustomerInfo: CallableFunction = useCallback(async () => {
         const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${context.token}` });
@@ -140,7 +140,7 @@ export const OrderPage: React.FC = () => {
     useEffect(() => {
         update();
         fetchCustomerInfo();
-    }, [fetchedOrders, fetchCustomerInfo]);
+    }, [fetchedOrders, fetchCustomerInfo, update]);
 
     return (
         <div className="order-page">

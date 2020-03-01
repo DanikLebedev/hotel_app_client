@@ -41,7 +41,6 @@
 }
 
 .switсh-language__wrapper {
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +59,7 @@
   }
 
   &-burger-menu {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
   }
@@ -276,7 +275,7 @@
   }
 
   #auth-link-burger-menu {
-    display: block;
+    display: flex;
   }
 
   .auth-link {
@@ -361,7 +360,7 @@
   }
 
   #auth-link-burger-menu {
-    display: block;
+    display: flex;
   }
 
   #burger-button {

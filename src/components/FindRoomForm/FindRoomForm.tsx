@@ -134,7 +134,9 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
                             {options}
                         </Select>
                     </FormControl>
-                    <button onClick={handleSubmit(CheckRoomHandler)}>Check rooms</button>
+                    <button id={'check-rooms'} onClick={handleSubmit(CheckRoomHandler)}>
+                        Check rooms
+                    </button>
                 </div>
             </div>
         </div>

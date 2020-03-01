@@ -35,7 +35,7 @@ const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, 
                         <p>Category: {roomInfo.category}</p>
                         <p>Price: {roomInfo.price}$</p>
                     </div>
-                    <button onClick={showInfoHandler} className="button btn-black">
+                    <button onClick={showInfoHandler} id={'redirect-button'} className="button btn-black">
                         Show More
                     </button>
                 </Col>

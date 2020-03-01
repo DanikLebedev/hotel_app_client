@@ -55,7 +55,7 @@ export const HomePageArticles = () => {
                     md={12}
                     sm={12}
                     style={{ background: `url(${galleryPhoto4}) center center / cover `, height: '20rem' }}
-                ></Col>
+                />
             </Row>
         </Container>
     );
