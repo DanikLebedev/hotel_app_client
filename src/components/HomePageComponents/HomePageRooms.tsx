@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faBuilding, faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -12,7 +12,6 @@ import { ClientContext } from '../../context/client.context';
 
 const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
     const [index, setIndex] = useState<number>(0);
-    const history = useHistory();
     const fetchedRooms = useContext(ClientContext).fetchedRooms;
 
     const changeMainRoomHandler = (key: number): void => {
@@ -69,7 +68,7 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                         </p>
                         <div className={'button__container'}>
                             <NavLink
-                                to={`/rooms/${fetchedRooms[index]._id}`}
+                                to={fetchedRooms[index] ? `/rooms/${fetchedRooms[index]._id}` : '/rooms'}
                                 id={fetchedRooms[index] ? fetchedRooms[index]._id : ''}
                                 className={'button btn-black'}
                             >

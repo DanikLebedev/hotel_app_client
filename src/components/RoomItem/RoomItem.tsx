@@ -3,21 +3,14 @@ import { config } from '../../config';
 import { Room } from '../../interfaces/clientInterfaces';
 import { Col, Container, Row } from 'react-bootstrap';
 import './RoomItem.scss';
-import { useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-
-interface RoomItemProps  {
+interface RoomItemProps {
     roomInfo: Room;
     searchRoom: boolean;
 }
 
 const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, searchRoom }: RoomItemProps) => {
-    const history = useHistory();
-
-    const showInfoHandler = (): void => {
-        history.push(`/rooms/${roomInfo._id}`);
-    };
-
     return (
         <Container className={'rooms-page__wrapper'}>
             <Row className={searchRoom ? 'search-room-page__item mb-3' : 'rooms-page__item mb-3'}>
@@ -35,9 +28,9 @@ const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, 
                         <p>Category: {roomInfo.category}</p>
                         <p>Price: {roomInfo.price}$</p>
                     </div>
-                    <button onClick={showInfoHandler} id={'redirect-button'} className="button btn-black">
+                    <NavLink to={`/rooms/${roomInfo._id}`} id={`redirect-button`} className="button btn-black">
                         Show More
-                    </button>
+                    </NavLink>
                 </Col>
             </Row>
         </Container>

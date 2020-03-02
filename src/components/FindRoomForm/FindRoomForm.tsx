@@ -95,7 +95,7 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
         setShowForm(!showForm);
     };
     return (
-        <div className={showForm ? 'fixed-form-wrapper fixed-form-active' : 'fixed-form-wrapper'}>
+        <div id={'fixed-form-wrapper'} className={showForm ? 'fixed-form-wrapper fixed-form-active' : 'fixed-form-wrapper'}>
             <div className="toggle-fixed-form" onClick={ToggleFormHandler}>
                 {t('book-room.label')}
             </div>

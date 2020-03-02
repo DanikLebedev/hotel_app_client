@@ -1,5 +1,5 @@
 import React, { useContext, useState, ChangeEvent, useEffect } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { ClientContext } from '../../context/client.context';
 import './Navigation.scss';
 import engLogo from '../../assets/images/united_kingdom_640.png';
@@ -11,9 +11,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
 import { faSignOutAlt, faSignInAlt, faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import toaster from 'toasted-notes';
 
 const Navigation: React.FC = (): JSX.Element => {
     const auth = useContext(ClientContext);
+    const location = useLocation().pathname;
+    const [showMenu, setShowMenu] = useState<boolean>(false);
+    const [token, setToken] = useState('');
     const history = useHistory();
     const isAuthenticated: boolean = auth.isAuthenticated;
     const userEmail: string = auth.userEmail;
@@ -24,7 +28,16 @@ const Navigation: React.FC = (): JSX.Element => {
         history.push('/');
     };
 
-    const [showMenu, setShowMenu] = useState<boolean>(false);
+    const checkToken = () => {
+        const token = localStorage.getItem('userData');
+        if (token === null && location === '/orders') {
+            toaster.notify('Authorization time is out, please log in', {
+                duration: 2000,
+            });
+            auth.logout();
+            history.push('/auth');
+        }
+    };
 
     const showMenuHandler = (): void => {
         setShowMenu(!showMenu);
@@ -42,6 +55,10 @@ const Navigation: React.FC = (): JSX.Element => {
     const changeLang = (event: ChangeEvent<HTMLInputElement>): void => {
         i18n.changeLanguage(event.target.value);
     };
+
+    useEffect(() => {
+        checkToken();
+    }, [token, location]);
 
     const authComponents: JSX.Element = (
         <>
@@ -182,7 +199,12 @@ const Navigation: React.FC = (): JSX.Element => {
                                             {t('logout.label')}
                                         </NavLink>
                                     ) : (
-                                        <NavLink to="/auth" id={'auth-link-burger-menu'}  onClick={(): void => setShowMenu(false)} className={'auth-link '}>
+                                        <NavLink
+                                            to="/auth"
+                                            id={'auth-link-burger-menu'}
+                                            onClick={(): void => setShowMenu(false)}
+                                            className={'auth-link '}
+                                        >
                                             <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
                                         </NavLink>
                                     )}

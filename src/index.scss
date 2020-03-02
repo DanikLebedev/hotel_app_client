@@ -7,6 +7,14 @@ body {
   font-family: 'Cuprum', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+
+}
+
 * {
   margin: 0;
   padding: 0;

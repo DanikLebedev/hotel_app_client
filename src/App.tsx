@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
-import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import { Category, Employee, Feedback, Order, OrderCart, Orders, Room } from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
@@ -14,7 +13,6 @@ import { FeedbackService } from './APIServices/feedbackService';
 import { CategoryService } from './APIServices/categoryService';
 import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
-import Favicon from 'react-favicon';
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -73,7 +71,17 @@ const App: React.FC = () => {
             fetchOrders();
             fetchOrdersHistory();
         }
-    }, [fetchRoom, fetchFeedback, fetchCategories, fetchAllOrders, fetchEmployee, fetchOrders, fetchOrdersHistory]);
+    }, [
+        fetchRoom,
+        fetchFeedback,
+        fetchCategories,
+        fetchAllOrders,
+        fetchEmployee,
+        fetchOrders,
+        fetchOrdersHistory,
+        isAuthenticated,
+        userStatus,
+    ]);
 
     if (userStatus === 'admin') {
         return (
@@ -116,7 +124,6 @@ const App: React.FC = () => {
         >
             <Router>
                 <Header />
-                <ScrollToTop />
                 {routes}
             </Router>
             <Footer />
