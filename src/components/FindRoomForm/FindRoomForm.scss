@@ -41,12 +41,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
   label {
     font-size: 1.1em;
     color: $price-color;
     font-weight: bold;
-    margin:5px;
+    margin: 5px;
   }
+
   select {
     border-radius: 3px;
     border: 1px solid $price-color;
@@ -54,24 +56,28 @@
     margin: 10px;
     color: $price-color;
   }
+
   input {
     border-radius: 3px;
     border: 1px solid $price-color;
     padding: 10px;
     margin: 10px;
   }
+
   input[type=date] {
     -webkit-appearance: none;
     color: $price-color;
+
     &::placeholder {
       color: $price-color;
     }
   }
-  input[type=date]::-webkit-inner-spin-button
-  {
+
+  input[type=date]::-webkit-inner-spin-button {
     display: none;
     -webkit-appearance: none;
   }
+
   button {
     color: #fff;
     background-color: $price-color;;
@@ -106,12 +112,21 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
+  .fixed-form-wrapper {
     .toggle-fixed-form {
       font-size: 1rem;
     }
+  }
+
+
 }
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
+  .fixed-form-wrapper {
+    .toggle-fixed-form {
+      font-size: 1rem;
+    }
+  }
 
 }
 
@@ -119,18 +134,17 @@
 
   .fixed-form-wrapper {
     right: 10px;
+
+    .toggle-fixed-form {
+      font-size: 0.8em;
+      width: 80px;
+    }
   }
 
   .fixed-form-active {
     right: 240px;
   }
 
-
-
-  .toggle-fixed-form {
-    font-size: 0.8em !important;
-    width: 80px;
-  }
 
   .find-room-form {
     font-size: 0.8em;

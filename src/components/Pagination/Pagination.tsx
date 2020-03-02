@@ -19,8 +19,8 @@ export const Pagination: React.FC<Pagination> = ({ postPerPage, totalPosts, pagi
         <>
             <ul className="pagination">
                 {pageNumbers.map(number => (
-                    <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-                        <p onClick={() => paginate(number)} className="page-link">
+                    <li key={number} className={currentPage === number ? 'page-item active-link' : 'page-item'}>
+                        <p onClick={() => paginate(number)} color='#000' className="page-link">
                             {number}
                         </p>
                     </li>

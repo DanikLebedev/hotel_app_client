@@ -140,7 +140,6 @@ const Navigation: React.FC = (): JSX.Element => {
                                         <FontAwesomeIcon icon={faSignInAlt} /> {t('login.label')}
                                     </NavLink>
                                 )}
-                                <span>{userEmail ? <span>{userEmail}</span> : null}</span>
                             </li>
                             <div className="separator" />
                             <li>

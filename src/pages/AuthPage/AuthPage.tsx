@@ -111,7 +111,6 @@ const AuthPage: React.FC = () => {
                     Login
                 </button>
             </div>
-            {loading ? <Loader /> : null}
         </div>
     );
 
@@ -178,13 +177,12 @@ const AuthPage: React.FC = () => {
                     Register
                 </button>
             </div>
-            {loading ? <Loader /> : null}
         </div>
     );
     return (
         <>
-            <div className="auth"/>
-            <div className="wrapper">{haveAccount ? loginForm : signInForm}</div>
+            <div className="auth" />
+            <div className="wrapper">{loading ? <Loader /> : haveAccount ? loginForm : signInForm}</div>
         </>
     );
 };

@@ -75,7 +75,8 @@
 
 .close-modal-button {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-around;
+  align-items: flex-end;
 }
 
 .open-settings {

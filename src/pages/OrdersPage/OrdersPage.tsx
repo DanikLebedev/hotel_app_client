@@ -206,26 +206,27 @@ export const OrderPage: React.FC = () => {
                     >
                         <h4 className="text-white">Your Current Orders</h4>
                         <div className="d-flex justify-content-center align-items-center flex-column">
-                            {orders ? (
+                            {orders.length > 0 ? (
                                 orders.map((item: Order, key: number) => {
                                     return (
                                         <OrderItem key={key} classes={cls} order={item} onDelete={deleteOrderHandler} />
                                     );
                                 })
                             ) : (
-                                <h2>There no orders yet</h2>
+                                <h4 className='text-white'>There are no orders yet</h4>
                             )}
                         </div>
                     </Col>
                 </Row>
                 <Dialog open={showModal} onClose={closeOrdersHistory}>
-                    <DialogTitle className="close-modal-button">
-                        <IconButton onClick={closeOrdersHistory}>
-                            <Close />
-                        </IconButton>
-                    </DialogTitle>
                     <DialogContent>
-                        <h4>Orders history</h4>
+                        <div className="close-modal-button">
+                            <h4>Orders history</h4>{' '}
+                            <IconButton onClick={closeOrdersHistory}>
+                                <Close />
+                            </IconButton>
+                        </div>
+
                         <div className="grid-table-wrapper">
                             <table className="m-3 grid-table order-page-history">
                                 <thead>
@@ -261,13 +262,14 @@ export const OrderPage: React.FC = () => {
                     </DialogContent>
                 </Dialog>
                 <Dialog open={showFeedbackModal} onClose={closeFeedbackForm}>
-                    <DialogTitle className="close-modal-button">
-                        <IconButton onClick={closeFeedbackForm}>
-                            <Close />
-                        </IconButton>
-                    </DialogTitle>
                     <DialogContent>
-                        <h4>Leave your feedback</h4>
+                        <div className="close-modal-button">
+                            <h4>Leave your feedback</h4>
+                            <IconButton onClick={closeFeedbackForm}>
+                                <Close />
+                            </IconButton>
+                        </div>
+
                         <div className={'feedback-form'}>
                             <textarea
                                 rows={5}
