@@ -94,7 +94,7 @@ export const EmployeeDataGrid = () => {
                             <p>Status</p> <TextField id="standard-basic" name="status-input" onChange={dataSearch} />
                         </th>
                         <th>
-                            Actions
+                            <p>Actions</p>
                             <Tooltip title={'Add'}>
                                 <IconButton className={'icon-buttons'} onClick={addEmployeeHandler}>
                                     <Add />

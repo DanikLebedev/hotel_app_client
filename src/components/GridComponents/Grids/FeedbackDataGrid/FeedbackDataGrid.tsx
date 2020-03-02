@@ -144,7 +144,7 @@ export const FeedbackDataGrid = () => {
 
                         </th>
                         <th>
-                            Actions
+                            <p>Actions</p>
                             <Tooltip title={'Add'}>
                                 <IconButton className="icon-buttons" onClick={addFeedbackHandler}>
                                     <Add color="action" />

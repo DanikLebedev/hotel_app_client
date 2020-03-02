@@ -148,7 +148,7 @@ export const OrderPage: React.FC = () => {
             <div className="order-page-bg" />
             <Container className="order-page-wrapper">
                 <Row>
-                    <Col lg={3} md={3} sm={3} xs={9}>
+                    <Col lg={3} md={5} sm={9} xs={9}>
                         {userInfo ? (
                             <div className="order-page-user-info">
                                 <div className={showToolBar ? 'setting-wrapper open-settings' : 'setting-wrapper'}>
@@ -199,8 +199,8 @@ export const OrderPage: React.FC = () => {
                     </Col>
                     <Col
                         lg={8}
-                        md={8}
-                        sm={8}
+                        md={7}
+                        sm={12}
                         xs={12}
                         className="d-flex justify-content-around align-items-center flex-column"
                     >

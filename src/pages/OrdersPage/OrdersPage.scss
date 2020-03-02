@@ -28,7 +28,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 5vw;
+      width: 30%;
       z-index: -2;
       height: 100%;
       transition: .5s ;
@@ -147,9 +147,25 @@
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+
+}
+
+@media screen and (max-width: 768px) and (min-width: 480px) {
+  .order-page {
+    &-user-info {
+      .setting-wrapper {
+        width: 20%;
+      }
+    }
+
+  }
+
+}
+
 @media screen and (min-width: 300px) and (max-width: 480px) {
 
-  .settings-wrapper {
+  .setting-wrapper {
     flex-direction: column;
     align-items: flex-end;
   }
