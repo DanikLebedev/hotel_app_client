@@ -2,12 +2,14 @@ import { Container } from 'react-bootstrap';
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Data, Employee, Status } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { StatusService } from '../../../../APIServices/statusService';
 import { EmployeeService } from '../../../../APIServices/employeeService';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../../ErrorsComponents/ErrorMessage';
+import { Close } from '@material-ui/icons';
+import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { Button } from '@material-ui/core';
+
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -79,7 +81,14 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
         fetchStatuses();
     }, [props.isEdit, props.editProps, fetchStatuses]);
     return (
-        <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
+        <Container
+            onClick={(event: React.MouseEvent<HTMLDivElement>) =>
+                handleClickOutside(event, 'overlay-edit-employee', props)
+            }
+            id={'overlay-edit-employee'}
+            fluid={true}
+            className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}
+        >
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
                     <h3>Employee form</h3>
@@ -119,13 +128,13 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         {statusOptions}
                     </select>
                     <ErrorMessage error={errors.password} type={'error'} />
-                    <button onClick={handleSubmit(addEmployeeHandler)} className="btn btn-primary mt-3">
+                    <Button onClick={handleSubmit(addEmployeeHandler)} color="primary" variant="contained" className="mt-3">
                         {props.isEdit ? 'Update' : 'Create'} Employee
+                    </Button>
+                    <button className={'close-modal-button'} onClick={() => props.closeModal()}>
+                        <Close />
                     </button>
                 </div>
-                <button className={'close-button'} onClick={() => props.closeModal()}>
-                    <FontAwesomeIcon icon={faWindowClose} />
-                </button>
             </div>
         </Container>
     );

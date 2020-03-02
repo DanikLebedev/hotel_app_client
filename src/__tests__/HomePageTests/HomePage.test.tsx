@@ -8,34 +8,37 @@ import HomePageFeedback from '../../components/HomePageComponents/HomePageFeedba
 import { HomePageArticles } from '../../components/HomePageComponents/HomePageArticles';
 
 it('should renders without crashing', function() {
-    shallow(<HomePage />);
+    const wrapper = shallow(<HomePage />);
+    expect(wrapper).toMatchSnapshot();
 });
-
 
 describe('render home page components', () => {
     it('should renders without crashing', function() {
-        shallow(<HomePageAboutUs />);
+        const wrapper = shallow(<HomePageAboutUs />);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should renders without crashing', function() {
-        shallow(<HomePageRooms />);
+        const wrapper = shallow(<HomePageRooms />);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should renders without crashing', function() {
-        shallow(<HomePageFeatures />);
+        const wrapper = shallow(<HomePageFeatures />);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should renders without crashing', function() {
-        shallow(<HomePageFeedback />);
+        const wrapper = shallow(<HomePageFeedback />);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should renders without crashing', function() {
-        shallow(<HomePageArticles />);
+        const wrapper = shallow(<HomePageArticles />);
+        expect(wrapper).toMatchSnapshot();
     });
 });
 
 describe('testing base logic on home page', () => {
-    it('should change image by click', function () {
-        
-    });
-})
+    it('should change image by click', function() {});
+});

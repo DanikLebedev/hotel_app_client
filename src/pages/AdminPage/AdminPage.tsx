@@ -17,9 +17,11 @@ export const AdminPage: React.FC = () => {
 
     return (
         <Router>
+            <div className={'admin-page-wrapper'}>
             <h1 className="text-center m-3">Admin Page</h1>
             <AdminNavigation />
             {routes}
+            </div>
         </Router>
     );
 };

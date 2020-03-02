@@ -13,7 +13,7 @@ import { RoomInfoPage } from '../pages/RoomInfoPage/RoomInfoPage';
 import { AdminPageInfo } from '../components/AdminPageInfo/AdminPageInfo';
 
 describe('react router tests', () => {
-    const routes: JSX.Element = useRoutes(true, 'admin');
+    const routes: JSX.Element = useRoutes(true, '');
 
     test('render routes which depends on having token', () => {
         const wrapper = mount(<MemoryRouter initialEntries={['/orders']}>{routes}</MemoryRouter>);

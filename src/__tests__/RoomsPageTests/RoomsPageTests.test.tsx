@@ -19,14 +19,17 @@ const roomData = {
 
 describe('rooms page test tests', () => {
     it('should renders room page without crashing', function() {
-        shallow(<RoomsPage />);
+        const wrapper = shallow(<RoomsPage />);
+        expect(wrapper).toMatchSnapshot()
     });
 
     it('should renders rooms list without crashing', function() {
-        shallow(<RoomsList />);
+        const wrapper = shallow(<RoomsList />);
+        expect(wrapper).toMatchSnapshot()
     });
 
     it('should renders rooms item without crashing', function() {
-        shallow(<RoomItem roomInfo={roomData} searchRoom={false} />);
+        const wrapper = shallow(<RoomItem roomInfo={roomData} searchRoom={false} />);
+        expect(wrapper).toMatchSnapshot()
     });
 });

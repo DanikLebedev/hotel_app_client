@@ -15,6 +15,7 @@ import { useAuth } from '../../hooks/auth.hook';
 import { Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
+import { SubmitButton } from '../../components/SubmitButton/SubmitButton';
 
 interface RoomInfoPageFormData {
     checkIn: string;
@@ -202,9 +203,10 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
-                                    <button onClick={handleSubmit(handleShow)} className="submit-btn">
-                                        Check availability
-                                    </button>
+                                    {/*<button onClick={handleSubmit(handleShow)} className="submit-btn">*/}
+                                    {/*    Check availability*/}
+                                    {/*</button>*/}
+                                    <SubmitButton onClick={handleSubmit(handleShow)} title={'Check availability'} />
                                 </div>
                             </div>
                         </div>

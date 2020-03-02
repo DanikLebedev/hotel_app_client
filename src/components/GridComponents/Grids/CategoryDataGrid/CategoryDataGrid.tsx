@@ -69,57 +69,58 @@ export const CategoryDataGrid: React.FC = () => {
     }, [fetchedCategories]);
 
     return (
-        <div className="grid-table-wrapper">
-            <table className="m-3 grid-table">
-                <thead>
-                    <tr>
-                        <th className={'search-by-input-wrapper'}>
-                            <p>Title</p>
-                            <TextField id="standard-basic" name="category-input" onChange={dataSearch} />
-                        </th>
-                        <th>
-                            <p>Actions</p>
-                            <Tooltip title={'Add'}>
-                                <IconButton className={'icon-buttons'} onClick={addCategoryHandler}>
-                                    <Add />
-                                </IconButton>
-                            </Tooltip>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredFetchedCategories.length
-                        ? filteredFetchedCategories.map((category, key) => {
-                              return (
-                                  <tr key={key}>
-                                      <td>{category.title}</td>
-                                      <td>
-                                          <Tooltip title={'Delete'}>
-                                              <IconButton
-                                                  className={'icon-buttons'}
-                                                  id={category._id}
-                                                  onClick={deleteCategoryHandler}
-                                              >
-                                                  <Delete color="error" />
-                                              </IconButton>
-                                          </Tooltip>
-                                          <Tooltip title={'Edit'}>
-                                              <IconButton
-                                                  className={'icon-buttons'}
-                                                  id={category._id}
-                                                  onClick={editCategoryHandler}
-                                              >
-                                                  <Edit color="primary" />
-                                              </IconButton>
-                                          </Tooltip>
-                                      </td>
-                                  </tr>
-                              );
-                          })
-                        : null}
-                </tbody>
-            </table>
-
+        <>
+            <div className="grid-table-wrapper">
+                <table className="m-3 grid-table">
+                    <thead>
+                        <tr>
+                            <th className={'search-by-input-wrapper'}>
+                                <p>Title</p>
+                                <TextField id="standard-basic" name="category-input" onChange={dataSearch} />
+                            </th>
+                            <th>
+                                <p>Actions</p>
+                                <Tooltip title={'Add'}>
+                                    <IconButton className={'icon-buttons'} onClick={addCategoryHandler}>
+                                        <Add />
+                                    </IconButton>
+                                </Tooltip>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredFetchedCategories.length
+                            ? filteredFetchedCategories.map((category, key) => {
+                                  return (
+                                      <tr key={key}>
+                                          <td>{category.title}</td>
+                                          <td>
+                                              <Tooltip title={'Delete'}>
+                                                  <IconButton
+                                                      className={'icon-buttons'}
+                                                      id={category._id}
+                                                      onClick={deleteCategoryHandler}
+                                                  >
+                                                      <Delete color="error" />
+                                                  </IconButton>
+                                              </Tooltip>
+                                              <Tooltip title={'Edit'}>
+                                                  <IconButton
+                                                      className={'icon-buttons'}
+                                                      id={category._id}
+                                                      onClick={editCategoryHandler}
+                                                  >
+                                                      <Edit color="primary" />
+                                                  </IconButton>
+                                              </Tooltip>
+                                          </td>
+                                      </tr>
+                                  );
+                              })
+                            : null}
+                    </tbody>
+                </table>
+            </div>
             <AdminCategoryForm
                 update={updateComponent}
                 show={showModal}
@@ -127,6 +128,6 @@ export const CategoryDataGrid: React.FC = () => {
                 editProps={editProps}
                 closeModal={closeModal}
             />
-        </div>
+        </>
     );
 };

@@ -9,6 +9,9 @@ import { CustomerService } from '../../APIServices/customerService';
 import { ClientContext } from '../../context/client.context';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
+import { handleClickOutside } from '../../hooks/outsideClick.hook';
+import { Close} from '@material-ui/icons';
+
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -59,7 +62,12 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
     };
 
     return (
-        <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
+        <Container
+            onClick={(event: React.MouseEvent<HTMLDivElement>) => handleClickOutside(event, 'overlay-edit-user', props)}
+            id={'overlay-edit-user'}
+            fluid={true}
+            className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}
+        >
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="change-user-info-form ">
                     <h3>Change User form</h3>
@@ -100,14 +108,13 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
                         ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                     />
                     <ErrorMessage error={errors.email} type={'error'} />
-
                     <button onClick={handleSubmit(updateInfoHandler)} className="button-book">
                         Update Info
                     </button>
+                    <button className={'close-modal-button'} onClick={() => props.closeModal()}>
+                       <Close/>
+                    </button>
                 </div>
-                <button className={'close-button'} onClick={() => props.closeModal()}>
-                    <FontAwesomeIcon icon={faWindowClose} />
-                </button>
             </div>
         </Container>
     );

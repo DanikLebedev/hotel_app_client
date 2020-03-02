@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
 import { ClientContext } from '../../context/client.context';
 import { withTranslation } from 'react-i18next';
+import { SubmitButton } from '../SubmitButton/SubmitButton';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -95,8 +96,11 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
         setShowForm(!showForm);
     };
     return (
-        <div id={'fixed-form-wrapper'} className={showForm ? 'fixed-form-wrapper fixed-form-active' : 'fixed-form-wrapper'}>
-            <div className="toggle-fixed-form" onClick={ToggleFormHandler}>
+        <div
+            id={'fixed-form-wrapper'}
+            className={showForm ? 'fixed-form-wrapper fixed-form-active' : 'fixed-form-wrapper'}
+        >
+            <div className="toggle-fixed-form-button" onClick={ToggleFormHandler}>
                 {t('book-room.label')}
             </div>
             <div>
@@ -134,9 +138,7 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
                             {options}
                         </Select>
                     </FormControl>
-                    <button id={'check-rooms'} onClick={handleSubmit(CheckRoomHandler)}>
-                        Check rooms
-                    </button>
+                    <SubmitButton onClick={handleSubmit(CheckRoomHandler)} title={'Check rooms'} />
                 </div>
             </div>
         </div>

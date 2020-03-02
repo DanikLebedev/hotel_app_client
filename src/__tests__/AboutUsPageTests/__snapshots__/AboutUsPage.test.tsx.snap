@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`about us page tests should renders without crashing 1`] = `
+<AboutUsPage
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;

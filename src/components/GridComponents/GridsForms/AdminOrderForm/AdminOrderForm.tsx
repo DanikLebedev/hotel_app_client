@@ -3,9 +3,11 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Category, Data, OrderCart } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { OrderService } from '../../../../APIServices/orderService';
+import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { Button } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
+
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -72,7 +74,14 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
     }, [props.isEdit, props.editProps, fetchCategories]);
 
     return (
-        <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
+        <Container
+            onClick={(event: React.MouseEvent<HTMLDivElement>) =>
+                handleClickOutside(event, 'overlay-edit-order', props)
+            }
+            id={'overlay-edit-order'}
+            fluid={true}
+            className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}
+        >
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
                     <h3>Order form</h3>
@@ -114,13 +123,13 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                     <select name="category" className={'form-control'} onChange={selectChangeHandler} id="category">
                         {options}
                     </select>
-                    <button onClick={addOrderHandler} className="btn btn-primary mt-3">
+                    <Button onClick={addOrderHandler} color="primary" variant="contained" className="mt-3">
                         {props.isEdit ? 'Update' : 'Create'} Order
+                    </Button>
+                    <button className={'close-modal-button'} onClick={() => props.closeModal()}>
+                        <Close />
                     </button>
                 </div>
-                <button className={'close-button'} onClick={() => props.closeModal()}>
-                    <FontAwesomeIcon icon={faWindowClose} />
-                </button>
             </div>
         </Container>
     );

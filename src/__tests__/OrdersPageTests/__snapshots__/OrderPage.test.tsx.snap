@@ -1,0 +1,1093 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`order page test tests should renders order page without crashing 1`] = `
+<div
+  className="order-page"
+>
+  <withI18nextTranslation(FindRoomForm) />
+  <div
+    className="order-page-bg"
+  />
+  <Container
+    className="order-page-wrapper"
+    fluid={false}
+  >
+    <ForwardRef
+      noGutters={false}
+    >
+      <Col
+        lg={3}
+        md={5}
+        sm={9}
+        xs={9}
+      >
+        <div
+          className="order-page-user-info"
+        >
+          <div
+            className="setting-wrapper"
+          >
+            <WithStyles(ForwardRef(Tooltip))
+              title="Edit info"
+            >
+              <WithStyles(ForwardRef(SubmitButton))
+                id="show-edit-modal"
+                onClick={[Function]}
+              >
+                <EditIcon />
+              </WithStyles(ForwardRef(SubmitButton))>
+            </WithStyles(ForwardRef(Tooltip))>
+            <WithStyles(ForwardRef(Tooltip))
+              title="Show history"
+            >
+              <WithStyles(ForwardRef(SubmitButton))
+                onClick={[Function]}
+              >
+                <HistoryIcon />
+              </WithStyles(ForwardRef(SubmitButton))>
+            </WithStyles(ForwardRef(Tooltip))>
+            <WithStyles(ForwardRef(Tooltip))
+              title="Leave feedback"
+            >
+              <WithStyles(ForwardRef(SubmitButton))
+                onClick={[Function]}
+              >
+                <SendIcon />
+              </WithStyles(ForwardRef(SubmitButton))>
+            </WithStyles(ForwardRef(Tooltip))>
+          </div>
+          <h4>
+            Your Info
+          </h4>
+          <p>
+            <FontAwesomeIcon
+              border={false}
+              className=""
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    512,
+                    512,
+                    Array [],
+                    "f0e0",
+                    "M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z",
+                  ],
+                  "iconName": "envelope",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size={null}
+              spin={false}
+              swapOpacity={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+             Email: 
+          </p>
+          <p>
+            <FontAwesomeIcon
+              border={false}
+              className=""
+              fixedWidth={false}
+              flip={null}
+              icon={
+                Object {
+                  "icon": Array [
+                    448,
+                    512,
+                    Array [],
+                    "f007",
+                    "M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z",
+                  ],
+                  "iconName": "user",
+                  "prefix": "fas",
+                }
+              }
+              inverse={false}
+              listItem={false}
+              mask={null}
+              pull={null}
+              pulse={false}
+              rotation={null}
+              size={null}
+              spin={false}
+              swapOpacity={false}
+              symbol={false}
+              title=""
+              transform={null}
+            />
+             Full name: 
+             
+             
+          </p>
+          <div
+            className="setting-button-wrapper"
+          >
+            <WithStyles(ForwardRef(IconButton))
+              className="settings-button"
+              color="inherit"
+              id="toggle-settings-button"
+              onClick={[Function]}
+            >
+              <SettingsIcon />
+            </WithStyles(ForwardRef(IconButton))>
+            <WithStyles(ForwardRef(IconButton))
+              className="close-button"
+              onClick={[Function]}
+            >
+              <CloseIcon />
+            </WithStyles(ForwardRef(IconButton))>
+          </div>
+        </div>
+      </Col>
+      <Col
+        className="d-flex justify-content-around align-items-center flex-column"
+        lg={8}
+        md={7}
+        sm={12}
+        xs={12}
+      >
+        <h4
+          className="text-white"
+        >
+          Your Current Orders
+        </h4>
+        <div
+          className="d-flex justify-content-center align-items-center flex-column"
+        >
+          <OrderItem
+            classes={
+              Array [
+                "order-item",
+              ]
+            }
+            key="0"
+            onDelete={[Function]}
+            order={
+              Object {
+                "_id": "",
+                "category": "",
+                "checkIn": "",
+                "checkOut": "",
+                "comment": "",
+                "guests": 0,
+                "price": 0,
+                "status": "",
+                "userEmail": "",
+              }
+            }
+          />
+        </div>
+      </Col>
+    </ForwardRef>
+    <WithStyles(ForwardRef(Dialog))
+      className="edit-user-modal"
+      onClose={[Function]}
+      open={false}
+    >
+      <WithStyles(ForwardRef(DialogContent))>
+        <div
+          className="close-modal-button"
+        >
+          <h4>
+            Orders history
+          </h4>
+           
+          <WithStyles(ForwardRef(IconButton))
+            onClick={[Function]}
+          >
+            <CloseIcon />
+          </WithStyles(ForwardRef(IconButton))>
+        </div>
+        <div
+          className="grid-table-wrapper"
+        >
+          <table
+            className="m-3 grid-table order-page-history"
+          >
+            <thead>
+              <tr>
+                <th>
+                  Category
+                </th>
+                <th>
+                  Check In
+                </th>
+                <th>
+                  Check Out
+                </th>
+                <th>
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                key="0"
+              >
+                <td />
+                <td />
+                <td />
+                <td />
+              </tr>
+            </tbody>
+          </table>
+          <Pagination
+            currentPage={1}
+            paginate={[Function]}
+            postPerPage={4}
+            totalPosts={1}
+          />
+        </div>
+      </WithStyles(ForwardRef(DialogContent))>
+    </WithStyles(ForwardRef(Dialog))>
+    <WithStyles(ForwardRef(Dialog))
+      onClose={[Function]}
+      open={false}
+    >
+      <WithStyles(ForwardRef(DialogContent))>
+        <div
+          className="close-modal-button"
+        >
+          <h4>
+            Leave your feedback
+          </h4>
+          <WithStyles(ForwardRef(IconButton))
+            onClick={[Function]}
+          >
+            <CloseIcon />
+          </WithStyles(ForwardRef(IconButton))>
+        </div>
+        <div
+          className="feedback-form"
+        >
+          <textarea
+            className="form-control"
+            cols={45}
+            name="message"
+            onChange={[Function]}
+            placeholder="your feedback..."
+            rows={5}
+          />
+          <ErrorMessage
+            type="error"
+          />
+          <button
+            className="button"
+            onClick={[Function]}
+          >
+            Send feedback 
+            <SendIcon />
+          </button>
+        </div>
+      </WithStyles(ForwardRef(DialogContent))>
+    </WithStyles(ForwardRef(Dialog))>
+    <EditUserInfoForm
+      closeModal={[Function]}
+      editProps={
+        Object {
+          "email": "",
+          "lastName": "",
+          "name": "",
+          "order": Array [],
+          "password": "",
+        }
+      }
+      isEdit={false}
+      show={false}
+    />
+  </Container>
+</div>
+`;
+
+exports[`order page test tests should toggle toolbar 1`] = `
+<div
+  className="setting-wrapper"
+>
+  <WithStyles(ForwardRef(Tooltip))
+    title="Edit info"
+  >
+    <ForwardRef(Tooltip)
+      classes={
+        Object {
+          "arrow": "MuiTooltip-arrow",
+          "popper": "MuiTooltip-popper",
+          "popperArrow": "MuiTooltip-popperArrow",
+          "popperInteractive": "MuiTooltip-popperInteractive",
+          "tooltip": "MuiTooltip-tooltip",
+          "tooltipArrow": "MuiTooltip-tooltipArrow",
+          "tooltipPlacementBottom": "MuiTooltip-tooltipPlacementBottom",
+          "tooltipPlacementLeft": "MuiTooltip-tooltipPlacementLeft",
+          "tooltipPlacementRight": "MuiTooltip-tooltipPlacementRight",
+          "tooltipPlacementTop": "MuiTooltip-tooltipPlacementTop",
+          "touch": "MuiTooltip-touch",
+        }
+      }
+      title="Edit info"
+    >
+      <WithStyles(ForwardRef(SubmitButton))
+        aria-describedby={null}
+        className=""
+        id="show-edit-modal"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
+        title="Edit info"
+      >
+        <ForwardRef(SubmitButton)
+          aria-describedby={null}
+          className=""
+          classes={
+            Object {
+              "colorInherit": "MuiButton-colorInherit",
+              "contained": "MuiButton-contained",
+              "containedPrimary": "MuiButton-containedPrimary",
+              "containedSecondary": "MuiButton-containedSecondary",
+              "containedSizeLarge": "MuiButton-containedSizeLarge",
+              "containedSizeSmall": "MuiButton-containedSizeSmall",
+              "disableElevation": "MuiButton-disableElevation",
+              "disabled": "Mui-disabled",
+              "endIcon": "MuiButton-endIcon",
+              "focusVisible": "Mui-focusVisible",
+              "fullWidth": "MuiButton-fullWidth",
+              "iconSizeLarge": "MuiButton-iconSizeLarge",
+              "iconSizeMedium": "MuiButton-iconSizeMedium",
+              "iconSizeSmall": "MuiButton-iconSizeSmall",
+              "label": "MuiButton-label",
+              "outlined": "MuiButton-outlined",
+              "outlinedPrimary": "MuiButton-outlinedPrimary",
+              "outlinedSecondary": "MuiButton-outlinedSecondary",
+              "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
+              "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
+              "root": "MuiButton-root",
+              "sizeLarge": "MuiButton-sizeLarge",
+              "sizeSmall": "MuiButton-sizeSmall",
+              "startIcon": "MuiButton-startIcon",
+              "text": "MuiButton-text",
+              "textPrimary": "MuiButton-textPrimary",
+              "textSecondary": "MuiButton-textSecondary",
+              "textSizeLarge": "MuiButton-textSizeLarge",
+              "textSizeSmall": "MuiButton-textSizeSmall",
+            }
+          }
+          id="show-edit-modal"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          title="Edit info"
+        >
+          <WithStyles(ForwardRef(ButtonBase))
+            aria-describedby={null}
+            className="MuiButton-root MuiButton-text"
+            component="button"
+            disabled={false}
+            focusRipple={true}
+            focusVisibleClassName="Mui-focusVisible"
+            id="show-edit-modal"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseLeave={[Function]}
+            onMouseOver={[Function]}
+            onTouchEnd={[Function]}
+            onTouchStart={[Function]}
+            title="Edit info"
+            type="button"
+          >
+            <ForwardRef(ButtonBase)
+              aria-describedby={null}
+              className="MuiButton-root MuiButton-text"
+              classes={
+                Object {
+                  "disabled": "Mui-disabled",
+                  "focusVisible": "Mui-focusVisible",
+                  "root": "MuiButtonBase-root",
+                }
+              }
+              component="button"
+              disabled={false}
+              focusRipple={true}
+              focusVisibleClassName="Mui-focusVisible"
+              id="show-edit-modal"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              onTouchEnd={[Function]}
+              onTouchStart={[Function]}
+              title="Edit info"
+              type="button"
+            >
+              <button
+                aria-describedby={null}
+                className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                disabled={false}
+                id="show-edit-modal"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                title="Edit info"
+                type="button"
+              >
+                <span
+                  className="MuiButton-label"
+                >
+                  <ForwardRef>
+                    <WithStyles(ForwardRef(SvgIcon))>
+                      <ForwardRef(SvgIcon)
+                        classes={
+                          Object {
+                            "colorAction": "MuiSvgIcon-colorAction",
+                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                            "colorError": "MuiSvgIcon-colorError",
+                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                            "root": "MuiSvgIcon-root",
+                          }
+                        }
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="MuiSvgIcon-root"
+                          focusable="false"
+                          role="presentation"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                          />
+                        </svg>
+                      </ForwardRef(SvgIcon)>
+                    </WithStyles(ForwardRef(SvgIcon))>
+                  </ForwardRef>
+                </span>
+                <NoSsr>
+                  <WithStyles(undefined)
+                    center={false}
+                  >
+                    <ForwardRef(TouchRipple)
+                      center={false}
+                      classes={
+                        Object {
+                          "child": "MuiTouchRipple-child",
+                          "childLeaving": "MuiTouchRipple-childLeaving",
+                          "childPulsate": "MuiTouchRipple-childPulsate",
+                          "ripple": "MuiTouchRipple-ripple",
+                          "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                          "rippleVisible": "MuiTouchRipple-rippleVisible",
+                          "root": "MuiTouchRipple-root",
+                        }
+                      }
+                    >
+                      <span
+                        className="MuiTouchRipple-root"
+                      >
+                        <TransitionGroup
+                          childFactory={[Function]}
+                          component={null}
+                          exit={true}
+                        />
+                      </span>
+                    </ForwardRef(TouchRipple)>
+                  </WithStyles(undefined)>
+                </NoSsr>
+              </button>
+            </ForwardRef(ButtonBase)>
+          </WithStyles(ForwardRef(ButtonBase))>
+        </ForwardRef(SubmitButton)>
+      </WithStyles(ForwardRef(SubmitButton))>
+      <ForwardRef(Popper)
+        anchorEl={
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text"
+            id="show-edit-modal"
+            tabindex="0"
+            title="Edit info"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        }
+        className="MuiTooltip-popper"
+        id={null}
+        open={false}
+        placement="bottom"
+        popperOptions={
+          Object {
+            "modifiers": Object {
+              "arrow": Object {
+                "element": null,
+                "enabled": false,
+              },
+            },
+          }
+        }
+        transition={true}
+      />
+    </ForwardRef(Tooltip)>
+  </WithStyles(ForwardRef(Tooltip))>
+  <WithStyles(ForwardRef(Tooltip))
+    title="Show history"
+  >
+    <ForwardRef(Tooltip)
+      classes={
+        Object {
+          "arrow": "MuiTooltip-arrow",
+          "popper": "MuiTooltip-popper",
+          "popperArrow": "MuiTooltip-popperArrow",
+          "popperInteractive": "MuiTooltip-popperInteractive",
+          "tooltip": "MuiTooltip-tooltip",
+          "tooltipArrow": "MuiTooltip-tooltipArrow",
+          "tooltipPlacementBottom": "MuiTooltip-tooltipPlacementBottom",
+          "tooltipPlacementLeft": "MuiTooltip-tooltipPlacementLeft",
+          "tooltipPlacementRight": "MuiTooltip-tooltipPlacementRight",
+          "tooltipPlacementTop": "MuiTooltip-tooltipPlacementTop",
+          "touch": "MuiTooltip-touch",
+        }
+      }
+      title="Show history"
+    >
+      <WithStyles(ForwardRef(SubmitButton))
+        aria-describedby={null}
+        className=""
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
+        title="Show history"
+      >
+        <ForwardRef(SubmitButton)
+          aria-describedby={null}
+          className=""
+          classes={
+            Object {
+              "colorInherit": "MuiButton-colorInherit",
+              "contained": "MuiButton-contained",
+              "containedPrimary": "MuiButton-containedPrimary",
+              "containedSecondary": "MuiButton-containedSecondary",
+              "containedSizeLarge": "MuiButton-containedSizeLarge",
+              "containedSizeSmall": "MuiButton-containedSizeSmall",
+              "disableElevation": "MuiButton-disableElevation",
+              "disabled": "Mui-disabled",
+              "endIcon": "MuiButton-endIcon",
+              "focusVisible": "Mui-focusVisible",
+              "fullWidth": "MuiButton-fullWidth",
+              "iconSizeLarge": "MuiButton-iconSizeLarge",
+              "iconSizeMedium": "MuiButton-iconSizeMedium",
+              "iconSizeSmall": "MuiButton-iconSizeSmall",
+              "label": "MuiButton-label",
+              "outlined": "MuiButton-outlined",
+              "outlinedPrimary": "MuiButton-outlinedPrimary",
+              "outlinedSecondary": "MuiButton-outlinedSecondary",
+              "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
+              "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
+              "root": "MuiButton-root",
+              "sizeLarge": "MuiButton-sizeLarge",
+              "sizeSmall": "MuiButton-sizeSmall",
+              "startIcon": "MuiButton-startIcon",
+              "text": "MuiButton-text",
+              "textPrimary": "MuiButton-textPrimary",
+              "textSecondary": "MuiButton-textSecondary",
+              "textSizeLarge": "MuiButton-textSizeLarge",
+              "textSizeSmall": "MuiButton-textSizeSmall",
+            }
+          }
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          title="Show history"
+        >
+          <WithStyles(ForwardRef(ButtonBase))
+            aria-describedby={null}
+            className="MuiButton-root MuiButton-text"
+            component="button"
+            disabled={false}
+            focusRipple={true}
+            focusVisibleClassName="Mui-focusVisible"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseLeave={[Function]}
+            onMouseOver={[Function]}
+            onTouchEnd={[Function]}
+            onTouchStart={[Function]}
+            title="Show history"
+            type="button"
+          >
+            <ForwardRef(ButtonBase)
+              aria-describedby={null}
+              className="MuiButton-root MuiButton-text"
+              classes={
+                Object {
+                  "disabled": "Mui-disabled",
+                  "focusVisible": "Mui-focusVisible",
+                  "root": "MuiButtonBase-root",
+                }
+              }
+              component="button"
+              disabled={false}
+              focusRipple={true}
+              focusVisibleClassName="Mui-focusVisible"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              onTouchEnd={[Function]}
+              onTouchStart={[Function]}
+              title="Show history"
+              type="button"
+            >
+              <button
+                aria-describedby={null}
+                className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                title="Show history"
+                type="button"
+              >
+                <span
+                  className="MuiButton-label"
+                >
+                  <ForwardRef>
+                    <WithStyles(ForwardRef(SvgIcon))>
+                      <ForwardRef(SvgIcon)
+                        classes={
+                          Object {
+                            "colorAction": "MuiSvgIcon-colorAction",
+                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                            "colorError": "MuiSvgIcon-colorError",
+                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                            "root": "MuiSvgIcon-root",
+                          }
+                        }
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="MuiSvgIcon-root"
+                          focusable="false"
+                          role="presentation"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                          />
+                        </svg>
+                      </ForwardRef(SvgIcon)>
+                    </WithStyles(ForwardRef(SvgIcon))>
+                  </ForwardRef>
+                </span>
+                <NoSsr>
+                  <WithStyles(undefined)
+                    center={false}
+                  >
+                    <ForwardRef(TouchRipple)
+                      center={false}
+                      classes={
+                        Object {
+                          "child": "MuiTouchRipple-child",
+                          "childLeaving": "MuiTouchRipple-childLeaving",
+                          "childPulsate": "MuiTouchRipple-childPulsate",
+                          "ripple": "MuiTouchRipple-ripple",
+                          "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                          "rippleVisible": "MuiTouchRipple-rippleVisible",
+                          "root": "MuiTouchRipple-root",
+                        }
+                      }
+                    >
+                      <span
+                        className="MuiTouchRipple-root"
+                      >
+                        <TransitionGroup
+                          childFactory={[Function]}
+                          component={null}
+                          exit={true}
+                        />
+                      </span>
+                    </ForwardRef(TouchRipple)>
+                  </WithStyles(undefined)>
+                </NoSsr>
+              </button>
+            </ForwardRef(ButtonBase)>
+          </WithStyles(ForwardRef(ButtonBase))>
+        </ForwardRef(SubmitButton)>
+      </WithStyles(ForwardRef(SubmitButton))>
+      <ForwardRef(Popper)
+        anchorEl={
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text"
+            tabindex="0"
+            title="Show history"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        }
+        className="MuiTooltip-popper"
+        id={null}
+        open={false}
+        placement="bottom"
+        popperOptions={
+          Object {
+            "modifiers": Object {
+              "arrow": Object {
+                "element": null,
+                "enabled": false,
+              },
+            },
+          }
+        }
+        transition={true}
+      />
+    </ForwardRef(Tooltip)>
+  </WithStyles(ForwardRef(Tooltip))>
+  <WithStyles(ForwardRef(Tooltip))
+    title="Leave feedback"
+  >
+    <ForwardRef(Tooltip)
+      classes={
+        Object {
+          "arrow": "MuiTooltip-arrow",
+          "popper": "MuiTooltip-popper",
+          "popperArrow": "MuiTooltip-popperArrow",
+          "popperInteractive": "MuiTooltip-popperInteractive",
+          "tooltip": "MuiTooltip-tooltip",
+          "tooltipArrow": "MuiTooltip-tooltipArrow",
+          "tooltipPlacementBottom": "MuiTooltip-tooltipPlacementBottom",
+          "tooltipPlacementLeft": "MuiTooltip-tooltipPlacementLeft",
+          "tooltipPlacementRight": "MuiTooltip-tooltipPlacementRight",
+          "tooltipPlacementTop": "MuiTooltip-tooltipPlacementTop",
+          "touch": "MuiTooltip-touch",
+        }
+      }
+      title="Leave feedback"
+    >
+      <WithStyles(ForwardRef(SubmitButton))
+        aria-describedby={null}
+        className=""
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
+        title="Leave feedback"
+      >
+        <ForwardRef(SubmitButton)
+          aria-describedby={null}
+          className=""
+          classes={
+            Object {
+              "colorInherit": "MuiButton-colorInherit",
+              "contained": "MuiButton-contained",
+              "containedPrimary": "MuiButton-containedPrimary",
+              "containedSecondary": "MuiButton-containedSecondary",
+              "containedSizeLarge": "MuiButton-containedSizeLarge",
+              "containedSizeSmall": "MuiButton-containedSizeSmall",
+              "disableElevation": "MuiButton-disableElevation",
+              "disabled": "Mui-disabled",
+              "endIcon": "MuiButton-endIcon",
+              "focusVisible": "Mui-focusVisible",
+              "fullWidth": "MuiButton-fullWidth",
+              "iconSizeLarge": "MuiButton-iconSizeLarge",
+              "iconSizeMedium": "MuiButton-iconSizeMedium",
+              "iconSizeSmall": "MuiButton-iconSizeSmall",
+              "label": "MuiButton-label",
+              "outlined": "MuiButton-outlined",
+              "outlinedPrimary": "MuiButton-outlinedPrimary",
+              "outlinedSecondary": "MuiButton-outlinedSecondary",
+              "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
+              "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
+              "root": "MuiButton-root",
+              "sizeLarge": "MuiButton-sizeLarge",
+              "sizeSmall": "MuiButton-sizeSmall",
+              "startIcon": "MuiButton-startIcon",
+              "text": "MuiButton-text",
+              "textPrimary": "MuiButton-textPrimary",
+              "textSecondary": "MuiButton-textSecondary",
+              "textSizeLarge": "MuiButton-textSizeLarge",
+              "textSizeSmall": "MuiButton-textSizeSmall",
+            }
+          }
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          title="Leave feedback"
+        >
+          <WithStyles(ForwardRef(ButtonBase))
+            aria-describedby={null}
+            className="MuiButton-root MuiButton-text"
+            component="button"
+            disabled={false}
+            focusRipple={true}
+            focusVisibleClassName="Mui-focusVisible"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseLeave={[Function]}
+            onMouseOver={[Function]}
+            onTouchEnd={[Function]}
+            onTouchStart={[Function]}
+            title="Leave feedback"
+            type="button"
+          >
+            <ForwardRef(ButtonBase)
+              aria-describedby={null}
+              className="MuiButton-root MuiButton-text"
+              classes={
+                Object {
+                  "disabled": "Mui-disabled",
+                  "focusVisible": "Mui-focusVisible",
+                  "root": "MuiButtonBase-root",
+                }
+              }
+              component="button"
+              disabled={false}
+              focusRipple={true}
+              focusVisibleClassName="Mui-focusVisible"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              onTouchEnd={[Function]}
+              onTouchStart={[Function]}
+              title="Leave feedback"
+              type="button"
+            >
+              <button
+                aria-describedby={null}
+                className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                title="Leave feedback"
+                type="button"
+              >
+                <span
+                  className="MuiButton-label"
+                >
+                  <ForwardRef>
+                    <WithStyles(ForwardRef(SvgIcon))>
+                      <ForwardRef(SvgIcon)
+                        classes={
+                          Object {
+                            "colorAction": "MuiSvgIcon-colorAction",
+                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                            "colorError": "MuiSvgIcon-colorError",
+                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                            "root": "MuiSvgIcon-root",
+                          }
+                        }
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="MuiSvgIcon-root"
+                          focusable="false"
+                          role="presentation"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                          />
+                        </svg>
+                      </ForwardRef(SvgIcon)>
+                    </WithStyles(ForwardRef(SvgIcon))>
+                  </ForwardRef>
+                </span>
+                <NoSsr>
+                  <WithStyles(undefined)
+                    center={false}
+                  >
+                    <ForwardRef(TouchRipple)
+                      center={false}
+                      classes={
+                        Object {
+                          "child": "MuiTouchRipple-child",
+                          "childLeaving": "MuiTouchRipple-childLeaving",
+                          "childPulsate": "MuiTouchRipple-childPulsate",
+                          "ripple": "MuiTouchRipple-ripple",
+                          "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                          "rippleVisible": "MuiTouchRipple-rippleVisible",
+                          "root": "MuiTouchRipple-root",
+                        }
+                      }
+                    >
+                      <span
+                        className="MuiTouchRipple-root"
+                      >
+                        <TransitionGroup
+                          childFactory={[Function]}
+                          component={null}
+                          exit={true}
+                        />
+                      </span>
+                    </ForwardRef(TouchRipple)>
+                  </WithStyles(undefined)>
+                </NoSsr>
+              </button>
+            </ForwardRef(ButtonBase)>
+          </WithStyles(ForwardRef(ButtonBase))>
+        </ForwardRef(SubmitButton)>
+      </WithStyles(ForwardRef(SubmitButton))>
+      <ForwardRef(Popper)
+        anchorEl={
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text"
+            tabindex="0"
+            title="Leave feedback"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        }
+        className="MuiTooltip-popper"
+        id={null}
+        open={false}
+        placement="bottom"
+        popperOptions={
+          Object {
+            "modifiers": Object {
+              "arrow": Object {
+                "element": null,
+                "enabled": false,
+              },
+            },
+          }
+        }
+        transition={true}
+      />
+    </ForwardRef(Tooltip)>
+  </WithStyles(ForwardRef(Tooltip))>
+</div>
+`;
+
+exports[`order page test tests should toggle toolbar 2`] = `"received is not a function"`;

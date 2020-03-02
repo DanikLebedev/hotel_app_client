@@ -33,13 +33,12 @@
 }
 
 
-
 .grid-table {
   padding: 20px;
   width: 100%;
   overflow-x: auto;
   border-collapse: collapse;
-  box-shadow: 5px 5px 5px #cdcdcd;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   border: 2px solid lightslategrey;
 
   thead {
@@ -73,12 +72,12 @@
   align-items: center;
 }
 
-.close-button {
+.close-modal-button {
   background: none;
   border: none;
   margin: 0 10px;
   transition: .3s ease;
-  color: #ffffff;
+  color: #000000;
   position: absolute;
   top: 5%;
   right: 5%;
@@ -94,15 +93,18 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-      .grid-table-wrapper {
-        font-size: 1.2em;
-      }
+
+
+  .grid-table-wrapper {
+    font-size: 1.2em;
+  }
 }
 
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
   .grid-table-wrapper {
     font-size: 1em;
+
     .grid-table {
       box-shadow: none;
     }
@@ -113,6 +115,7 @@
 @media screen and (min-width: 300px) and (max-width: 480px) {
   .grid-table-wrapper {
     font-size: 0.8em;
+
     .grid-table {
       box-shadow: none;
     }

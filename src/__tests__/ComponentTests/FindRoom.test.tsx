@@ -4,7 +4,8 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 it('should render without crashing', function() {
-    shallow(<FindRoomForm />);
+    const wrapper = shallow(<FindRoomForm />);
+    expect(wrapper).toMatchSnapshot();
 });
 
 it('should toggle fixed form', function() {
@@ -16,9 +17,9 @@ it('should toggle fixed form', function() {
         </Router>,
     );
     const unToggledForm = wrapper.find('#fixed-form-wrapper');
+    expect(unToggledForm).toMatchSnapshot();
     expect(unToggledForm.hasClass('fixed-form-wrapper')).toBeTruthy();
     const button = wrapper.find('.toggle-fixed-form');
     button.simulate('click');
-    const toggledForm = wrapper.find('#fixed-form-wrapper');
-    expect(toggledForm.hasClass('fixed-form-active')).toBeTruthy();
+    expect(unToggledForm).toThrowErrorMatchingSnapshot();
 });

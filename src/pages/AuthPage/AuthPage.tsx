@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEdit, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
@@ -107,7 +107,7 @@ const AuthPage: React.FC = () => {
                 Don&apos;t have an account?
             </button>
             <div className="btn__wrapper">
-                <button className="auth__btn" onClick={handleSubmit(loginHandler)}>
+                <button className="button btn-black" onClick={handleSubmit(loginHandler)}>
                     Login
                 </button>
             </div>
@@ -144,7 +144,7 @@ const AuthPage: React.FC = () => {
             </label>
             <ErrorMessage error={errors.password} type={'error'} />
             <label>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faUserEdit} />
                 <input
                     className="auth__input"
                     type="text"
@@ -157,7 +157,7 @@ const AuthPage: React.FC = () => {
             </label>
             <ErrorMessage error={errors.name} type={'error'} />
             <label>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faEdit} />
                 <input
                     className="auth__input"
                     type="text"
@@ -173,7 +173,7 @@ const AuthPage: React.FC = () => {
                 Have an account?
             </button>
             <div className="btn__wrapper">
-                <button className="auth__btn" onClick={handleSubmit(registerHandler)}>
+                <button className="button btn-black" onClick={handleSubmit(registerHandler)}>
                     Register
                 </button>
             </div>

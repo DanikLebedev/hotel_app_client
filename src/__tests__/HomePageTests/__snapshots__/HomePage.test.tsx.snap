@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render home page components should renders without crashing 1`] = `
+<HomePageAboutUs
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;
+
+exports[`render home page components should renders without crashing 2`] = `
+<HomePageRooms
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;
+
+exports[`render home page components should renders without crashing 3`] = `
+<HomePageFeatures
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;
+
+exports[`render home page components should renders without crashing 4`] = `
+<HomePageFeedback
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;
+
+exports[`render home page components should renders without crashing 5`] = `
+<Container
+  fluid={true}
+>
+  <ForwardRef
+    noGutters={false}
+  >
+    <Col
+      className="home-page-articles-item"
+      lg={4}
+      md={4}
+      sm={4}
+      style={
+        Object {
+          "background": "url(cream_candles_flowers_green_therapy_11044_1600x1200.jpg) center center / cover",
+          "height": "20rem",
+        }
+      }
+    >
+      <div
+        className="article-info"
+      >
+        <h4>
+          Health SPA
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet.
+        </p>
+        <a
+          href="/"
+        >
+          Read more
+        </a>
+      </div>
+    </Col>
+    <Col
+      className="home-page-articles-item"
+      lg={4}
+      md={4}
+      sm={4}
+      style={
+        Object {
+          "background": "url(thumb-1920-206717.jpg) center center / cover",
+          "height": "20rem",
+        }
+      }
+    >
+      <div
+        className="article-info"
+      >
+        <h4>
+          Golf
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet.
+        </p>
+        <a
+          href="/"
+        >
+          Read more
+        </a>
+      </div>
+    </Col>
+    <Col
+      className="home-page-articles-item"
+      lg={4}
+      md={4}
+      sm={4}
+      style={
+        Object {
+          "background": "url(10-103370_salad-food-wallpaper-food-images-high-resolution.jpg) center center / cover ",
+          "height": "20rem",
+        }
+      }
+    >
+      <div
+        className="article-info"
+      >
+        <h4>
+          Food
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet.
+        </p>
+        <a
+          href="/"
+        >
+          Read more
+        </a>
+      </div>
+    </Col>
+  </ForwardRef>
+  <ForwardRef
+    noGutters={false}
+  >
+    <Col
+      lg={12}
+      md={12}
+      sm={12}
+      style={
+        Object {
+          "background": "url(colombo_2.jpg) center center / cover ",
+          "height": "20rem",
+        }
+      }
+    />
+  </ForwardRef>
+</Container>
+`;
+
+exports[`should renders without crashing 1`] = `
+<Fragment>
+  <withI18nextTranslation(FindRoomForm) />
+  <withI18nextTranslation(HomePageAboutUs) />
+  <t
+    afterLoad={[Function]}
+    beforeLoad={[Function]}
+    useIntersectionObserver={true}
+    visibleByDefault={false}
+  >
+    <withI18nextTranslation(HomePageRooms) />
+  </t>
+  <withI18nextTranslation(HomePageFeedback) />
+  <withI18nextTranslation(HomePageFeatures) />
+  <HomePageArticles />
+  <MapComponent />
+</Fragment>
+`;

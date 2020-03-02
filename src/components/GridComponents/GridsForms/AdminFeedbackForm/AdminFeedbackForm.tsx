@@ -2,10 +2,11 @@ import { Container } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { Data, Feedback } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FeedbackService } from '../../../../APIServices/feedbackService';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Close } from '@material-ui/icons';
+import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { Button } from '@material-ui/core';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -54,7 +55,14 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
     };
 
     return (
-        <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
+        <Container
+            onClick={(event: React.MouseEvent<HTMLDivElement>) =>
+                handleClickOutside(event, 'overlay-edit-feedback', props)
+            }
+            id={'overlay-edit-feedback'}
+            fluid={true}
+            className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}
+        >
             <div key={1} className="d-flex justify-content-around align-items-center">
                 <div className="admin-form ">
                     <h3>Feedback form</h3>
@@ -66,13 +74,13 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
                         value="checkedA"
                         color="primary"
                     />
-                    <button onClick={addFeedbackHandler} className="btn btn-primary mt-3">
+                    <Button onClick={addFeedbackHandler} color="primary" variant="contained" className="mt-3">
                         Update Feedback
+                    </Button>
+                    <button className={'close-modal-button'}  onClick={() => props.closeModal()}>
+                        <Close />
                     </button>
                 </div>
-                <button className={'close-button'} onClick={() => props.closeModal()}>
-                    <FontAwesomeIcon icon={faWindowClose} />
-                </button>
             </div>
         </Container>
     );

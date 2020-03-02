@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render without crashing 1`] = `
+<Fragment>
+  <ul
+    className="pagination"
+  >
+    <li
+      className="page-item"
+      key="1"
+    >
+      <p
+        className="page-link"
+        color="#000"
+        onClick={[Function]}
+      >
+        1
+      </p>
+    </li>
+    <li
+      className="page-item active-link"
+      key="2"
+    >
+      <p
+        className="page-link"
+        color="#000"
+        onClick={[Function]}
+      >
+        2
+      </p>
+    </li>
+    <li
+      className="page-item"
+      key="3"
+    >
+      <p
+        className="page-link"
+        color="#000"
+        onClick={[Function]}
+      >
+        3
+      </p>
+    </li>
+    <li
+      className="page-item"
+      key="4"
+    >
+      <p
+        className="page-link"
+        color="#000"
+        onClick={[Function]}
+      >
+        4
+      </p>
+    </li>
+    <li
+      className="page-item"
+      key="5"
+    >
+      <p
+        className="page-link"
+        color="#000"
+        onClick={[Function]}
+      >
+        5
+      </p>
+    </li>
+  </ul>
+</Fragment>
+`;

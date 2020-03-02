@@ -14,19 +14,15 @@ import { FeedbackService } from '../../APIServices/feedbackService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
-import { IconButton, Button, Dialog, DialogTitle, DialogContent, Tooltip } from '@material-ui/core';
+import { IconButton, Button, Tooltip } from '@material-ui/core';
 import { Edit, Settings, Close, Send, History } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
-import { Pagination } from '../../components/Pagination/Pagination';
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
+import { OrdersHistoryModal } from '../../components/OrdersHistoryModal/OrdersHistoryModal';
+import { FeedbackModal } from '../../components/FeedBackModal/FeedbackModal';
 
-interface FeedbackFormData {
-    message: string;
-}
+
 
 export const OrderPage: React.FC = () => {
-    const { register, handleSubmit, errors } = useForm<FeedbackFormData>();
     const context: ClientContext = useContext(ClientContext);
     const fetchedOrders: Order[] = context.fetchedUserOrders;
     const fetchedOrderHistory: OrderCart[] = context.orderHistory;
@@ -98,6 +94,8 @@ export const OrderPage: React.FC = () => {
         toaster.notify(data.message, {
             duration: 2000,
         });
+       setShowFeedbackModal(false)
+
     };
 
     const onToggleToolBar = () => {
@@ -127,16 +125,6 @@ export const OrderPage: React.FC = () => {
         setShowFeedbackModal(false);
     };
 
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [postPerPage] = useState<number>(4);
-    const indexOfLastPost: number = currentPage * postPerPage;
-    const indexOfFirstPost: number = indexOfLastPost - postPerPage;
-    const currentPosts: OrderCart[] = orderHistory.slice(indexOfFirstPost, indexOfLastPost);
-
-    const paginate = (pageNumber: number): void => {
-        setCurrentPage(pageNumber);
-    };
-
     useEffect(() => {
         update();
         fetchCustomerInfo();
@@ -153,7 +141,7 @@ export const OrderPage: React.FC = () => {
                             <div className="order-page-user-info">
                                 <div className={showToolBar ? 'setting-wrapper open-settings' : 'setting-wrapper'}>
                                     <Tooltip title={'Edit info'}>
-                                        <Button onClick={handleShow}>
+                                        <Button id={'show-edit-modal'} onClick={handleShow}>
                                             <Edit />
                                         </Button>
                                     </Tooltip>
@@ -182,6 +170,7 @@ export const OrderPage: React.FC = () => {
                                         }
                                         color="inherit"
                                         onClick={onToggleToolBar}
+                                        id={'toggle-settings-button'}
                                     >
                                         <Settings />
                                     </IconButton>
@@ -206,88 +195,21 @@ export const OrderPage: React.FC = () => {
                     >
                         <h4 className="text-white">Your Current Orders</h4>
                         <div className="d-flex justify-content-center align-items-center flex-column">
-                            {orders.length > 0 ? (
+                            {orders.length ? (
                                 orders.map((item: Order, key: number) => {
                                     return (
                                         <OrderItem key={key} classes={cls} order={item} onDelete={deleteOrderHandler} />
                                     );
                                 })
                             ) : (
-                                <h4 className='text-white'>There are no orders yet</h4>
+                                <h4 className="text-white">There are no orders yet</h4>
                             )}
                         </div>
                     </Col>
                 </Row>
-                <Dialog open={showModal} onClose={closeOrdersHistory}>
-                    <DialogContent>
-                        <div className="close-modal-button">
-                            <h4>Orders history</h4>{' '}
-                            <IconButton onClick={closeOrdersHistory}>
-                                <Close />
-                            </IconButton>
-                        </div>
-
-                        <div className="grid-table-wrapper">
-                            <table className="m-3 grid-table order-page-history">
-                                <thead>
-                                    <tr>
-                                        <th>Category</th>
-                                        <th>Check In</th>
-                                        <th>Check Out</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {currentPosts.length
-                                        ? currentPosts.map((order, key) => {
-                                              return (
-                                                  <tr key={key}>
-                                                      <td>{order.category}</td>
-                                                      <td>{order.checkIn.split('T')[0]}</td>
-                                                      <td>{order.checkOut.split('T')[0]}</td>
-                                                      <td>{order.status}</td>
-                                                  </tr>
-                                              );
-                                          })
-                                        : null}
-                                </tbody>
-                            </table>
-                            <Pagination
-                                postPerPage={postPerPage}
-                                totalPosts={orderHistory.length}
-                                currentPage={currentPage}
-                                paginate={paginate}
-                            />
-                        </div>
-                    </DialogContent>
-                </Dialog>
-                <Dialog open={showFeedbackModal} onClose={closeFeedbackForm}>
-                    <DialogContent>
-                        <div className="close-modal-button">
-                            <h4>Leave your feedback</h4>
-                            <IconButton onClick={closeFeedbackForm}>
-                                <Close />
-                            </IconButton>
-                        </div>
-
-                        <div className={'feedback-form'}>
-                            <textarea
-                                rows={5}
-                                cols={45}
-                                className={'form-control'}
-                                placeholder={'your feedback...'}
-                                onChange={changeFeedbackTextHandler}
-                                name={'message'}
-                                ref={register({ required: true })}
-                            />
-                            <ErrorMessage error={errors.message} type={'error'} />
-                            <button onClick={handleSubmit(addFeedbackHandler)} className={'button'}>
-                                Send feedback <Send />
-                            </button>
-                        </div>
-                    </DialogContent>
-                </Dialog>
-                <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
+                <OrdersHistoryModal closeModal={closeOrdersHistory} show={showModal} data={orderHistory} />
+                <FeedbackModal closeModal={closeFeedbackForm} show={showFeedbackModal} onChange={changeFeedbackTextHandler} onSubmit={addFeedbackHandler} />
+                <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps}  closeModal={handleClose} />
             </Container>
         </div>
     );

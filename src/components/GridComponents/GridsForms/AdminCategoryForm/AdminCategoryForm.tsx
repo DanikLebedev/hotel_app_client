@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Category, Data } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { Close } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -55,9 +56,16 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
     };
 
     return (
-        <Container fluid={true} className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}>
+        <Container
+            onClick={(event: React.MouseEvent<HTMLDivElement>) =>
+                handleClickOutside(event, 'overlay-category-form', props)
+            }
+            fluid={true}
+            id={'overlay-category-form'}
+            className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}
+        >
             <div key={1} className="d-flex justify-content-around align-items-center">
-                <div className="admin-form ">
+                <div className="admin-form">
                     <h3>Category form</h3>
                     <label htmlFor="title">Enter the Title</label>
                     <input
@@ -69,14 +77,13 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
                         id="title"
                         placeholder="title"
                     />
-
-                    <button onClick={addCategoryHandler} className="btn btn-primary mt-3">
+                    <Button onClick={addCategoryHandler} color="primary" variant="contained" className="mt-3">
                         Add Category
+                    </Button>
+                    <button className={'close-modal-button'} onClick={() => props.closeModal()}>
+                        <Close />
                     </button>
                 </div>
-                <button className={'close-button'} onClick={() => props.closeModal()}>
-                    <FontAwesomeIcon icon={faWindowClose} />
-                </button>
             </div>
         </Container>
     );
