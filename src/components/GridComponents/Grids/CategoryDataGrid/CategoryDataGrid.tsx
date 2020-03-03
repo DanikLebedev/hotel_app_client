@@ -6,6 +6,8 @@ import { AdminCategoryForm } from '../../GridsForms/AdminCategoryForm/AdminCateg
 import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
+import { sortNumbersTypes } from '../../../../config';
+import { Pagination } from '../../../Pagination/Pagination';
 
 export const CategoryDataGrid: React.FC = () => {
     const fetchedCategories: Category[] = useContext(AdminContext).fetchedCategories;
@@ -64,6 +66,16 @@ export const CategoryDataGrid: React.FC = () => {
         return category.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     });
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage] = useState(8);
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const currentCategory = filteredFetchedCategories.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
     useEffect(() => {
         updateComponent();
     }, [fetchedCategories]);
@@ -89,8 +101,8 @@ export const CategoryDataGrid: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredFetchedCategories.length
-                            ? filteredFetchedCategories.map((category, key) => {
+                        {currentCategory.length
+                            ? currentCategory.map((category, key) => {
                                   return (
                                       <tr key={key}>
                                           <td>{category.title}</td>
@@ -120,7 +132,14 @@ export const CategoryDataGrid: React.FC = () => {
                             : null}
                     </tbody>
                 </table>
+                <Pagination
+                    postPerPage={postPerPage}
+                    totalPosts={fetchedCategories.length}
+                    paginate={paginate}
+                    currentPage={currentPage}
+                />
             </div>
+
             <AdminCategoryForm
                 update={updateComponent}
                 show={showModal}

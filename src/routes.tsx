@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { OrderPage } from './pages/OrdersPage/OrdersPage';
 import RoomsPage from './pages/RoomsPage/RoomsPage';
 import AuthPage from './pages/AuthPage/AuthPage';
@@ -10,8 +10,8 @@ import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import { RoomInfoPage } from './pages/RoomInfoPage/RoomInfoPage';
 import Loader from './components/Loader/Loader';
 import { SearchRoomsPage } from './pages/SearchRoomsPage/SearchRoomsPage';
-import Customer from './pages/ChatPage/ChatPage';
-import { SupportPage } from './pages/SupportPage/SupportPage';
+import Customer from './pages/ChatPage/Customer';
+import Support from './pages/ChatPage/Support';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -44,9 +44,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 </Route>
                 <Route path="/chat">
                     <Customer />
-                </Route>
-                <Route path="/support">
-                    <SupportPage />
                 </Route>
                 <Route component={NotFound} />
             </Switch>
@@ -119,12 +116,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Route>
             <Route path="/rooms/:id">
                 <RoomInfoPage />
-            </Route>
-            <Route path="/chat">
-                <Customer />
-            </Route>
-            <Route path="/support">
-                <SupportPage />
             </Route>
             <Route component={NotFound} />
         </Switch>

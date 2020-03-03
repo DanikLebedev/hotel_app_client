@@ -11,6 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { AppBar, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import Support from "../../pages/ChatPage/Support";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -45,7 +46,6 @@ function a11yProps(index: any) {
 const useStyles = makeStyles((theme: any) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: '#fff',
         fontFamily: 'Roboto, sans-serif',
         fontWeight: 'bold'
     },
@@ -61,13 +61,14 @@ export const AdminPageInfo: React.FC = () => {
 
     return (
         <Container className={'admin-page pt-2'} fluid={true}>
-            <AppBar position="static" className={classes.root}>
-                <Tabs value={value} onChange={handleChange} scrollButtons="auto"  indicatorColor={'primary'} variant='scrollable' textColor={'primary'} aria-label="simple tabs example">
+            <AppBar color='primary' position="static" className={classes.root}>
+                <Tabs value={value} onChange={handleChange} scrollButtons="auto"   indicatorColor={'inherit'} variant='scrollable' textColor={'inherit'} aria-label="simple tabs example">
                     <Tab label="Categories" {...a11yProps(0)} />
                     <Tab label="Rooms" {...a11yProps(1)} />
                     <Tab label="Orders" {...a11yProps(2)} />
                     <Tab label="Employees" {...a11yProps(3)} />
                     <Tab label="Feedbacks" {...a11yProps(4)} />
+                    <Tab label="Chat" {...a11yProps(5)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
@@ -84,6 +85,9 @@ export const AdminPageInfo: React.FC = () => {
             </TabPanel>
             <TabPanel value={value} index={4}>
                 <FeedbackDataGrid />
+            </TabPanel>
+            <TabPanel value={value} index={5}>
+                <Support />
             </TabPanel>
         </Container>
     );

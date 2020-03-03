@@ -88,8 +88,8 @@ const AuthPage: React.FC = () => {
                     onChange={changeHandler}
                     ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                 />
-                <ErrorMessage error={errors.email} type={'error'} />
             </label>
+            <ErrorMessage error={errors.email} type={'error'} />
             <label>
                 <FontAwesomeIcon icon={faLock} />
                 <input
@@ -101,8 +101,8 @@ const AuthPage: React.FC = () => {
                     onChange={changeHandler}
                     ref={register({ required: true, minLength: 6 })}
                 />
-                <ErrorMessage error={errors.password} type={'error'} />
             </label>
+            <ErrorMessage error={errors.password} type={'error'} />
             <button className="change-form-button" onClick={() => setHaveAccount(false)}>
                 Don&apos;t have an account?
             </button>

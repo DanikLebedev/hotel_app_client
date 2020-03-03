@@ -1,29 +1,12 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-import { CurrentUserExtend } from '../../pages/ChatPage/ChatPage';
 
-interface ChatWidget {
-    newMessage: string;
-    sendMessage: (this: any, event: any) => void;
-    handleInput: (this: any, event: any) => void;
-    currentUser: CurrentUserExtend | null;
-    messages: Message[];
-}
-
-interface Message {
-    text: string;
-    senderId: string;
-}
-
-
-const ChatWidget: React.FC<ChatWidget> = (props: ChatWidget) => {
+const ChatWidget = props => {
     const { newMessage, sendMessage, handleInput, currentUser, messages } = props;
 
     const ChatSession = messages.map(message => {
-        if (currentUser) {
-            const user = message.senderId === currentUser.id ? 'user' : 'support';
-            return <span className={`${user} message`}>{message.text}</span>;
-        }
+        const user = message.senderId === currentUser.id ? 'user' : 'support';
+        return <span className={`${user} message`}>{message.text}</span>;
     });
 
     return (
@@ -47,6 +30,14 @@ const ChatWidget: React.FC<ChatWidget> = (props: ChatWidget) => {
             </div>
         </section>
     );
+};
+
+ChatWidget.propTypes = {
+    newMessage: Proptypes.string.isRequired,
+    handleInput: Proptypes.func.isRequired,
+    sendMessage: Proptypes.func.isRequired,
+    messages: Proptypes.arrayOf(Proptypes.object).isRequired,
+    currentUser: Proptypes.object.isRequired,
 };
 
 export default ChatWidget;
