@@ -4,7 +4,7 @@ import { Category, Data, OrderCart } from '../../../../interfaces/clientInterfac
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
 import { OrderService } from '../../../../APIServices/orderService';
-import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 

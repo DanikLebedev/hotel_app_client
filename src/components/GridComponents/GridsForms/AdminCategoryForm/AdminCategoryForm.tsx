@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Category, Data } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
-import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Close } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
 

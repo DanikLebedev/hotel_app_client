@@ -1,10 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import { Container } from 'react-bootstrap';
-import { handleClickOutside } from '../../hooks/outsideClick.hook';
-import { Button, DialogContent } from '@material-ui/core';
+import { handleClickOutside } from '../../sharedMethods/outsideClick';
 import { Close, Send } from '@material-ui/icons';
-import {Category, Feedback, OrderCart} from '../../interfaces/clientInterfaces';
-import { Pagination } from '../Pagination/Pagination';
 import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
 import {useForm} from "react-hook-form";
 

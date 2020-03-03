@@ -10,6 +10,8 @@ import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import { RoomInfoPage } from './pages/RoomInfoPage/RoomInfoPage';
 import Loader from './components/Loader/Loader';
 import { SearchRoomsPage } from './pages/SearchRoomsPage/SearchRoomsPage';
+import Customer from './pages/ChatPage/ChatPage';
+import { SupportPage } from './pages/SupportPage/SupportPage';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -39,6 +41,12 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 </Route>
                 <Route path="/searchRooms">
                     <SearchRoomsPage />
+                </Route>
+                <Route path="/chat">
+                    <Customer />
+                </Route>
+                <Route path="/support">
+                    <SupportPage />
                 </Route>
                 <Route component={NotFound} />
             </Switch>
@@ -112,7 +120,13 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             <Route path="/rooms/:id">
                 <RoomInfoPage />
             </Route>
-            <Route  component={NotFound} />
+            <Route path="/chat">
+                <Customer />
+            </Route>
+            <Route path="/support">
+                <SupportPage />
+            </Route>
+            <Route component={NotFound} />
         </Switch>
     );
 };

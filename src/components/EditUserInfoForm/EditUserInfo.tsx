@@ -2,14 +2,12 @@ import { Container } from 'react-bootstrap';
 import React, { useContext, useEffect, useState } from 'react';
 import { Data } from '../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Customer } from '../../interfaces/clientInterfaces';
 import { CustomerService } from '../../APIServices/customerService';
 import { ClientContext } from '../../context/client.context';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
-import { handleClickOutside } from '../../hooks/outsideClick.hook';
+import { handleClickOutside } from '../../sharedMethods/outsideClick';
 import { Close} from '@material-ui/icons';
 
 

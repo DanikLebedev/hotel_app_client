@@ -5,7 +5,7 @@ import toaster from 'toasted-notes';
 import { FeedbackService } from '../../../../APIServices/feedbackService';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Close } from '@material-ui/icons';
-import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;

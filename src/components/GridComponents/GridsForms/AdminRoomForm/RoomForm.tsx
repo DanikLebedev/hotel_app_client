@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { AdminContext } from '../../../../context/admin.context';
-import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 

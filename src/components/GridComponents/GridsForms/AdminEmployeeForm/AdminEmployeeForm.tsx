@@ -7,7 +7,7 @@ import { EmployeeService } from '../../../../APIServices/employeeService';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../../ErrorsComponents/ErrorMessage';
 import { Close } from '@material-ui/icons';
-import { handleClickOutside } from '../../../../hooks/outsideClick.hook';
+import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 
 
