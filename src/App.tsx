@@ -14,6 +14,7 @@ import { CategoryService } from './APIServices/categoryService';
 import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import Dictaphone from './components/SpeechControl/speech-recognition-setup';
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -49,7 +50,9 @@ const App: React.FC = () => {
     }, []);
 
     const fetchCategories: CallableFunction = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
+        CategoryService.getAllCategories({ Authorization: `Bearer ${token}` }).then(({ categories }) =>
+            setFetchedCategories(categories),
+        );
     }, []);
 
     const fetchFeedback: CallableFunction = useCallback(() => {
@@ -68,10 +71,8 @@ const App: React.FC = () => {
         fetchCategories();
         fetchAllOrders();
         fetchEmployee();
-        if (isAuthenticated && userStatus !== 'admin') {
-            fetchOrders();
-            fetchOrdersHistory();
-        }
+        fetchOrders();
+        fetchOrdersHistory();
     }, [
         fetchRoom,
         fetchFeedback,
@@ -125,6 +126,7 @@ const App: React.FC = () => {
         >
             <Router>
                 <Header />
+                <Dictaphone />
                 <ScrollToTop />
                 {routes}
             </Router>

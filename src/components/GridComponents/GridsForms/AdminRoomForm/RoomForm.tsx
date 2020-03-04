@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toaster from 'toasted-notes';
 import Loader from '../../../Loader/Loader';
 import { Data, Room } from '../../../../interfaces/clientInterfaces';
-import { Container, Col, Row } from 'react-bootstrap';
+import {  Col, Row } from 'react-bootstrap';
 import '../../../../assets/rglstyles.css';
 import '../../../../assets/resizablestyles.css';
 import './RoomForm.scss';
@@ -35,12 +35,15 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     const classes = useStyles();
     const fetchedCategories = useContext(AdminContext).fetchedCategories;
     const [roomForm, setRoomForm] = useState<Room>(props.editProps);
+    const token = useContext(AdminContext).token;
 
     const addRoomHandler = async (event: ChangeEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
         const formData: FormData = new FormData(event.target);
         if (props.isEdit) {
-            const data: Data = await RoomService.updateRoom(formData);
+            const data: Data = await RoomService.updateRoom(formData, {
+                Authorization: `Bearer ${token}`,
+            });
             toaster.notify(data.message, {
                 duration: 2000,
             });
@@ -49,6 +52,9 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
             const response: Response = await fetch('/api/admin/room', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             const data: Data = await response.json();
             toaster.notify(data.message, {

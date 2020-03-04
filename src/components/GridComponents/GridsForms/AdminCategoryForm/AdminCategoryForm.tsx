@@ -1,11 +1,12 @@
 import { Container } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Category, Data } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Close } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
+import {AdminContext} from "../../../../context/admin.context";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -19,11 +20,12 @@ interface CategoryForm {
 
 export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) => {
     const [categoryForm, setCategoryForm] = useState<Category>(props.editProps);
-
+    const token = useContext(AdminContext).token
     const addCategoryHandler = async (): Promise<void> => {
         if (props.isEdit) {
             const data: Data = await CategoryService.updateCategory(JSON.stringify(categoryForm), {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -32,6 +34,7 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
         } else {
             const data: Data = await CategoryService.postCategory(categoryForm, {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -78,7 +81,7 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
                         placeholder="title"
                     />
                     <Button onClick={addCategoryHandler} color="primary" variant="contained" className="mt-3">
-                        Add Category
+                        {props.isEdit ? 'Update' : 'Create'} Category
                     </Button>
                     <button className={'close-modal-button'} onClick={() => props.closeModal()}>
                         <Close />

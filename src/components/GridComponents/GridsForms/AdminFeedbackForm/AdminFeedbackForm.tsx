@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Data, Feedback } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { FeedbackService } from '../../../../APIServices/feedbackService';
@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Close } from '@material-ui/icons';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
+import {AdminContext} from "../../../../context/admin.context";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -20,11 +21,15 @@ interface FeedbackForm {
 
 export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) => {
     const [feedbackForm, setFeedbackForm] = useState<Feedback>(props.editProps);
+    const token = useContext(AdminContext).token
+
 
     const addFeedbackHandler = async (): Promise<void> => {
         if (props.isEdit) {
             const data: Data = await FeedbackService.updateFeedback(JSON.stringify(feedbackForm), {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -33,6 +38,8 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
         } else {
             const data: Data = await FeedbackService.postFeedback(feedbackForm, {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+
             });
             toaster.notify(data.message, {
                 duration: 2000,

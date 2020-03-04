@@ -2,8 +2,8 @@ import { CRUDServices } from './CRUDServices';
 import { Categories, Data } from '../interfaces/clientInterfaces';
 
 export class CategoryService {
-    public static async getAllCategories(): Promise<Categories> {
-        const categories: Categories = await CRUDServices.getData('/api/admin/category');
+    public static async getAllCategories(headers?: {}): Promise<Categories> {
+        const categories: Categories = await CRUDServices.getData('/api/admin/category', headers);
         return categories;
     }
 

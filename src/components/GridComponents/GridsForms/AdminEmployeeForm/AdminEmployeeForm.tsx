@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from 'react';
 import { Data, Employee, Status } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { StatusService } from '../../../../APIServices/statusService';
@@ -9,6 +9,7 @@ import { ErrorMessage } from '../../../ErrorsComponents/ErrorMessage';
 import { Close } from '@material-ui/icons';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
+import {AdminContext} from "../../../../context/admin.context";
 
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -31,11 +32,14 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
     const [employeeForm, setEmployeeForm] = useState<Employee>(props.editProps);
     const [statuses, setStatuses] = useState<Status[]>([]);
     const { register, handleSubmit, errors } = useForm<AdminEmployeeFormData>();
+    const token = useContext(AdminContext).token
 
     const addEmployeeHandler = async (): Promise<void> => {
         if (props.isEdit) {
             const data: Data = await EmployeeService.updateEmployee(JSON.stringify(employeeForm), {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -44,6 +48,8 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
         } else {
             const data: Data = await EmployeeService.updateEmployee(employeeForm, {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+
             });
             toaster.notify(data.message, {
                 duration: 2000,

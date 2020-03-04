@@ -39,6 +39,7 @@
     "react-scripts": "^3.4.0",
     "react-scrollable-anchor": "^0.6.1",
     "react-select": "^3.0.8",
+    "react-speech-recognition": "^2.0.4",
     "react-spinkit": "^3.0.0",
     "react-spring": "^8.0.27",
     "react-sticky": "^6.0.3",

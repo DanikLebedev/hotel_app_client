@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from 'react';
 import { Category, Data, OrderCart } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
@@ -7,6 +7,7 @@ import { OrderService } from '../../../../APIServices/orderService';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import {AdminContext} from "../../../../context/admin.context";
 
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -22,11 +23,15 @@ interface AdminOrderForm {
 export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) => {
     const [orderForm, setOrderForm] = useState<OrderCart>(props.editProps);
     const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    const token = useContext(AdminContext).token
+
 
     const addOrderHandler = async (): Promise<void> => {
         if (props.isEdit) {
             const data: Data = await OrderService.updateAdminOrder(JSON.stringify(orderForm), {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -35,6 +40,8 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
         } else {
             const data: Data = await OrderService.postOrder(orderForm, {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+
             });
             toaster.notify(data.message, {
                 duration: 2000,
