@@ -71,6 +71,15 @@ const Navigation: React.FC = (): JSX.Element => {
             >
                 {t('orders.label')}
             </NavLink>
+            <NavLink
+                id={'navigation-link'}
+                onClick={(): void => setShowMenu(false)}
+                activeClassName={'active-link'}
+                className={'mr-5 link'}
+                to="/chat"
+            >
+                Chat
+            </NavLink>
         </>
     );
 
@@ -237,6 +246,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {t('about.label')}
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
+
                         </Nav>
                     </div>
                     <div className={showMenu ? 'drawer open-drawer' : 'drawer'} />

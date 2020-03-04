@@ -16,6 +16,7 @@ import { Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
 import { SubmitButton } from '../../components/SubmitButton/SubmitButton';
+import {ConfirmModal} from "../../components/ConfirmModal/ConfirmModal";
 
 interface RoomInfoPageFormData {
     checkIn: string;
@@ -203,9 +204,6 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
-                                    {/*<button onClick={handleSubmit(handleShow)} className="submit-btn">*/}
-                                    {/*    Check availability*/}
-                                    {/*</button>*/}
                                     <SubmitButton onClick={handleSubmit(handleShow)} title={'Check availability'} />
                                 </div>
                             </div>
@@ -213,28 +211,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                     </div>
                 </div>
             </Container>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm your data</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <ul>
-                        <li>Check In: {order.checkIn}</li>
-                        <li>Check Out: {order.checkOut}</li>
-                        <li>Category: {order.category}</li>
-                        <li>Price: {order.price}$</li>
-                        <li>Comment: {order.comment}</li>
-                    </ul>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button className="button-book" onClick={handleClose}>
-                        Close
-                    </button>
-                    <button className="button-book" onClick={addOrderHandler}>
-                        Add order
-                    </button>
-                </Modal.Footer>
-            </Modal>
+            <ConfirmModal show={show} addOrder={addOrderHandler} order={order} closeModal={handleClose}/>
         </div>
     );
 };

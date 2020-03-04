@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { AdminNavigation } from '../../components/AdminNavigation/AdminNavigation';
 import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
-
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import Support from '../ChatPage/Support';
 
 export const AdminPage: React.FC = () => {
     const routes: JSX.Element = (
@@ -18,9 +18,9 @@ export const AdminPage: React.FC = () => {
     return (
         <Router>
             <div className={'admin-page-wrapper'}>
-            <h1 className="text-center m-3">Admin Page</h1>
-            <AdminNavigation />
-            {routes}
+                <h1 className="text-center m-3">Admin Page</h1>
+                <AdminNavigation />
+                {routes}
             </div>
         </Router>
     );

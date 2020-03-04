@@ -9,6 +9,7 @@ import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
+import { Pagination } from '../../../Pagination/Pagination';
 
 export const FeedbackDataGrid = () => {
     const fetchedFeedbacks = useContext(AdminContext).fetchedFeedbacks;
@@ -112,6 +113,18 @@ export const FeedbackDataGrid = () => {
         update();
     }, [fetchedFeedbacks]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage] = useState(8);
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const currentFeedback = filteredFeedbacks()
+        .sort(sortNumbersTypes(field)[currentSort].fn)
+        .slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <div className="grid-table-wrapper">
             <table className="m-3 grid-table">
@@ -141,7 +154,6 @@ export const FeedbackDataGrid = () => {
                                     />
                                 </button>
                             </Tooltip>
-
                         </th>
                         <th>
                             <p>Actions</p>
@@ -198,6 +210,12 @@ export const FeedbackDataGrid = () => {
                         : null}
                 </tbody>
             </table>
+            <Pagination
+                postPerPage={postPerPage}
+                totalPosts={fetchedFeedbacks.length}
+                paginate={paginate}
+                currentPage={currentPage}
+            />
             <AdminFeedbackForm
                 update={update}
                 closeModal={closeModal}

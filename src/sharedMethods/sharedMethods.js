@@ -1,4 +1,4 @@
-function handleInput(this: any, event: any) {
+function handleInput(event) {
     const { value, name } = event.target;
 
     this.setState({
@@ -6,7 +6,7 @@ function handleInput(this: any, event: any) {
     });
 }
 
-function sendMessage(this: any, event: any) {
+function sendMessage(event) {
     event.preventDefault();
     const { newMessage, currentUser, currentRoom } = this.state;
 
@@ -22,7 +22,7 @@ function sendMessage(this: any, event: any) {
     });
 }
 
-function connectToRoom(this: any, id: string) {
+function connectToRoom(id) {
     const { currentUser } = this.state;
 
     return currentUser
@@ -30,14 +30,14 @@ function connectToRoom(this: any, id: string) {
             roomId: `${id}`,
             messageLimit: 100,
             hooks: {
-                onMessage: (message: any) => {
+                onMessage: message => {
                     this.setState({
                         messages: [...this.state.messages, message],
                     });
                 },
             },
         })
-        .then((currentRoom: any) => {
+        .then(currentRoom => {
             this.setState({
                 currentRoom,
             });

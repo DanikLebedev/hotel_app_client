@@ -6,6 +6,7 @@ import { AdminEmployeeForm } from '../../GridsForms/AdminEmployeeForm/AdminEmplo
 import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
+import { Pagination } from '../../../Pagination/Pagination';
 
 export const EmployeeDataGrid = () => {
     const fetchedEmployees = useContext(AdminContext).fetchedAllEmployee;
@@ -75,7 +76,15 @@ export const EmployeeDataGrid = () => {
         setShowModal(true);
     };
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage] = useState(8);
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const currentEmployee = filteredEmployee().slice(indexOfFirstPost, indexOfLastPost);
 
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
 
     useEffect(() => {
         update();
@@ -104,8 +113,8 @@ export const EmployeeDataGrid = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredEmployee().length
-                        ? filteredEmployee().map((employee, key) => {
+                    {currentEmployee.length
+                        ? currentEmployee.map((employee, key) => {
                               return (
                                   <tr key={key}>
                                       <td>{employee.email}</td>
@@ -136,6 +145,12 @@ export const EmployeeDataGrid = () => {
                         : null}
                 </tbody>
             </table>
+            <Pagination
+                postPerPage={postPerPage}
+                totalPosts={fetchedEmployees.length}
+                paginate={paginate}
+                currentPage={currentPage}
+            />
             <AdminEmployeeForm
                 update={update}
                 closeModal={closeModal}

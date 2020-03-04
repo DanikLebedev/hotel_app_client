@@ -13,7 +13,7 @@ import { FeedbackService } from './APIServices/feedbackService';
 import { CategoryService } from './APIServices/categoryService';
 import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -125,7 +125,7 @@ const App: React.FC = () => {
         >
             <Router>
                 <Header />
-                <ScrollToTop/>
+                <ScrollToTop />
                 {routes}
             </Router>
             <Footer />
