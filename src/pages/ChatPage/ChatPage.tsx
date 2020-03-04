@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './ChatPage.scss'
 import Chatkit, { CurrentUser, PusherRoom } from '@pusher/chatkit-client';
 import Spinner from 'react-spinkit';
 import Dialog from '../../components/SupportDialog/SupportDialog';
@@ -76,14 +77,14 @@ class Customer extends Component {
             alert('Invalid userId');
         } else {
             axios
-                .post('http://localhost:5200/users', { userId })
+                .post('http://localhost:5000/users', { userId })
                 .then(() => {
                     const tokenProvider = new Chatkit.TokenProvider({
-                        url: 'http://localhost:5200/authenticate',
+                        url: 'http://localhost:5000/authenticate',
                     });
 
                     const chatManager = new Chatkit.ChatManager({
-                        instanceLocator: '<your chatkit instance locator>',
+                        instanceLocator: 'v1:us1:722a53b7-df43-4433-a060-3479c0d266e7',
                         userId,
                         tokenProvider,
                     });
@@ -106,30 +107,33 @@ class Customer extends Component {
         const { newMessage, messages, currentUser, currentRoom, isDialogOpen, userId, isLoading } = this.state;
 
         return (
-            <div className="customer-chat">
-                <h1>Imaginary Service</h1>
-                <p>Need help? Chat with us</p>
+            <>
+                <div className="support-page-bg"></div>
+                <div className="customer-chat">
+                    <h1>Imaginary Service</h1>
+                    <p>Need help? Chat with us</p>
 
-                {currentRoom ? (
-                    <ChatWidget
-                        newMessage={newMessage}
-                        sendMessage={sendMessage}
-                        handleInput={handleInput}
-                        currentUser={currentUser}
-                        messages={messages}
-                    />
-                ) : (
-                    <button onClick={this.showDialog} className="contact-btn">
-                        Contact Support
-                    </button>
-                )}
+                    {currentRoom ? (
+                        <ChatWidget
+                            newMessage={newMessage}
+                            sendMessage={sendMessage}
+                            handleInput={handleInput}
+                            currentUser={currentUser}
+                            messages={messages}
+                        />
+                    ) : (
+                        <button onClick={this.showDialog} className="contact-btn">
+                            Contact Support
+                        </button>
+                    )}
 
-                {isLoading ? <Spinner name="three-bounce" color="#300d4f" /> : null}
+                    {isLoading ? <Spinner name="three-bounce" color="#300d4f" /> : null}
 
-                {isDialogOpen ? (
-                    <Dialog username={userId} handleInput={handleInput} launchChat={this.launchChat} />
-                ) : null}
-            </div>
+                    {isDialogOpen ? (
+                        <Dialog username={userId} handleInput={handleInput} launchChat={this.launchChat} />
+                    ) : null}
+                </div>
+            </>
         );
     }
 }
