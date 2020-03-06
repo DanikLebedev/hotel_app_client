@@ -6,7 +6,10 @@ import './index.scss';
 import i18n from './i18n';
 import { I18nextProvider } from 'react-i18next';
 import Loader from './components/Loader/Loader';
+import { CometChat } from '@cometchat-pro/chat';
+import { config } from './config';
 
+CometChat.init(config.APP_COMET_CHAT_ID)
 ReactDOM.render(
     <Suspense
         fallback={

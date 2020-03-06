@@ -12,6 +12,8 @@ import Loader from './components/Loader/Loader';
 import { SearchRoomsPage } from './pages/SearchRoomsPage/SearchRoomsPage';
 import Customer from './pages/ChatPage/Customer';
 import Support from './pages/ChatPage/Support';
+import CometChatWidget from './components/CometChatWidget/CometChatWidget';
+import CometChatSupport from './components/CometChatSupport/CometChatSupport';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -116,6 +118,12 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Route>
             <Route path="/rooms/:id">
                 <RoomInfoPage />
+            </Route>
+            <Route path="/chatWidget">
+                <CometChatWidget />
+            </Route>
+            <Route path="/support">
+                <CometChatSupport />
             </Route>
             <Route component={NotFound} />
         </Switch>

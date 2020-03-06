@@ -15,6 +15,7 @@ import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Dictaphone from './components/SpeechControl/speech-recognition-setup';
+import CometChatWidget from "./components/CometChatWidget/CometChatWidget";
 
 const App: React.FC = () => {
     const { login, logout, token, userId, userStatus, userEmail } = useAuth();
@@ -127,6 +128,7 @@ const App: React.FC = () => {
             <Router>
                 <Header />
                 <Dictaphone />
+                <CometChatWidget/>
                 <ScrollToTop />
                 {routes}
             </Router>

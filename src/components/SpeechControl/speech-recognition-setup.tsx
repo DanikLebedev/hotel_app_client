@@ -41,4 +41,4 @@ Dictaphone.propTypes = {
     recognition: propTypes.object,
 };
 
-export default SpeechRecognition(Dictaphone);
+export default SpeechRecognition({ autoStart: false })(Dictaphone);
