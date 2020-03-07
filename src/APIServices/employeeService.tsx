@@ -11,8 +11,8 @@ export class EmployeeService {
         return response;
     }
 
-    public static async deleteEmployee(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.deleteData('/api/admin/employee/delete', body);
+    public static async deleteEmployee(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.deleteData('/api/admin/employee/delete', body, headers);
         return response;
     }
 

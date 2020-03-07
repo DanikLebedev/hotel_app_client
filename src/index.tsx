@@ -9,7 +9,21 @@ import Loader from './components/Loader/Loader';
 import { CometChat } from '@cometchat-pro/chat';
 import { config } from './config';
 
-CometChat.init(config.APP_COMET_CHAT_ID)
+
+
+const appSettings = new CometChat.AppSettingsBuilder()
+    .subscribePresenceForAllUsers()
+    .setRegion('eu')
+    .build();
+
+CometChat.init(config.APP_COMET_CHAT_ID, appSettings).then(
+    () => {
+        console.log('Initialized successfully');
+    },
+    error => {
+        console.log('Error in Initialization', { error });
+    },
+);
 ReactDOM.render(
     <Suspense
         fallback={

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { handleClickOutside } from '../../sharedMethods/outsideClick';
 import { Close } from '@material-ui/icons';
-import {  OrderCart } from '../../interfaces/clientInterfaces';
+import { OrderCart } from '../../interfaces/clientInterfaces';
 import { Pagination } from '../Pagination/Pagination';
+import { Tooltip } from '@material-ui/core';
+import { sortNumbersTypes } from '../../config';
 
 interface OrdersHistoryModal {
     closeModal: () => void;
@@ -16,17 +18,35 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModal> = (props: OrdersHi
     const [postPerPage] = useState<number>(4);
     const indexOfLastPost: number = currentPage * postPerPage;
     const indexOfFirstPost: number = indexOfLastPost - postPerPage;
-    const currentPosts: OrderCart[] = props.data.slice(indexOfFirstPost, indexOfLastPost);
+    const [field, setField] = useState('');
+    const [currentSort, setCurrentSort] = useState<string>('default');
 
     const paginate = (pageNumber: number): void => {
         setCurrentPage(pageNumber);
     };
 
+    const onSortChange = (field: string): void => {
+        setField(field);
+        let nextSort;
+        if (currentSort === 'down') {
+            nextSort = 'up';
+            setCurrentSort(nextSort);
+        } else if (currentSort === 'up') {
+            nextSort = 'default';
+            setCurrentSort(nextSort);
+        } else if (currentSort === 'default') {
+            nextSort = 'down';
+            setCurrentSort(nextSort);
+        }
+    };
+
+    const currentPosts: OrderCart[] = props.data
+        .sort(sortNumbersTypes(field)[currentSort].fn)
+        .slice(indexOfFirstPost, indexOfLastPost);
+
     return (
         <Container
-            onClick={(event: React.MouseEvent<HTMLDivElement>) =>
-                handleClickOutside(event, 'overlay-history', props)
-            }
+            onClick={(event: React.MouseEvent<HTMLDivElement>) => handleClickOutside(event, 'overlay-history', props)}
             fluid={true}
             id={'overlay-history'}
             className={props.show ? 'show-modal add-modal-wrapper' : 'hide-modal'}
@@ -39,8 +59,36 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModal> = (props: OrdersHi
                             <thead>
                                 <tr>
                                     <th>Category</th>
-                                    <th>Check In</th>
-                                    <th>Check Out</th>
+                                    <th>
+                                        <p>Check In</p>
+                                        <Tooltip title={'Sort'}>
+                                            <button className="sort-button" onClick={() => onSortChange('checkIn')}>
+                                                <i
+                                                    className={
+                                                        field === 'approved'
+                                                            ? `fas fa-${sortNumbersTypes('checkIn')[currentSort].class}`
+                                                            : 'fas fa-sort'
+                                                    }
+                                                />
+                                            </button>
+                                        </Tooltip>
+                                    </th>
+                                    <th>
+                                        <p>Check Out</p>
+                                        <Tooltip title={'Sort'}>
+                                            <button className="sort-button" onClick={() => onSortChange('checkOut')}>
+                                                <i
+                                                    className={
+                                                        field === 'approved'
+                                                            ? `fas fa-${
+                                                                  sortNumbersTypes('checkOut')[currentSort].class
+                                                              }`
+                                                            : 'fas fa-sort'
+                                                    }
+                                                />
+                                            </button>
+                                        </Tooltip>
+                                    </th>
                                     <th>Status</th>
                                 </tr>
                             </thead>

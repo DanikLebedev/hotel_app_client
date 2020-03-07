@@ -11,7 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { AppBar, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import Support from "../../pages/ChatPage/Support";
+import CometChatSupport from '../CometChatSupport/CometChatSupport';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme: any) => ({
     root: {
         flexGrow: 1,
         fontFamily: 'Roboto, sans-serif',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#fff',
     },
 }));
 
@@ -61,8 +62,15 @@ export const AdminPageInfo: React.FC = () => {
 
     return (
         <Container className={'admin-page pt-2'} fluid={true}>
-            <AppBar color='primary' position="static" className={classes.root}>
-                <Tabs value={value} onChange={handleChange} scrollButtons="auto"   indicatorColor={'inherit'} variant='scrollable' textColor={'inherit'} aria-label="simple tabs example">
+            <AppBar color="primary" position="static" className={classes.root}>
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    scrollButtons="auto"
+                    indicatorColor={'secondary'}
+                    variant="scrollable"
+                    aria-label="simple tabs example"
+                >
                     <Tab label="Categories" {...a11yProps(0)} />
                     <Tab label="Rooms" {...a11yProps(1)} />
                     <Tab label="Orders" {...a11yProps(2)} />
@@ -87,7 +95,7 @@ export const AdminPageInfo: React.FC = () => {
                 <FeedbackDataGrid />
             </TabPanel>
             <TabPanel value={value} index={5}>
-                <Support />
+                <CometChatSupport />
             </TabPanel>
         </Container>
     );

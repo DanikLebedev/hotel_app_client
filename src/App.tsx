@@ -15,10 +15,10 @@ import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Dictaphone from './components/SpeechControl/speech-recognition-setup';
-import CometChatWidget from "./components/CometChatWidget/CometChatWidget";
+import CometChatWidget from './components/CometChatWidget/CometChatWidget';
 
 const App: React.FC = () => {
-    const { login, logout, token, userId, userStatus, userEmail } = useAuth();
+    const { loginUser, logoutUser, token, userId, userStatus, userEmail } = useAuth();
     const isAuthenticated = !!token;
     const routes: JSX.Element = useRoutes(isAuthenticated, userStatus);
     const [fetchedRooms, setFetchedRooms] = useState<Room[]>([]);
@@ -72,8 +72,10 @@ const App: React.FC = () => {
         fetchCategories();
         fetchAllOrders();
         fetchEmployee();
-        fetchOrders();
-        fetchOrdersHistory();
+        if (isAuthenticated && userStatus !== 'admin') {
+            fetchOrders();
+            fetchOrdersHistory();
+        }
     }, [
         fetchRoom,
         fetchFeedback,
@@ -91,11 +93,12 @@ const App: React.FC = () => {
             <AdminContext.Provider
                 value={{
                     token,
-                    login,
-                    logout,
+                    loginUser,
+                    logoutUser,
                     userId,
                     isAuthenticated,
                     userStatus,
+                    userEmail,
                     fetchedCategories,
                     fetchedFeedbacks,
                     fetchedRooms,
@@ -112,8 +115,8 @@ const App: React.FC = () => {
         <ClientContext.Provider
             value={{
                 token,
-                login,
-                logout,
+                loginUser,
+                logoutUser,
                 userId,
                 isAuthenticated,
                 userStatus,
@@ -128,7 +131,7 @@ const App: React.FC = () => {
             <Router>
                 <Header />
                 <Dictaphone />
-                <CometChatWidget/>
+                <CometChatWidget />
                 <ScrollToTop />
                 {routes}
             </Router>

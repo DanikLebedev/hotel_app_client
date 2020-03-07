@@ -9,6 +9,7 @@ import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
+import {ConfirmDeleteModal} from "../../../ConfirmDeleteModal/ConfirmDeleteModal";
 
 type SortTypeParams = {
     class: string;
@@ -23,6 +24,7 @@ interface SortType {
 
 export const RoomDataGrid: React.FC = () => {
     const fetchedRooms = useContext(AdminContext).fetchedRooms;
+    const token = useContext(AdminContext).token;
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [rooms, setRooms] = useState<Room[]>(fetchedRooms);
@@ -43,6 +45,20 @@ export const RoomDataGrid: React.FC = () => {
         title: '',
     });
 
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [targetId, setTargetId] = useState<string>('');
+
+    const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
+        const target = event.target as HTMLButtonElement;
+        setTargetId(target.id);
+        setShowConfirmModal(true);
+    };
+
+    const closeConfirmModal = () => {
+        setShowConfirmModal(false);
+    };
+
+
     function update(): void {
         RoomService.getAllRooms().then(({ rooms }) => setRooms(rooms));
     }
@@ -59,14 +75,13 @@ export const RoomDataGrid: React.FC = () => {
         }
     };
 
-    const deleteRoomHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
-        const target = event.target as HTMLButtonElement;
+    const deleteRoomHandler = async (): Promise<void> => {
         fetchedRooms.filter(room => {
-            return room._id !== target.id;
+            return room._id !== targetId;
         });
         const formData = new FormData();
-        formData.append('_id', target.id);
-        await RoomService.deleteRoom(formData).then(data => {
+        formData.append('_id', targetId);
+        await RoomService.deleteRoom(formData, { Authorization: `Bearer ${token}`}).then(data => {
             toaster.notify(data.message, {
                 duration: 2000,
             });
@@ -303,7 +318,7 @@ export const RoomDataGrid: React.FC = () => {
                                               <IconButton
                                                   className={'icon-buttons'}
                                                   id={room._id}
-                                                  onClick={deleteRoomHandler}
+                                                  onClick={displayConfirmModal}
                                               >
                                                   <Delete color="error" />
                                               </IconButton>
@@ -324,6 +339,12 @@ export const RoomDataGrid: React.FC = () => {
                         : null}
                 </tbody>
             </table>
+            <ConfirmDeleteModal
+                show={showConfirmModal}
+                id={targetId}
+                onDelete={deleteRoomHandler}
+                closeModal={closeConfirmModal}
+            />
             <Pagination
                 postPerPage={postPerPage}
                 totalPosts={fetchedRooms.length}

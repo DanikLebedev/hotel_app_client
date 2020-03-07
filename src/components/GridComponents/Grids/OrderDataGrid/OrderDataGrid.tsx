@@ -8,9 +8,11 @@ import toaster from 'toasted-notes';
 import { AdminOrderForm } from '../../GridsForms/AdminOrderForm/AdminOrderForm';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
+import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 
 export const OrderDataGrid: React.FC = () => {
     const fetchedOrders = useContext(AdminContext).fetchedAllOrders;
+    const token = useContext(AdminContext).token;
     const [orders, setOrders] = useState<OrderCart[]>(fetchedOrders);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -26,6 +28,18 @@ export const OrderDataGrid: React.FC = () => {
     const [inputName, setInputName] = useState('');
     const [currentSort, setCurrentSort] = useState<string>('default');
     const [field, setField] = useState('');
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [targetId, setTargetId] = useState<string>('');
+
+    const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
+        const target = event.target as HTMLButtonElement;
+        setTargetId(target.id);
+        setShowConfirmModal(true);
+    };
+
+    const closeConfirmModal = () => {
+        setShowConfirmModal(false);
+    };
 
     const filteredOrders = (): OrderCart[] => {
         if (inputName === 'category-input') {
@@ -69,19 +83,19 @@ export const OrderDataGrid: React.FC = () => {
         }
     };
 
-    const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
-        const target = event.target as HTMLButtonElement;
+    const deleteOrderHandler = async (): Promise<void> => {
         orders.filter(order => {
-            return order._id !== target.id;
+            return order._id !== targetId;
         });
         const formData = new FormData();
-        formData.append('_id', target.id);
-        await OrderService.deleteAdminOrder(formData).then(data => {
+        formData.append('_id', targetId);
+        await OrderService.deleteAdminOrder(formData, { Authorization: `Bearer ${token}` }).then(data => {
+            update();
+            setShowConfirmModal(false);
             toaster.notify(data.message, {
                 duration: 2000,
             });
         });
-        update();
     };
 
     const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -207,7 +221,7 @@ export const OrderDataGrid: React.FC = () => {
                                               <IconButton
                                                   className={'icon-buttons'}
                                                   id={order._id}
-                                                  onClick={deleteOrderHandler}
+                                                  onClick={displayConfirmModal}
                                               >
                                                   <Delete color="error" />
                                               </IconButton>
@@ -228,6 +242,12 @@ export const OrderDataGrid: React.FC = () => {
                         : null}
                 </tbody>
             </table>
+            <ConfirmDeleteModal
+                show={showConfirmModal}
+                id={targetId}
+                onDelete={deleteOrderHandler}
+                closeModal={closeConfirmModal}
+            />
             <AdminOrderForm
                 update={update}
                 isEdit={isEdit}

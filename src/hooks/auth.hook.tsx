@@ -15,7 +15,7 @@ export const useAuth = () => {
     const [userStatus, setUserStatus] = useState('');
     const [userEmail, setUserEmail] = useState('');
 
-    const login = useCallback((jwtToken, id, status, email) => {
+    const loginUser = useCallback((jwtToken, id, status, email) => {
         setToken(jwtToken);
         setUserId(id);
         setUserStatus(status);
@@ -30,7 +30,7 @@ export const useAuth = () => {
             }),
         );
     }, []);
-    const logout = useCallback(() => {
+    const logoutUser = useCallback(() => {
         setToken(null);
         setUserId(null);
         setUserStatus('');
@@ -43,10 +43,10 @@ export const useAuth = () => {
         if (storageData) {
             const data: Storage = JSON.parse(storageData);
             if (data && data.token) {
-                login(data.token, data.userId, data.status, data.email);
+                loginUser(data.token, data.userId, data.status, data.email);
             }
         }
-    }, [login]);
+    }, [loginUser]);
 
-    return { login, logout, token, userId, userStatus, userEmail };
+    return { loginUser, logoutUser, token, userId, userStatus, userEmail };
 };

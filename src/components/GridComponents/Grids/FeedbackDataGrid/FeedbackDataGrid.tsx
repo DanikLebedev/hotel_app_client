@@ -10,9 +10,11 @@ import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
 import { Pagination } from '../../../Pagination/Pagination';
+import {ConfirmDeleteModal} from "../../../ConfirmDeleteModal/ConfirmDeleteModal";
 
 export const FeedbackDataGrid = () => {
     const fetchedFeedbacks = useContext(AdminContext).fetchedFeedbacks;
+    const token = useContext(AdminContext).token;
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [search, setSearch] = useState('');
@@ -27,6 +29,18 @@ export const FeedbackDataGrid = () => {
         userName: '',
     });
     const [feedbacks, setFeedbacks] = useState<Feedback[]>(fetchedFeedbacks);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [targetId, setTargetId] = useState<string>('');
+
+    const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
+        const target = event.target as HTMLButtonElement;
+        setTargetId(target.id);
+        setShowConfirmModal(true);
+    };
+
+    const closeConfirmModal = () => {
+        setShowConfirmModal(false);
+    };
 
     const closeModal = (): void => {
         setShowModal(false);
@@ -63,19 +77,20 @@ export const FeedbackDataGrid = () => {
         }
     };
 
-    const deleteFeedbackHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
-        const target = event.target as HTMLButtonElement;
+    const deleteFeedbackHandler = async (): Promise<void> => {
         feedbacks.filter(feedback => {
-            return feedback._id !== target.id;
+            return feedback._id !== targetId;
         });
         const formData = new FormData();
-        formData.append('_id', target.id);
-        await FeedbackService.deleteFeedback(formData).then(data => {
+        formData.append('_id', targetId);
+        await FeedbackService.deleteFeedback(formData, { Authorization: `Bearer ${token}`}).then(data => {
+            setShowConfirmModal(false)
+            update();
             toaster.notify(data.message, {
                 duration: 2000,
             });
         });
-        update();
+
     };
 
     const addFeedbackHandler = () => {
@@ -135,7 +150,7 @@ export const FeedbackDataGrid = () => {
                             <TextField id="standard-basic" name="user-email-input" onChange={dataSearch} />
                         </th>
                         <th>
-                            <p>User full name</p>{' '}
+                            <p>User name</p>
                             <TextField id="standard-basic" name="user-name-input" onChange={dataSearch} />
                         </th>
                         <th>
@@ -189,7 +204,7 @@ export const FeedbackDataGrid = () => {
                                                   <IconButton
                                                       className={'icon-buttons'}
                                                       id={feedback._id}
-                                                      onClick={deleteFeedbackHandler}
+                                                      onClick={displayConfirmModal}
                                                   >
                                                       <Delete color="error" />
                                                   </IconButton>
@@ -210,6 +225,12 @@ export const FeedbackDataGrid = () => {
                         : null}
                 </tbody>
             </table>
+            <ConfirmDeleteModal
+                show={showConfirmModal}
+                id={targetId}
+                onDelete={deleteFeedbackHandler}
+                closeModal={closeConfirmModal}
+            />
             <Pagination
                 postPerPage={postPerPage}
                 totalPosts={fetchedFeedbacks.length}

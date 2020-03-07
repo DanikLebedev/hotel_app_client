@@ -5,7 +5,7 @@ export const config = {
         { value: 'en', label: 'English' },
         { value: 'ru', label: 'Russian' },
     ],
-    APP_COMET_CHAT_ID: '1485958f328b7c5',
+    APP_COMET_CHAT_ID: '1486021dc43c88b',
     APP_COMET_AGENT_UID: 'support',
 };
 

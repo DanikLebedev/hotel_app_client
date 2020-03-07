@@ -12,8 +12,8 @@ export class FeedbackService {
         return response;
     }
 
-    public static async deleteFeedback(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.deleteData('/api/admin/feedbacks/delete', body);
+    public static async deleteFeedback(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.deleteData('/api/admin/feedbacks/delete', body, headers);
         return response;
     }
 

@@ -12,11 +12,10 @@ import { ClientContext } from '../../context/client.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
-import { Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
 import { SubmitButton } from '../../components/SubmitButton/SubmitButton';
-import {ConfirmModal} from "../../components/ConfirmModal/ConfirmModal";
+import { ConfirmModal } from '../../components/ConfirmModal/ConfirmModal';
 
 interface RoomInfoPageFormData {
     checkIn: string;
@@ -135,7 +134,13 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
         <div className="room-info-page">
             <div className="room-info-page-bg d-flex justify-content-center align-items-end" />
             <Container className="room-info-page-wrapper">
-                {roomInfo.length !== 0 ? roomInfoLayout : <Loader />}
+                {roomInfo.length !== 0 ? (
+                    roomInfoLayout
+                ) : (
+                    <div className="d-flex justify-content-center align-items-center vh-100">
+                        <Loader />
+                    </div>
+                )}
                 <div className="booking-form">
                     <div className="form-header">
                         <h1>Make your reservation</h1>
@@ -157,7 +162,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                 <ErrorMessage error={errors.checkIn} type={'error'} />
                             </div>
                             <div className="col-md-2 d-flex justify-content-center align-items-center">
-                                <span>&#8652;</span>
+                                <span className={'book-form-icon'}>&#8652;</span>
                             </div>
                             <div className="col-md-5">
                                 <div className="form-group">
@@ -211,7 +216,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                     </div>
                 </div>
             </Container>
-            <ConfirmModal show={show} addOrder={addOrderHandler} order={order} closeModal={handleClose}/>
+            <ConfirmModal show={show} addOrder={addOrderHandler} order={order} closeModal={handleClose} />
         </div>
     );
 };

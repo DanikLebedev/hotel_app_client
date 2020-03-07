@@ -17,8 +17,8 @@ export class RoomService {
         return rooms;
     }
 
-    public static async deleteRoom(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.deleteData('/api/admin/room/delete', body);
+    public static async deleteRoom(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.deleteData('/api/admin/room/delete', body, headers);
         return response;
     }
 

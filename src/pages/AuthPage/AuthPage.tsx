@@ -54,7 +54,7 @@ const AuthPage: React.FC = () => {
                 'Content-Type': 'application/json',
             });
             setLoading(false);
-            auth.login(loginData.token, loginData.userId, loginData.status, loginData.email);
+            auth.loginUser(loginData.token, loginData.userId, loginData.status, loginData.email);
             history.push('/');
         } catch (e) {}
     };
@@ -65,7 +65,7 @@ const AuthPage: React.FC = () => {
             const data: UserData = await AuthService.loginUser(form, {
                 'Content-Type': 'application/json',
             });
-            auth.login(data.token, data.userId, data.status, data.email);
+            auth.loginUser(data.token, data.userId, data.status, data.email);
             toaster.notify(data.message, {
                 duration: 2000,
             });

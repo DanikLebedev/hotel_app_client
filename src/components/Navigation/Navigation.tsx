@@ -14,17 +14,16 @@ import { useTranslation } from 'react-i18next';
 import toaster from 'toasted-notes';
 
 const Navigation: React.FC = (): JSX.Element => {
-    const auth = useContext(ClientContext);
+    const auth: ClientContext = useContext(ClientContext);
     const location = useLocation().pathname;
     const [showMenu, setShowMenu] = useState<boolean>(false);
-    const [token, setToken] = useState('');
+    const [token] = useState('');
     const history = useHistory();
     const isAuthenticated: boolean = auth.isAuthenticated;
-    const userEmail: string = auth.userEmail;
     const logoutHandler = (event: { preventDefault: () => void }): void => {
         setShowMenu(false);
         event.preventDefault();
-        auth.logout();
+        auth.logoutUser();
         history.push('/');
     };
 
@@ -34,7 +33,7 @@ const Navigation: React.FC = (): JSX.Element => {
             toaster.notify('Authorization time is out, please log in', {
                 duration: 2000,
             });
-            auth.logout();
+            auth.logoutUser();
             history.push('/auth');
         }
     };
@@ -58,7 +57,7 @@ const Navigation: React.FC = (): JSX.Element => {
 
     useEffect(() => {
         checkToken();
-    }, [token, location]);
+    }, [token, location,checkToken]);
 
     const authComponents: JSX.Element = (
         <>
@@ -70,15 +69,6 @@ const Navigation: React.FC = (): JSX.Element => {
                 to="/orders"
             >
                 {t('orders.label')}
-            </NavLink>
-            <NavLink
-                id={'navigation-link'}
-                onClick={(): void => setShowMenu(false)}
-                activeClassName={'active-link'}
-                className={'mr-5 link'}
-                to="/chat"
-            >
-                Chat
             </NavLink>
         </>
     );

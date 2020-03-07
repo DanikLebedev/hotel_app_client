@@ -10,7 +10,7 @@ export const AdminNavigation: React.FC = () => {
     const history = useHistory();
     const logoutHandler = (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        auth.logout();
+        auth.logoutUser();
         history.push('/');
     };
 

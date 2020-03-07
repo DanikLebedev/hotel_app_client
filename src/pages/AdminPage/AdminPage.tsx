@@ -3,13 +3,17 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { AdminNavigation } from '../../components/AdminNavigation/AdminNavigation';
 import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import Support from '../ChatPage/Support';
+import CometChatSupport from '../../components/CometChatSupport/CometChatSupport';
+
 
 export const AdminPage: React.FC = () => {
     const routes: JSX.Element = (
         <Switch>
             <Route path="/admin/info" exact>
                 <AdminPageInfo />
+            </Route>
+            <Route path="/admin/support" exact>
+                <CometChatSupport />
             </Route>
             <Redirect to={'/admin/info'} />
         </Switch>

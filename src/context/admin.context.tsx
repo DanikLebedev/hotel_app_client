@@ -4,8 +4,8 @@ import { Category, Employee, Feedback, OrderCart, Room } from '../interfaces/cli
 export interface AdminContext {
     token: string | null;
     userId: string | null;
-    login: (jwtToken: any, id: any, status: any, email: any) => void;
-    logout: () => void;
+    loginUser: (jwtToken: any, id: any, status: any, email: any) => void;
+    logoutUser: () => void;
     isAuthenticated: boolean;
     userStatus: string;
     fetchedRooms: Room[];
@@ -13,6 +13,7 @@ export interface AdminContext {
     fetchedCategories: Category[];
     fetchedAllOrders: OrderCart[];
     fetchedAllEmployee: Employee[];
+    userEmail: string
 }
 
 function noop(): void {}
@@ -20,8 +21,9 @@ function noop(): void {}
 export const AdminContext = createContext<AdminContext>({
     token: null,
     userId: null,
-    login: noop,
-    logout: noop,
+    userEmail: '',
+    loginUser: noop,
+    logoutUser: noop,
     isAuthenticated: false,
     userStatus: '',
     fetchedCategories: [

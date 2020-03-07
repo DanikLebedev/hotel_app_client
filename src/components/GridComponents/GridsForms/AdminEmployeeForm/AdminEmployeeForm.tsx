@@ -31,7 +31,6 @@ interface AdminEmployeeFormData {
 export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmployeeForm) => {
     const [employeeForm, setEmployeeForm] = useState<Employee>(props.editProps);
     const [statuses, setStatuses] = useState<Status[]>([]);
-    const { register, handleSubmit, errors } = useForm<AdminEmployeeFormData>();
     const token = useContext(AdminContext).token
 
     const addEmployeeHandler = async (): Promise<void> => {
@@ -46,7 +45,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
             });
             props.update();
         } else {
-            const data: Data = await EmployeeService.updateEmployee(employeeForm, {
+            const data: Data = await EmployeeService.postEmployee(employeeForm, {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
 
@@ -107,9 +106,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         name="email"
                         id="employee-email"
                         placeholder="xxx@xxx.xxx"
-                        ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                     />
-                    <ErrorMessage error={errors.email} type={'error'} />
                     <label htmlFor="email">Enter the Password</label>
                     <input
                         onChange={employeeChangeHandler}
@@ -120,12 +117,9 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         id="password"
                         placeholder="password"
                         disabled={props.isEdit}
-                        ref={register({ required: true })}
                     />
-                    <ErrorMessage error={errors.password} type={'error'} />
                     <label htmlFor="status">Choose status</label>
                     <select
-                        ref={register({ required: true })}
                         name="status"
                         className={'form-control'}
                         onChange={selectChangeHandler}
@@ -133,8 +127,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                     >
                         {statusOptions}
                     </select>
-                    <ErrorMessage error={errors.password} type={'error'} />
-                    <Button onClick={handleSubmit(addEmployeeHandler)} color="primary" variant="contained" className="mt-3">
+                    <Button onClick={addEmployeeHandler} color="primary" variant="contained" className="mt-3">
                         {props.isEdit ? 'Update' : 'Create'} Employee
                     </Button>
                     <button className={'close-modal-button'} onClick={() => props.closeModal()}>

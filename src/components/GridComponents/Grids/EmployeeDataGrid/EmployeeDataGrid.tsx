@@ -7,15 +7,29 @@ import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { Pagination } from '../../../Pagination/Pagination';
+import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 
 export const EmployeeDataGrid = () => {
     const fetchedEmployees = useContext(AdminContext).fetchedAllEmployee;
+    const token = useContext(AdminContext).token;
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [editProps, setEditProps] = useState<Employee>({ email: '', password: '', status: '' });
     const [search, setSearch] = useState('');
     const [inputName, setInputName] = useState('');
     const [employees, setEmployees] = useState<Employee[]>(fetchedEmployees);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [targetId, setTargetId] = useState<string>('');
+
+    const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
+        const target = event.target as HTMLButtonElement;
+        setTargetId(target.id);
+        setShowConfirmModal(true);
+    };
+
+    const closeConfirmModal = () => {
+        setShowConfirmModal(false);
+    };
 
     const closeModal = (): void => {
         setShowModal(false);
@@ -37,19 +51,19 @@ export const EmployeeDataGrid = () => {
         }
     };
 
-    const deleteEmployeeHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
-        const target = event.target as HTMLButtonElement;
+    const deleteEmployeeHandler = async (): Promise<void> => {
         employees.filter(employee => {
-            return employee._id !== target.id;
+            return employee._id !== targetId;
         });
         const formData = new FormData();
-        formData.append('_id', target.id);
-        await EmployeeService.deleteEmployee(formData).then(data => {
+        formData.append('_id', targetId);
+        await EmployeeService.deleteEmployee(formData, { Authorization: `Bearer ${token}` }).then(data => {
+            update();
+            setShowConfirmModal(false);
             toaster.notify(data.message, {
                 duration: 2000,
             });
         });
-        update();
     };
 
     const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -124,7 +138,7 @@ export const EmployeeDataGrid = () => {
                                               <IconButton
                                                   className={'icon-buttons'}
                                                   id={employee._id}
-                                                  onClick={deleteEmployeeHandler}
+                                                  onClick={displayConfirmModal}
                                               >
                                                   <Delete color="error" />
                                               </IconButton>
@@ -145,6 +159,12 @@ export const EmployeeDataGrid = () => {
                         : null}
                 </tbody>
             </table>
+            <ConfirmDeleteModal
+                show={showConfirmModal}
+                id={targetId}
+                onDelete={deleteEmployeeHandler}
+                closeModal={closeConfirmModal}
+            />
             <Pagination
                 postPerPage={postPerPage}
                 totalPosts={fetchedEmployees.length}

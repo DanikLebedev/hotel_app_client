@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Widget, addResponseMessage, addUserMessage, dropMessages } from 'react-chat-widget';
 import { CometChat } from '@cometchat-pro/chat';
-import './CometChatWidget.scss'
+import './CometChatWidget.scss';
 import { config } from '../../config';
 import 'react-chat-widget/lib/styles.css';
 
@@ -32,9 +32,12 @@ class CometChatWidget extends Component {
             messages => {
                 console.log('Message list fetched:', messages);
                 messages.forEach(message => {
+                    // @ts-ignore
                     if (message.receiver !== agentUID) {
+                        // @ts-ignore
                         addResponseMessage(message.text);
                     } else {
+                        // @ts-ignore
                         addUserMessage(message.text);
                     }
                 });

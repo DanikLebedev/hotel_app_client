@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CometChat } from '@cometchat-pro/chat';
-import MDSpinner from 'react-md-spinner';
 import { config } from '../../config';
+import Loader from '../Loader/Loader';
 
 const agentUID = config.APP_COMET_AGENT_UID;
 const AGENT_MESSAGE_LISTENER_KEY = 'agent-listener';
@@ -20,41 +20,43 @@ class CometChatSupport extends Component {
         this.fetchAuthToken(agentUID).then(
             authToken => {
                 console.log('auth token fetched', authToken);
-                CometChat.login(authToken).then(user => {
-                    console.log('Login successfully:', { user });
-                    this.fetchUsers().then(result => {
-                        this.setState({
-                            customers: result,
-                            customerIsLoading: false,
+                CometChat.login(authToken)
+                    .then(user => {
+                        console.log('Login successfully:', { user });
+                        this.fetchUsers().then(result => {
+                            this.setState({
+                                customers: result,
+                                customerIsLoading: false,
+                            });
                         });
-                    });
 
-                    CometChat.addMessageListener(
-                        AGENT_MESSAGE_LISTENER_KEY,
-                        new CometChat.MessageListener({
-                            onTextMessageReceived: message => {
-                                const { customers, selectedCustomer, chat } = this.state;
-                                console.log('Incoming Message Log', { message });
-                                if (selectedCustomer === message.sender.uid) {
-                                    chat.push(message);
-                                    this.setState({
-                                        chat,
-                                    });
-                                } else {
-                                    const aRegisteredCustomer = customers.filter(customer => {
-                                        return customer.uid === message.sender.uid;
-                                    });
-                                    if (!aRegisteredCustomer.length) {
-                                        customers.push(message.sender);
+                        CometChat.addMessageListener(
+                            AGENT_MESSAGE_LISTENER_KEY,
+                            new CometChat.MessageListener({
+                                onTextMessageReceived: message => {
+                                    const { customers, selectedCustomer, chat } = this.state;
+                                    console.log('Incoming Message Log', { message });
+                                    if (selectedCustomer === message.sender.uid) {
+                                        chat.push(message);
                                         this.setState({
-                                            customers,
+                                            chat,
                                         });
+                                    } else {
+                                        const aRegisteredCustomer = customers.filter(customer => {
+                                            return customer.uid === message.sender.uid;
+                                        });
+                                        if (!aRegisteredCustomer.length) {
+                                            customers.push(message.sender);
+                                            this.setState({
+                                                customers,
+                                            });
+                                        }
                                     }
-                                }
-                            },
-                        }),
-                    );
-                });
+                                },
+                            }),
+                        );
+                    })
+                    .catch(error => console.log(error));
             },
             error => {
                 console.log('Initialization failed with error:', error);
@@ -112,7 +114,6 @@ class CometChatSupport extends Component {
     componentWillUnmount() {
         CometChat.removeMessageListener(AGENT_MESSAGE_LISTENER_KEY);
         CometChat.logout();
-        localStorage.removeItem('cc-uid');
     }
 
     selectCustomer = uid => {
@@ -217,7 +218,7 @@ class ChatBox extends Component {
         if (chatIsLoading) {
             return (
                 <div className="col-xl-12 my-auto text-center">
-                    <MDSpinner size="72" />
+                    <Loader size="72" />
                 </div>
             );
         } else {
@@ -242,7 +243,7 @@ class CustomerList extends Component {
         if (customerIsLoading) {
             return (
                 <div className="col-xl-12 my-auto text-center">
-                    <MDSpinner size="72" />
+                    <Loader />
                 </div>
             );
         } else {

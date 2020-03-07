@@ -4,8 +4,8 @@ import {Category, Feedback, Order, OrderCart, Room} from '../interfaces/clientIn
 export interface ClientContext {
     token: string | null;
     userId: string | null;
-    login: (jwtToken: any, id: any, status: any, email: any) => void;
-    logout: () => void;
+    loginUser: (jwtToken: any, id: any, status: any, email: any) => void;
+    logoutUser: () => void;
     isAuthenticated: boolean;
     userStatus: string;
     userEmail: string;
@@ -21,8 +21,8 @@ function noop(): void {}
 export const ClientContext = createContext<ClientContext>({
     token: null,
     userId: null,
-    login: noop,
-    logout: noop,
+    loginUser: noop,
+    logoutUser: noop,
     isAuthenticated: false,
     userStatus: '',
     userEmail: '',

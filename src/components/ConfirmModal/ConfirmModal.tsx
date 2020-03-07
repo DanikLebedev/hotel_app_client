@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container, Modal } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { handleClickOutside } from '../../sharedMethods/outsideClick';
-import { ErrorMessage } from '../ErrorsComponents/ErrorMessage';
 import { Close, Send, CalendarTodayOutlined, List, MoneyRounded, Comment } from '@material-ui/icons';
-import { Order } from '../../interfaces/clientInterfaces';
+import { Order} from '../../interfaces/clientInterfaces';
 
 interface ConfirmModal {
     show: boolean;

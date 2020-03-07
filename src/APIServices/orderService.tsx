@@ -16,8 +16,8 @@ export class OrderService {
         return response;
     }
 
-    public static async deleteOrder(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.deleteData('/api/client/order/delete', body);
+    public static async deleteOrder(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.deleteData('/api/client/order/delete', body, headers);
         return response;
     }
 
@@ -26,8 +26,8 @@ export class OrderService {
         return orders;
     }
 
-    public static async deleteAdminOrder(body: {}): Promise<Data> {
-        const response: Data = await CRUDServices.deleteData('/api/admin/orders/delete', body);
+    public static async deleteAdminOrder(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.deleteData('/api/admin/orders/delete', body, headers);
         return response;
     }
 

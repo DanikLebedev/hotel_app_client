@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { handleClickOutside } from '../../sharedMethods/outsideClick';
 import { Close, Send } from '@material-ui/icons';

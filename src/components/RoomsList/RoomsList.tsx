@@ -8,8 +8,11 @@ export const RoomsList: React.FC = (): JSX.Element => {
     const fetchedRooms: Room[] = useContext(ClientContext).fetchedRooms;
     return (
         <div>
-            {!fetchedRooms[0] ? (
-                <Loader />
+            {!fetchedRooms  ? (
+                <div className='d-flex justify-content-center align-items-center vh-100'>
+                    <Loader />
+                </div>
+
             ) : (
                 fetchedRooms.map((room: Room, i: number) => {
                     return <RoomItem searchRoom={false} key={room.title + i} roomInfo={room} />;
