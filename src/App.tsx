@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
-import { Category, Employee, Feedback, Order, OrderCart, Orders, Room } from './interfaces/clientInterfaces';
+import { Article, Category, Employee, Feedback, Order, OrderCart, Orders, Room } from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
 import { FeedbackService } from './APIServices/feedbackService';
@@ -16,6 +16,7 @@ import { EmployeeService } from './APIServices/employeeService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Dictaphone from './components/SpeechControl/speech-recognition-setup';
 import CometChatWidget from './components/CometChatWidget/CometChatWidget';
+import { ArticleService } from './APIServices/articleService';
 
 const App: React.FC = () => {
     const { loginUser, logoutUser, token, userId, userStatus, userEmail } = useAuth();
@@ -28,6 +29,11 @@ const App: React.FC = () => {
     const [fetchedAllEmployee, setFetchedAllEmployee] = useState<Employee[]>([]);
     const [fetchedUserOrders, setFetchedUserOrders] = useState<Order[]>([]);
     const [orderHistory, setOrderHistory] = useState<OrderCart[]>([]);
+    const [fetchedAllArticles, setFetchedAllArticles] = useState<Article[]>([]);
+
+    const fetchAllArticles: CallableFunction = useCallback(() => {
+        ArticleService.getAllArticles().then(({ article }) => setFetchedAllArticles(article));
+    }, []);
 
     const fetchOrdersHistory: CallableFunction = useCallback(() => {
         OrderService.getOrdersHistory({ Authorization: `Bearer ${token}` }).then(({ ordercarts }) =>
@@ -72,6 +78,7 @@ const App: React.FC = () => {
         fetchCategories();
         fetchAllOrders();
         fetchEmployee();
+        fetchAllArticles();
         if (isAuthenticated && userStatus !== 'admin') {
             fetchOrders();
             fetchOrdersHistory();
@@ -86,6 +93,7 @@ const App: React.FC = () => {
         fetchOrdersHistory,
         isAuthenticated,
         userStatus,
+        fetchAllArticles,
     ]);
 
     if (userStatus === 'admin') {
@@ -104,6 +112,7 @@ const App: React.FC = () => {
                     fetchedRooms,
                     fetchedAllOrders,
                     fetchedAllEmployee,
+                    fetchedAllArticles,
                 }}
             >
                 <AdminPage />
@@ -126,6 +135,7 @@ const App: React.FC = () => {
                 fetchedCategories,
                 fetchedUserOrders,
                 orderHistory,
+                fetchedAllArticles,
             }}
         >
             <Router>

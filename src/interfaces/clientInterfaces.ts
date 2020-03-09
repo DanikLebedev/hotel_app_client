@@ -21,6 +21,7 @@ export interface Categories {
 
 export interface Data extends Response {
     message: string;
+    data?: Status[] | Order[] | OrderCart[] | Room[] | Customer[] | Category[] | Feedback[]
 }
 
 export interface Statuses {
@@ -121,4 +122,16 @@ export interface UserData {
     status: string;
     email: string;
     message: string;
+}
+
+export interface Article {
+    title: string;
+    image: string;
+    text: string;
+    createdAt: string;
+    _id?: string;
+}
+
+export interface Articles {
+    article: Article[]
 }

@@ -57,7 +57,7 @@ const Navigation: React.FC = (): JSX.Element => {
 
     useEffect(() => {
         checkToken();
-    }, [token, location,checkToken]);
+    }, [token, location, checkToken]);
 
     const authComponents: JSX.Element = (
         <>
@@ -186,6 +186,9 @@ const Navigation: React.FC = (): JSX.Element => {
                                         <img src={rusLogo} width={40} height={30} alt="russia" />
                                     </label>
                                     <input type="radio" hidden={true} value="ru" name="language" id={'ru'} />
+                                    <NavLink id={'auth-link-burger-menu'} className={'auth-link '} to="/admin/login">
+                                        admin
+                                    </NavLink>
                                     {isAuthenticated ? (
                                         <NavLink
                                             id={'auth-link-burger-menu'}
@@ -235,8 +238,16 @@ const Navigation: React.FC = (): JSX.Element => {
                             >
                                 {t('about.label')}
                             </NavLink>
+                            <NavLink
+                                id={'navigation-link'}
+                                onClick={(): void => setShowMenu(false)}
+                                activeClassName={'active-link'}
+                                className={'mr-5 link'}
+                                to="/articles"
+                            >
+                                {t('articles.label')}
+                            </NavLink>
                             {isAuthenticated ? authComponents : null}
-
                         </Nav>
                     </div>
                     <div className={showMenu ? 'drawer open-drawer' : 'drawer'} />

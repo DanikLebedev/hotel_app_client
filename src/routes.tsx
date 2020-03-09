@@ -10,7 +10,9 @@ import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import { RoomInfoPage } from './pages/RoomInfoPage/RoomInfoPage';
 import Loader from './components/Loader/Loader';
 import { SearchRoomsPage } from './pages/SearchRoomsPage/SearchRoomsPage';
-import CometChatSupport from "./components/CometChatSupport/CometChatSupport";
+import CometChatSupport from './components/CometChatSupport/CometChatSupport';
+import { ArticleInfoPage } from './pages/ArticleInfoPage/ArticleInfoPage';
+import  ArticlesPage  from './pages/ArticlesPage/ArticlesPage';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -40,6 +42,12 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 </Route>
                 <Route path="/searchRooms">
                     <SearchRoomsPage />
+                </Route>
+                <Route path="/articles/:id">
+                    <ArticleInfoPage />
+                </Route>
+                <Route path="/articles">
+                    <ArticlesPage />
                 </Route>
                 <Route path="/admin/support" exact>
                     <CometChatSupport />
@@ -115,6 +123,12 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Route>
             <Route path="/rooms/:id">
                 <RoomInfoPage />
+            </Route>
+            <Route path="/articles/:id">
+                <ArticleInfoPage />
+            </Route>
+            <Route path="/articles">
+                <ArticlesPage />
             </Route>
             <Route path="/admin/support" exact>
                 <CometChatSupport />

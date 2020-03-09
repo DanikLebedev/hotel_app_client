@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Category, Employee, Feedback, OrderCart, Room } from '../interfaces/clientInterfaces';
+import { Article, Category, Employee, Feedback, OrderCart, Room } from '../interfaces/clientInterfaces';
 
 export interface AdminContext {
     token: string | null;
@@ -13,7 +13,8 @@ export interface AdminContext {
     fetchedCategories: Category[];
     fetchedAllOrders: OrderCart[];
     fetchedAllEmployee: Employee[];
-    userEmail: string
+    userEmail: string;
+    fetchedAllArticles: Article[];
 }
 
 function noop(): void {}
@@ -66,4 +67,5 @@ export const AdminContext = createContext<AdminContext>({
         },
     ],
     fetchedAllEmployee: [{ email: '', password: '', status: '' }],
+    fetchedAllArticles: [{ title: '', image: '', text: '', createdAt: '' }],
 });
