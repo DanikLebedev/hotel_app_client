@@ -134,7 +134,6 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                                 </select>
                             </Col>
                             <Col lg={6} md={6} sm={6}>
-                                {' '}
                                 <label htmlFor="title">Enter the Title</label>
                                 <input
                                     onChange={roomChangeHandler}
@@ -234,7 +233,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                             </Col>
                         </Row>
                         {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id} /> : null}
-                        <Button color="primary" variant="contained" className="mt-3">
+                        <Button type={'submit'} color="primary" variant="contained" className="mt-3">
                             {props.isEdit ? 'Update' : 'Create'} Room
                         </Button>
                     </form>

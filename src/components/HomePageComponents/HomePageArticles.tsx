@@ -1,53 +1,83 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import galleryPhoto1 from '../../assets/images/cream_candles_flowers_green_therapy_11044_1600x1200.jpg';
 import galleryPhoto2 from '../../assets/images/thumb-1920-206717.jpg';
 import galleryPhoto3 from '../../assets/images/10-103370_salad-food-wallpaper-food-images-high-resolution.jpg';
 import galleryPhoto4 from '../../assets/images/colombo_2.jpg';
+import { ClientContext } from '../../context/client.context';
+import Loader from '../Loader/Loader';
+import { config } from '../../config';
 
 export const HomePageArticles = () => {
+    const articles = useContext(ClientContext).fetchedAllArticles;
     return (
         <Container fluid={true}>
             <Row>
-                <Col
-                    lg={4}
-                    md={4}
-                    sm={4}
-                    className={'home-page-articles-item'}
-                    style={{ background: `url(${galleryPhoto1}) center center / cover`, height: '20rem' }}
-                >
-                    <div className={'article-info'}>
-                        <h4>Health SPA</h4>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        <a href="/">Read more</a>
-                    </div>
-                </Col>
-                <Col
-                    lg={4}
-                    md={4}
-                    sm={4}
-                    className={'home-page-articles-item'}
-                    style={{ background: `url(${galleryPhoto2}) center center / cover`, height: '20rem' }}
-                >
-                    <div className={'article-info'}>
-                        <h4>Golf</h4>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        <a href="/">Read more</a>
-                    </div>
-                </Col>
-                <Col
-                    lg={4}
-                    md={4}
-                    sm={4}
-                    className={'home-page-articles-item'}
-                    style={{ background: `url(${galleryPhoto3}) center center / cover `, height: '20rem' }}
-                >
-                    <div className={'article-info'}>
-                        <h4>Food</h4>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        <a href="/">Read more</a>
-                    </div>
-                </Col>
+                {!articles ? (
+                    <Loader />
+                ) : (
+                    articles.slice(0, 3).map((article, key) => {
+                        return (
+                            <Col
+                                key={article._id}
+                                lg={4}
+                                md={4}
+                                sm={4}
+                                className={'home-page-articles-item'}
+                                style={{
+                                    background: `url(${config.baseUrl + article.image}) center center / cover`,
+                                    height: '20rem',
+                                }}
+                            >
+                                <div className={'article-info'}>
+                                    <h4>{article.title}</h4>
+                                    <NavLink to={`/articles/${article._id}`}>Read More</NavLink>
+                                </div>
+                            </Col>
+                        );
+                    })
+                )}
+                {/*    <Col*/}
+                {/*        lg={4}*/}
+                {/*        md={4}*/}
+                {/*        sm={4}*/}
+                {/*        className={'home-page-articles-item'}*/}
+                {/*        style={{ background: `url(${galleryPhoto1}) center center / cover`, height: '20rem' }}*/}
+                {/*    >*/}
+                {/*        <div className={'article-info'}>*/}
+                {/*            <h4>Health SPA</h4>*/}
+                {/*            <p>Lorem ipsum dolor sit amet.</p>*/}
+                {/*            <a href="/">Read more</a>*/}
+                {/*        </div>*/}
+                {/*    </Col>*/}
+                {/*    <Col*/}
+                {/*        lg={4}*/}
+                {/*        md={4}*/}
+                {/*        sm={4}*/}
+                {/*        className={'home-page-articles-item'}*/}
+                {/*        style={{ background: `url(${galleryPhoto2}) center center / cover`, height: '20rem' }}*/}
+                {/*    >*/}
+                {/*        <div className={'article-info'}>*/}
+                {/*            <h4>Golf</h4>*/}
+                {/*            <p>Lorem ipsum dolor sit amet.</p>*/}
+                {/*            <a href="/">Read more</a>*/}
+                {/*        </div>*/}
+                {/*    </Col>*/}
+                {/*    <Col*/}
+                {/*        lg={4}*/}
+                {/*        md={4}*/}
+                {/*        sm={4}*/}
+                {/*        className={'home-page-articles-item'}*/}
+                {/*        style={{ background: `url(${galleryPhoto3}) center center / cover `, height: '20rem' }}*/}
+                {/*    >*/}
+                {/*        <div className={'article-info'}>*/}
+                {/*            <h4>Food</h4>*/}
+                {/*            <p>Lorem ipsum dolor sit amet.</p>*/}
+                {/*            <a href="/">Read more</a>*/}
+                {/*        </div>*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
             </Row>
             <Row>
                 <Col

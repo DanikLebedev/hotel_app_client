@@ -12,6 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import { AppBar, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import CometChatSupport from '../CometChatSupport/CometChatSupport';
+import {ArticleDataGrid} from "../GridComponents/Grids/ArticleDataGrid/ArticleDataGrid";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -76,6 +77,7 @@ export const AdminPageInfo: React.FC = () => {
                     <Tab label="Orders" {...a11yProps(2)} />
                     <Tab label="Employees" {...a11yProps(3)} />
                     <Tab label="Feedbacks" {...a11yProps(4)} />
+                    <Tab label="Articles" {...a11yProps(5)} />
                     <Tab label="Chat" {...a11yProps(5)} />
                 </Tabs>
             </AppBar>
@@ -95,6 +97,9 @@ export const AdminPageInfo: React.FC = () => {
                 <FeedbackDataGrid />
             </TabPanel>
             <TabPanel value={value} index={5}>
+                <ArticleDataGrid />
+            </TabPanel>
+            <TabPanel value={value} index={6}>
                 <CometChatSupport />
             </TabPanel>
         </Container>

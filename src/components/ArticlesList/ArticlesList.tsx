@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import RoomItem from '../RoomItem/RoomItem';
 import Loader from '../Loader/Loader';
 import { Article, Room } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
+import { Row } from 'react-bootstrap';
 import ArticleItem from '../ArticleItem/ArticleItem';
 
 export const ArticlesList: React.FC = (): JSX.Element => {
     const fetchedArticles: Article[] = useContext(ClientContext).fetchedAllArticles;
     return (
-        <div>
+        <Row>
             {!fetchedArticles ? (
                 <div className="d-flex justify-content-center align-items-center vh-100">
                     <Loader />
@@ -18,7 +18,7 @@ export const ArticlesList: React.FC = (): JSX.Element => {
                     return <ArticleItem key={article.title + i} articleInfo={article} />;
                 })
             )}
-        </div>
+        </Row>
     );
 };
 

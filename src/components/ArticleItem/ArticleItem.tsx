@@ -24,28 +24,17 @@ function kitcut(text, limit) {
 
 const ArticleItem: ({ articleInfo }: ArticleItemProps) => any = ({ articleInfo }: ArticleItemProps) => {
     return (
-        <Container className={'articles-page__wrapper'}>
-            <Row className={'articles-page__item mb-3'}>
-                <Col
-                    lg={6}
-                    md={6}
-                    sm={6}
-                    xs={6}
-                    className="articles-page__item-img"
-                    style={{ background: `url(${config.baseUrl + articleInfo.image}) center center / cover` }}
-                />
-                <Col lg={6} md={6} sm={6} xs={6}>
-                    <h3>{articleInfo.title}</h3>
-                    <div className="rooms-page__item-text">
-                        <p>{new Date(articleInfo.createdAt).toLocaleDateString()}</p>
-                        <p>{kitcut(articleInfo.text, 100)}</p>
-                    </div>
-                    <NavLink to={`/articles/${articleInfo._id}`} id={`redirect-button`} className="button btn-black">
-                        Read More
-                    </NavLink>
-                </Col>
-            </Row>
-        </Container>
+        <Col lg={4} md={4} sm={4} xs={4} className={'mb-4'} >
+            <img className="articles-page__item-img" src={config.baseUrl + articleInfo.image} alt="img" />
+            <h3>{articleInfo.title}</h3>
+            <div className="rooms-page__item-text">
+                <p>{articleInfo.createdAt ? new Date(articleInfo.createdAt).toLocaleDateString(): null}</p>
+                <p>{kitcut(articleInfo.text, 100)}</p>
+            </div>
+            <NavLink to={`/articles/${articleInfo._id}`} id={`redirect-button`} className="button btn-black">
+                Read More
+            </NavLink>
+        </Col>
     );
 };
 
