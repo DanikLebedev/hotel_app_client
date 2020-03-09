@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import logo from '../../assets/images/Rixos_Hotels_logo_logotype.png';
+// import logo from '../../../public/images/Rixos_Hotels_logo_logotype.png';
 import './Footer.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
                         <Row>
                             <Col lg={12} md={12} sm={12}>
                                 <img
-                                    src={logo}
+                                    src={process.env.PUBLIC_URL + '/images/Rixos_Hotels_logo_logotype.png'}
                                     alt="logo"
                                     width={180}
                                     height={70}

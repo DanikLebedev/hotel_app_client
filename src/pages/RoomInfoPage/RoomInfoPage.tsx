@@ -159,7 +159,9 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                         required
                                     />
                                 </div>
-                                <ErrorMessage error={errors.checkIn} type={'error'} />
+                                <span className="error-field">
+                                    <ErrorMessage error={errors.checkOut} type={'error'} />
+                                </span>
                             </div>
                             <div className="col-md-2 d-flex justify-content-center align-items-center">
                                 <span className={'book-form-icon'}>&#8652;</span>
@@ -177,12 +179,12 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                     />
                                 </div>
                                 <span className="error-field">
-                                    <ErrorMessage error={errors.checkOut} type={'error'} />
-                                </span>
+                                <ErrorMessage error={errors.checkOut} type={'error'} />
+                            </span>
                             </div>
                         </div>
                         <div className="row align-items-end">
-                            <div className="col-md-3">
+                            <div className="col-md-3 mt-2">
                                 <span className="form-label">Number of guests</span>
                                 <input
                                     className="form-control"
@@ -206,11 +208,14 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                     placeholder="enter your wishes"
                                     id={'comment'}
                                 />
+                                <span className="error-field">
+                                </span>
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
                                     <SubmitButton onClick={handleSubmit(handleShow)} title={'Check availability'} />
                                 </div>
+                                <span className="error-field"/>
                             </div>
                         </div>
                     </div>

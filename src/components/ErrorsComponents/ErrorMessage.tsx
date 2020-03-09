@@ -19,17 +19,17 @@ export const ErrorMessage = ({ error }: ErrorMessage) => {
                 );
             case 'minLength':
                 return (
-                    <p className={'validate-error'}>
+                    <span className={'validate-error'}>
                         <Error color={'error'} />
                         Your password need minimum 6 characters
-                    </p>
+                    </span>
                 );
             case 'pattern':
                 return (
-                    <p className={'validate-error'}>
+                    <span className={'validate-error'}>
                         <Error color={'error'} />
                         Enter a valid email address
-                    </p>
+                    </span>
                 );
             default:
                 return null;

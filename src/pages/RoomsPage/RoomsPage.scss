@@ -2,7 +2,7 @@
 
 .room-page {
   &-bg {
-    background: url("../../assets/images/dui21-deluxe-room1.add1.low-res.jpg") center center / cover;
+    background: url("/images/dui21-deluxe-room1.add1.low-res.jpg") center center / cover;
     height: 50vh;
     width: 100%;
     position: absolute;
@@ -39,7 +39,7 @@ and (max-width: 1199px){
       font-size: 2em;
     }
     &-wrapper {
-      padding-top: 30vh;
+      padding-top: 35vh;
     }
   }
 }

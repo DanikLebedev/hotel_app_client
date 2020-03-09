@@ -218,7 +218,7 @@ class ChatBox extends Component {
         if (chatIsLoading) {
             return (
                 <div className="col-xl-12 my-auto text-center">
-                    <Loader size="72" />
+                    <Loader />
                 </div>
             );
         } else {

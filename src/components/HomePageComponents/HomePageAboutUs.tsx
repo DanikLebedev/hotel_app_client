@@ -2,8 +2,8 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { Slider } from '../Slider/Slider';
-import roomImage1 from '../../assets/images/vertical-city-hotel.jpg';
-import roomImage2 from '../../assets/images/38736452-luxurious-bed-with-cushion-in-royal-bedroom-interior-hotel-room-in-bright-colors-vertical-orientatio.jpg';
+import roomImage1 from '%PUBLIC_URL%/images/vertical-city-hotel.jpg';
+import  roomImage2 from '%PUBLIC_URL%/images/Image-5.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { withTranslation } from 'react-i18next';
@@ -49,7 +49,7 @@ const HomePageAboutUs: React.FC = ({ t }: any): JSX.Element => {
                                 md={6}
                                 xs={12}
                             >
-                                <img src={roomImage1} alt="room" />
+                                <img src={process.env.PUBLIC_URL + '/images/Image-5.jpg' } alt="room" />
                             </Col>
                             <Col
                                 className="d-flex justify-content-center align-items-center"
@@ -58,7 +58,7 @@ const HomePageAboutUs: React.FC = ({ t }: any): JSX.Element => {
                                 md={6}
                                 xs={12}
                             >
-                                <img src={roomImage2} alt="room" />
+                                <img src={process.env.PUBLIC_URL + '/images/vertical-city-hotel.jpg' } alt="room" />
                             </Col>
                         </Row>
                     </Col>

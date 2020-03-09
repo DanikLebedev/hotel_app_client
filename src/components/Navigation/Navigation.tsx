@@ -2,9 +2,6 @@ import React, { useContext, useState, ChangeEvent, useEffect } from 'react';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { ClientContext } from '../../context/client.context';
 import './Navigation.scss';
-import engLogo from '../../assets/images/united_kingdom_640.png';
-import rusLogo from '../../assets/images/russia_round_icon_64.png';
-import hotelLogo from '../../assets/images/Rixos_Hotels_logo_logotype.png';
 import { Navbar, NavbarBrand, Nav, Row, Col } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +14,7 @@ const Navigation: React.FC = (): JSX.Element => {
     const auth: ClientContext = useContext(ClientContext);
     const location = useLocation().pathname;
     const [showMenu, setShowMenu] = useState<boolean>(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const [token] = useState('');
     const history = useHistory();
     const isAuthenticated: boolean = auth.isAuthenticated;
@@ -57,6 +55,13 @@ const Navigation: React.FC = (): JSX.Element => {
 
     useEffect(() => {
         checkToken();
+        window.addEventListener('scroll', () => {
+            let scroll = true;
+            if (window.scrollY === 0) {
+                scroll = false;
+            }
+            setIsScrolled(scroll);
+        });
     }, [token, location, checkToken]);
 
     const authComponents: JSX.Element = (
@@ -106,7 +111,12 @@ const Navigation: React.FC = (): JSX.Element => {
                             <li className="switсh-language__wrapper">
                                 <div onChange={changeLang}>
                                     <label htmlFor="en" id={'england'}>
-                                        <img src={engLogo} width={40} height={30} alt="england" />
+                                        <img
+                                            src={process.env.PUBLIC_URL + '/images/united_kingdom_640.png'}
+                                            width={40}
+                                            height={30}
+                                            alt="england"
+                                        />
                                     </label>
                                     <input
                                         type="radio"
@@ -117,7 +127,12 @@ const Navigation: React.FC = (): JSX.Element => {
                                         defaultChecked
                                     />
                                     <label htmlFor="ru" id={'russian'}>
-                                        <img src={rusLogo} width={40} height={30} alt="russia" />
+                                        <img
+                                            src={process.env.PUBLIC_URL + '/images/russia_round_icon_64.png'}
+                                            width={40}
+                                            height={30}
+                                            alt="russia"
+                                        />
                                     </label>
                                     <input type="radio" hidden={true} value="ru" name="language" id={'ru'} />
                                 </div>
@@ -141,7 +156,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 )}
                             </li>
                             <div className="separator" />
-                            <li>
+                            <li className={'socials'}>
                                 <ul className="d-flex justify-content-center">
                                     <li className="social_icon">
                                         <a href="/">
@@ -165,14 +180,25 @@ const Navigation: React.FC = (): JSX.Element => {
                 </Row>
                 <Navbar id={'navbar'}>
                     <NavbarBrand href="/">
-                        <img style={{ filter: 'brightness(5)' }} src={hotelLogo} width={180} height={70} alt="logo" />
+                        <img
+                            style={{ filter: 'brightness(5)' }}
+                            src={process.env.PUBLIC_URL + '/images/Rixos_Hotels_logo_logotype.png'}
+                            width={180}
+                            height={70}
+                            alt="logo"
+                        />
                     </NavbarBrand>
                     <div className={cls.join(' ')}>
                         <Nav id={'nav__list_links'} className="nav__list_links mr-auto ml-auto  ">
                             <div className="switсh-language__wrapper-burger-menu">
                                 <div onChange={changeLang}>
                                     <label htmlFor="en" id={'england'}>
-                                        <img src={engLogo} width={40} height={30} alt="england" />
+                                        <img
+                                            src={process.env.PUBLIC_URL + '/images/united_kingdom_640.png'}
+                                            width={40}
+                                            height={30}
+                                            alt="england"
+                                        />
                                     </label>
                                     <input
                                         type="radio"
@@ -183,12 +209,14 @@ const Navigation: React.FC = (): JSX.Element => {
                                         defaultChecked
                                     />
                                     <label htmlFor="ru" id={'russian'}>
-                                        <img src={rusLogo} width={40} height={30} alt="russia" />
+                                        <img
+                                            src={process.env.PUBLIC_URL + '/images/russia_round_icon_64.png'}
+                                            width={40}
+                                            height={30}
+                                            alt="russia"
+                                        />
                                     </label>
                                     <input type="radio" hidden={true} value="ru" name="language" id={'ru'} />
-                                    <NavLink id={'auth-link-burger-menu'} className={'auth-link '} to="/admin/login">
-                                        admin
-                                    </NavLink>
                                     {isAuthenticated ? (
                                         <NavLink
                                             id={'auth-link-burger-menu'}
@@ -249,11 +277,34 @@ const Navigation: React.FC = (): JSX.Element => {
                             </NavLink>
                             {isAuthenticated ? authComponents : null}
                         </Nav>
+                        <div className={'socials-burger-menu'}>
+                            <ul className="d-flex justify-content-center">
+                                <li className="social_icon">
+                                    <a href="/">
+                                        <FontAwesomeIcon className={'icon'} icon={faFacebookF} />
+                                    </a>
+                                </li>
+                                <li className="social_icon">
+                                    <a href="/">
+                                        <FontAwesomeIcon icon={faTwitter} className={'icon'} />
+                                    </a>
+                                </li>
+                                <li className="social_icon">
+                                    <a href="/">
+                                        <FontAwesomeIcon icon={faVk} className={'icon'} />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div className={showMenu ? 'drawer open-drawer' : 'drawer'} />
                 </Navbar>
             </Container>
-            <div id="burger-button" className={showMenu ? 'change' : ''} onClick={showMenuHandler}>
+            <div
+                id="burger-button"
+                className={showMenu ? 'change topbar' : isScrolled ? 'topbar topbar-scroll' : 'topbar'}
+                onClick={showMenuHandler}
+            >
                 <div className="bar1" />
                 <div className="bar2" />
                 <div className="bar3" />

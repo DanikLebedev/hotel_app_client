@@ -24,7 +24,7 @@ function kitcut(text, limit) {
 
 const ArticleItem: ({ articleInfo }: ArticleItemProps) => any = ({ articleInfo }: ArticleItemProps) => {
     return (
-        <Col lg={4} md={4} sm={4} xs={4} className={'mb-4'} >
+        <Col lg={4} md={4} sm={12} xs={12} className={'mb-4'} >
             <img className="articles-page__item-img" src={config.baseUrl + articleInfo.image} alt="img" />
             <h3>{articleInfo.title}</h3>
             <div className="rooms-page__item-text">

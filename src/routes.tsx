@@ -49,9 +49,7 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 <Route path="/articles">
                     <ArticlesPage />
                 </Route>
-                <Route path="/admin/support" exact>
-                    <CometChatSupport />
-                </Route>
+
                 <Route component={NotFound} />
             </Switch>
         );
@@ -129,9 +127,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Route>
             <Route path="/articles">
                 <ArticlesPage />
-            </Route>
-            <Route path="/admin/support" exact>
-                <CometChatSupport />
             </Route>
             <Route component={NotFound} />
         </Switch>

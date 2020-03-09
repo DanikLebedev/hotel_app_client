@@ -2,10 +2,10 @@ import React from 'react';
 import './AboutUsPage.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { config } from '../../config';
-import galleryPhoto1 from '../../assets/images/7112.jpg';
-import galleryPhoto2 from '../../assets/images/dui21-deluxe-room1.add1.low-res.jpg';
-import galleryPhoto3 from '../../assets/images/3-high-res-restaurant-30.jpg';
-import galleryPhoto4 from '../../assets/images/528941482_200fcf18b2_b.jpg';
+// import galleryPhoto1 from './images/7112.jpg';
+// import galleryPhoto2 from './images/dui21-deluxe-room1.add1.low-res.jpg';
+// import galleryPhoto3 from './images/3-high-res-restaurant-30.jpg';
+// import galleryPhoto4 from '../../../public/images/528941482_200fcf18b2_b.jpg';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
 import { withTranslation } from 'react-i18next';
 
@@ -30,7 +30,7 @@ const AboutUsPage: React.FC = ({ t }: any) => {
                 <Row className={'about-us__page-gallery'}>
                     <div className="grid">
                         <figure className="effect-layla">
-                            <img src={galleryPhoto1} alt="img1" />
+                            <img src={process.env.PUBLIC_URL + '/images/7112.jpg'} alt="img1" />
                             <figcaption>
                                 <h2>
                                     Best <span>Prices</span>
@@ -39,7 +39,7 @@ const AboutUsPage: React.FC = ({ t }: any) => {
                             </figcaption>
                         </figure>
                         <figure className="effect-layla">
-                            <img src={galleryPhoto2} alt="img03" />
+                            <img src={process.env.PUBLIC_URL + '/images/dui21-deluxe-room1.add1.low-res.jpg'} alt="img03" />
                             <figcaption>
                                 <h2>
                                     Honest and HardWorking <span>Stuff</span>
@@ -48,7 +48,7 @@ const AboutUsPage: React.FC = ({ t }: any) => {
                             </figcaption>
                         </figure>
                         <figure className="effect-layla">
-                            <img src={galleryPhoto3} alt="img03" />
+                            <img src={process.env.PUBLIC_URL + '/images/3-high-res-restaurant-30.jpg'} alt="img03" />
                             <figcaption>
                                 <h2>
                                     Delicious <span>Food</span>
@@ -57,7 +57,7 @@ const AboutUsPage: React.FC = ({ t }: any) => {
                             </figcaption>
                         </figure>
                         <figure className="effect-layla">
-                            <img src={galleryPhoto4} alt="img03" />
+                            <img src={process.env.PUBLIC_URL + '/images/528941482_200fcf18b2_b.jpg'} alt="img03" />
                             <figcaption>
                                 <h2>
                                     Best <span>Choice</span>

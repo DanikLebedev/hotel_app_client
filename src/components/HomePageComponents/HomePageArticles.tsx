@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
-import galleryPhoto1 from '../../assets/images/cream_candles_flowers_green_therapy_11044_1600x1200.jpg';
-import galleryPhoto2 from '../../assets/images/thumb-1920-206717.jpg';
-import galleryPhoto3 from '../../assets/images/10-103370_salad-food-wallpaper-food-images-high-resolution.jpg';
-import galleryPhoto4 from '../../assets/images/colombo_2.jpg';
+import galleryPhoto1 from '../../../public/images/cream_candles_flowers_green_therapy_11044_1600x1200.jpg';
+import galleryPhoto2 from '../../../public/images/thumb-1920-206717.jpg';
+import galleryPhoto3 from '../../../public/images/10-103370_salad-food-wallpaper-food-images-high-resolution.jpg';
+import galleryPhoto4 from '../../../public/images/colombo_2.jpg';
 import { ClientContext } from '../../context/client.context';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';
@@ -84,7 +84,7 @@ export const HomePageArticles = () => {
                     lg={12}
                     md={12}
                     sm={12}
-                    style={{ background: `url(${galleryPhoto4}) center center / cover `, height: '20rem' }}
+                    style={{ background: `url(${process.env.PUBLIC_URL + '/images/colombo_2.jpg'}) center center / cover `, height: '20rem' }}
                 />
             </Row>
         </Container>

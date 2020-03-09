@@ -6,7 +6,7 @@
   position: fixed;
   top: 30%;
   right: 0;
-  z-index: 20;
+  z-index: 15;
   transition: .6s ease-in-out;
   animation: shake 3s infinite;
 
@@ -30,6 +30,15 @@
 
 .fixed-form-active {
   right: 240px;
+  animation: stopShake .1ms infinite;
+}
+
+@keyframes stopShake {
+  from {
+    transform: translateX(220px)
+  } to {
+  transform: translateX(220px)
+      }
 }
 
 .find-room-form {

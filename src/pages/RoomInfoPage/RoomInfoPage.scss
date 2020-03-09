@@ -18,7 +18,7 @@ input[type=date]::-webkit-inner-spin-button
 .room-info-page {
   padding: 3rem 0 3rem 0;
   &-bg {
-    background: url("../../assets/images/926303.jpg") center center / cover;
+    background: url("/images/926303.jpg") center center / cover;
     filter: brightness(0.6);
     height: 50vh;
     width: 100%;
@@ -34,6 +34,11 @@ input[type=date]::-webkit-inner-spin-button
 
 }
 
+.error-field {
+  height: 15px;
+  width: 100%;
+  display: block;
+}
 
 .booking-form {
   background-color: #fff;
@@ -60,7 +65,7 @@ input[type=date]::-webkit-inner-spin-button
 
 .booking-form .form-group {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .booking-form .form-control {

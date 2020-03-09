@@ -60,7 +60,9 @@ export const ArticleDataGrid: React.FC = () => {
     };
 
     function update(): void {
-        ArticleService.getAllArticles().then(({ article }) => setArticles(article));
+        ArticleService.getAllArticles().then(({ article }) => {
+            setArticles(article);
+        });
     }
 
     const editOrderHandler = (event: React.MouseEvent<EventTarget>): void => {
@@ -103,6 +105,7 @@ export const ArticleDataGrid: React.FC = () => {
     const closeModal = (): void => {
         setShowModal(false);
     };
+
 
     const onSortChange = (field: string): void => {
         setField(field);
@@ -155,7 +158,7 @@ export const ArticleDataGrid: React.FC = () => {
                             <div className={'d-flex'}>
                                 <TextField id="x-basic" name="created-input" onChange={dataSearch} />
                                 <Tooltip title={'Sort'}>
-                                    <button className="sort-button" onClick={(): void => onSortChange('created')}>
+                                    <button className="sort-button" onClick={(): void => onSortChange('createdAt')}>
                                         <i
                                             className={
                                                 field === 'created'

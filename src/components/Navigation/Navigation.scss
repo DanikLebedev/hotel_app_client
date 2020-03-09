@@ -18,11 +18,16 @@
   }
 }
 
+.socials-burger-menu {
+  display: none;
+}
+
 .active-link .page-link {
   z-index:3;
   background: #3f51b5;
   color: #ffffff;
 }
+
 
 
 .drawer {
@@ -33,7 +38,7 @@
   height: 100%;
   background: rgba(0,0,0,.4);
   display: none;
-  z-index: 10;
+  z-index: 16;
 }
 
 .open-drawer{
@@ -136,7 +141,10 @@
 
 .userInfo {
   color: #ffffff;
+}
 
+.topbar-scroll {
+  background: rgba(0,0,0,.4);
 }
 
 
@@ -245,8 +253,9 @@
 }
 
 
-#burger-button {
+.topbar {
   display: none;
+  transition: .5s;
 }
 
 #auth-link-burger-menu {
@@ -256,6 +265,10 @@
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
   .nav__list_links, .button, .button-book {
     font-size: 1.3em;
+  }
+
+  .socials-burger-menu {
+    display: none;
   }
 
   .switсh-language__wrapper-burger-menu {
@@ -282,11 +295,20 @@
     display: none;
   }
 
+  .socials-burger-menu {
+    display: block;
+  }
+
   .nav__list_links, .button, .button-book {
+
     font-size: 1em;
     #navigation-link {
       margin: 20px 0;
     }
+  }
+
+  .socials {
+    display: none;
   }
 
   #auth-link-burger-menu {
@@ -321,15 +343,18 @@
     display: none;
   }
 
-  #burger-button {
+  .topbar {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 0;
+    left: 0;
     display: inline-block;
     cursor: pointer;
     z-index: 30;
-
+    width: 100%;
+    padding: 20px;
   }
+
+
 
   .nav-wrapper {
     z-index: 30;
@@ -346,6 +371,7 @@
     transition: .5s ease-in-out;
 
     #nav__list_links {
+      padding-top: 60px;
       padding-left: 40px;
       display: flex;
       flex-direction: column;
@@ -366,6 +392,16 @@
 
 
 @media screen and (max-width: 768px) {
+
+  .socials-burger-menu {
+    display: block;
+  }
+
+  .socials {
+    display: none;
+  }
+
+
   .separator {
     display: none;
   }
@@ -409,15 +445,17 @@
     display: none;
   }
 
-  #burger-button {
+  .topbar {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 0px;
+    left: 0;
     display: inline-block;
     cursor: pointer;
     z-index: 30;
-
+    width: 100%;
+    padding: 20px;
   }
+
 
   .nav-wrapper {
     z-index: 30;
@@ -435,6 +473,7 @@
 
     #nav__list_links {
       padding-left: 40px;
+      padding-top: 60px;
       display: flex;
       flex-direction: column;
       font-size: 1.1em;
