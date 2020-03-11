@@ -18,20 +18,20 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
         setIndex(key);
     };
 
+    if (!fetchedRooms[index]) {
+        return (
+            <div className="d-flex justify-content-center align-items-center">
+                <Loader />
+            </div>
+        );
+    }
+
     return (
         <section className={'home__page-rooms'}>
             <Container fluid={true}>
                 <Row className="home__page-rooms-preview">
                     <Col lg={6} md={6} sm={12} xs={12} className="p-0 home__page-rooms-preview-main-photo">
-                        {fetchedRooms[index] ? (
-                            <LazyLoadImage
-                                effect="opacity"
-                                src={config.baseUrl + fetchedRooms[index].image}
-                                alt="room"
-                            />
-                        ) : (
-                            <Loader />
-                        )}
+                        <LazyLoadImage effect="opacity" src={config.baseUrl + fetchedRooms[index].image} alt="room" />
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                         <h2 className={'room__title section__title'}>
@@ -81,25 +81,21 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                     </Col>
                 </Row>
                 <div className="justify-content-center home-page-rooms-row mt-3 d-flex align-items-center">
-                    {fetchedRooms ? (
-                        fetchedRooms.slice(0, 4).map((item, key) => {
-                            return (
-                                <div
-                                    onClick={() => changeMainRoomHandler(key)}
-                                    key={key}
-                                    className="home__page-rooms-item col-lg-3 col-md-6 col-sm-12 pl-0 mb-2"
-                                >
-                                    <LazyLoadImage effect="opacity" src={config.baseUrl + item.image} alt="room" />
-                                    <div className={'home__page-rooms-item-title'}>
-                                        <span>{item.title}</span>
-                                        <span>{item.price}$</span>
-                                    </div>
+                    {fetchedRooms.slice(0, 4).map((item, key) => {
+                        return (
+                            <div
+                                onClick={() => changeMainRoomHandler(key)}
+                                key={key}
+                                className="home__page-rooms-item col-lg-3 col-md-6 col-sm-12 pl-0 mb-2"
+                            >
+                                <LazyLoadImage effect="opacity" src={config.baseUrl + item.image} alt="room" />
+                                <div className={'home__page-rooms-item-title'}>
+                                    <span>{item.title}</span>
+                                    <span>{item.price}$</span>
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <Loader />
-                    )}
+                            </div>
+                        );
+                    })}
                 </div>
             </Container>
         </section>

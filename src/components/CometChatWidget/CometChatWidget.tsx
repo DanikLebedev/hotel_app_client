@@ -4,12 +4,14 @@ import { CometChat } from '@cometchat-pro/chat';
 import './CometChatWidget.scss';
 import { config } from '../../config';
 import 'react-chat-widget/lib/styles.css';
+import {ClientContext} from "../../context/client.context";
 
 const agentUID = config.APP_COMET_AGENT_UID;
 const CUSTOMER_MESSAGE_LISTENER_KEY = 'client-listener';
 const limit = 30;
 
 class CometChatWidget extends Component {
+    static contextType = ClientContext;
     createMessageListener = () => {
         CometChat.addMessageListener(
             CUSTOMER_MESSAGE_LISTENER_KEY,
@@ -84,8 +86,10 @@ class CometChatWidget extends Component {
         const response = await fetch(`/api/chatWidget/api/create`, {
             headers: {
                 appId: config.APP_COMET_CHAT_ID,
+                Authorization: `Bearer ${this.context.token}`
             },
         });
+        console.log(this.context.token)
         const result = await response.json();
         return result;
     };

@@ -82,11 +82,12 @@ export const RoomDataGrid: React.FC = () => {
         const formData = new FormData();
         formData.append('_id', targetId);
         await RoomService.deleteRoom(formData, { Authorization: `Bearer ${token}`}).then(data => {
+            update();
+            setShowConfirmModal(false);
             toaster.notify(data.message, {
                 duration: 2000,
             });
         });
-        update();
     };
 
     const addRoomHandler = () => {

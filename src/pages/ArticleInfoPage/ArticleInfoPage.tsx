@@ -5,7 +5,7 @@ import { ArticleService } from '../../APIServices/articleService';
 import { Col, Container, Row } from 'react-bootstrap';
 import { config } from '../../config';
 import Loader from '../../components/Loader/Loader';
-import './ArticleInfoPage.scss'
+import './ArticleInfoPage.scss';
 
 export const ArticleInfoPage: React.FC = () => {
     const [articleInfo, setArticleInfo] = useState<Article[]>([]);
@@ -13,7 +13,7 @@ export const ArticleInfoPage: React.FC = () => {
     const articleId: string | undefined = params.id;
     const fetchArticleInfo: CallableFunction = useCallback(() => {
         ArticleService.getArticleById(articleId).then(({ article }) => {
-            setArticleInfo(article)
+            setArticleInfo(article);
         });
     }, [articleId]);
 
@@ -25,7 +25,11 @@ export const ArticleInfoPage: React.FC = () => {
         return (
             <Row key={key}>
                 <Col lg={6} md={6} sm={6}>
-                    <img style={{ width: '100%', height: '100%' }} src={config.baseUrl + article.image} alt="room" />
+                    <img
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        src={config.baseUrl + article.image}
+                        alt="room"
+                    />
                 </Col>
                 <Col>
                     <h3 className={'article-info-page-title'}>{article.title.toString()}</h3>

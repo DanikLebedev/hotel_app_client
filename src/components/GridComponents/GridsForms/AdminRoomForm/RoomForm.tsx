@@ -71,7 +71,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
 
     const fileChangeHandler = (event: InputEvent): void => {
         if (event.target.files) {
-            setRoomForm({ ...roomForm, [event.target.name]: event.target.files[0] });
+            setRoomForm({ ...roomForm, [event.target.name]: event.target.files[0].name });
         }
     };
 
@@ -160,7 +160,6 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                                 />
                             </Col>
                             <Col lg={6} md={6} sm={6}>
-                                {' '}
                                 <label htmlFor="guests">Enter number of guests</label>
                                 <input
                                     type="number"
@@ -204,6 +203,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                                     defaultValue={roomForm.image}
                                     placeholder="image"
                                 />
+                                <span>{roomForm.image}</span>
                             </Col>
                         </Row>
                         <Row>

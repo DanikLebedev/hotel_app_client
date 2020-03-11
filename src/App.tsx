@@ -141,7 +141,7 @@ const App: React.FC = () => {
             <Router>
                 <Header />
                 <Dictaphone />
-                <CometChatWidget />
+                {userStatus !== 'manager' && isAuthenticated ? <CometChatWidget /> : null}
                 <ScrollToTop />
                 {routes}
             </Router>

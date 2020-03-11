@@ -12,12 +12,40 @@ import Loader from './components/Loader/Loader';
 import { SearchRoomsPage } from './pages/SearchRoomsPage/SearchRoomsPage';
 import CometChatSupport from './components/CometChatSupport/CometChatSupport';
 import { ArticleInfoPage } from './pages/ArticleInfoPage/ArticleInfoPage';
-import  ArticlesPage  from './pages/ArticlesPage/ArticlesPage';
+import ArticlesPage from './pages/ArticlesPage/ArticlesPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage/ResetPasswordPage';
+import { ManagerDashboard } from './pages/ManagerDashboard/ManagerDashboard';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
     userStatus: string,
 ) => {
+    if (isAuthenticated && userStatus === 'manager') {
+        return (
+            <Switch>
+                <Route path="/" exact>
+                    <HomePage />
+                </Route>
+                <Route path="/rooms" exact>
+                    <RoomsPage />
+                </Route>
+                <Route path="/rooms/:id">
+                    <RoomInfoPage />
+                </Route>
+                <Route path="/articles/:id">
+                    <ArticleInfoPage />
+                </Route>
+                <Route path="/articles">
+                    <ArticlesPage />
+                </Route>
+                <Route path="/dashboard" exact>
+                    <ManagerDashboard />
+                </Route>
+                <Route component={NotFound} />
+            </Switch>
+        );
+    }
+
     if (isAuthenticated) {
         return (
             <Switch>
@@ -49,7 +77,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 <Route path="/articles">
                     <ArticlesPage />
                 </Route>
-
                 <Route component={NotFound} />
             </Switch>
         );
@@ -78,29 +105,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
     //     );
     // }
     //
-    // if (userStatus === 'manager') {
-    //     return (
-    //         <Switch>
-    //             <Route path="/" exact>
-    //                 <HomePage />
-    //             </Route>
-    //             <Route path="/rooms" exact>
-    //                 <RoomsPage />
-    //             </Route>
-    //             <Route path="/orders" exact>
-    //                 <OrderPage />
-    //             </Route>
-    //             <Route path="/admin/login" exact>
-    //                 <AuthAdminPage />
-    //             </Route>
-    //             <Route path="/about" exact>
-    //                 <AboutUsPage />
-    //             </Route>
-    //             <Route component={NotFound} />
-    //             <Redirect to="/" />
-    //         </Switch>
-    //     );
-    // }
 
     return (
         <Switch>
@@ -127,6 +131,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Route>
             <Route path="/articles">
                 <ArticlesPage />
+            </Route>
+            <Route path="/auth/password/:token">
+                <ResetPasswordPage />
             </Route>
             <Route component={NotFound} />
         </Switch>

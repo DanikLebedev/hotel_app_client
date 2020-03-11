@@ -189,7 +189,7 @@ export const ArticleDataGrid: React.FC = () => {
                               return (
                                   <tr key={key}>
                                       <td>{article.title}</td>
-                                      <td>{article.text}</td>
+                                      <td  style={{ minWidth: '300px' }}>{article.text}</td>
                                       <td>{article ? new Date(article.createdAt).toLocaleDateString() : null}</td>
                                       <td style={{ minWidth: '200px' }}>
                                           <div

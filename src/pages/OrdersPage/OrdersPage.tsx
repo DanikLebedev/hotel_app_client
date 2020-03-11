@@ -94,8 +94,7 @@ export const OrderPage: React.FC = () => {
         toaster.notify(data.message, {
             duration: 2000,
         });
-       setShowFeedbackModal(false)
-
+        setShowFeedbackModal(false);
     };
 
     const onToggleToolBar = () => {

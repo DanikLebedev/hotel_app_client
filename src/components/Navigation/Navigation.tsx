@@ -78,6 +78,20 @@ const Navigation: React.FC = (): JSX.Element => {
         </>
     );
 
+    const managerComponent: JSX.Element = (
+        <>
+            <NavLink
+                id={'navigation-link'}
+                onClick={(): void => setShowMenu(false)}
+                activeClassName={'active-link'}
+                className={'mr-5'}
+                to="/dashboard"
+            >
+                {t('dashboard.label')}
+            </NavLink>
+        </>
+    );
+
     return (
         <>
             <Container>
@@ -257,15 +271,17 @@ const Navigation: React.FC = (): JSX.Element => {
                             >
                                 {t('rooms.label')}
                             </NavLink>
-                            <NavLink
-                                id={'navigation-link'}
-                                onClick={(): void => setShowMenu(false)}
-                                activeClassName={'active-link'}
-                                className={'mr-5'}
-                                to="/about"
-                            >
-                                {t('about.label')}
-                            </NavLink>
+                            {auth.userStatus === 'manager' ? null : (
+                                <NavLink
+                                    id={'navigation-link'}
+                                    onClick={(): void => setShowMenu(false)}
+                                    activeClassName={'active-link'}
+                                    className={'mr-5'}
+                                    to="/about"
+                                >
+                                    {t('about.label')}
+                                </NavLink>
+                            )}
                             <NavLink
                                 id={'navigation-link'}
                                 onClick={(): void => setShowMenu(false)}
@@ -275,7 +291,8 @@ const Navigation: React.FC = (): JSX.Element => {
                             >
                                 {t('articles.label')}
                             </NavLink>
-                            {isAuthenticated ? authComponents : null}
+                            {isAuthenticated && auth.userStatus !== 'manager' ? authComponents : null}
+                            {auth.userStatus === 'manager' ? managerComponent : null}
                         </Nav>
                         <div className={'socials-burger-menu'}>
                             <ul className="d-flex justify-content-center">

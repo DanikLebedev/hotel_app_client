@@ -8,7 +8,7 @@ import './AuthPage.scss';
 import Loader from '../../components/Loader/Loader';
 import { ClientContext } from '../../context/client.context';
 import { useHistory } from 'react-router-dom';
-import { LoginData, RegisterData, UserData } from '../../interfaces/clientInterfaces';
+import { Data, LoginData, RegisterData, UserData } from '../../interfaces/clientInterfaces';
 import { AuthService } from '../../APIServices/authService';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
@@ -27,11 +27,32 @@ const AuthPage: React.FC = () => {
     const history = useHistory();
     const auth: ClientContext = useContext(ClientContext);
     const [haveAccount, setHaveAccount] = useState<boolean>(true);
+    const [resetForm, setResetForm] = useState({ email: '' });
+    const [forgotPassword, setForgotPassword] = useState(false);
 
     const [form, setForm] = useState<LoginData>({ email: '', password: '' });
     const [registerForm, setRegisterForm] = useState<RegisterData>({ email: '', password: '', name: '', lastName: '' });
 
     const { register, handleSubmit, errors } = useForm<FormData>();
+
+    const changeResetHandler = (event: InputEvent): void => {
+        setResetForm({ ...resetForm, [event.target.name]: event.target.value });
+    };
+
+    const resetHandler = async (): Promise<void> => {
+        const response = await fetch('/api/client/reset', {
+            method: 'POST',
+            body: JSON.stringify(resetForm),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data: Data = await response.json();
+        setForgotPassword(false)
+        toaster.notify(data.message, {
+            duration: 2000,
+        });
+    };
 
     const changeHandler = (event: InputEvent): void => {
         setForm({ ...form, [event.target.name]: event.target.value });
@@ -106,9 +127,35 @@ const AuthPage: React.FC = () => {
             <button className="change-form-button" onClick={() => setHaveAccount(false)}>
                 Don&apos;t have an account?
             </button>
+            <button className="change-form-button" onClick={() => setForgotPassword(true)}>
+                Forgot your password?
+            </button>
             <div className="btn__wrapper">
                 <button className="button btn-black" onClick={handleSubmit(loginHandler)}>
                     Login
+                </button>
+            </div>
+        </div>
+    );
+
+    const forgotPasswordForm: JSX.Element = (
+        <div className="auth__wrapper signin-form">
+            <h1>enter your email </h1>
+            <label>
+                <FontAwesomeIcon icon={faUser} />
+                <input
+                    className="auth__input"
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="e.g asd@mail.ru"
+                    onChange={changeResetHandler}
+                    ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+                />
+            </label>
+            <div className="btn__wrapper">
+                <button className="button btn-black" onClick={handleSubmit(resetHandler)}>
+                    Send email
                 </button>
             </div>
         </div>
@@ -182,7 +229,9 @@ const AuthPage: React.FC = () => {
     return (
         <>
             <div className="auth" />
-            <div className="wrapper">{loading ? <Loader /> : haveAccount ? loginForm : signInForm}</div>
+            <div className="wrapper">
+                {loading ? <Loader /> : forgotPassword ? forgotPasswordForm : haveAccount ? loginForm : signInForm}
+            </div>
         </>
     );
 };
