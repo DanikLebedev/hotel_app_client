@@ -14,10 +14,10 @@ But if you want to launch client and server together:
 #### Full Responsive Hotel's website.
 
 ######Desktop version
-![Desktop](https://vk.com/doc71186673_540330661?hash=2389450e3f3f1a1f70&dl=3ae943a5575c9b2d9b&wnd=1&module=im)
+![Desktop](Home_page_desktop.gif)
 
 ######Mobile version
-![Mobile](https://vk.com/doc71186673_540332159?hash=0e0db227d5228d37f0&dl=4f82e69f7f713dddae&wnd=1&module=im)
+![Mobile](Home_page_mobile.gif)
 
 Application has some types of users:
 1. Customer
