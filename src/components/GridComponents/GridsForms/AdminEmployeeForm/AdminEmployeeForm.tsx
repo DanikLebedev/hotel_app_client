@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from 'react';
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { Data, Employee, Status } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { StatusService } from '../../../../APIServices/statusService';
@@ -9,8 +9,7 @@ import { ErrorMessage } from '../../../ErrorsComponents/ErrorMessage';
 import { Close } from '@material-ui/icons';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
-import {AdminContext} from "../../../../context/admin.context";
-
+import { AdminContext } from '../../../../context/admin.context';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -31,14 +30,13 @@ interface AdminEmployeeFormData {
 export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmployeeForm) => {
     const [employeeForm, setEmployeeForm] = useState<Employee>(props.editProps);
     const [statuses, setStatuses] = useState<Status[]>([]);
-    const token = useContext(AdminContext).token
+    const token = useContext(AdminContext).token;
 
     const addEmployeeHandler = async (): Promise<void> => {
         if (props.isEdit) {
             const data: Data = await EmployeeService.updateEmployee(JSON.stringify(employeeForm), {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
-
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -48,7 +46,6 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
             const data: Data = await EmployeeService.postEmployee(employeeForm, {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
-
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -119,12 +116,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                         disabled={props.isEdit}
                     />
                     <label htmlFor="status">Choose status</label>
-                    <select
-                        name="status"
-                        className={'form-control'}
-                        onChange={selectChangeHandler}
-                        id="status"
-                    >
+                    <select name="status" className={'form-control'} onChange={selectChangeHandler} id="status">
                         {statusOptions}
                     </select>
                     <Button onClick={addEmployeeHandler} color="primary" variant="contained" className="mt-3">

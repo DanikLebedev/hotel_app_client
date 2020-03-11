@@ -20,8 +20,6 @@ import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo
 import { OrdersHistoryModal } from '../../components/OrdersHistoryModal/OrdersHistoryModal';
 import { FeedbackModal } from '../../components/FeedBackModal/FeedbackModal';
 
-
-
 export const OrderPage: React.FC = () => {
     const context: ClientContext = useContext(ClientContext);
     const fetchedOrders: Order[] = context.fetchedUserOrders;
@@ -74,11 +72,15 @@ export const OrderPage: React.FC = () => {
             });
             setCls((prevState: string[]) => [...prevState, 'deleted-order']);
             setOrders(filteredOrders);
-            const data = await OrderService.deleteOrder(formData);
-            toaster.notify(data.message, {
-                duration: 2000,
-            });
-            update();
+            try {
+                const data = await OrderService.deleteOrder(formData);
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+                update();
+            } catch (e) {
+                console.log(e);
+            }
         }
     };
 
@@ -129,6 +131,14 @@ export const OrderPage: React.FC = () => {
         fetchCustomerInfo();
     }, [fetchedOrders, fetchCustomerInfo, update]);
 
+    if (!userInfo && !fetchedOrders) {
+        return (
+            <div className="d-flex justify-content-center align-items-center">
+                <Loader />
+            </div>
+        );
+    }
+
     return (
         <div className="order-page">
             <FindRoomForm />
@@ -156,12 +166,19 @@ export const OrderPage: React.FC = () => {
                                     </Tooltip>
                                 </div>
                                 <h4>Your Info</h4>
-                                <p>
-                                    <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}
-                                </p>
-                                <p>
-                                    <FontAwesomeIcon icon={faUser} /> Full name: {userInfo.name} {userInfo.lastName}{' '}
-                                </p>
+                                {userInfo.email ? (
+                                    <>
+                                        <p>
+                                            <FontAwesomeIcon icon={faEnvelope} /> Email: {userInfo.email}
+                                        </p>
+                                        <p>
+                                            <FontAwesomeIcon icon={faUser} /> Full name:{' '}
+                                            {userInfo.name ? userInfo.name + userInfo.lastName : <Loader />}
+                                        </p>
+                                    </>
+                                ) : (
+                                    <Loader />
+                                )}
                                 <div className={'setting-button-wrapper'}>
                                     <IconButton
                                         className={
@@ -207,8 +224,13 @@ export const OrderPage: React.FC = () => {
                     </Col>
                 </Row>
                 <OrdersHistoryModal closeModal={closeOrdersHistory} show={showModal} data={orderHistory} />
-                <FeedbackModal closeModal={closeFeedbackForm} show={showFeedbackModal} onChange={changeFeedbackTextHandler} onSubmit={addFeedbackHandler} />
-                <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps}  closeModal={handleClose} />
+                <FeedbackModal
+                    closeModal={closeFeedbackForm}
+                    show={showFeedbackModal}
+                    onChange={changeFeedbackTextHandler}
+                    onSubmit={addFeedbackHandler}
+                />
+                <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
             </Container>
         </div>
     );

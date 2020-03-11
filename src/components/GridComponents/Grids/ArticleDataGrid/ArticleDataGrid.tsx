@@ -9,6 +9,7 @@ import { AdminContext } from '../../../../context/admin.context';
 import { config, sortNumbersTypes } from '../../../../config';
 import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 import { ArticleService } from '../../../../APIServices/articleService';
+import {ClientContext} from "../../../../context/client.context";
 
 export const ArticleDataGrid: React.FC = () => {
     const fetchedAllArticles = useContext(AdminContext).fetchedAllArticles;
@@ -28,6 +29,7 @@ export const ArticleDataGrid: React.FC = () => {
     const [field, setField] = useState('');
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [targetId, setTargetId] = useState<string>('');
+
 
     const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
         const target = event.target as HTMLButtonElement;
@@ -105,7 +107,6 @@ export const ArticleDataGrid: React.FC = () => {
     const closeModal = (): void => {
         setShowModal(false);
     };
-
 
     const onSortChange = (field: string): void => {
         setField(field);
@@ -189,7 +190,7 @@ export const ArticleDataGrid: React.FC = () => {
                               return (
                                   <tr key={key}>
                                       <td>{article.title}</td>
-                                      <td  style={{ minWidth: '300px' }}>{article.text}</td>
+                                      <td style={{ minWidth: '300px' }}>{article.text}</td>
                                       <td>{article ? new Date(article.createdAt).toLocaleDateString() : null}</td>
                                       <td style={{ minWidth: '200px' }}>
                                           <div

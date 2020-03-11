@@ -11,6 +11,7 @@ import { AdminContext } from '../../../../context/admin.context';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import {ArticleService} from "../../../../APIServices/articleService";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -37,7 +38,7 @@ export const AdminArticleForm: React.FC<ArticleForm> = (props: ArticleForm) => {
         event.preventDefault();
         const formData: FormData = new FormData(event.target);
         if (props.isEdit) {
-            const data: Data = await RoomService.updateRoom(formData, {
+            const data: Data = await ArticleService.updateArticle(formData, {
                 Authorization: `Bearer ${token}`,
             });
             toaster.notify(data.message, {

@@ -1,44 +1,107 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Hotel app client
+Client side of Hotel App which based on ReactJS, Typescript.
+## Instalation
+Cause this application was created by CRA, so just use 
+```npm run start```.    
+But if you want to launch client and server together:   
+1. Clone https://github.com/DanikLebedev/Hotel_App_server and https://github.com/DanikLebedev/hotel_app_client in the same folder
+2. Use ```cd <your folder>/Hotel_App_server``` 
+3. Use 
+```npm run dev```
+(If your project doesn't running - use ```npm run build``` and after that  ```npm run dev```)
+## Description
+#### Full Responsive Hotel's website.
 
-In the project directory, you can run:
+######Desktop version
+![Desktop](https://vk.com/doc71186673_540330661?hash=2389450e3f3f1a1f70&dl=3ae943a5575c9b2d9b&wnd=1&module=im)
 
-### `npm start`
+######Mobile version
+![Mobile](https://vk.com/doc71186673_540332159?hash=0e0db227d5228d37f0&dl=4f82e69f7f713dddae&wnd=1&module=im)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Application has some types of users:
+1. Customer
+2. Admin
+3. Manager(in development)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Customer can check room's list, find available room by date and category, make order, chat with manager, check articles, change his own information in personal account.
+***
+Admin can check all data in data grids, change,update or delete it.
+***
+About 98% of all components created via React Hooks.
 
-### `npm test`
+Some examples of using react hooks:
+```
+//OrderPage.tsx
+export const OrderPage: React.FC = () => {
+    const context: ClientContext = useContext(ClientContext);
+    const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
+...
+```
+To create base grid I used Bootstrap component: 
+```
+//HomePageAboutUs.tsx
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+import React from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 
-### `npm run build`
+ <Container fluid={true}>
+                <Row>
+                    <Col
+                        lg={6}
+                        sm={12}
+                        md={6}
+                        className={'d-flex justify-content-center align-items-center flex-column'}
+                    >
+                        <h2 className={'section__title home-page__about-us-title'}>{t('home-page-about.label')}</h2>
+                        <p className={'home-page__about-us-text'}>{t('home-page-about.p1')}</p>
+                        <p className={'home-page__about-us-text'}>{t('home-page-about.p2')}</p>
+                        <NavLink to={'/about'}>
+                            <button className={'button btn-black'}>{t('about.label')}</button>
+                        </NavLink>
+                    </Col>
+                    <Col lg={6} md={6} sm={12} xs={12}>
+...
+```
+Also app use react-router-dom to navigate:
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+//routes.tsx
+...
+return (
+        <Switch>
+            <Route path="/admin/login" exact>
+                <AuthAdminPage />
+            </Route>
+            <Route path="/" exact>
+                <HomePage />
+            </Route>
+            <Route path="/rooms" exact>
+                <RoomsPage />
+            </Route>
+            <Route path="/auth" exact>
+                <AuthPage />
+            </Route>
+            <Route path="/about" exact>
+                <AboutUsPage />
+            </Route>
+            <Route path="/rooms/:id">
+                <RoomInfoPage />
+            </Route>
+            <Route path="/articles/:id">
+                <ArticleInfoPage />
+            </Route>
+            <Route path="/articles">
+                <ArticlesPage />
+            </Route>
+            <Route path="/auth/password/:token">
+                <ResetPasswordPage />
+            </Route>
+            <Route component={NotFound} />
+        </Switch>
+    );
+...
+```
+Full list of dependencies you can find in package.json.
+##Find a bug?
+Please send me an email to danik_lebedev1999@mail.ru with issue)

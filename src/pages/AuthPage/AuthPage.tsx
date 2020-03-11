@@ -48,7 +48,7 @@ const AuthPage: React.FC = () => {
             },
         });
         const data: Data = await response.json();
-        setForgotPassword(false)
+        setForgotPassword(false);
         toaster.notify(data.message, {
             duration: 2000,
         });
@@ -86,18 +86,24 @@ const AuthPage: React.FC = () => {
             const data: UserData = await AuthService.loginUser(form, {
                 'Content-Type': 'application/json',
             });
-            auth.loginUser(data.token, data.userId, data.status, data.email);
-            toaster.notify(data.message, {
-                duration: 2000,
-            });
             setLoading(false);
-            history.push('/');
+            if (!data.token) {
+                toaster.notify(data.message, {
+                    duration: 2000,
+                });
+            } else {
+                auth.loginUser(data.token, data.userId, data.status, data.email);
+                history.push('/');
+            }
         } catch (e) {}
     };
 
     const loginForm: JSX.Element = (
         <div className={haveAccount ? 'auth__wrapper login-form' : 'auth__wrapper login-form swipe-out'}>
             <h1>Log in</h1>
+            <button className="change-form-button" onClick={() => setHaveAccount(false)}>
+                Don&apos;t have an account?
+            </button>
             <label>
                 <FontAwesomeIcon icon={faUser} />
                 <input
@@ -124,11 +130,8 @@ const AuthPage: React.FC = () => {
                 />
             </label>
             <ErrorMessage error={errors.password} type={'error'} />
-            <button className="change-form-button" onClick={() => setHaveAccount(false)}>
-                Don&apos;t have an account?
-            </button>
             <button className="change-form-button" onClick={() => setForgotPassword(true)}>
-                Forgot your password?
+                Reset password
             </button>
             <div className="btn__wrapper">
                 <button className="button btn-black" onClick={handleSubmit(loginHandler)}>
@@ -140,7 +143,10 @@ const AuthPage: React.FC = () => {
 
     const forgotPasswordForm: JSX.Element = (
         <div className="auth__wrapper signin-form">
-            <h1>enter your email </h1>
+            <h1>Enter your email </h1>
+            <button className="change-form-button" onClick={() => setForgotPassword(false)}>
+                Go back
+            </button>
             <label>
                 <FontAwesomeIcon icon={faUser} />
                 <input
@@ -153,6 +159,7 @@ const AuthPage: React.FC = () => {
                     ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                 />
             </label>
+
             <div className="btn__wrapper">
                 <button className="button btn-black" onClick={handleSubmit(resetHandler)}>
                     Send email

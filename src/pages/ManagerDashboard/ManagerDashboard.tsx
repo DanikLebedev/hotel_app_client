@@ -24,7 +24,7 @@ export const ManagerDashboard = () => {
                             <CometChatSupport />
                         </TabPanel>
                         <TabPanel tabId="vertical-tab-two">
-                            <ArticleDataGrid />
+                            <ArticleDataGrid/>
                         </TabPanel>
                         <TabPanel tabId="vertical-tab-three">
                             <OrderDataGrid />

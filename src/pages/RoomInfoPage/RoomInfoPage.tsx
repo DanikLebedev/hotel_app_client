@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
-import { Order, Room } from '../../interfaces/clientInterfaces';
+import {Data, Order, Room} from '../../interfaces/clientInterfaces';
 import { useParams, useHistory } from 'react-router-dom';
 import { RoomService } from '../../APIServices/roomService';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -70,7 +70,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
             });
             return;
         }
-        const data = await OrderService.postOrder(
+        const data: Data = await OrderService.postOrder(
             { ...order },
             {
                 Authorization: `Bearer ${auth.token}`,
@@ -81,10 +81,18 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
         order.checkOut = '';
         order.guests = 1;
         order.comment = '';
-        history.push('/orders');
-        toaster.notify(data.message, {
-            duration: 2000,
-        });
+        if (!data.orders) {
+            toaster.notify(data.message, {
+                duration: 2000,
+            });
+            setShow(false)
+        } else {
+            history.push('/orders');
+            toaster.notify(data.message, {
+                duration: 2000,
+            });
+        }
+
         if (!isAuthenticated) {
             history.push('/auth');
         }
@@ -179,8 +187,8 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                     />
                                 </div>
                                 <span className="error-field">
-                                <ErrorMessage error={errors.checkOut} type={'error'} />
-                            </span>
+                                    <ErrorMessage error={errors.checkOut} type={'error'} />
+                                </span>
                             </div>
                         </div>
                         <div className="row align-items-end">
@@ -208,14 +216,13 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                     placeholder="enter your wishes"
                                     id={'comment'}
                                 />
-                                <span className="error-field">
-                                </span>
+                                <span className="error-field"></span>
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
                                     <SubmitButton onClick={handleSubmit(handleShow)} title={'Check availability'} />
                                 </div>
-                                <span className="error-field"/>
+                                <span className="error-field" />
                             </div>
                         </div>
                     </div>

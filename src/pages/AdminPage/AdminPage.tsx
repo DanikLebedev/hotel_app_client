@@ -12,9 +12,6 @@ export const AdminPage: React.FC = () => {
             <Route path="/admin/info" exact>
                 <AdminPageInfo />
             </Route>
-            <Route path="/admin/support" exact>
-                <CometChatSupport />
-            </Route>
             <Redirect to={'/admin/info'} />
         </Switch>
     );

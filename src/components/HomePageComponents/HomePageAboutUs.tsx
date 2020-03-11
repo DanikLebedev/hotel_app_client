@@ -2,8 +2,6 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { Slider } from '../Slider/Slider';
-import roomImage1 from '%PUBLIC_URL%/images/vertical-city-hotel.jpg';
-import  roomImage2 from '%PUBLIC_URL%/images/Image-5.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { withTranslation } from 'react-i18next';
