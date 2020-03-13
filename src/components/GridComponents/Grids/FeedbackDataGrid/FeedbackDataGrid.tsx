@@ -181,9 +181,8 @@ export const FeedbackDataGrid = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredFeedbacks().length
-                        ? filteredFeedbacks()
-                              .sort(sortNumbersTypes(field)[currentSort].fn)
+                    {currentFeedback.length
+                        ? currentFeedback
                               .map((feedback, key) => {
                                   return (
                                       <tr key={key}>

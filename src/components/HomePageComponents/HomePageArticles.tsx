@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
-import galleryPhoto1 from '../../../public/images/cream_candles_flowers_green_therapy_11044_1600x1200.jpg';
-import galleryPhoto2 from '../../../public/images/thumb-1920-206717.jpg';
-import galleryPhoto3 from '../../../public/images/10-103370_salad-food-wallpaper-food-images-high-resolution.jpg';
-import galleryPhoto4 from '../../../public/images/colombo_2.jpg';
 import { ClientContext } from '../../context/client.context';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';

@@ -1,5 +1,5 @@
 import { CRUDServices } from './CRUDServices';
-import { Articles, Data, Rooms } from '../interfaces/clientInterfaces';
+import { Articles, Data } from '../interfaces/clientInterfaces';
 
 export class ArticleService {
     public static async getAllArticles(): Promise<Articles> {

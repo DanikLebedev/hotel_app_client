@@ -4,13 +4,14 @@ import { Container } from 'react-bootstrap';
 import './RoomsPage.scss';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import  FindRoomForm  from '../../components/FindRoomForm/FindRoomForm';
+import {withTranslation} from "react-i18next";
 
-const RoomsPage: FC = (): JSX.Element => {
+const RoomsPage: FC = ({t}: any): JSX.Element => {
     return (
         <div className="room-page">
             <FindRoomForm />
             <div className="room-page-bg d-flex justify-content-center align-items-end">
-                <h1>Book Room</h1>
+                <h1>{t('see-rooms.label')}</h1>
             </div>
             <Container className="room-page-wrapper">
                 <LazyLoadComponent>
@@ -21,4 +22,4 @@ const RoomsPage: FC = (): JSX.Element => {
     );
 };
 
-export default RoomsPage;
+export default withTranslation()(RoomsPage);

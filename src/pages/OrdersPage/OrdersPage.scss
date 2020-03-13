@@ -68,6 +68,13 @@
   opacity: 1 !important;
 }
 
+.order-page-history {
+  thead {
+    th {
+      vertical-align: baseline !important;
+    }
+  }
+}
 
 .active-settings-icon {
   transform: rotateY(180deg);
@@ -144,7 +151,9 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-
+  .order-page-history {
+    font-size: 1em;
+  }
 }
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
@@ -154,7 +163,10 @@
         width: 20%;
       }
     }
+  }
 
+  .order-page-history {
+    font-size: 1em;
   }
 
 }
@@ -171,6 +183,7 @@
 
   .order-page-history {
     height: 400px;
+    font-size: 1em;
   }
 }
 

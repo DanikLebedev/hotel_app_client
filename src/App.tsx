@@ -6,7 +6,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
-import { Article, Category, Employee, Feedback, Order, OrderCart, Orders, Room } from './interfaces/clientInterfaces';
+import {
+    Article,
+    Category,
+    Customer,
+    Employee,
+    Feedback,
+    Order,
+    OrderCart,
+    Orders,
+    Room,
+} from './interfaces/clientInterfaces';
 import { RoomService } from './APIServices/roomService';
 import { AdminContext } from './context/admin.context';
 import { FeedbackService } from './APIServices/feedbackService';
@@ -17,6 +27,7 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Dictaphone from './components/SpeechControl/speech-recognition-setup';
 import CometChatWidget from './components/CometChatWidget/CometChatWidget';
 import { ArticleService } from './APIServices/articleService';
+import { CustomerService } from './APIServices/customerService';
 
 const App: React.FC = () => {
     const { loginUser, logoutUser, token, userId, userStatus, userEmail } = useAuth();
@@ -30,6 +41,13 @@ const App: React.FC = () => {
     const [fetchedUserOrders, setFetchedUserOrders] = useState<Order[]>([]);
     const [orderHistory, setOrderHistory] = useState<OrderCart[]>([]);
     const [fetchedAllArticles, setFetchedAllArticles] = useState<Article[]>([]);
+    const [fetchedUserInfo, setFetchedUserInfo] = useState<Customer>({
+        email: '',
+        lastName: '',
+        name: '',
+        order: [],
+        password: '',
+    });
 
     const fetchAllArticles: CallableFunction = useCallback(() => {
         ArticleService.getAllArticles().then(({ article }) => setFetchedAllArticles(article));
@@ -60,7 +78,7 @@ const App: React.FC = () => {
         CategoryService.getAllCategories({ Authorization: `Bearer ${token}` }).then(({ categories }) =>
             setFetchedCategories(categories),
         );
-    }, []);
+    }, [token]);
 
     const fetchFeedback: CallableFunction = useCallback(() => {
         FeedbackService.getAllFeedbacks().then(({ feedbacks }) => {
@@ -72,6 +90,11 @@ const App: React.FC = () => {
         RoomService.getAllRooms().then(({ rooms }) => setFetchedRooms(rooms));
     }, []);
 
+    const fetchCustomerInfo: CallableFunction = useCallback(async () => {
+        const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${token}` });
+        setFetchedUserInfo(customer);
+    }, [token]);
+
     useEffect(() => {
         fetchRoom();
         fetchFeedback();
@@ -82,6 +105,7 @@ const App: React.FC = () => {
         if (isAuthenticated && userStatus !== 'admin') {
             fetchOrders();
             fetchOrdersHistory();
+            fetchCustomerInfo();
         }
     }, [
         fetchRoom,
@@ -94,6 +118,7 @@ const App: React.FC = () => {
         isAuthenticated,
         userStatus,
         fetchAllArticles,
+        fetchCustomerInfo,
     ]);
 
     if (userStatus === 'admin') {
@@ -136,6 +161,7 @@ const App: React.FC = () => {
                 fetchedUserOrders,
                 orderHistory,
                 fetchedAllArticles,
+                fetchedUserInfo,
             }}
         >
             <Router>

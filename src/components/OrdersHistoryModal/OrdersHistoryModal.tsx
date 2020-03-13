@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container,Table } from 'react-bootstrap';
 import { handleClickOutside } from '../../sharedMethods/outsideClick';
 import { Close } from '@material-ui/icons';
 import { OrderCart } from '../../interfaces/clientInterfaces';
@@ -55,10 +55,10 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModal> = (props: OrdersHi
                 <div className="change-user-info-form">
                     <h3>Orders history</h3>
                     <div className="grid-table-wrapper">
-                        <table className="m-3 grid-table order-page-history">
+                        <Table responsive='sm' className="m-3 order-page-history">
                             <thead>
                                 <tr>
-                                    <th>Category</th>
+                                    <th><p>Category</p></th>
                                     <th>
                                         <p>Check In</p>
                                         <Tooltip title={'Sort'}>
@@ -89,7 +89,7 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModal> = (props: OrdersHi
                                             </button>
                                         </Tooltip>
                                     </th>
-                                    <th>Status</th>
+                                    <th><p>Status</p></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,7 +106,7 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModal> = (props: OrdersHi
                                       })
                                     : null}
                             </tbody>
-                        </table>
+                        </Table>
                         <Pagination
                             postPerPage={postPerPage}
                             totalPosts={props.data.length}

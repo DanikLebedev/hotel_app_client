@@ -57,6 +57,17 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                 },
             });
             const data: Data = await response.json();
+            setRoomForm({
+                area: 0,
+                category: '',
+                description: '',
+                guests: 0,
+                image: '',
+                isBooked: false,
+                price: 0,
+                rooms: 0,
+                title: '',
+            });
             toaster.notify(data.message, {
                 duration: 2000,
             });
@@ -121,7 +132,6 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                         <h3>{props.isEdit ? 'Update' : 'Create'} room</h3>
                         <Row>
                             <Col lg={6} md={6} sm={6}>
-                                {' '}
                                 <label htmlFor="categories">Choose Category</label>
                                 <select
                                     className={'form-control'}

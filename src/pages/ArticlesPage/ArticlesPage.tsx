@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
-import RoomsList from '../../components/RoomsList/RoomsList';
 import { Container } from 'react-bootstrap';
 import './ArticlesPage.scss';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
 import ArticlesList from '../../components/ArticlesList/ArticlesList';
 

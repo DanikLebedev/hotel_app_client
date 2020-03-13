@@ -16,8 +16,13 @@ export class OrderService {
         return response;
     }
 
-    public static async deleteOrder(body: {}, headers?: {}): Promise<Data> {
-        const response: Data = await CRUDServices.deleteData('/api/client/order/delete', body, headers);
+    public static async postAdminOrder(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.postData('/api/admin/orders/create', body, headers);
+        return response;
+    }
+
+    public static async deleteUserOrder(body: {}, headers?: {}): Promise<Data> {
+        const response: Data = await CRUDServices.putData('/api/client/order/delete', body, headers);
         return response;
     }
 
@@ -35,4 +40,6 @@ export class OrderService {
         const response: Data = await CRUDServices.putData('/api/admin/orders/update', body, headers);
         return response;
     }
+
+
 }

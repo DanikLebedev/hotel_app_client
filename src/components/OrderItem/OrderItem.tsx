@@ -1,10 +1,10 @@
 import React from 'react';
-import { Order } from '../../interfaces/clientInterfaces';
-import {Delete} from "@material-ui/icons";
+import { Order, OrderCart } from '../../interfaces/clientInterfaces';
+import { Delete } from '@material-ui/icons';
 
 interface OrderProps {
     key: number;
-    order: Order;
+    order: OrderCart;
     onDelete: (event: React.MouseEvent<EventTarget, MouseEvent>) => Promise<void>;
     classes: string[];
 }
@@ -21,7 +21,7 @@ export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element 
                 <li>Wishes: {props.order.comment}</li>
             </ul>
             <button className={'button'} onClick={props.onDelete} id={props.order._id}>
-                Delete order <Delete/>
+                Delete order <Delete />
             </button>
         </div>
     );

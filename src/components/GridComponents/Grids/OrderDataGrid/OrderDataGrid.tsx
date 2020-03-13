@@ -17,12 +17,16 @@ export const OrderDataGrid: React.FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [editProps, setEditProps] = useState<OrderCart>({
-        category: '',
-        checkIn: '',
-        checkOut: '',
         orderId: '',
         status: '',
         userEmail: '',
+        category: '',
+        checkOut: '',
+        checkIn: '',
+        comment: '',
+        guests: 0,
+        userId: '',
+        price: 0,
     });
     const [search, setSearch] = useState('');
     const [inputName, setInputName] = useState('');

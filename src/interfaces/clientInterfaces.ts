@@ -98,6 +98,10 @@ export interface OrderCart {
     checkOut: string;
     userEmail: string;
     _id?: string;
+    userId: string;
+    guests: number;
+    price: number;
+    comment: string;
 }
 
 export interface OrderCarts {

@@ -12,11 +12,11 @@ But if you want to launch client and server together:
 (If your project doesn't running - use ```npm run build``` and after that  ```npm run dev```)
 ## Description
 #### Full Responsive Hotel's website.
-
-######Desktop version
+This app is a mini clone of [Booking website](https://www.booking.com/) with log in(sign in page), admin page and customer's pages;
+#####Desktop version
 ![Desktop](Home_page_desktop.gif)
 
-######Mobile version
+#####Mobile version
 ![Mobile](Home_page_mobile.gif)
 
 Application has some types of users:
@@ -103,5 +103,5 @@ return (
 ...
 ```
 Full list of dependencies you can find in package.json.
-##Find a bug?
+##№Find a bug?
 Please send me an email to danik_lebedev1999@mail.ru with issue)

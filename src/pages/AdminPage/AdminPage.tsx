@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { AdminNavigation } from '../../components/AdminNavigation/AdminNavigation';
 import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import CometChatSupport from '../../components/CometChatSupport/CometChatSupport';
 
 
 export const AdminPage: React.FC = () => {

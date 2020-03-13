@@ -18,6 +18,7 @@ interface EditUserInfoForm {
     show: boolean;
     editProps: Customer;
     isEdit: boolean;
+    update: () => void
 }
 
 interface OrdersPageFormData {
@@ -38,6 +39,7 @@ export const EditUserInfoForm: React.FC<EditUserInfoForm> = (props: EditUserInfo
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${auth.token}`,
             });
+            props.update()
             toaster.notify(data.message, {
                 duration: 2000,
             });

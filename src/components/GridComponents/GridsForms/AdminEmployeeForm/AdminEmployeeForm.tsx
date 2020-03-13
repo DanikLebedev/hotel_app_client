@@ -4,8 +4,6 @@ import { Data, Employee, Status } from '../../../../interfaces/clientInterfaces'
 import toaster from 'toasted-notes';
 import { StatusService } from '../../../../APIServices/statusService';
 import { EmployeeService } from '../../../../APIServices/employeeService';
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '../../../ErrorsComponents/ErrorMessage';
 import { Close } from '@material-ui/icons';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
@@ -47,6 +45,7 @@ export const AdminEmployeeForm: React.FC<AdminEmployeeForm> = (props: AdminEmplo
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             });
+            setEmployeeForm({ email: '', password: '', status: '' });
             toaster.notify(data.message, {
                 duration: 2000,
             });

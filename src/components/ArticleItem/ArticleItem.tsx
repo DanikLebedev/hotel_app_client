@@ -1,7 +1,7 @@
 import React from 'react';
 import { config } from '../../config';
-import { Article, Room } from '../../interfaces/clientInterfaces';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Article } from '../../interfaces/clientInterfaces';
+import { Col } from 'react-bootstrap';
 import './ArticleItem.scss';
 import { NavLink } from 'react-router-dom';
 

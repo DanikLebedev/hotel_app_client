@@ -24,8 +24,9 @@ export const OrderPage: React.FC = () => {
     const context: ClientContext = useContext(ClientContext);
     const fetchedOrders: Order[] = context.fetchedUserOrders;
     const fetchedOrderHistory: OrderCart[] = context.orderHistory;
+    const fetchedUserInfo: Customer = context.fetchedUserInfo;
     const [orders, setOrders] = useState<Order[]>(fetchedOrders);
-    const [userInfo, setUserInfo] = useState<Customer>({ email: '', lastName: '', name: '', order: [], password: '' });
+    const [userInfo, setUserInfo] = useState<Customer>(fetchedUserInfo);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showFeedbackModal, setShowFeedbackModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -55,12 +56,15 @@ export const OrderPage: React.FC = () => {
         OrderService.getOrdersHistory({ Authorization: `Bearer ${context.token}` }).then(({ ordercarts }) =>
             setOrderHistory(ordercarts),
         );
+        CustomerService.getCustomer({ Authorization: `Bearer ${context.token}` }).then(customer =>
+            setUserInfo(customer),
+        );
     }, [context.token]);
 
-    const fetchCustomerInfo: CallableFunction = useCallback(async () => {
-        const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${context.token}` });
-        setUserInfo(customer);
-    }, [context.token]);
+    // const fetchCustomerInfo: CallableFunction = useCallback(async () => {
+    //     const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${context.token}` });
+    //
+    // }, [context.token]);
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
@@ -73,11 +77,14 @@ export const OrderPage: React.FC = () => {
             setCls((prevState: string[]) => [...prevState, 'deleted-order']);
             setOrders(filteredOrders);
             try {
-                const data = await OrderService.deleteOrder(formData);
+                const data = await OrderService.deleteUserOrder(JSON.stringify({ _id: target.id }), {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${context.token}`,
+                });
+                update();
                 toaster.notify(data.message, {
                     duration: 2000,
                 });
-                update();
             } catch (e) {
                 console.log(e);
             }
@@ -126,10 +133,13 @@ export const OrderPage: React.FC = () => {
         setShowFeedbackModal(false);
     };
 
+    const filteredUserOrders = orderHistory.filter(order => {
+        return order.userEmail === userInfo.email && order.status === 'booked';
+    });
+
     useEffect(() => {
         update();
-        fetchCustomerInfo();
-    }, [fetchedOrders, fetchCustomerInfo, update]);
+    }, [fetchedOrders, , update]);
 
     if (!userInfo && !fetchedOrders) {
         return (
@@ -173,7 +183,7 @@ export const OrderPage: React.FC = () => {
                                         </p>
                                         <p>
                                             <FontAwesomeIcon icon={faUser} /> Full name:{' '}
-                                            {userInfo.name ? userInfo.name + userInfo.lastName : <Loader />}
+                                            {userInfo.name ? userInfo.name + ' ' + userInfo.lastName : <Loader />}
                                         </p>
                                     </>
                                 ) : (
@@ -210,17 +220,26 @@ export const OrderPage: React.FC = () => {
                         className="d-flex justify-content-around align-items-center flex-column"
                     >
                         <h4 className="text-white">Your Current Orders</h4>
-                        <div className="d-flex justify-content-center align-items-center flex-column">
-                            {orders.length ? (
-                                orders.map((item: Order, key: number) => {
-                                    return (
-                                        <OrderItem key={key} classes={cls} order={item} onDelete={deleteOrderHandler} />
-                                    );
-                                })
-                            ) : (
-                                <h4 className="text-white">There are no orders yet</h4>
-                            )}
-                        </div>
+                        {fetchedOrderHistory[0] ? (
+                            <div className="d-flex justify-content-center align-items-center flex-column">
+                                {filteredUserOrders.length ? (
+                                    filteredUserOrders.map((item: OrderCart, key: number) => {
+                                        return (
+                                            <OrderItem
+                                                key={key}
+                                                classes={cls}
+                                                order={item}
+                                                onDelete={deleteOrderHandler}
+                                            />
+                                        );
+                                    })
+                                ) : (
+                                    <h4 className="text-white">There are no orders yet</h4>
+                                )}
+                            </div>
+                        ) : (
+                            <Loader />
+                        )}
                     </Col>
                 </Row>
                 <OrdersHistoryModal closeModal={closeOrdersHistory} show={showModal} data={orderHistory} />
@@ -230,7 +249,7 @@ export const OrderPage: React.FC = () => {
                     onChange={changeFeedbackTextHandler}
                     onSubmit={addFeedbackHandler}
                 />
-                <EditUserInfoForm isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
+                <EditUserInfoForm update={update} isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
             </Container>
         </div>
     );

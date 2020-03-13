@@ -36,6 +36,9 @@ export const AdminCategoryForm: React.FC<CategoryForm> = (props: CategoryForm) =
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             });
+            setCategoryForm({
+                title: '',
+            });
             toaster.notify(data.message, {
                 duration: 2000,
             });

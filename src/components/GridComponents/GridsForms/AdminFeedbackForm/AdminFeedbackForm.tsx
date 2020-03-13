@@ -44,6 +44,7 @@ export const AdminFeedbackForm: React.FC<FeedbackForm> = (props: FeedbackForm) =
             toaster.notify(data.message, {
                 duration: 2000,
             });
+            setFeedbackForm({ approved: false, message: '', userEmail: '', userLastName: '', userName: '' });
             props.update();
         }
         props.closeModal();

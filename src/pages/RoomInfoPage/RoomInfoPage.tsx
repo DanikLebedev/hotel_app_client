@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
-import {Data, Order, Room} from '../../interfaces/clientInterfaces';
+import { Data, Order, Room } from '../../interfaces/clientInterfaces';
 import { useParams, useHistory } from 'react-router-dom';
 import { RoomService } from '../../APIServices/roomService';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
 import { SubmitButton } from '../../components/SubmitButton/SubmitButton';
 import { ConfirmModal } from '../../components/ConfirmModal/ConfirmModal';
+import { withTranslation } from 'react-i18next';
 
 interface RoomInfoPageFormData {
     checkIn: string;
@@ -24,7 +25,7 @@ interface RoomInfoPageFormData {
     guests: number;
 }
 
-export const RoomInfoPage: React.FC = (): JSX.Element => {
+const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
     const userEmail: string = useAuth().userEmail;
     const [show, setShow] = useState<boolean>(false);
     const { register, handleSubmit, errors } = useForm<RoomInfoPageFormData>();
@@ -85,7 +86,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
             toaster.notify(data.message, {
                 duration: 2000,
             });
-            setShow(false)
+            setShow(false);
         } else {
             history.push('/orders');
             toaster.notify(data.message, {
@@ -115,22 +116,20 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                     <h5 className={'room-info-page-subtitle'}>{room.category}</h5>
                     <p className={'room-info-page-description'}>
                         {room.description}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dignissimos ducimus in laboriosam
-                        libero optio quis rem sed voluptate voluptatibus. Ab assumenda dignissimos id inventore iste
-                        nesciunt pariatur, possimus veniam?
+                        {t(`home-page-rooms.${room.category}.description`)}
                     </p>
                     <div className="d-flex justify-content-around room-info-page-icons">
                         <span>
-                            <FontAwesomeIcon color="green" icon={faMoneyCheck} /> Price: {room.price}$
+                            <FontAwesomeIcon color="green" icon={faMoneyCheck} /> {t('room-info.price')}: {room.price}$
                         </span>
                         <span>
-                            <FontAwesomeIcon icon={faBuilding} /> Area: {room.area}
+                            <FontAwesomeIcon icon={faBuilding} /> {t('room-info.area')}: {room.area}
                         </span>
                         <span>
-                            <FontAwesomeIcon icon={faUserFriends} /> Number of guests: {room.guests}
+                            <FontAwesomeIcon icon={faUserFriends} /> {t('room-info.guests')} {room.guests}
                         </span>
                         <span>
-                            <FontAwesomeIcon icon={faHome} /> Number of rooms: {room.rooms}
+                            <FontAwesomeIcon icon={faHome} /> {t('room-info.rooms')}: {room.rooms}
                         </span>
                     </div>
                 </Col>
@@ -151,13 +150,13 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                 )}
                 <div className="booking-form">
                     <div className="form-header">
-                        <h1>Make your reservation</h1>
+                        <h1>{t('room-info.title')}</h1>
                     </div>
                     <div>
                         <div className="row align-items-center">
                             <div className="col-md-5">
                                 <div className="form-group">
-                                    <span className="form-label">Check In</span>
+                                    <span className="form-label">{t('room-info.checkIn')}</span>
                                     <input
                                         ref={register({ required: true })}
                                         className="form-control"
@@ -176,7 +175,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                             </div>
                             <div className="col-md-5">
                                 <div className="form-group">
-                                    <span className="form-label">Check out</span>
+                                    <span className="form-label">{t('room-info.checkOut')}</span>
                                     <input
                                         ref={register({ required: true })}
                                         className="form-control"
@@ -193,7 +192,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                         </div>
                         <div className="row align-items-end">
                             <div className="col-md-3 mt-2">
-                                <span className="form-label">Number of guests</span>
+                                <span className="form-label">{t('room-info.guests')}</span>
                                 <input
                                     className="form-control"
                                     ref={register({ required: true, min: 1 })}
@@ -207,7 +206,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                                 </span>
                             </div>
                             <div className="col-md-4">
-                                <span className="form-label">Your Wishes</span>
+                                <span className="form-label">{t('room-info.wishes')}</span>
                                 <textarea
                                     onChange={onChangeTextAreaHandler}
                                     ref={register()}
@@ -220,7 +219,7 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
                             </div>
                             <div className="col-md-3">
                                 <div className="form-btn">
-                                    <SubmitButton onClick={handleSubmit(handleShow)} title={'Check availability'} />
+                                    <SubmitButton onClick={handleSubmit(handleShow)} title={t('book-room.label')} />
                                 </div>
                                 <span className="error-field" />
                             </div>
@@ -232,3 +231,5 @@ export const RoomInfoPage: React.FC = (): JSX.Element => {
         </div>
     );
 };
+
+export default withTranslation()(RoomInfoPage);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Loader from '../Loader/Loader';
-import { Article, Room } from '../../interfaces/clientInterfaces';
+import { Article } from '../../interfaces/clientInterfaces';
 import { ClientContext } from '../../context/client.context';
 import { Row } from 'react-bootstrap';
 import ArticleItem from '../ArticleItem/ArticleItem';

@@ -1,9 +1,7 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toaster from 'toasted-notes';
-import Loader from '../../../Loader/Loader';
-import { Article, Data, Room } from '../../../../interfaces/clientInterfaces';
+import { Article, Data } from '../../../../interfaces/clientInterfaces';
 import { Col, Row } from 'react-bootstrap';
-import { RoomService } from '../../../../APIServices/roomService';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
@@ -53,10 +51,15 @@ export const AdminArticleForm: React.FC<ArticleForm> = (props: ArticleForm) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response);
             const data: Data = await response.json();
             toaster.notify(data.message, {
                 duration: 2000,
+            });
+            setArticleForm({
+                title: '',
+                text: '',
+                image: '',
+                createdAt: '',
             });
             props.update();
         }

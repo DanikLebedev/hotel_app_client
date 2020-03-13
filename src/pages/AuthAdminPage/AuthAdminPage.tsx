@@ -71,8 +71,8 @@ export const AuthAdminPage = () => {
                                 ref={register({ required: true, pattern: /^\S+@\S+$/i })}
                                 onChange={changeHandler}
                             />
-                            <ErrorMessage error={errors.email} type={'error'} />
                         </label>
+                        <ErrorMessage error={errors.email} type={'error'} />
                         <label>
                             <FontAwesomeIcon icon={faLock} />
                             <input
@@ -84,8 +84,9 @@ export const AuthAdminPage = () => {
                                 ref={register({ required: true, minLength: 6 })}
                                 onChange={changeHandler}
                             />
-                            <ErrorMessage error={errors.password} type={'error'} />
                         </label>
+                        <ErrorMessage error={errors.password} type={'error'} />
+
                         <button className="button btn-black" onClick={handleSubmit(loginHandler)}>
                             Login
                         </button>

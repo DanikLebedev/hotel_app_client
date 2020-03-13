@@ -9,7 +9,6 @@ import { AdminContext } from '../../../../context/admin.context';
 import { config, sortNumbersTypes } from '../../../../config';
 import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 import { ArticleService } from '../../../../APIServices/articleService';
-import {ClientContext} from "../../../../context/client.context";
 
 export const ArticleDataGrid: React.FC = () => {
     const fetchedAllArticles = useContext(AdminContext).fetchedAllArticles;
