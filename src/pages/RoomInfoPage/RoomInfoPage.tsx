@@ -144,7 +144,7 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
                 {roomInfo.length !== 0 ? (
                     roomInfoLayout
                 ) : (
-                    <div className="d-flex justify-content-center align-items-center vh-100">
+                    <div className="d-flex justify-content-center align-items-center">
                         <Loader />
                     </div>
                 )}

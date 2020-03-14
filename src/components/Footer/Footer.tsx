@@ -4,8 +4,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import './Footer.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';
+import {withTranslation} from "react-i18next";
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC = ({t}: any) => {
     return (
         <footer>
             <Container fluid={true}>
@@ -25,31 +26,31 @@ export const Footer: React.FC = () => {
                         <Row>
                             <Col className="d-flex footer-contacts-wrapper" lg={4} md={4} sm={4}>
                                 <span>
-                                    <FontAwesomeIcon icon={faEnvelope} color="#C6A47E" /> Email Adress
+                                    <FontAwesomeIcon icon={faEnvelope} color="#C6A47E" /> {t('email.label')}
                                 </span>
                                 <span className="font-weight-bold">RixosHotelMail.ru</span>
                             </Col>
                             <Col lg={4} className="d-flex footer-contacts-wrapper" md={4} sm={4}>
                                 <span>
-                                    <FontAwesomeIcon icon={faPhone} color="#C6A47E" /> Mobile Phone
+                                    <FontAwesomeIcon icon={faPhone} color="#C6A47E" /> {t('phone.label')}
                                 </span>
                                 <span className="font-weight-bold">+34654891321</span>
                             </Col>
                             <Col className="d-flex footer-contacts-wrapper" lg={4} md={4} sm={4}>
                                 <span>
-                                    <FontAwesomeIcon icon={faMapMarked} color="#C6A47E" /> Hotel Adress
+                                    <FontAwesomeIcon icon={faMapMarked} color="#C6A47E" /> {t('adress.label')}
                                 </span>
-                                <span className="font-weight-bold">RixosHotelMail.ru</span>
+                                <span className="font-weight-bold">{t('street.label')}</span>
                             </Col>
                         </Row>
                     </Col>
                     <Col lg={4} md={4} sm={4} className="justify-content-end ">
                         <Row>
-                            <h3 className={'footer__title'}>Sign Up For special offers</h3>
+                            <h3 className={'footer__title'}>{t('subscribe-text.label')}</h3>
                         </Row>
                         <Row className="mb-3">
                             <input type="text" placeholder="Your email..." className={'subsribe_input'} />
-                            <button className={'button'}>Subscribe</button>
+                            <button className={'button'}> {t('subscribe.label')}</button>
                         </Row>
                     </Col>
                 </Row>
@@ -57,3 +58,5 @@ export const Footer: React.FC = () => {
         </footer>
     );
 };
+
+export default withTranslation()(Footer)

@@ -33,36 +33,36 @@ const AboutUsPage: React.FC = ({ t }: any) => {
                             <img src={process.env.PUBLIC_URL + '/images/7112.jpg'} alt="img1" />
                             <figcaption>
                                 <h2>
-                                    Best <span>Prices</span>
+                                    <span>{t('about-page.best-prices.title')}</span>
                                 </h2>
-                                <p>We offered the best prices for best rooms</p>
+                                <p>{t('about-page.best-prices.text')}</p>
                             </figcaption>
                         </figure>
                         <figure className="effect-layla">
                             <img src={process.env.PUBLIC_URL + '/images/dui21-deluxe-room1.add1.low-res.jpg'} alt="img03" />
                             <figcaption>
                                 <h2>
-                                    Honest and HardWorking <span>Stuff</span>
+                                    <span>{t('about-page.stuff.title')}</span>
                                 </h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, tempora!</p>
+                                <p>{t('about-page.stuff.text')}</p>
                             </figcaption>
                         </figure>
                         <figure className="effect-layla">
                             <img src={process.env.PUBLIC_URL + '/images/3-high-res-restaurant-30.jpg'} alt="img03" />
                             <figcaption>
                                 <h2>
-                                    Delicious <span>Food</span>
+                                    <span>{t('about-page.food.title')}</span>
                                 </h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, vitae.</p>
+                                <p>{t('about-page.food.text')}</p>
                             </figcaption>
                         </figure>
                         <figure className="effect-layla">
                             <img src={process.env.PUBLIC_URL + '/images/528941482_200fcf18b2_b.jpg'} alt="img03" />
                             <figcaption>
                                 <h2>
-                                    Best <span>Choice</span>
+                                    <span>{t('about-page.choice.title')}</span>
                                 </h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, quas.</p>
+                                <p>{t('about-page.choice.text')}</p>
                             </figcaption>
                         </figure>
                     </div>

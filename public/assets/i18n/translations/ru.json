@@ -43,12 +43,16 @@
   "room-info.checkOut": "Выезд",
   "room-info.wishes": "Пожелания",
   "room-info.title": "Сделать бронь",
-  "about-page.best-prices.title": "",
-  "about-page.best-prices.text": "",
-  "about-page.stuff.title": "",
-  "about-page.stuff.text": "",
-  "about-page.food.title": "",
-  "about-page.food.text": "",
-  "about-page.choice.title": "",
-  "about-page.choice.text": ""
+  "about-page.best-prices.title": "Лучшие цены",
+  "about-page.best-prices.text": "Лучшие цены",
+  "about-page.stuff.title": "Профессиональные сотрудники",
+  "about-page.stuff.text": "Профессиональные сотрудники",
+  "about-page.food.title": "Вкуснейшая еда",
+  "about-page.food.text": "Вкуснейшая еда",
+  "about-page.choice.title": "Обилие выбора",
+  "about-page.choice.text": "Обилие выбора",
+  "find-room.check": "Проверить",
+  "subscribe.label": "Подписаться",
+  "subscribe-text.label": "Подпишись, чтобы знать обо всех скидках"
+
 }

@@ -105,7 +105,7 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
             </div>
             <div>
                 <div className="find-room-form">
-                    <label htmlFor={'checkIn'}>Check In</label>
+                    <label htmlFor={'checkIn'}>{t('room-info.checkIn')}</label>
                     <input
                         ref={register({ required: true })}
                         type="date"
@@ -114,7 +114,7 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
                         name="checkIn"
                     />
                     <ErrorMessage error={errors.checkIn} type={'error'} />
-                    <label htmlFor={'checkOut'}>Check Out</label>
+                    <label htmlFor={'checkOut'}>{t('room-info.checkOut')}</label>
                     <input
                         ref={register({ required: true })}
                         type="date"
@@ -138,7 +138,7 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
                             {options}
                         </Select>
                     </FormControl>
-                    <SubmitButton onClick={handleSubmit(CheckRoomHandler)} title={'Check rooms'} />
+                    <SubmitButton onClick={handleSubmit(CheckRoomHandler)} title={t('find-room.check')} />
                 </div>
             </div>
         </div>

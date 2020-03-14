@@ -61,8 +61,8 @@ class CometChatWidget extends Component {
     };
 
     componentDidMount() {
-        addResponseMessage('Welcome to our store!');
-        addResponseMessage('Are you looking for anything in particular?');
+        addResponseMessage('Welcome to our hotel!');
+        addResponseMessage('Can I help you?');
 
         const uid = localStorage.getItem('cc-uid');
         if (uid !== null) {
@@ -152,7 +152,7 @@ class CometChatWidget extends Component {
             <div className="widget">
                 <Widget
                     handleNewUserMessage={this.handleNewUserMessage}
-                    title="My E-commerce Live Chat"
+                    title="Rixos hotel chat"
                     subtitle="Ready to help you"
                 />
             </div>

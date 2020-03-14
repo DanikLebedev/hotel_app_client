@@ -9,6 +9,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { withTranslation } from 'react-i18next';
 import { ClientContext } from '../../context/client.context';
+import {kitcut} from '../ArticleItem/ArticleItem'
 
 const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
     const [index, setIndex] = useState<number>(0);
@@ -63,7 +64,7 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                         </div>
                         <p className={'home__page-rooms-description'}>
                             {fetchedRooms[index]
-                                ? t(`home-page-rooms.${fetchedRooms[index].category}.description`)
+                                ? kitcut(t(`home-page-rooms.${fetchedRooms[index].category}.description`), 300)
                                 : null}
                         </p>
                         <div className={'button__container'}>

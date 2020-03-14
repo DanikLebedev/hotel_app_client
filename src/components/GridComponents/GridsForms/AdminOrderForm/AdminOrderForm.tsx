@@ -52,7 +52,7 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                 guests: 0,
                 userId: '',
                 price: 0,
-            })
+            });
             toaster.notify(data.message, {
                 duration: 2000,
             });
@@ -197,7 +197,13 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                     <Row>
                         <Col lg={6} md={6} sm={6}>
                             <label htmlFor="status">Choose status</label>
-                            <select name="status" className={'form-control'} onChange={selectChangeHandler} id="status">
+                            <select
+                                name="status"
+                                value={orderForm.status}
+                                className={'form-control'}
+                                onChange={selectChangeHandler}
+                                id="status"
+                            >
                                 <option value="completed">completed</option>
                                 <option value="booked">booked</option>
                                 <option value="canceled">canceled</option>

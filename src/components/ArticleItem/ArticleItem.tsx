@@ -9,7 +9,7 @@ interface ArticleItemProps {
     articleInfo: Article;
 }
 
-function kitcut(text, limit) {
+export function kitcut(text, limit) {
     text = text.trim();
     if (text.length <= limit) return text;
 

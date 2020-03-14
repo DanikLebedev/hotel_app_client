@@ -4,7 +4,7 @@ import { useAuth } from './hooks/auth.hook';
 import { ClientContext } from './context/client.context';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header/Header';
-import { Footer } from './components/Footer/Footer';
+import  Footer  from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import {
     Article,

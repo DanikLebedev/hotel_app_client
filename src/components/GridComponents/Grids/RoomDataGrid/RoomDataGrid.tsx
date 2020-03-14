@@ -66,7 +66,7 @@ export const RoomDataGrid: React.FC = () => {
     const editRoomHandler = (event: React.MouseEvent<EventTarget>) => {
         setIsEdit(true);
         const target = event.target as HTMLButtonElement;
-        const filteredRooms = fetchedRooms.find(room => {
+        const filteredRooms = rooms.find(room => {
             return room._id === target.id;
         });
         if (filteredRooms) {

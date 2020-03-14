@@ -43,13 +43,18 @@
   "room-info.checkOut": "Check Out",
   "room-info.wishes": "Your wishes",
   "room-info.title": "Make your reservation",
-  "about-page.best-prices.title": "",
-  "about-page.best-prices.text": "",
-  "about-page.stuff.title": "",
-  "about-page.stuff.text": "",
-  "about-page.food.title": "",
-  "about-page.food.text": "",
-  "about-page.choice.title": "",
-  "about-page.choice.text": ""
+  "about-page.best-prices.title": "Best prices",
+  "about-page.best-prices.text": "Best prices",
+  "about-page.stuff.title": "Professional stuff",
+  "about-page.stuff.text": "Professional stuff",
+  "about-page.food.title": "Delicious food",
+  "about-page.food.text": "Delicious food",
+  "about-page.choice.title": "Best choice",
+  "about-page.choice.text": "Best choice",
+  "find-room.check": "Check rooms",
+  "subscribe.label": "Subscribe",
+  "subscribe-text.label": "Sign Up For special offers"
+
+
 
 }
