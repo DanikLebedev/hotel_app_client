@@ -1,5 +1,5 @@
 import { Col, Container, Row } from 'react-bootstrap';
-import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState, useCallback } from 'react';
 import { Category, Data, OrderCart } from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
@@ -8,8 +8,6 @@ import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -23,8 +21,10 @@ interface AdminOrderForm {
 
 export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) => {
     const [orderForm, setOrderForm] = useState<OrderCart>(props.editProps);
-    const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+    const fetchedCategories = useContext(AdminContext).fetchedCategories;
+    const [categories, setCategories] = useState<Category[]>(fetchedCategories);
     const token = useContext(AdminContext).token;
+
 
     const addOrderHandler = async (): Promise<void> => {
         if (props.isEdit) {
@@ -76,7 +76,7 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
         setOrderForm({ ...orderForm, [event.target.name]: event.target.value });
     };
 
-    const options = fetchedCategories.map(({ title }, index) => {
+    const options = categories.map(({ title }, index) => {
         return (
             <option key={title + index} value={title}>
                 {title}
@@ -84,8 +84,8 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
         );
     });
 
-    const fetchCategories = useCallback(() => {
-        CategoryService.getAllCategories().then(({ categories }) => setFetchedCategories(categories));
+    const update = useCallback(() => {
+        CategoryService.getAllCategories().then(({ categories }) => setCategories(categories));
     }, []);
 
     useEffect(() => {
@@ -105,8 +105,8 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                 price: 0,
             });
         }
-        fetchCategories();
-    }, [props.isEdit, props.editProps, fetchCategories]);
+        update()
+    }, [props.isEdit, props.editProps, fetchedCategories, update]);
 
     return (
         <Container
@@ -155,6 +155,8 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                                 value={orderForm.checkIn}
                                 name="checkIn"
                                 id="checkIn"
+                                min={new Date().toISOString().split('T')[0]}
+
                             />
                         </Col>
                         <Col lg={6} md={6} sm={6}>
@@ -166,6 +168,8 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                                 value={orderForm.checkOut}
                                 name="checkOut"
                                 id="checkOut"
+                                min={new Date().toISOString().split('T')[0]}
+
                             />
                         </Col>
                     </Row>

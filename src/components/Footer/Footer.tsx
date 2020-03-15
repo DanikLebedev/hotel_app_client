@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-// import logo from '../../../public/images/Rixos_Hotels_logo_logotype.png';
 import './Footer.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarked } from '@fortawesome/free-solid-svg-icons';

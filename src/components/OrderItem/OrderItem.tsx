@@ -1,5 +1,5 @@
 import React from 'react';
-import { Order, OrderCart } from '../../interfaces/clientInterfaces';
+import { OrderCart } from '../../interfaces/clientInterfaces';
 import { Delete } from '@material-ui/icons';
 
 interface OrderProps {
@@ -13,8 +13,8 @@ export const OrderItem: React.FC<OrderProps> = (props: OrderProps): JSX.Element 
         <div className={props.classes.join(' ')}>
             <ul className="order-info">
                 <li>Room&apos;s category: {props.order.category}</li>
-                <li>Check In: {props.order.checkIn.split('T')[0]}</li>
-                <li>Check Out: {props.order.checkOut.split('T')[0]}</li>
+                <li>Check In: {new Date(props.order.checkIn).toLocaleDateString()}</li>
+                <li>Check Out: {new Date(props.order.checkOut).toLocaleDateString()}</li>
                 <li>Number of Guests: {props.order.guests}</li>
                 <li>Status: {props.order.status}</li>
                 <li>Price: {props.order.price}$</li>

@@ -22,7 +22,7 @@ export interface Categories {
 export interface Data extends Response {
     message: string;
     data?: Status[] | OrderCart[] | Room[] | Customer[] | Category[] | Feedback[];
-    orders?: Order[];
+    ordercarts?: OrderCart[];
 }
 
 export interface Statuses {

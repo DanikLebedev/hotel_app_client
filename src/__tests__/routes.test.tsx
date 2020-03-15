@@ -2,14 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import NotFound from '../components/ErrorsComponents/404';
 import { MemoryRouter } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-
 import { HomePage } from '../pages/HomePage/HomePage';
 import { useRoutes } from '../routes';
 import { OrderPage } from '../pages/OrdersPage/OrdersPage';
 import RoomsPage from '../pages/RoomsPage/RoomsPage';
 import { AdminPage } from '../pages/AdminPage/AdminPage';
-import { RoomInfoPage } from '../pages/RoomInfoPage/RoomInfoPage';
+import  RoomInfoPage  from '../pages/RoomInfoPage/RoomInfoPage';
 import { AdminPageInfo } from '../components/AdminPageInfo/AdminPageInfo';
 
 describe('react router tests', () => {

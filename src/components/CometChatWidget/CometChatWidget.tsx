@@ -89,7 +89,6 @@ class CometChatWidget extends Component {
                 Authorization: `Bearer ${this.context.token}`
             },
         });
-        console.log(this.context.token)
         const result = await response.json();
         return result;
     };
@@ -145,6 +144,7 @@ class CometChatWidget extends Component {
         CometChat.removeMessageListener(CUSTOMER_MESSAGE_LISTENER_KEY);
         CometChat.logout();
         dropMessages();
+        localStorage.removeItem('cc-uid')
     }
 
     render() {

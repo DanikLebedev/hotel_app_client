@@ -38,7 +38,3 @@ describe('render home page components', () => {
         expect(wrapper).toMatchSnapshot();
     });
 });
-
-describe('testing base logic on home page', () => {
-    it('should change image by click', function() {});
-});

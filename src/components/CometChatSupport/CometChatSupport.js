@@ -114,6 +114,7 @@ class CometChatSupport extends Component {
     componentWillUnmount() {
         CometChat.removeMessageListener(AGENT_MESSAGE_LISTENER_KEY);
         CometChat.logout();
+        localStorage.removeItem('cc-uid')
     }
 
     selectCustomer = uid => {

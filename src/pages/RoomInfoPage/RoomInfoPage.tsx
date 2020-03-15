@@ -82,7 +82,8 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
         order.checkOut = '';
         order.guests = 1;
         order.comment = '';
-        if (!data.orders) {
+        console.log(data);
+        if (!data.ordercarts) {
             toaster.notify(data.message, {
                 duration: 2000,
             });
@@ -164,6 +165,7 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
                                         name={'checkIn'}
                                         type="date"
                                         required
+                                        min={new Date().toISOString().split('T')[0]}
                                     />
                                 </div>
                                 <span className="error-field">
@@ -183,6 +185,7 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
                                         name={'checkOut'}
                                         type="date"
                                         required
+                                        min={new Date().toISOString().split('T')[0]}
                                     />
                                 </div>
                                 <span className="error-field">
@@ -200,6 +203,7 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
                                     name={'guests'}
                                     type="number"
                                     required
+                                    min={1}
                                 />
                                 <span className="error-field">
                                     <ErrorMessage error={errors.guests} type={'error'} />

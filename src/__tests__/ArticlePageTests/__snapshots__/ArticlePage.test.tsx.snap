@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`articles page test tests should renders articles item without crashing 1`] = `
+<Col
+  className="mb-4"
+  lg={4}
+  md={4}
+  sm={12}
+  xs={12}
+>
+  <img
+    alt="img"
+    className="articles-page__item-img"
+    src="http://localhost:5000/static/"
+  />
+  <h3 />
+  <div
+    className="rooms-page__item-text"
+  >
+    <p />
+    <p />
+  </div>
+  <NavLink
+    className="button btn-black"
+    id="redirect-button"
+    to="/articles/undefined"
+  >
+    Read More
+  </NavLink>
+</Col>
+`;
+
+exports[`articles page test tests should renders articles list without crashing 1`] = `
+<ForwardRef
+  noGutters={false}
+>
+  <ArticleItem
+    articleInfo={
+      Object {
+        "createdAt": "",
+        "image": "",
+        "text": "",
+        "title": "",
+      }
+    }
+    key="0"
+  />
+</ForwardRef>
+`;
+
+exports[`articles page test tests should renders room page without crashing 1`] = `
+<ArticlesPage
+  i18n={Object {}}
+  t={[Function]}
+  tReady={false}
+/>
+`;

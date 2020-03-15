@@ -2,10 +2,6 @@ import React from 'react';
 import './AboutUsPage.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { config } from '../../config';
-// import galleryPhoto1 from './images/7112.jpg';
-// import galleryPhoto2 from './images/dui21-deluxe-room1.add1.low-res.jpg';
-// import galleryPhoto3 from './images/3-high-res-restaurant-30.jpg';
-// import galleryPhoto4 from '../../../public/images/528941482_200fcf18b2_b.jpg';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
 import { withTranslation } from 'react-i18next';
 

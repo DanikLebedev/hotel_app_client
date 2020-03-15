@@ -1,4 +1,4 @@
-import React, { useContext, useState, ChangeEvent, useEffect } from 'react';
+import React, { useContext, useState, ChangeEvent, useEffect, useCallback } from 'react';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { ClientContext } from '../../context/client.context';
 import './Navigation.scss';
@@ -25,7 +25,7 @@ const Navigation: React.FC = (): JSX.Element => {
         history.push('/');
     };
 
-    const checkToken = () => {
+    const checkToken = useCallback(() => {
         const token = localStorage.getItem('userData');
         if (token === null && location === '/orders') {
             toaster.notify('Authorization time is out, please log in', {
@@ -34,7 +34,7 @@ const Navigation: React.FC = (): JSX.Element => {
             auth.logoutUser();
             history.push('/auth');
         }
-    };
+    },[]);
 
     const showMenuHandler = (): void => {
         setShowMenu(!showMenu);

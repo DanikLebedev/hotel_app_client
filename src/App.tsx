@@ -24,7 +24,6 @@ import { CategoryService } from './APIServices/categoryService';
 import { OrderService } from './APIServices/orderService';
 import { EmployeeService } from './APIServices/employeeService';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import Dictaphone from './components/SpeechControl/speech-recognition-setup';
 import CometChatWidget from './components/CometChatWidget/CometChatWidget';
 import { ArticleService } from './APIServices/articleService';
 import { CustomerService } from './APIServices/customerService';
@@ -166,7 +165,6 @@ const App: React.FC = () => {
         >
             <Router>
                 <Header />
-                <Dictaphone />
                 {userStatus !== 'manager' && isAuthenticated ? <CometChatWidget /> : null}
                 <ScrollToTop />
                 {routes}

@@ -29,7 +29,7 @@ export const CategoryDataGrid: React.FC = () => {
     const editCategoryHandler = (event: React.MouseEvent<EventTarget>): void => {
         setIsEdit(true);
         const target = event.target as HTMLButtonElement;
-        const filteredCategories: Category | undefined = fetchedCategories.find(category => {
+        const filteredCategories: Category | undefined = categories.find(category => {
             return category._id === target.id;
         });
         if (filteredCategories) {

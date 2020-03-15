@@ -139,7 +139,7 @@ export const OrderPage: React.FC = () => {
 
     useEffect(() => {
         update();
-    }, [fetchedOrders, , update]);
+    }, [fetchedOrders, update]);
 
     if (!userInfo && !fetchedOrders) {
         return (
