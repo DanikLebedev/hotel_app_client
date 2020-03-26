@@ -77,7 +77,6 @@ export const AdminContext = createContext<AdminContext>({
     fetchedComments: [
         {
             text: '',
-            createdAt: '',
             userEmail: '',
             articleId: '',
         },

@@ -19,6 +19,52 @@
 
 }
 
+.unauth-comment-title {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.edit-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .button {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+}
+
+.comments-list-item {
+  list-style: none;
+  border: 1px solid #cdcdcd;
+  border-radius: 20px;
+  margin: 20px 0 ;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  &-header {
+    display: flex;
+    span:first-child {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    span:last-child {
+      font-size: 16px;
+      color: #cdcdcd;
+      margin-left: 10px;
+    }
+
+  }
+}
+
 @media screen
 and (min-width: 768px)
 and (max-width: 1199px){

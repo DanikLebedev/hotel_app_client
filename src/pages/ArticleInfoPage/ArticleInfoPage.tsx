@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useContext, ChangeEvent } from
 import { Article, Customer, Comment } from '../../interfaces/clientInterfaces';
 import { useParams } from 'react-router-dom';
 import { ArticleService } from '../../APIServices/articleService';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, FormText } from 'react-bootstrap';
 import { config } from '../../config';
 import Loader from '../../components/Loader/Loader';
 import './ArticleInfoPage.scss';
@@ -10,20 +10,25 @@ import { ClientContext } from '../../context/client.context';
 import { CustomerService } from '../../APIServices/customerService';
 import { CommentService } from '../../APIServices/commentService';
 import toaster from 'toasted-notes';
+import { duration, IconButton, Tooltip } from '@material-ui/core';
+import { Delete, Edit, Save, Cancel } from '@material-ui/icons';
 
 export const ArticleInfoPage: React.FC = () => {
     const context = useContext(ClientContext);
     const params: { id?: string } = useParams();
     const articleId: string | undefined = params.id;
     const [articleInfo, setArticleInfo] = useState<Article[]>([]);
-    // const [userInfo, setUserInfo] = useState<Customer>(context.fetchedUserInfo);
     const [allComments, setAllComments] = useState<Comment[]>(context.fetchedComments);
     const [commentForm, setCommentForm] = useState<Comment>({
         text: '',
-        createdAt: '',
-        userEmail: context.fetchedUserInfo.email,
+        userEmail: context.userEmail,
         articleId: articleId,
     });
+    const [isEdit, setIsEdit] = useState(false);
+
+    const toggleEditMode = () => {
+        setIsEdit(!isEdit);
+    };
 
     const update = useCallback(() => {
         ArticleService.getArticleById(articleId).then(({ article }) => {
@@ -36,9 +41,18 @@ export const ArticleInfoPage: React.FC = () => {
         setCommentForm({ ...commentForm, [event.target.name]: event.target.value });
     };
 
+    const deleteCommentHandler = async (event: React.MouseEvent<EventTarget>) => {
+        const target = event.target as HTMLButtonElement;
+        const data = await CommentService.deleteComment(JSON.stringify({ _id: target.id }), {
+            Authorization: `Bearer ${context.token}`,
+            'Content-Type': 'application/json',
+        });
+        update();
+        toaster.notify(data.message);
+    };
+
     const addCommentHandler = async () => {
         try {
-            console.log(commentForm);
             const data = await CommentService.postComment(
                 { ...commentForm },
                 { Authorization: `Bearer ${context.token}`, 'Content-Type': 'application/json' },
@@ -53,6 +67,24 @@ export const ArticleInfoPage: React.FC = () => {
             });
         }
     };
+
+    const updateCommentHandler = async () => {
+        try {
+            const data = await CommentService.updateComment(JSON.stringify(commentForm), {
+                Authorization: `Bearer ${context.token}`,
+                'Content-Type': 'application/json',
+            });
+            update();
+            toaster.notify(data.message, {
+                duration: 2000,
+            });
+            toggleEditMode();
+        } catch (e) {
+            toaster.notify('Something went wrong');
+        }
+    };
+
+    const filteredComments = allComments.filter(comment => comment.articleId === articleId);
 
     useEffect(() => {
         update();
@@ -89,25 +121,103 @@ export const ArticleInfoPage: React.FC = () => {
                     </div>
                 )}
                 <div className={'comment-wrapper'}>
-                    <div className="comment-form">
-                        <textarea
-                            title={'comment'}
-                            name={'text'}
-                            onChange={onChangeTextArea}
-                            className={'form-control'}
-                            rows={4}
-                        />
-                        <button className={'button btn-black'} onClick={addCommentHandler}>
-                            Send comment
-                        </button>
-                    </div>
+                    {context.isAuthenticated ? (
+                        <div className="comment-form">
+                            <textarea
+                                name={'text'}
+                                placeholder={'Your comment ...'}
+                                onChange={onChangeTextArea}
+                                className={'form-control'}
+                                style={{ resize: 'none' }}
+                            />
+                            <button className={'button btn-black'} onClick={addCommentHandler}>
+                                Send comment
+                            </button>
+                        </div>
+                    ) : (
+                        <h4 className={'unauth-comment-title'}>Please log in, to leave comments</h4>
+                    )}
+
                     <div className="comments-list">
-                        {allComments.length ? (
-                            allComments
-                                .filter(comment => comment.articleId === articleId)
-                                .map(comment => {
-                                    return <li key={comment._id}>{comment.text}</li>;
-                                })
+                        <h3>Comments</h3>
+                        {filteredComments.length !== 0 ? (
+                            filteredComments.map(comment => {
+                                return (
+                                    <li className={'comments-list-item'} key={comment._id}>
+                                        <div>
+                                            <div className={'comments-list-item-header'}>
+                                                <span>{comment.userEmail}</span>
+                                                <span>
+                                                    {comment.createdAt ? comment.createdAt.split('T')[0] : null}
+                                                </span>
+                                            </div>
+                                            <div className={'comments-list-item-body'}>
+                                                <p hidden={isEdit}>{comment.text}</p>
+                                                <div className={'edit-wrapper'}>
+                                                    <input
+                                                        hidden={!isEdit}
+                                                        defaultValue={comment.text}
+                                                        type="text"
+                                                        name="text"
+                                                        id={'comment-edit-input'}
+                                                        className={'form-control'}
+                                                        onChange={e =>
+                                                            setCommentForm({
+                                                                ...commentForm,
+                                                                [e.target.name]: e.target.value,
+                                                                _id: comment._id,
+                                                            })
+                                                        }
+                                                    />
+                                                    <Tooltip title={'Save'}>
+                                                        <IconButton
+                                                            className={'icon-buttons'}
+                                                            hidden={!isEdit}
+                                                            onClick={updateCommentHandler}
+                                                        >
+                                                            <Save color="action" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title={'Cancel'}>
+                                                        <IconButton
+                                                            className={'icon-buttons'}
+                                                            hidden={!isEdit}
+                                                            onClick={toggleEditMode}
+                                                        >
+                                                            <Cancel color="error" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            {context.fetchedUserInfo.email === comment.userEmail ? (
+                                                <>
+                                                    <Tooltip title={'Delete'}>
+                                                        <IconButton
+                                                            className={'icon-buttons'}
+                                                            id={comment._id}
+                                                            hidden={isEdit}
+                                                            onClick={deleteCommentHandler}
+                                                        >
+                                                            <Delete color="error" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title={'Edit'}>
+                                                        <IconButton
+                                                            className={'icon-buttons'}
+                                                            hidden={isEdit}
+                                                            onClick={toggleEditMode}
+                                                        >
+                                                            <Edit color="primary" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </>
+                                            ) : null}
+                                        </div>
+                                    </li>
+                                );
+                            })
                         ) : (
                             <p>There no comments</p>
                         )}

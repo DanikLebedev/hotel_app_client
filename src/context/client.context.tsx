@@ -91,7 +91,6 @@ export const ClientContext = createContext<ClientContext>({
     fetchedComments: [
         {
             text: '',
-            createdAt: '',
             userEmail: '',
             articleId: '',
         },

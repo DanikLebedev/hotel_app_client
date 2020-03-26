@@ -143,7 +143,7 @@ export interface Articles {
 
 export interface Comment {
     text: string;
-    createdAt: string;
+    createdAt?: string;
     userEmail: string;
     articleId: string | undefined;
     _id?: string;
