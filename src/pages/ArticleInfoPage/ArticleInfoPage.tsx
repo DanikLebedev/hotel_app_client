@@ -1,25 +1,62 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { Article } from '../../interfaces/clientInterfaces';
+import React, { useCallback, useState, useEffect, useContext, ChangeEvent } from 'react';
+import { Article, Customer, Comment } from '../../interfaces/clientInterfaces';
 import { useParams } from 'react-router-dom';
 import { ArticleService } from '../../APIServices/articleService';
 import { Col, Container, Row } from 'react-bootstrap';
 import { config } from '../../config';
 import Loader from '../../components/Loader/Loader';
 import './ArticleInfoPage.scss';
+import { ClientContext } from '../../context/client.context';
+import { CustomerService } from '../../APIServices/customerService';
+import { CommentService } from '../../APIServices/commentService';
+import toaster from 'toasted-notes';
 
 export const ArticleInfoPage: React.FC = () => {
-    const [articleInfo, setArticleInfo] = useState<Article[]>([]);
+    const context = useContext(ClientContext);
     const params: { id?: string } = useParams();
     const articleId: string | undefined = params.id;
-    const fetchArticleInfo: CallableFunction = useCallback(() => {
+    const [articleInfo, setArticleInfo] = useState<Article[]>([]);
+    // const [userInfo, setUserInfo] = useState<Customer>(context.fetchedUserInfo);
+    const [allComments, setAllComments] = useState<Comment[]>(context.fetchedComments);
+    const [commentForm, setCommentForm] = useState<Comment>({
+        text: '',
+        createdAt: '',
+        userEmail: context.fetchedUserInfo.email,
+        articleId: articleId,
+    });
+
+    const update = useCallback(() => {
         ArticleService.getArticleById(articleId).then(({ article }) => {
             setArticleInfo(article);
         });
-    }, [articleId]);
+        CommentService.getAllComments().then(({ comment }) => setAllComments(comment));
+    }, [articleId, context.token]);
+
+    const onChangeTextArea = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setCommentForm({ ...commentForm, [event.target.name]: event.target.value });
+    };
+
+    const addCommentHandler = async () => {
+        try {
+            console.log(commentForm);
+            const data = await CommentService.postComment(
+                { ...commentForm },
+                { Authorization: `Bearer ${context.token}`, 'Content-Type': 'application/json' },
+            );
+            update();
+            toaster.notify(data.message, {
+                duration: 2000,
+            });
+        } catch (e) {
+            toaster.notify('Something went wrong', {
+                duration: 2000,
+            });
+        }
+    };
 
     useEffect(() => {
-        fetchArticleInfo();
-    }, [fetchArticleInfo]);
+        update();
+    }, [update]);
 
     const articleInfoLayout: JSX.Element[] = articleInfo.map((article, key) => {
         return (
@@ -51,6 +88,31 @@ export const ArticleInfoPage: React.FC = () => {
                         <Loader />
                     </div>
                 )}
+                <div className={'comment-wrapper'}>
+                    <div className="comment-form">
+                        <textarea
+                            title={'comment'}
+                            name={'text'}
+                            onChange={onChangeTextArea}
+                            className={'form-control'}
+                            rows={4}
+                        />
+                        <button className={'button btn-black'} onClick={addCommentHandler}>
+                            Send comment
+                        </button>
+                    </div>
+                    <div className="comments-list">
+                        {allComments.length ? (
+                            allComments
+                                .filter(comment => comment.articleId === articleId)
+                                .map(comment => {
+                                    return <li key={comment._id}>{comment.text}</li>;
+                                })
+                        ) : (
+                            <p>There no comments</p>
+                        )}
+                    </div>
+                </div>
             </Container>
         </div>
     );

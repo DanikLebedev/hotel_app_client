@@ -113,7 +113,6 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
                         onChange={changeDateOrderHandler}
                         name="checkIn"
                         min={new Date().toISOString().split('T')[0]}
-
                     />
                     <ErrorMessage error={errors.checkIn} type={'error'} />
                     <label htmlFor={'checkOut'}>{t('room-info.checkOut')}</label>
@@ -124,7 +123,6 @@ export const FindRoomForm: React.FC = ({ t }: any) => {
                         onChange={changeDateOrderHandler}
                         name="checkOut"
                         min={new Date().toISOString().split('T')[0]}
-
                     />
                     <ErrorMessage error={errors.checkOut} type={'error'} />
                     <FormControl className={classes.formControl}>

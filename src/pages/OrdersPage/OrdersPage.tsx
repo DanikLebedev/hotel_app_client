@@ -61,18 +61,14 @@ export const OrderPage: React.FC = () => {
         );
     }, [context.token]);
 
-    // const fetchCustomerInfo: CallableFunction = useCallback(async () => {
-    //     const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${context.token}` });
-    //
-    // }, [context.token]);
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
         const formData: FormData = new FormData();
         formData.append('_id', target.id);
         if (target) {
-            const filteredOrders: Order[] = orders.filter(order => {
-                return order._id === target.id;
+            const filteredOrders: Order[] = orderHistory.filter(order => {
+                return order._id !== target.id;
             });
             setCls((prevState: string[]) => [...prevState, 'deleted-order']);
             setOrders(filteredOrders);
@@ -143,7 +139,7 @@ export const OrderPage: React.FC = () => {
 
     if (!userInfo && !fetchedOrders) {
         return (
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flчex justify-content-center align-items-center">
                 <Loader />
             </div>
         );

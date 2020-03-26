@@ -140,3 +140,15 @@ export interface Article {
 export interface Articles {
     article: Article[];
 }
+
+export interface Comment {
+    text: string;
+    createdAt: string;
+    userEmail: string;
+    articleId: string | undefined;
+    _id?: string;
+}
+
+export interface Comments {
+    comment: Comment[];
+}

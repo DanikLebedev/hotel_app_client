@@ -3,8 +3,8 @@ import { Data, Feedbacks } from '../interfaces/clientInterfaces';
 
 export class FeedbackService {
     public static async getAllFeedbacks(): Promise<Feedbacks> {
-        const rooms: Feedbacks = await CRUDServices.getData('/api/admin/feedbacks');
-        return rooms;
+        const feedbacks: Feedbacks = await CRUDServices.getData('/api/admin/feedbacks');
+        return feedbacks;
     }
 
     public static async postFeedback(body: {}, headers?: {}): Promise<Data> {
