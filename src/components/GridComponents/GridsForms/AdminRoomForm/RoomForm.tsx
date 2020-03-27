@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toaster from 'toasted-notes';
 import Loader from '../../../Loader/Loader';
 import { Data, Room } from '../../../../interfaces/clientInterfaces';
-import {  Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import '../../../../assets/rglstyles.css';
 import '../../../../assets/resizablestyles.css';
 import './RoomForm.scss';
@@ -202,6 +202,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                                         <PhotoCamera />
                                     </IconButton>
                                 </label>
+                                <p>{roomForm.image}</p>
                                 <input
                                     accept="image/*"
                                     className={classes.input}
@@ -213,7 +214,6 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                                     defaultValue={roomForm.image}
                                     placeholder="image"
                                 />
-                                <span>{roomForm.image}</span>
                             </Col>
                         </Row>
                         <Row>

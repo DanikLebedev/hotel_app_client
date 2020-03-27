@@ -14,6 +14,23 @@
   }
 }
 
+.comment-form {
+  padding: 20px;
+  display: flex;
+  width: 50rem;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  position: relative;
+}
+
+.comment-wrapper-modal {
+  overflow-y: scroll;
+  height: 20vh;
+  padding: 20px;
+  width: 100%
+}
+
 .page-link {
   cursor: pointer;
 }
@@ -88,6 +105,8 @@
     color: red;
   }
 }
+
+
 
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
 

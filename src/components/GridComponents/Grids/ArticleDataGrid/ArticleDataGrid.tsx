@@ -1,7 +1,7 @@
 import React, { useContext, useState, ChangeEvent, useEffect } from 'react';
-import { Article } from '../../../../interfaces/clientInterfaces';
+import { Article, Comment } from '../../../../interfaces/clientInterfaces';
 import { Pagination } from '../../../Pagination/Pagination';
-import { IconButton, TextField, Tooltip } from '@material-ui/core';
+import { Button, IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import toaster from 'toasted-notes';
 import { AdminArticleForm } from '../../GridsForms/AdminArticleForm/AdminArticleForm';
@@ -9,9 +9,12 @@ import { AdminContext } from '../../../../context/admin.context';
 import { config, sortNumbersTypes } from '../../../../config';
 import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 import { ArticleService } from '../../../../APIServices/articleService';
+import { CommentService } from '../../../../APIServices/commentService';
+import {CommentsHistoryModal} from "../../../CommentsHistoryModal/CommentsHistoryModal";
 
 export const ArticleDataGrid: React.FC = () => {
     const fetchedAllArticles = useContext(AdminContext).fetchedAllArticles;
+    const fetchedAllComments = useContext(AdminContext).fetchedComments;
     const token = useContext(AdminContext).token;
     const [articles, setArticles] = useState<Article[]>(fetchedAllArticles);
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -28,7 +31,8 @@ export const ArticleDataGrid: React.FC = () => {
     const [field, setField] = useState('');
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [targetId, setTargetId] = useState<string>('');
-
+    const [filteredComments, setFilteredComments] = useState<Comment[]>(fetchedAllComments);
+    const [showComments, setShowComment] = useState(false);
 
     const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
         const target = event.target as HTMLButtonElement;
@@ -64,6 +68,7 @@ export const ArticleDataGrid: React.FC = () => {
         ArticleService.getAllArticles().then(({ article }) => {
             setArticles(article);
         });
+        CommentService.getAllComments().then(({ comment }) => setFilteredComments(comment));
     }
 
     const editOrderHandler = (event: React.MouseEvent<EventTarget>): void => {
@@ -93,6 +98,14 @@ export const ArticleDataGrid: React.FC = () => {
         });
     };
 
+    const showCommentsModalHandler = (event: React.MouseEvent<EventTarget>): void => {
+        const target = event.target as HTMLButtonElement;
+        const comments = fetchedAllComments.filter(comment => {
+            return comment._id === target.id;
+        });
+        setFilteredComments(comments);
+        setShowComment(true);
+    };
     const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {
         setSearch(event.target.value);
         setInputName(event.target.name);
@@ -136,7 +149,7 @@ export const ArticleDataGrid: React.FC = () => {
 
     useEffect(() => {
         update();
-    }, [fetchedAllArticles]);
+    }, [fetchedAllArticles, update]);
 
     return (
         <div className="grid-table-wrapper">
@@ -171,6 +184,9 @@ export const ArticleDataGrid: React.FC = () => {
                             </div>
                         </th>
                         <th>
+                            <p>Comments</p>
+                        </th>
+                        <th>
                             <p>image</p>
                         </th>
                         <th>
@@ -191,6 +207,11 @@ export const ArticleDataGrid: React.FC = () => {
                                       <td>{article.title}</td>
                                       <td style={{ minWidth: '300px' }}>{article.text}</td>
                                       <td>{article ? new Date(article.createdAt).toLocaleDateString() : null}</td>
+                                      <td>
+                                          <Button id={article._id} onClick={showCommentsModalHandler}>
+                                              Show all comments
+                                          </Button>
+                                      </td>
                                       <td style={{ minWidth: '200px' }}>
                                           <div
                                               className="room-img"
@@ -240,6 +261,12 @@ export const ArticleDataGrid: React.FC = () => {
                 closeModal={closeModal}
                 editProps={editProps}
                 show={showModal}
+            />
+            <CommentsHistoryModal
+                show={showComments}
+                update={update}
+                closeModal={() => setShowComment(false)}
+                comments={filteredComments}
             />
             <Pagination
                 postPerPage={postPerPage}

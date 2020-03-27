@@ -9,7 +9,8 @@ import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
-import {ConfirmDeleteModal} from "../../../ConfirmDeleteModal/ConfirmDeleteModal";
+import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
+import { useDropzone } from 'react-dropzone';
 
 type SortTypeParams = {
     class: string;
@@ -21,6 +22,7 @@ interface SortType {
     down: SortTypeParams;
     default: SortTypeParams;
 }
+
 
 export const RoomDataGrid: React.FC = () => {
     const fetchedRooms = useContext(AdminContext).fetchedRooms;
@@ -58,7 +60,6 @@ export const RoomDataGrid: React.FC = () => {
         setShowConfirmModal(false);
     };
 
-
     function update(): void {
         RoomService.getAllRooms().then(({ rooms }) => setRooms(rooms));
     }
@@ -81,7 +82,7 @@ export const RoomDataGrid: React.FC = () => {
         });
         const formData = new FormData();
         formData.append('_id', targetId);
-        await RoomService.deleteRoom(formData, { Authorization: `Bearer ${token}`}).then(data => {
+        await RoomService.deleteRoom(formData, { Authorization: `Bearer ${token}` }).then(data => {
             update();
             setShowConfirmModal(false);
             toaster.notify(data.message, {
