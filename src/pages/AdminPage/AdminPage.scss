@@ -31,6 +31,32 @@
   width: 100%
 }
 
+.admin-navigation {
+  background: #3f51b5;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20vw;
+  z-index: 10;
+  padding: 20px;
+  .nav {
+    .nav-item {
+      margin: 10px 0;
+      a {
+        color: #ffffff;
+
+      }
+    }
+  }
+}
+
+.admin-page-wrapper {
+  margin: 0;
+  display: flex;
+
+}
+
 .page-link {
   cursor: pointer;
 }

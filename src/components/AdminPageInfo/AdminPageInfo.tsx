@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import '../../pages/AdminPage/AdminPage.scss';
 import { RoomDataGrid } from '../GridComponents/Grids/RoomDataGrid/RoomDataGrid';
 import { CategoryDataGrid } from '../GridComponents/Grids/CategoryDataGrid/CategoryDataGrid';
@@ -12,7 +12,8 @@ import Tab from '@material-ui/core/Tab';
 import { AppBar, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import CometChatSupport from '../CometChatSupport/CometChatSupport';
-import {ArticleDataGrid} from "../GridComponents/Grids/ArticleDataGrid/ArticleDataGrid";
+import { ArticleDataGrid } from '../GridComponents/Grids/ArticleDataGrid/ArticleDataGrid';
+import { AdminNavigation } from '../AdminNavigation/AdminNavigation';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -62,7 +63,7 @@ export const AdminPageInfo: React.FC = () => {
     };
 
     return (
-        <Container className={'admin-page pt-2'} fluid={true}>
+        <Container className={'admin-page align-items-center'} fluid>
             <AppBar color="primary" position="static" className={classes.root}>
                 <Tabs
                     value={value}
