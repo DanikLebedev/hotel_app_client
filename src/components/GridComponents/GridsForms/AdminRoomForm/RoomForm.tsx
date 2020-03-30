@@ -14,6 +14,7 @@ import { AdminContext } from '../../../../context/admin.context';
 import { handleClickOutside } from '../../../../sharedMethods/outsideClick';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import Checkbox from '@material-ui/core/Checkbox';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -67,6 +68,8 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                 price: 0,
                 rooms: 0,
                 title: '',
+                beds: 0,
+                food: '',
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -87,7 +90,7 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
     };
 
     const selectRoomChangeHandler = (event: any): void => {
-        setRoomForm({ ...roomForm, category: event.target.value });
+        setRoomForm({ ...roomForm, [event.target.name]: event.target.value });
     };
 
     const options = fetchedCategories.map(({ title }, index) => {
@@ -112,6 +115,8 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                 price: 0,
                 rooms: 0,
                 title: '',
+                beds: 0,
+                food: '',
             });
         }
     }, [props.isEdit, props.editProps]);
@@ -240,6 +245,29 @@ export const RoomForm: React.FC<RoomForm> = (props: RoomForm) => {
                                     id="area"
                                     placeholder="area"
                                 />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col lg={6} md={6} sm={6}>
+                                <label htmlFor="beds">Enter number of beds</label>
+                                <input
+                                    type="number"
+                                    className={'form-control'}
+                                    onChange={roomChangeHandler}
+                                    value={roomForm.beds}
+                                    name="beds"
+                                    id="beds"
+                                    placeholder="beds"
+                                />
+                            </Col>
+                            <Col lg={6} md={6} sm={6}>
+                                <label htmlFor="food">Food & Drink</label>
+                                <select onChange={selectRoomChangeHandler} value={roomForm.food} className={'form-control'} name="food" id="food">
+                                    <option value="AI">AI</option>
+                                    <option value="BB">BB</option>
+                                    <option value="UAI">UAI</option>
+                                    <option value="FB">FB</option>
+                                </select>
                             </Col>
                         </Row>
                         {props.isEdit ? <input type="hidden" name="_id" value={roomForm._id} /> : null}

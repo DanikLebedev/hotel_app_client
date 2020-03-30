@@ -45,6 +45,8 @@ export const AdminContext = createContext<AdminContext>({
             rooms: 0,
             title: '',
             _id: '',
+            food: '',
+            beds: 0
         },
     ],
     fetchedFeedbacks: [
@@ -70,6 +72,7 @@ export const AdminContext = createContext<AdminContext>({
             guests: 0,
             userId: '',
             price: 0,
+            title: ''
         },
     ],
     fetchedAllEmployee: [{ email: '', password: '', status: '' }],

@@ -39,6 +39,8 @@
   "room-info.area": "Area",
   "room-info.guests": "Number of guests",
   "room-info.rooms": "Number of rooms",
+  "room-info.beds": "Beds",
+  "room-info.food": "Food & Drinks",
   "room-info.checkIn": "Check In",
   "room-info.checkOut": "Check Out",
   "room-info.wishes": "Your wishes",

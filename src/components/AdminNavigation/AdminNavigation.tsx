@@ -4,7 +4,6 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { AdminContext } from '../../context/admin.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faHome, faChartLine, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '@material-ui/core';
 
 
 export const AdminNavigation: React.FC = () => {

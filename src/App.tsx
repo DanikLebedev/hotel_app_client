@@ -62,11 +62,6 @@ const App: React.FC = () => {
         );
     }, [token]);
 
-    const fetchOrders: CallableFunction = useCallback(async () => {
-        const { orders }: Orders = await OrderService.getUserOrders({ Authorization: `Bearer ${token}` });
-        setFetchedUserOrders(orders);
-    }, [token]);
-
     const fetchEmployee: CallableFunction = useCallback(() => {
         EmployeeService.getAllEmployee().then(({ employees }) => setFetchedAllEmployee(employees));
     }, []);
@@ -94,8 +89,11 @@ const App: React.FC = () => {
     }, []);
 
     const fetchCustomerInfo: CallableFunction = useCallback(async () => {
-        const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${token}` });
-        setFetchedUserInfo(customer);
+        if (isAuthenticated && userStatus !== 'admin') {
+            const customer: Customer = await CustomerService.getCustomer({ Authorization: `Bearer ${token}` });
+            setFetchedUserInfo(customer);
+        }
+        return null;
     }, [token]);
 
     const fetchAllComments: CallableFunction = useCallback(async () => {
@@ -112,7 +110,6 @@ const App: React.FC = () => {
         fetchAllArticles();
         fetchAllComments();
         if (isAuthenticated && userStatus !== 'admin') {
-            fetchOrders();
             fetchOrdersHistory();
             fetchCustomerInfo();
         }
@@ -122,7 +119,6 @@ const App: React.FC = () => {
         fetchCategories,
         fetchAllOrders,
         fetchEmployee,
-        fetchOrders,
         fetchOrdersHistory,
         isAuthenticated,
         userStatus,

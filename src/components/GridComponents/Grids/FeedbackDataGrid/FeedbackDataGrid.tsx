@@ -10,7 +10,7 @@ import { Add, Delete, Edit } from '@material-ui/icons';
 import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
 import { Pagination } from '../../../Pagination/Pagination';
-import {ConfirmDeleteModal} from "../../../ConfirmDeleteModal/ConfirmDeleteModal";
+import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 
 export const FeedbackDataGrid = () => {
     const fetchedFeedbacks = useContext(AdminContext).fetchedFeedbacks;
@@ -83,14 +83,13 @@ export const FeedbackDataGrid = () => {
         });
         const formData = new FormData();
         formData.append('_id', targetId);
-        await FeedbackService.deleteFeedback(formData, { Authorization: `Bearer ${token}`}).then(data => {
-            setShowConfirmModal(false)
+        await FeedbackService.deleteFeedback(formData, { Authorization: `Bearer ${token}` }).then(data => {
+            setShowConfirmModal(false);
             update();
             toaster.notify(data.message, {
                 duration: 2000,
             });
         });
-
     };
 
     const addFeedbackHandler = () => {
@@ -182,45 +181,44 @@ export const FeedbackDataGrid = () => {
                 </thead>
                 <tbody>
                     {currentFeedback.length
-                        ? currentFeedback
-                              .map((feedback, key) => {
-                                  return (
-                                      <tr key={key}>
-                                          <td>{feedback.userEmail}</td>
-                                          <td>
-                                              {feedback.userName} {feedback.userLastName}
-                                          </td>
-                                          <td>{feedback.message}</td>
-                                          <td>
-                                              {feedback.approved ? (
-                                                  <FontAwesomeIcon color={'green'} icon={faCheck} />
-                                              ) : (
-                                                  <FontAwesomeIcon color={'red'} icon={faTimes} />
-                                              )}
-                                          </td>
-                                          <td>
-                                              <Tooltip title={'Delete'}>
-                                                  <IconButton
-                                                      className={'icon-buttons'}
-                                                      id={feedback._id}
-                                                      onClick={displayConfirmModal}
-                                                  >
-                                                      <Delete color="error" />
-                                                  </IconButton>
-                                              </Tooltip>
-                                              <Tooltip title={'Edit'}>
-                                                  <IconButton
-                                                      className={'icon-buttons'}
-                                                      id={feedback._id}
-                                                      onClick={editFeedbackHandler}
-                                                  >
-                                                      <Edit color="primary" />
-                                                  </IconButton>
-                                              </Tooltip>
-                                          </td>
-                                      </tr>
-                                  );
-                              })
+                        ? currentFeedback.map((feedback, key) => {
+                              return (
+                                  <tr key={key}>
+                                      <td>{feedback.userEmail}</td>
+                                      <td>
+                                          {feedback.userName} {feedback.userLastName}
+                                      </td>
+                                      <td>{feedback.message}</td>
+                                      <td>
+                                          {feedback.approved ? (
+                                              <FontAwesomeIcon color={'green'} icon={faCheck} />
+                                          ) : (
+                                              <FontAwesomeIcon color={'red'} icon={faTimes} />
+                                          )}
+                                      </td>
+                                      <td>
+                                          <Tooltip title={'Delete'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={feedback._id}
+                                                  onClick={displayConfirmModal}
+                                              >
+                                                  <Delete color="error" />
+                                              </IconButton>
+                                          </Tooltip>
+                                          <Tooltip title={'Edit'}>
+                                              <IconButton
+                                                  className={'icon-buttons'}
+                                                  id={feedback._id}
+                                                  onClick={editFeedbackHandler}
+                                              >
+                                                  <Edit color="primary" />
+                                              </IconButton>
+                                          </Tooltip>
+                                      </td>
+                                  </tr>
+                              );
+                          })
                         : null}
                 </tbody>
             </table>

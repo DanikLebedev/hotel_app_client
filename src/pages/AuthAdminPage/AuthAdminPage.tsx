@@ -39,7 +39,7 @@ export const AuthAdminPage = () => {
             auth.loginUser(data.token, data.userId, data.status, data.email);
             setLoading(false);
             if (data.status === 'admin') {
-                history.push('/admin/info');
+                history.push('/admin/home');
             } else if (data.status === 'manager') {
                 history.push('/');
             }

@@ -19,7 +19,7 @@ export interface ClientContext {
     fetchedComments: Comment[];
 }
 
-function noop(): void {}
+function noop(): void {};
 
 export const ClientContext = createContext<ClientContext>({
     token: null,
@@ -41,6 +41,8 @@ export const ClientContext = createContext<ClientContext>({
             rooms: 0,
             title: '',
             _id: '',
+            food: '',
+            beds: 0,
         },
     ],
     fetchedFeedbacks: [
@@ -84,6 +86,7 @@ export const ClientContext = createContext<ClientContext>({
             guests: 0,
             userId: '',
             price: 0,
+            title: '',
         },
     ],
     fetchedAllArticles: [{ title: '', image: '', text: '', createdAt: '' }],

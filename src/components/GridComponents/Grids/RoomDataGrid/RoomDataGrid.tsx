@@ -11,6 +11,8 @@ import { AdminContext } from '../../../../context/admin.context';
 import { sortNumbersTypes } from '../../../../config';
 import { ConfirmDeleteModal } from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useDropzone } from 'react-dropzone';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 type SortTypeParams = {
     class: string;
@@ -22,7 +24,6 @@ interface SortType {
     down: SortTypeParams;
     default: SortTypeParams;
 }
-
 
 export const RoomDataGrid: React.FC = () => {
     const fetchedRooms = useContext(AdminContext).fetchedRooms;
@@ -45,6 +46,8 @@ export const RoomDataGrid: React.FC = () => {
         price: 0,
         rooms: 0,
         title: '',
+        beds: 0,
+        food: '',
     });
 
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
@@ -164,6 +167,15 @@ export const RoomDataGrid: React.FC = () => {
                         .indexOf(search.toLowerCase()) !== -1
                 );
             });
+        }  else if (inputName === 'food-input') {
+            return rooms.filter(item => {
+                return (
+                    item.food
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(search.toLowerCase()) !== -1
+                );
+            });
         }
         return rooms;
     };
@@ -261,6 +273,29 @@ export const RoomDataGrid: React.FC = () => {
                             </div>
                         </th>
                         <th style={{ width: '80px' }}>
+                            <p>Beds</p>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="beds-input" onChange={dataSearch} />
+                                <Tooltip title={'Sort'}>
+                                    <button className="sort-button" onClick={() => onSortChange('beds')}>
+                                        <i
+                                            className={
+                                                field === 'beds'
+                                                    ? `fas fa-${sortNumbersTypes('beds')[currentSort].class}`
+                                                    : 'fas fa-sort'
+                                            }
+                                        />
+                                    </button>
+                                </Tooltip>
+                            </div>
+                        </th>
+                        <th style={{ width: '80px' }}>
+                            <p>Food</p>
+                            <div className={'d-flex'}>
+                                <TextField id="standard-basic" name="food-input" onChange={dataSearch} />
+                            </div>
+                        </th>
+                        <th style={{ width: '80px' }}>
                             <p>Area</p>
                             <div className={'d-flex'}>
                                 <TextField id="standard-basic" name="area-input" onChange={dataSearch} />
@@ -303,6 +338,8 @@ export const RoomDataGrid: React.FC = () => {
                                       <td>{room.guests}</td>
                                       <td>{room.description}</td>
                                       <td>{room.rooms}</td>
+                                      <td>{room.beds}</td>
+                                      <td>{room.food}</td>
                                       <td>{room.area}</td>
                                       <td style={{ minWidth: '200px' }}>
                                           <div

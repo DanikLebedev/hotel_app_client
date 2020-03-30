@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBed, faBuilding, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBed, faBuilding, faUserAlt, faHome } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import { config } from '../../config';
@@ -48,7 +48,7 @@ const HomePageRooms: React.FC = ({ t }: any): JSX.Element => {
                         </div>
                         <div className="room__icons">
                             <span>
-                                <FontAwesomeIcon className={'mr-2'} icon={faBed} />
+                                <FontAwesomeIcon className={'mr-2'} icon={faHome} />
                                 {fetchedRooms[index] ? fetchedRooms[index].rooms : null}{' '}
                                 {t('home-page-rooms.rooms.label')}
                             </span>

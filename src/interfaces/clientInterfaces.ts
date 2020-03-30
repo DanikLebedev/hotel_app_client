@@ -48,6 +48,8 @@ export interface Room {
     description: string;
     image: string;
     _id?: string;
+    food: string;
+    beds: number;
 }
 
 export interface Employee {
@@ -92,7 +94,7 @@ export interface Orders {
 
 export interface OrderCart {
     status: string;
-    orderId: string;
+    orderId?: string;
     category: string;
     checkIn: string;
     checkOut: string;
@@ -102,6 +104,7 @@ export interface OrderCart {
     guests: number;
     price: number;
     comment: string;
+    title: string
 }
 
 export interface OrderCarts {

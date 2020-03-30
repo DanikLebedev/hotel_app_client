@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import React, { ChangeEvent, useContext, useEffect, useState, useCallback } from 'react';
-import { Category, Data, OrderCart } from '../../../../interfaces/clientInterfaces';
+import {Category, Data, OrderCart, Room} from '../../../../interfaces/clientInterfaces';
 import toaster from 'toasted-notes';
 import { CategoryService } from '../../../../APIServices/categoryService';
 import { OrderService } from '../../../../APIServices/orderService';
@@ -21,10 +21,11 @@ interface AdminOrderForm {
 
 export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) => {
     const [orderForm, setOrderForm] = useState<OrderCart>(props.editProps);
+    const fetchedRooms: Room[] = useContext(AdminContext).fetchedRooms;
     const fetchedCategories = useContext(AdminContext).fetchedCategories;
     const [categories, setCategories] = useState<Category[]>(fetchedCategories);
+    const [roomTypes, setRoomTypes] = useState<Room[]>([])
     const token = useContext(AdminContext).token;
-
 
     const addOrderHandler = async (): Promise<void> => {
         if (props.isEdit) {
@@ -52,6 +53,7 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                 guests: 0,
                 userId: '',
                 price: 0,
+                title: '',
             });
             toaster.notify(data.message, {
                 duration: 2000,
@@ -73,8 +75,22 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
     };
 
     const selectChangeHandler = (event: ChangeEvent<HTMLSelectElement>): void => {
-        setOrderForm({ ...orderForm, [event.target.name]: event.target.value });
+        event.persist();
+        const filteredByCategoryRooms = fetchedRooms.filter(room => room.category === event.target.value);
+        setRoomTypes(filteredByCategoryRooms)
+        setOrderForm({
+            ...orderForm,
+            [event.target.name]: event.target.value,
+        });
     };
+
+    const RoomTypeOptions = roomTypes.map(({title} , index) => {
+        return (
+            <option key={title + index} value={title}>
+                {title}
+            </option>
+        )
+    })
 
     const options = categories.map(({ title }, index) => {
         return (
@@ -103,9 +119,10 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                 guests: 0,
                 userId: '',
                 price: 0,
+                title: '',
             });
         }
-        update()
+        update();
     }, [props.isEdit, props.editProps, fetchedCategories, update]);
 
     return (
@@ -146,6 +163,14 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                         </Col>
                     </Row>
                     <Row>
+                        <Col lg={12} md={12} sm={12}>
+                            <label htmlFor="roomTitle">Choose type of room</label>
+                            <select name="title" id="roomTitle" className={'form-control'}  value={orderForm.title} onChange={selectChangeHandler}>
+                                {RoomTypeOptions}
+                            </select>
+                        </Col>
+                    </Row>
+                    <Row>
                         <Col lg={6} md={6} sm={6}>
                             <label htmlFor="checkIn">Check In</label>
                             <input
@@ -156,7 +181,6 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                                 name="checkIn"
                                 id="checkIn"
                                 min={new Date().toISOString().split('T')[0]}
-
                             />
                         </Col>
                         <Col lg={6} md={6} sm={6}>
@@ -169,7 +193,6 @@ export const AdminOrderForm: React.FC<AdminOrderForm> = (props: AdminOrderForm) 
                                 name="checkOut"
                                 id="checkOut"
                                 min={new Date().toISOString().split('T')[0]}
-
                             />
                         </Col>
                     </Row>

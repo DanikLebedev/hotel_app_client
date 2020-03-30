@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
-import { Data, Order, Room } from '../../interfaces/clientInterfaces';
+import { Data, Order, OrderCart, Room } from '../../interfaces/clientInterfaces';
 import { useParams, useHistory } from 'react-router-dom';
 import { RoomService } from '../../APIServices/roomService';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -10,7 +10,14 @@ import { OrderService } from '../../APIServices/orderService';
 import toaster from 'toasted-notes';
 import { ClientContext } from '../../context/client.context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoneyCheck, faBuilding, faUserFriends, faHome } from '@fortawesome/free-solid-svg-icons';
+import {
+    faMoneyCheck,
+    faBuilding,
+    faUserFriends,
+    faHome,
+    faPizzaSlice,
+    faBed,
+} from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../hooks/auth.hook';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorsComponents/ErrorMessage';
@@ -31,14 +38,17 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
     const { register, handleSubmit, errors } = useForm<RoomInfoPageFormData>();
 
     const [roomInfo, setRoomInfo] = useState<Room[]>([]);
-    const [order, setOrder] = useState<Order>({
+    const [order, setOrder] = useState<OrderCart>({
+        status: 'booked',
         category: '',
         checkIn: '',
         checkOut: '',
         comment: '',
         guests: 1,
         price: 0,
+        userId: '',
         userEmail,
+        title: '',
     });
     const params: { id?: string } = useParams();
     const roomId: string | undefined = params.id;
@@ -51,16 +61,20 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
     }, [roomId]);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-        setOrder({ ...order, [event.target.name]: event.target.value });
-    };
-
-    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>): void => {
         setOrder({
             ...order,
             [event.target.name]: event.target.value,
             category: roomInfo[0].category,
             price: roomInfo[0].price,
             userEmail,
+            title: roomInfo[0].title,
+        });
+    };
+
+    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+        setOrder({
+            ...order,
+            [event.target.name]: event.target.value,
         });
     };
 
@@ -119,20 +133,33 @@ const RoomInfoPage: React.FC = ({ t }: any): JSX.Element => {
                         {room.description}
                         {t(`home-page-rooms.${room.category}.description`)}
                     </p>
-                    <div className="d-flex justify-content-around room-info-page-icons">
-                        <span>
-                            <FontAwesomeIcon color="green" icon={faMoneyCheck} /> {t('room-info.price')}: {room.price}$
-                        </span>
-                        <span>
-                            <FontAwesomeIcon icon={faBuilding} /> {t('room-info.area')}: {room.area}
-                        </span>
-                        <span>
-                            <FontAwesomeIcon icon={faUserFriends} /> {t('room-info.guests')} {room.guests}
-                        </span>
-                        <span>
-                            <FontAwesomeIcon icon={faHome} /> {t('room-info.rooms')}: {room.rooms}
-                        </span>
-                    </div>
+                    <Row>
+                        <Col lg={4} md={4} sm={4} className={'d-flex flex-column'}>
+                            <span>
+                                <FontAwesomeIcon color="green" icon={faMoneyCheck} /> {t('room-info.price')}:{' '}
+                                {room.price}$
+                            </span>
+                            <span>
+                                <FontAwesomeIcon icon={faBuilding} /> {t('room-info.area')}: {room.area}
+                            </span>
+                        </Col>
+                        <Col lg={4} md={4} sm={4} className={'d-flex flex-column'}>
+                            <span>
+                                <FontAwesomeIcon icon={faHome} /> {t('room-info.rooms')}: {room.rooms}
+                            </span>
+                            <span>
+                                <FontAwesomeIcon icon={faPizzaSlice} /> {t('room-info.food')}: {room.food}
+                            </span>
+                        </Col>
+                        <Col lg={4} md={4} sm={4} className={'d-flex flex-column'}>
+                            <span>
+                                <FontAwesomeIcon icon={faUserFriends} /> {t('room-info.guests')} {room.guests}
+                            </span>
+                            <span>
+                                <FontAwesomeIcon icon={faBed} /> {t('room-info.beds')}: {room.beds}
+                            </span>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         );

@@ -27,6 +27,7 @@ export const OrderDataGrid: React.FC = () => {
         guests: 0,
         userId: '',
         price: 0,
+        title: ''
     });
     const [search, setSearch] = useState('');
     const [inputName, setInputName] = useState('');
