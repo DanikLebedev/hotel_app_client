@@ -46,6 +46,10 @@
       a {
         color: #ffffff;
         font-size: 18px;
+        transition: .3s;
+        &:hover {
+          color: #000;
+        }
       }
     }
   }

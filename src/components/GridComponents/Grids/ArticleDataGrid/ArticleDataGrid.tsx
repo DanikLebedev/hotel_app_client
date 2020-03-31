@@ -31,7 +31,7 @@ export const ArticleDataGrid: React.FC = () => {
     const [field, setField] = useState('');
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [targetId, setTargetId] = useState<string>('');
-    const [filteredComments, setFilteredComments] = useState<Comment[]>(fetchedAllComments);
+    const [filteredComments, setFilteredComments] = useState<Comment[]>([]);
     const [showComments, setShowComment] = useState(false);
 
     const displayConfirmModal = (event: React.MouseEvent<EventTarget>) => {
@@ -68,7 +68,6 @@ export const ArticleDataGrid: React.FC = () => {
         ArticleService.getAllArticles().then(({ article }) => {
             setArticles(article);
         });
-        CommentService.getAllComments().then(({ comment }) => setFilteredComments(comment));
     }
 
     const editOrderHandler = (event: React.MouseEvent<EventTarget>): void => {
@@ -98,12 +97,13 @@ export const ArticleDataGrid: React.FC = () => {
         });
     };
 
-    const showCommentsModalHandler = (event: React.MouseEvent<EventTarget>): void => {
-        const target = event.target as HTMLButtonElement;
+    const showCommentsModalHandler = (id: string | undefined): void => {
         const comments = fetchedAllComments.filter(comment => {
-            return comment._id === target.id;
+            return comment.articleId === id
         });
+        console.log(filteredComments)
         setFilteredComments(comments);
+        console.log(filteredComments)
         setShowComment(true);
     };
     const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -208,7 +208,7 @@ export const ArticleDataGrid: React.FC = () => {
                                       <td style={{ minWidth: '300px' }}>{article.text}</td>
                                       <td>{article ? new Date(article.createdAt).toLocaleDateString() : null}</td>
                                       <td>
-                                          <Button id={article._id} onClick={showCommentsModalHandler}>
+                                          <Button id={article._id} onClick={() => showCommentsModalHandler(article._id)}>
                                               Show all comments
                                           </Button>
                                       </td>
