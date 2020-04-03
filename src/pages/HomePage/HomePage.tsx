@@ -8,18 +8,25 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { HomePageArticles } from '../../components/HomePageComponents/HomePageArticles';
 import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
 import { MapComponent } from '../../components/YandexMap/YandexMap';
+import ErrorBoundary from '../../components/ErrorsComponents/ErrorBoundary';
 
 export const HomePage: React.FC = () => {
     return (
         <>
             <FindRoomForm />
             <HomePageAboutUs />
-            <LazyLoadComponent>
-                <HomePageRooms />
-            </LazyLoadComponent>
-            <HomePageFeedback />
+            <ErrorBoundary>
+                <LazyLoadComponent>
+                    <HomePageRooms />
+                </LazyLoadComponent>
+            </ErrorBoundary>
+            <ErrorBoundary>
+                <HomePageFeedback />
+            </ErrorBoundary>
             <HomePageFeatures />
-            <HomePageArticles />
+            <ErrorBoundary>
+                <HomePageArticles />
+            </ErrorBoundary>
             <MapComponent />
         </>
     );

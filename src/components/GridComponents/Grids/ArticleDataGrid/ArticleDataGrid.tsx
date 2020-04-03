@@ -101,9 +101,7 @@ export const ArticleDataGrid: React.FC = () => {
         const comments = fetchedAllComments.filter(comment => {
             return comment.articleId === id
         });
-        console.log(filteredComments)
         setFilteredComments(comments);
-        console.log(filteredComments)
         setShowComment(true);
     };
     const dataSearch = (event: ChangeEvent<HTMLInputElement>): void => {

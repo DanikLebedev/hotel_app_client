@@ -81,29 +81,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
         );
     }
 
-    // if (userStatus === 'admin') {
-    //     return (
-    //         <Switch>
-    //             <Route path="/" exact>
-    //                 <HomePage />
-    //             </Route>
-    //             <Route path="/rooms" exact>
-    //                 <RoomsPage />
-    //             </Route>
-    //             <Route path="/orders" exact>
-    //                 <Suspense fallback={<Loader />}>
-    //                     <OrderPage />
-    //                 </Suspense>
-    //             </Route>
-    //             <Route path="/admin/login" exact>
-    //                 <AuthAdminPage />
-    //             </Route>
-    //             <Route component={NotFound} />
-    //             <Redirect to="/" />
-    //         </Switch>
-    //     );
-    // }
-    //
 
     return (
         <Switch>

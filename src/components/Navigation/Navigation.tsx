@@ -25,17 +25,6 @@ const Navigation: React.FC = (): JSX.Element => {
         history.push('/');
     };
 
-    const checkToken = useCallback(() => {
-        const token = localStorage.getItem('userData');
-        if (token === null && location === '/orders') {
-            toaster.notify('Authorization time is out, please log in', {
-                duration: 2000,
-            });
-            auth.logoutUser();
-            history.push('/auth');
-        }
-    },[]);
-
     const showMenuHandler = (): void => {
         setShowMenu(!showMenu);
     };
@@ -54,7 +43,6 @@ const Navigation: React.FC = (): JSX.Element => {
     };
 
     useEffect(() => {
-        checkToken();
         window.addEventListener('scroll', () => {
             let scroll = true;
             if (window.scrollY === 0) {
@@ -62,7 +50,7 @@ const Navigation: React.FC = (): JSX.Element => {
             }
             setIsScrolled(scroll);
         });
-    }, [token, location, checkToken]);
+    }, [token, location]);
 
     const authComponents: JSX.Element = (
         <>

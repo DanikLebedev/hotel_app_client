@@ -11,9 +11,18 @@ const RoomsList: React.FC = (): JSX.Element => {
     useEffect(() => {
         RoomService.getAllRooms().then(({ rooms }) => setRooms(rooms));
     }, [fetchedRooms]);
+
+    if (!fetchedRooms[0]) {
+        return (
+            <div className="d-flex justify-content-center align-items-center">
+                <Loader />
+            </div>
+        );
+    }
+
     return (
         <div>
-            {!rooms ? (
+            {!fetchedRooms ? (
                 <div className="d-flex justify-content-center align-items-center vh-100">
                     <Loader />
                 </div>

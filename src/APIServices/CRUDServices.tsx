@@ -8,7 +8,6 @@ export class CRUDServices {
     }
 
     public static async postData(url: string, body: any, headers: any): Promise<any> {
-        console.log(body)
         body = JSON.stringify(body);
         const response: Response = await fetch(url, {
             method: 'POST',
