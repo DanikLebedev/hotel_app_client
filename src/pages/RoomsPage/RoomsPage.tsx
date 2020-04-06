@@ -3,10 +3,10 @@ import RoomsList from '../../components/RoomsList/RoomsList';
 import { Container } from 'react-bootstrap';
 import './RoomsPage.scss';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import  FindRoomForm  from '../../components/FindRoomForm/FindRoomForm';
-import {withTranslation} from "react-i18next";
+import FindRoomForm from '../../components/FindRoomForm/FindRoomForm';
+import { withTranslation } from 'react-i18next';
 
-const RoomsPage: FC = ({t}: any): JSX.Element => {
+const RoomsPage: FC = ({ t }: any): JSX.Element => {
     return (
         <div className="room-page">
             <FindRoomForm />
@@ -14,9 +14,7 @@ const RoomsPage: FC = ({t}: any): JSX.Element => {
                 <h1>{t('see-rooms.label')}</h1>
             </div>
             <Container className="room-page-wrapper">
-                <LazyLoadComponent>
-                    <RoomsList />
-                </LazyLoadComponent>
+                <RoomsList />
             </Container>
         </div>
     );

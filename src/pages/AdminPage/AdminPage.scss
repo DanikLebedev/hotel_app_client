@@ -31,6 +31,15 @@
   width: 100%
 }
 
+.admin-page-charts-wrapper {
+  display: flex;
+}
+
+.admin-pages {
+  padding-top: 90px;
+  padding-left: 20px;
+}
+
 .admin-navigation {
   background: #3f51b5;
   height: 100%;
@@ -147,6 +156,10 @@
     box-shadow: none;
   }
 
+  .admin-page-charts-wrapper {
+    flex-direction: column;
+  }
+
   .grid-table-wrapper {
     font-size: 1.2em;
   }
@@ -175,5 +188,8 @@
   }
   .admin-form {
     width: 20rem;
+  }
+  .admin-page-charts-wrapper {
+    flex-direction: column;
   }
 }

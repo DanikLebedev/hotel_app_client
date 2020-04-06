@@ -26,11 +26,8 @@ export const AdminPage: React.FC = () => {
     return (
         <Router>
             <div className={'admin-page-wrapper'}>
-                <div className={'admin-navigation'}>
                     <AdminNavigation />
-                </div>
-                <Col lg={3} md={3} sm={3} />
-                <Col lg={8} md={8} sm={8} className={'pt-3'}>
+                <Col lg={10} md={9} sm={10} className={'admin-pages'}>
                     {routes}
                 </Col>
             </div>

@@ -47,7 +47,7 @@ export const AdminPageCharts = () => {
         },
     ];
     return (
-        <div className="d-flex justify-content-around">
+        <div className="admin-page-charts-wrapper">
             <div>
                 <h3>Number of Orders by category</h3>
                 <BarChart
