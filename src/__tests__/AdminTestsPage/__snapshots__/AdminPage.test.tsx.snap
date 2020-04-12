@@ -1397,22 +1397,40 @@ exports[`admin page test tests should renders admin page info without crashing 1
 
 exports[`admin page test tests should renders admin page without crashing 1`] = `
 <BrowserRouter>
-  <h1
-    className="text-center m-3"
+  <div
+    className="admin-page-wrapper"
   >
-    Admin Page
-  </h1>
-  <AdminNavigation />
-  <Switch>
-    <Route
-      exact={true}
-      path="/admin/info"
+    <AdminNavigation />
+    <Col
+      className="admin-pages"
+      lg={10}
+      md={9}
+      sm={10}
     >
-      <AdminPageInfo />
-    </Route>
-    <Redirect
-      to="/admin/info"
-    />
-  </Switch>
+      <Switch>
+        <Route
+          exact={true}
+          path="/admin/home"
+        >
+          <AdminPageHome />
+        </Route>
+        <Route
+          exact={true}
+          path="/admin/edit"
+        >
+          <AdminPageInfo />
+        </Route>
+        <Route
+          exact={true}
+          path="/admin/charts"
+        >
+          <AdminPageCharts />
+        </Route>
+        <Redirect
+          to="/admin/home"
+        />
+      </Switch>
+    </Col>
+  </div>
 </BrowserRouter>
 `;

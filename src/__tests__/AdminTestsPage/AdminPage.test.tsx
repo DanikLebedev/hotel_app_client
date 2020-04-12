@@ -11,6 +11,9 @@ import { AdminCategoryForm } from '../../components/GridComponents/GridsForms/Ad
 import { AdminEmployeeForm } from '../../components/GridComponents/GridsForms/AdminEmployeeForm/AdminEmployeeForm';
 import { AdminFeedbackForm } from '../../components/GridComponents/GridsForms/AdminFeedbackForm/AdminFeedbackForm';
 import { RoomForm } from '../../components/GridComponents/GridsForms/AdminRoomForm/RoomForm';
+import {ArticleDataGrid} from "../../components/GridComponents/Grids/ArticleDataGrid/ArticleDataGrid";
+import {AdminPageCharts} from "../../components/AdminPageCharts/AdminPageCharts";
+import {AdminPageHome} from "../../components/AdminPageHome/AdminPageHome";
 
 describe('admin page test tests', () => {
     it('should renders admin page without crashing', function() {
@@ -20,6 +23,16 @@ describe('admin page test tests', () => {
 
     it('should renders admin page info without crashing', function() {
         const wrapper = shallow(<AdminPageInfo />);
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should renders admin page info without crashing', function() {
+        const wrapper = shallow(<AdminPageCharts />);
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should renders admin page info without crashing', function() {
+        const wrapper = shallow(<AdminPageHome />);
         expect(wrapper).toMatchSnapshot();
     });
 });
@@ -43,6 +56,11 @@ describe('admin page data grid tests', () => {
     });
     it('should renders without crashing', function() {
         const wrapper = shallow(<OrderDataGrid />);
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should renders without crashing', function() {
+        const wrapper = shallow(<ArticleDataGrid />);
         expect(wrapper).toMatchSnapshot();
     });
 });
@@ -105,6 +123,8 @@ describe('admin page create form tests', () => {
                     price: 0,
                     rooms: 0,
                     title: '',
+                    food: '',
+                    beds: 0,
                 }}
             />,
         );

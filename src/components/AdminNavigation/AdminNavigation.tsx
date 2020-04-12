@@ -130,6 +130,7 @@ export const AdminNavigation: React.FC = () => {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Typography>Admin Page</Typography>
                 </Toolbar>
             </AppBar>
             <Drawer

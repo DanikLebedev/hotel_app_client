@@ -69,6 +69,10 @@ export const ArticleDataGrid: React.FC = () => {
             setArticles(article);
         });
     }
+    
+    function updateComments(): void {
+        CommentService.getAllComments().then(({ comment }) => setFilteredComments(comment));
+    }
 
     const editOrderHandler = (event: React.MouseEvent<EventTarget>): void => {
         setIsEdit(true);
@@ -262,7 +266,7 @@ export const ArticleDataGrid: React.FC = () => {
             />
             <CommentsHistoryModal
                 show={showComments}
-                update={update}
+                update={updateComments}
                 closeModal={() => setShowComment(false)}
                 comments={filteredComments}
             />

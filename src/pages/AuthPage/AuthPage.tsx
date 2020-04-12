@@ -130,7 +130,7 @@ const AuthPage: React.FC = () => {
                 />
             </label>
             <ErrorMessage error={errors.password} type={'error'} />
-            <button className="change-form-button" onClick={() => setForgotPassword(true)}>
+            <button className="change-form-button mb-3" onClick={() => setForgotPassword(true)}>
                 Reset password
             </button>
             <div className="btn__wrapper">

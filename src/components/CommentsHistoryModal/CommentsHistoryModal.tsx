@@ -19,25 +19,17 @@ interface CommentsHistoryModal {
 }
 
 export const CommentsHistoryModal: React.FC<CommentsHistoryModal> = (props: CommentsHistoryModal) => {
-    // const [commentsForm, setCommentsForm] = useState<Comment>({
-    //     userEmail: '',
-    //     textL
-    // });
     const token = useContext(AdminContext).token;
     const deleteCommentHandler = async (id): Promise<void> => {
         const data: Data = await CommentService.deleteComment(JSON.stringify({ _id: id }), {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         });
+        props.update();
         toaster.notify(data.message, {
             duration: 2000,
         });
-        props.update();
     };
-
-    // const commentChangeHanlder = (event: InputEvent): void => {
-    //     setCategoryForm({ ...categoryForm, [event.target.name]: event.target.value });
-    // };
 
     return (
         <Container

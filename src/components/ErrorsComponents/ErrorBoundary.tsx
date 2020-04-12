@@ -1,4 +1,6 @@
 import React from 'react';
+import './ErrorComponents.scss';
+import { NavLink } from 'react-router-dom';
 
 class ErrorBoundary extends React.Component {
     state = {
@@ -10,6 +12,14 @@ class ErrorBoundary extends React.Component {
             hasError: true,
         };
     }
+
+    logout() {
+        localStorage.removeItem('userData');
+    }
+
+    componentDidCatch(error, errorInfo) {
+    }
+
     render():
         | React.ReactElement<any, string | React.JSXElementConstructor<any>>
         | string
@@ -22,8 +32,16 @@ class ErrorBoundary extends React.Component {
         | undefined {
         if (this.state.hasError) {
             return (
-                <div>
-                    <h1>Something went wrong</h1>
+                <div className={'error-page-wrapper'}>
+                    <div className={'flex-column d-flex justify-content-center align-items-center'}>
+                        <h1>Authorization time is over, please log in again</h1>
+                        <NavLink className={'button btn-black'} to="/auth" onClick={this.logout}>
+                            Go to login
+                        </NavLink>
+                    </div>
+                    <div className={'error-image'}>
+                        <img src="https://www.inksystem.biz/uploaded/img/article/error-5100.jpg" alt="" />
+                    </div>
                 </div>
             );
         }

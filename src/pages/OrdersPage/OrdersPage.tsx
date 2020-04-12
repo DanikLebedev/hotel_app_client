@@ -19,6 +19,7 @@ import { Edit, Settings, Close, Send, History } from '@material-ui/icons';
 import { EditUserInfoForm } from '../../components/EditUserInfoForm/EditUserInfo';
 import { OrdersHistoryModal } from '../../components/OrdersHistoryModal/OrdersHistoryModal';
 import { FeedbackModal } from '../../components/FeedBackModal/FeedbackModal';
+import ErrorBoundary from '../../components/ErrorsComponents/ErrorBoundary';
 
 export const OrderPage: React.FC = () => {
     const context: ClientContext = useContext(ClientContext);
@@ -60,7 +61,6 @@ export const OrderPage: React.FC = () => {
             setUserInfo(customer),
         );
     }, [context.token]);
-
 
     const deleteOrderHandler = async (event: React.MouseEvent<EventTarget>): Promise<void> => {
         const target = event.target as HTMLButtonElement;
@@ -216,26 +216,28 @@ export const OrderPage: React.FC = () => {
                         className="d-flex justify-content-around align-items-center flex-column"
                     >
                         <h4 className="text-white">Your Current Orders</h4>
-                        {fetchedOrderHistory[0] ? (
-                            <div className="d-flex justify-content-center align-items-center flex-column">
-                                {filteredUserOrders.length ? (
-                                    filteredUserOrders.map((item: OrderCart, key: number) => {
-                                        return (
-                                            <OrderItem
-                                                key={key}
-                                                classes={cls}
-                                                order={item}
-                                                onDelete={deleteOrderHandler}
-                                            />
-                                        );
-                                    })
-                                ) : (
-                                    <h4 className="text-white">There are no orders yet</h4>
-                                )}
-                            </div>
-                        ) : (
-                            <Loader />
-                        )}
+                        <ErrorBoundary>
+                            {fetchedOrderHistory[0] ? (
+                                <div className="d-flex justify-content-center align-items-center flex-column">
+                                    {filteredUserOrders.length ? (
+                                        filteredUserOrders.map((item: OrderCart, key: number) => {
+                                            return (
+                                                <OrderItem
+                                                    key={key}
+                                                    classes={cls}
+                                                    order={item}
+                                                    onDelete={deleteOrderHandler}
+                                                />
+                                            );
+                                        })
+                                    ) : (
+                                        <h4 className="text-white">There are no orders yet</h4>
+                                    )}
+                                </div>
+                            ) : (
+                                <Loader />
+                            )}
+                        </ErrorBoundary>
                     </Col>
                 </Row>
                 <OrdersHistoryModal closeModal={closeOrdersHistory} show={showModal} data={orderHistory} />
@@ -245,7 +247,13 @@ export const OrderPage: React.FC = () => {
                     onChange={changeFeedbackTextHandler}
                     onSubmit={addFeedbackHandler}
                 />
-                <EditUserInfoForm update={update} isEdit={isEdit} show={show} editProps={editProps} closeModal={handleClose} />
+                <EditUserInfoForm
+                    update={update}
+                    isEdit={isEdit}
+                    show={show}
+                    editProps={editProps}
+                    closeModal={handleClose}
+                />
             </Container>
         </div>
     );

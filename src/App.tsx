@@ -3,6 +3,7 @@ import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
 import { ClientContext } from './context/client.context';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ScrollUpButton from 'react-scroll-up-button';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { AdminPage } from './pages/AdminPage/AdminPage';
@@ -14,7 +15,6 @@ import {
     Feedback,
     Order,
     OrderCart,
-    Orders,
     Room,
     Comment,
     Comments,
@@ -179,6 +179,14 @@ const App: React.FC = () => {
                 {routes}
             </Router>
             <Footer />
+            <ScrollUpButton
+                StopPosition={0}
+                ShowAtPosition={150}
+                EasingType="easeOutCubic"
+                AnimationDuration={500}
+                ContainerClassName="ScrollUpButton__Container"
+                TransitionClassName="ScrollUpButton__Toggled"
+            />
         </ClientContext.Provider>
     );
 };

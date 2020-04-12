@@ -14,6 +14,7 @@ import { ArticleInfoPage } from './pages/ArticleInfoPage/ArticleInfoPage';
 import ArticlesPage from './pages/ArticlesPage/ArticlesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage/ResetPasswordPage';
 import { ManagerDashboard } from './pages/ManagerDashboard/ManagerDashboard';
+import ErrorBoundary from './components/ErrorsComponents/ErrorBoundary';
 
 export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = (
     isAuthenticated: boolean,
@@ -58,7 +59,9 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
                 </Route>
                 <Route path="/orders" exact>
                     <Suspense fallback={<Loader />}>
-                        <OrderPage />
+                        <ErrorBoundary>
+                            <OrderPage />
+                        </ErrorBoundary>
                     </Suspense>
                 </Route>
                 <Route path="/about" exact>
@@ -80,7 +83,6 @@ export const useRoutes: (isAuthenticated: boolean, userStatus: string) => any = 
             </Switch>
         );
     }
-
 
     return (
         <Switch>

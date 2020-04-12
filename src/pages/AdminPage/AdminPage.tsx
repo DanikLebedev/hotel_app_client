@@ -4,8 +4,8 @@ import { AdminNavigation } from '../../components/AdminNavigation/AdminNavigatio
 import { AdminPageInfo } from '../../components/AdminPageInfo/AdminPageInfo';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Col, Row } from 'react-bootstrap';
-import {AdminPageCharts} from "../../components/AdminPageCharts/AdminPageCharts";
-import {AdminPageHome} from "../../components/AdminPageHome/AdminPageHome";
+import { AdminPageCharts } from '../../components/AdminPageCharts/AdminPageCharts';
+import { AdminPageHome } from '../../components/AdminPageHome/AdminPageHome';
 
 export const AdminPage: React.FC = () => {
     const routes: JSX.Element = (
@@ -26,7 +26,7 @@ export const AdminPage: React.FC = () => {
     return (
         <Router>
             <div className={'admin-page-wrapper'}>
-                    <AdminNavigation />
+                <AdminNavigation />
                 <Col lg={10} md={9} sm={10} className={'admin-pages'}>
                     {routes}
                 </Col>
