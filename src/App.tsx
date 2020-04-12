@@ -181,11 +181,12 @@ const App: React.FC = () => {
             <Footer />
             <ScrollUpButton
                 StopPosition={0}
-                ShowAtPosition={150}
+                ShowAtPosition={200}
                 EasingType="easeOutCubic"
                 AnimationDuration={500}
                 ContainerClassName="ScrollUpButton__Container"
                 TransitionClassName="ScrollUpButton__Toggled"
+                ToggledStyle={{left: 10}}
             />
         </ClientContext.Provider>
     );
