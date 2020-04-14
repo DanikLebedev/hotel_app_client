@@ -185,7 +185,7 @@ export const RoomDataGrid: React.FC = () => {
     };
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage] = useState(8);
+    const [postPerPage] = useState(4);
     const indexOfLastPost = currentPage * postPerPage;
     const indexOfFirstPost = indexOfLastPost - postPerPage;
     const currentRoom = filteredRooms()

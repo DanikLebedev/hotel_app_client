@@ -35,9 +35,6 @@ class ErrorBoundary extends React.Component {
                 <div className={'error-page-wrapper'}>
                     <div className={'flex-column d-flex justify-content-center align-items-center'}>
                         <h1>Authorization time is over, please log in again</h1>
-                        <NavLink className={'button btn-black'} to="/auth" onClick={this.logout}>
-                            Go to login
-                        </NavLink>
                     </div>
                     <div className={'error-image'}>
                         <img src="https://www.inksystem.biz/uploaded/img/article/error-5100.jpg" alt="" />

@@ -143,7 +143,7 @@ const Navigation: React.FC = (): JSX.Element => {
                                 {isAuthenticated ? (
                                     <Nav>
                                         <NavLink className={'auth-link'} onClick={logoutHandler} to="/">
-                                            <FontAwesomeIcon icon={faSignOutAlt} />
+                                            <FontAwesomeIcon icon={faSignOutAlt} /> {' '}
                                             {t('logout.label')}
                                         </NavLink>
                                     </Nav>

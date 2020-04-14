@@ -17,9 +17,7 @@
 .comment-form {
   padding: 20px;
   display: flex;
-  width: 50rem;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
   background: #ffffff;
   position: relative;
 }
@@ -33,6 +31,7 @@
 
 .admin-page-charts-wrapper {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .admin-pages {

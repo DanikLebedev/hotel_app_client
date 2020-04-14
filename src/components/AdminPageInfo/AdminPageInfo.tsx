@@ -13,7 +13,6 @@ import { AppBar, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import CometChatSupport from '../CometChatSupport/CometChatSupport';
 import { ArticleDataGrid } from '../GridComponents/Grids/ArticleDataGrid/ArticleDataGrid';
-import { AdminNavigation } from '../AdminNavigation/AdminNavigation';
 
 interface TabPanelProps {
     children?: React.ReactNode;

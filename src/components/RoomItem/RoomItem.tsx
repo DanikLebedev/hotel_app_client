@@ -23,7 +23,7 @@ const RoomItem: ({ roomInfo, searchRoom }: RoomItemProps) => any = ({ roomInfo, 
                     style={{ background: `url(${config.baseUrl + roomInfo.image}) center center / cover` }}
                 />
                 <Col lg={6} md={6} sm={6} xs={6}>
-                    <h3>{roomInfo.title}</h3>
+                    <h3 className={'rooms-page__item-title'}>{roomInfo.title}</h3>
                     <div className="rooms-page__item-text">
                         <p>Category: {roomInfo.category}</p>
                         <p>Price: {roomInfo.price}$</p>
